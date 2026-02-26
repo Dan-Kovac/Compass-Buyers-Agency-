@@ -2,6 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Compass custom fonts ───────────────────────────────────────────────── */
+@font-face {
+  font-family: 'MinervaModern';
+  src: url('/fonts/MinervaModern-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MinervaModern';
+  src: url('/fonts/MinervaModern-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Brand CSS variables (static — no longer dependent on Base44) ────────── */
+:root {
+  --font-heading: 'MinervaModern', Georgia, "Times New Roman", serif;
+  --font-body: 'Aeonik', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --hills: #4B7371;
+  --ink: #232323;
+  --bright-grey: #ECEBEA;
+  --sea-breeze: #D6EFFB;
+  --sand: #F2ECCE;
+  --stone: #AFADA4;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
