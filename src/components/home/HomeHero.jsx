@@ -79,7 +79,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
             </div>
             <h1 className="text-white leading-[1.03] drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)] font-normal text-4xl sm:text-6xl md:text-7xl line-clamp-2">{title || "Property Acquisition Experts"}</h1>
 
-            <p className="text-white/90 text-base sm:text-lg md:text-lg mb-0 leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] text-balance">{subtitle || "Leading Northern NSW & Gold Coast Buyer Advocates. 70% Off Market Acquisitions with 100's of Happy Clients. Buy Smarter with Compass."}
+            <p className="text-white/90 text-base sm:text-lg md:text-lg mb-0 leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] text-balance">{subtitle || "Leading Northern NSW & Gold Coast Buyer Advocates. 70% Off Market Acquisitions with hundreds of happy clients. Buy smarter with Compass."}
 
             </p>
 
