@@ -67,8 +67,7 @@ export default defineConfig({
   name: 'compass-buyers-agency',
   title: 'Compass Buyers Agency',
 
-  // ⚠️  Fill these in after running `sanity init` — they come from sanity.io/manage
-  projectId: 'YOUR_PROJECT_ID',
+  projectId: '31tdhl52',
   dataset: 'production',
 
   plugins: [
