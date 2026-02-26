@@ -1,0 +1,82 @@
+{
+  "name": "TemplateSettings",
+  "type": "object",
+  "properties": {
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "case_study",
+        "blog_post",
+        "testimonial",
+        "team_member"
+      ],
+      "description": "Which template these settings apply to"
+    },
+    "layout_variant": {
+      "type": "string",
+      "enum": [
+        "classic",
+        "wide",
+        "compact"
+      ],
+      "default": "classic",
+      "description": "Overall layout style"
+    },
+    "hero_aspect": {
+      "type": "string",
+      "enum": [
+        "21:9",
+        "16:9",
+        "3:2",
+        "4:3"
+      ],
+      "default": "16:9",
+      "description": "Aspect ratio for hero image"
+    },
+    "content_max_width": {
+      "type": "number",
+      "description": "Optional content max width in pixels (e.g., 820). Leave empty for default"
+    },
+    "show_badges": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show metadata badges (type, location, category)"
+    },
+    "show_excerpt": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show the excerpt above content"
+    },
+    "show_gallery": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show gallery below content when images exist"
+    },
+    "show_related": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show related items at the end of the page"
+    },
+    "related_limit": {
+      "type": "number",
+      "default": 3,
+      "description": "How many related items to show"
+    },
+    "show_meta": {
+      "type": "boolean",
+      "default": true,
+      "description": "For blogs: show author/date meta; for case studies: show badges toggle"
+    },
+    "accent_color": {
+      "type": "string",
+      "description": "Optional hex color to accent headings/badges"
+    },
+    "custom_css": {
+      "type": "string",
+      "description": "Optional CSS overrides applied globally to this template type"
+    }
+  },
+  "required": [
+    "template_type"
+  ]
+}

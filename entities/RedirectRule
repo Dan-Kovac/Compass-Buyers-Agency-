@@ -1,0 +1,36 @@
+{
+  "name": "RedirectRule",
+  "type": "object",
+  "properties": {
+    "old_path": {
+      "type": "string",
+      "description": "Old path starting with /. Example: /blog/old-post (case-sensitive)"
+    },
+    "new_url": {
+      "type": "string",
+      "description": "Target absolute or relative URL (e.g., /blog/new-post or https://example.com/new)"
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "301",
+        "302"
+      ],
+      "default": "301",
+      "description": "Redirect type"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this redirect is active"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes (e.g., WP source, date)"
+    }
+  },
+  "required": [
+    "old_path",
+    "new_url"
+  ]
+}

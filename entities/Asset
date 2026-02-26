@@ -1,0 +1,42 @@
+{
+  "name": "Asset",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human name of asset"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "font",
+        "video",
+        "image",
+        "document",
+        "other"
+      ],
+      "description": "Asset type"
+    },
+    "url": {
+      "type": "string",
+      "description": "Public URL to the asset"
+    },
+    "mime_type": {
+      "type": "string",
+      "description": "MIME type (e.g., font/woff2, video/mp4)"
+    },
+    "size": {
+      "type": "number",
+      "description": "File size in bytes"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes"
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "url"
+  ]
+}

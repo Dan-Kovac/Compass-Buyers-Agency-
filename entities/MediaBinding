@@ -1,0 +1,22 @@
+{
+  "name": "MediaBinding",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique key that identifies an image binding in the UI"
+    },
+    "url": {
+      "type": "string",
+      "description": "Image URL to use for this binding"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes about this binding (where it's used)"
+    }
+  },
+  "required": [
+    "key",
+    "url"
+  ]
+}

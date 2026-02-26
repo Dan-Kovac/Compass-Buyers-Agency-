@@ -1,0 +1,41 @@
+{
+  "name": "PageLink",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "Human-friendly name for the page"
+    },
+    "page_name": {
+      "type": "string",
+      "description": "Exact page name used with createPageUrl()"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "website",
+        "region",
+        "other"
+      ],
+      "default": "website",
+      "description": "Grouping category for navigation"
+    },
+    "order": {
+      "type": "number",
+      "description": "Display order (lower comes first)"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to show this link"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional note about this page"
+    }
+  },
+  "required": [
+    "label",
+    "page_name"
+  ]
+}

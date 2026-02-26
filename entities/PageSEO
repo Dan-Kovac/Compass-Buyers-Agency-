@@ -1,0 +1,51 @@
+{
+  "name": "PageSEO",
+  "type": "object",
+  "properties": {
+    "page_name": {
+      "type": "string",
+      "description": "Exact page component name (e.g., Home, About, Services)"
+    },
+    "page_title": {
+      "type": "string",
+      "description": "Visible page title (optional helper for editors)"
+    },
+    "meta_title": {
+      "type": "string",
+      "description": "SEO meta title (document.title)"
+    },
+    "meta_description": {
+      "type": "string",
+      "description": "SEO meta description"
+    },
+    "canonical_url": {
+      "type": "string",
+      "description": "Absolute canonical URL for this page"
+    },
+    "index": {
+      "type": "boolean",
+      "description": "Index this page",
+      "default": true
+    },
+    "nofollow": {
+      "type": "boolean",
+      "description": "Set nofollow on robots",
+      "default": false
+    },
+    "og_title": {
+      "type": "string",
+      "description": "Open Graph title"
+    },
+    "og_description": {
+      "type": "string",
+      "description": "Open Graph description"
+    },
+    "og_image_url": {
+      "type": "string",
+      "description": "Open Graph image URL"
+    }
+  },
+  "required": [
+    "page_name"
+  ]
+}
