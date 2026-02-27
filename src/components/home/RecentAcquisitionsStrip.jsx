@@ -1,5 +1,5 @@
 import React from "react";
-import { Acquisition } from "@/entities/Acquisition";
+import { fetchAcquisitions } from "@/lib/sanityClient";
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,8 @@ export default function RecentAcquisitionsStrip({
 
     (async () => {
       try {
-        const list = await Acquisition.filter({ status: "published" }, "-purchase_date", limit);
+        const all = await fetchAcquisitions({ status: "published" });
+        const list = (all || []).slice(0, limit);
         if (mounted) {
           setItems(list || []);
           setLoading(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import { BlogPost } from "@/entities/BlogPost";
+import { fetchBlogPosts } from "@/lib/sanityClient";
 import BlogCard from "@/components/blog/BlogCard";
 
 export default function RelatedBlogs({ currentId, limit = 3, title = "Recent Articles" }) {
@@ -9,12 +9,7 @@ export default function RelatedBlogs({ currentId, limit = 3, title = "Recent Art
   React.useEffect(() => {
     (async () => {
       setLoading(true);
-      let list = [];
-      try {
-        list = await BlogPost.filter({ status: "published" }, "-created_date", limit + 3);
-      } catch {
-        list = await BlogPost.list("-created_date", limit + 3);
-      }
+      const list = await fetchBlogPosts();
       const filtered = (list || []).filter((p) => p.id !== currentId).slice(0, limit);
       setItems(filtered);
       setLoading(false);

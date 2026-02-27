@@ -1,5 +1,5 @@
 import React from "react";
-import { SiteSettings } from "@/entities/SiteSettings";
+import { fetchSiteSettings } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
 import ReviewsBadge from "../shared/ReviewsBadge";
 
@@ -17,9 +17,9 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
 
     (async () => {
       try {
-        const list = await SiteSettings.list();
+        const settings = await fetchSiteSettings();
         if (mounted) {
-          setBrand(list[0] || null);
+          setBrand(settings || null);
           setLoading(false);
           clearTimeout(timeout);
         }

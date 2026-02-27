@@ -12,6 +12,7 @@
     "sanity": "^3.0.0"
   },
   "devDependencies": {
+    "@sanity/client": "^7.16.0",
     "@sanity/eslint-config-studio": "^4.0.0"
   }
 }

@@ -1,6 +1,5 @@
 import React from "react";
-import { CaseStudy } from "@/entities/CaseStudy";
-import { TemplateSettings } from "@/entities/TemplateSettings";
+import { fetchCaseStudy } from "@/lib/sanityClient";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
@@ -18,16 +17,11 @@ export default function CaseStudyDetail() {
   const id = params.get("id");
   const source = params.get("source");
   const [item, setItem] = React.useState(null);
-  const [tpl, setTpl] = React.useState(null);
 
   React.useEffect(() => {
     (async () => {
-      const found = await CaseStudy.filter({ id }, "-updated_date", 1);
-      const cs = found && found.length ? found[0] : null;
+      const cs = await fetchCaseStudy(id);
       setItem(cs);
-      const settings = await TemplateSettings.filter({ template_type: "case_study" }, "-updated_date", 1);
-      setTpl(settings && settings.length ? settings[0] : null);
-      // Minimal per-item SEO
       if (cs?.meta_title) document.title = cs.meta_title;
       else if (cs?.title) document.title = cs.title;
     })();
@@ -41,9 +35,8 @@ export default function CaseStudyDetail() {
     );
   }
 
-  const accent = tpl?.accent_color || "var(--hills)";
-  const maxW = tpl?.content_max_width ? `${tpl.content_max_width}px` : "760px";
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const accent = "var(--hills)";
+  const maxW = "760px";
 
   return (
     <div className="bg-white">
@@ -86,12 +79,12 @@ export default function CaseStudyDetail() {
             <div className="mt-3">
               <MetaRow
                 type="case_study"
-                createdDate={item.created_date}
+                createdDate={item.published_date}
                 author={null}
                 location={undefined}
                 propertyType={undefined}
                 clientType={undefined}
-                accent={tpl?.accent_color}
+                accent={accent}
               />
             </div>
 

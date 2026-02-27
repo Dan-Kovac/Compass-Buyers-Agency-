@@ -1,5 +1,5 @@
 import React from "react";
-import { Acquisition } from "@/entities/Acquisition";
+import { fetchAcquisitions } from "@/lib/sanityClient";
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import AcquisitionFilters from "@/components/acquisitions/AcquisitionFilters";
 
@@ -9,7 +9,7 @@ export default function Acquisitions() {
 
   React.useEffect(() => {
     (async () => {
-      const list = await Acquisition.filter({ status: "published" }, "-purchase_date", 60);
+      const list = await fetchAcquisitions();
       setItems(list || []);
     })();
   }, []);

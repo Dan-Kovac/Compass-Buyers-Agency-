@@ -1,5 +1,5 @@
 import React from "react";
-import { CaseStudy } from "@/entities/CaseStudy";
+import { fetchCaseStudies } from "@/lib/sanityClient";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -11,7 +11,8 @@ export default function SuccessStories() {
 
   React.useEffect(() => {
     (async () => {
-      const list = await CaseStudy.filter({ status: "published" }, "-created_date", 3);
+      const all = await fetchCaseStudies({ status: "published" });
+      const list = (all || []).slice(0, 3);
       setItems(list || []);
     })();
   }, []);

@@ -1,5 +1,5 @@
 import React from "react";
-import { CaseStudy } from "@/entities/CaseStudy";
+import { fetchCaseStudies } from "@/lib/sanityClient";
 import CaseStudyCard from "@/components/caseStudies/CaseStudyCard";
 
 export default function RelatedCaseStudies({ currentId, title = "Keep exploring" }) {
@@ -7,7 +7,7 @@ export default function RelatedCaseStudies({ currentId, title = "Keep exploring"
 
   React.useEffect(() => {
     (async () => {
-      const list = await CaseStudy.list("-created_date", 12);
+      const list = await fetchCaseStudies();
       const filtered = (list || []).filter((i) => i.id !== currentId).slice(0, 3);
       setItems(filtered);
     })();

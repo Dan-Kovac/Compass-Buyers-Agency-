@@ -3,8 +3,7 @@ import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemaTypes/index';
 
-// ─── Singleton structure ─────────────────────────────────────────────────────
-// Each page document only ever has one instance (no list view — just open the doc).
+// ─── Singleton types — only one document ever exists ─────────────────────────
 const singletons = [
   'siteSettings',
   'homePage',
@@ -20,6 +19,7 @@ const structure = (S) =>
   S.list()
     .title('Content')
     .items([
+      // ── Site-wide ─────────────────────────────────────────────────────────
       S.listItem()
         .title('Site Settings')
         .id('siteSettings')
@@ -27,6 +27,7 @@ const structure = (S) =>
 
       S.divider(),
 
+      // ── Pages ─────────────────────────────────────────────────────────────
       S.listItem()
         .title('Home Page')
         .id('homePage')
@@ -61,6 +62,27 @@ const structure = (S) =>
         .title('Privacy Policy Page')
         .id('privacyPolicyPage')
         .child(S.document().schemaType('privacyPolicyPage').documentId('privacyPolicyPage')),
+
+      S.divider(),
+
+      // ── Blog ──────────────────────────────────────────────────────────────
+      S.documentTypeListItem('blogPost').title('Blog Posts'),
+
+      S.divider(),
+
+      // ── Acquisitions ──────────────────────────────────────────────────────
+      S.documentTypeListItem('acquisition').title('Acquisitions'),
+
+      S.divider(),
+
+      // ── Team ──────────────────────────────────────────────────────────────
+      S.documentTypeListItem('teamMember').title('Team Members'),
+
+      S.divider(),
+
+      // ── Social proof ──────────────────────────────────────────────────────
+      S.documentTypeListItem('testimonial').title('Testimonials'),
+      S.documentTypeListItem('caseStudy').title('Case Studies'),
     ]);
 
 export default defineConfig({
@@ -77,13 +99,13 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
-    // Prevent the studio from showing a "create new" button for singleton types
+    // Prevent "create new" for singleton types
     templates: (templates) =>
       templates.filter(({ schemaType }) => !singletons.includes(schemaType)),
   },
 
   document: {
-    // Hide "New document" action for singleton types
+    // Hide duplicate/delete for singleton types
     actions: (prev, context) =>
       singletons.includes(context.schemaType)
         ? prev.filter(({ action }) => !['duplicate', 'delete'].includes(action))

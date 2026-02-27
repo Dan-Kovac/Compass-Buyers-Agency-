@@ -1,5 +1,5 @@
 import React from "react";
-import { BlogPost } from "@/entities/BlogPost";
+import { fetchBlogPosts } from "@/lib/sanityClient";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogMinimalFilters from "@/components/blog/BlogMinimalFilters";
 import SuburbProfilesStrip from "@/components/blog/SuburbProfilesStrip";
@@ -18,37 +18,8 @@ export default function Blog() {
 
   React.useEffect(() => {
     (async () => {
-      try {
-        const list = await BlogPost.filter({ status: "published" }, "-created_date", 100);
-        const arr = Array.isArray(list) ? list : [];
-        const sorted = [...arr].sort((a, b) => {
-          const ad = a.published_date || a.created_date;
-          const bd = b.published_date || b.created_date;
-          return new Date(bd) - new Date(ad);
-        });
-        // Fallback: if no published posts, show all posts so the page isn't empty
-        if (sorted.length === 0) {
-          const all = await BlogPost.list("-created_date", 100);
-          const allArr = Array.isArray(all) ? all : [];
-          const allSorted = [...allArr].sort((a, b) => {
-            const ad = a.published_date || a.created_date;
-            const bd = b.published_date || b.created_date;
-            return new Date(bd) - new Date(ad);
-          });
-          setPosts(allSorted);
-        } else {
-          setPosts(sorted);
-        }
-      } catch {
-        const list = await BlogPost.list("-created_date", 100);
-        const arr = Array.isArray(list) ? list : [];
-        const sorted = [...arr].sort((a, b) => {
-          const ad = a.published_date || a.created_date;
-          const bd = b.published_date || b.created_date;
-          return new Date(bd) - new Date(ad);
-        });
-        setPosts(sorted);
-      }
+      const list = await fetchBlogPosts();
+      setPosts(Array.isArray(list) ? list : []);
       setLoading(false);
     })();
   }, []);

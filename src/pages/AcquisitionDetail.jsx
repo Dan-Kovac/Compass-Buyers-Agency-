@@ -1,6 +1,5 @@
 import React from "react";
-import { Acquisition } from "@/entities/Acquisition";
-import { TeamMember } from "@/entities/TeamMember";
+import { fetchAcquisition, fetchAcquisitions, fetchTeamMembers } from "@/lib/sanityClient";
 import { Home, Bed, Bath, Car } from "lucide-react";
 import { createPageUrl } from "@/utils";
 
@@ -24,33 +23,28 @@ export default function AcquisitionDetail() {
 
       let rec = null;
       try {
-        const list = await Acquisition.filter({ id }, "-updated_date", 1);
-        rec = list && list.length ? list[0] : null;
+        rec = await fetchAcquisition(id);
         setItem(rec);
       } catch (err) {
         console.error("Failed to load acquisition:", err);
         setItem(null);
       }
-      
+
       if (rec) {
         document.title = rec.title || "Acquisition Details";
-        
-        // Fetch similar by area (with error handling)
+
+        // Fetch similar by area
         if (rec.suburb) {
-          const byArea = await Acquisition.filter(
-            { suburb: rec.suburb, status: "published" },
-            "-purchase_date",
-            4
-          );
-          setSimilarByArea((byArea || []).filter((a) => a.id !== rec.id).slice(0, 3));
+          const byArea = await fetchAcquisitions();
+          setSimilarByArea((byArea || []).filter((a) => a.suburb === rec.suburb && a.id !== rec.id).slice(0, 3));
         }
-        
-        // Try to match agent with TeamMember (with error handling)
+
+        // Try to match agent with TeamMember
         if (rec.agent) {
-          const teamMembers = await TeamMember.list("-updated_date", 50);
+          const teamMembers = await fetchTeamMembers();
           const match = (teamMembers || []).find(
             (tm) => tm.active !== false && (
-              tm.name.toLowerCase().includes(rec.agent.toLowerCase()) || 
+              tm.name.toLowerCase().includes(rec.agent.toLowerCase()) ||
               rec.agent.toLowerCase().includes(tm.name.toLowerCase())
             )
           );

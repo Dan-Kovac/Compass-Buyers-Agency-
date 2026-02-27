@@ -2,8 +2,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { CaseStudy } from "@/entities/CaseStudy";
-import { BlogPost } from "@/entities/BlogPost";
+import { fetchCaseStudies, fetchBlogPosts } from "@/lib/sanityClient";
 
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop";
 
@@ -13,15 +12,10 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
   React.useEffect(() => {
     (async () => {
       if (type === "case_study") {
-        const list = await CaseStudy.list("-created_date", 6);
+        const list = await fetchCaseStudies({ status: "published" });
         setItems((list || []).filter((i) => i.id !== currentId).slice(0, 4));
       } else if (type === "blog_post") {
-        let list = [];
-        try {
-          list = await BlogPost.filter({ status: "published" }, "-created_date", 6);
-        } catch {
-          list = await BlogPost.list("-created_date", 6);
-        }
+        const list = await fetchBlogPosts({ status: "published" });
         setItems((list || []).filter((i) => i.id !== currentId).slice(0, 4));
       }
     })();

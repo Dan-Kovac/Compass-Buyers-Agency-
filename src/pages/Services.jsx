@@ -9,31 +9,34 @@ import ServiceStats from "../components/services/ServiceStats";
 import RecentAcquisitionsStrip from "../components/home/RecentAcquisitionsStrip";
 import SegmentsNav from "../components/who/SegmentsNav";
 import SegmentSection from "../components/who/SegmentSection";
-import Regions from "../components/home/Regions"; // New import
+import Regions from "../components/home/Regions";
+import { fetchPage } from "@/lib/sanityClient";
 
 export default function Services() {
   const navigate = useNavigate();
   const [assetImages, setAssetImages] = React.useState([]);
+  const [page, setPage] = React.useState(null);
+
+  React.useEffect(() => {
+    fetchPage("servicesPage").then(setPage).catch(() => {});
+  }, []);
 
   React.useEffect(() => {
     (async () => {
-      // Fetch up to 10 most recently updated assets. Adjust the limit if more images are needed.
       const list = await Asset.list("-updated_date", 10);
       const imgs = (list || []).filter((a) => a.type === "image" && a.url).map(a => a.url);
       setAssetImages(imgs);
     })();
   }, []);
 
-  // Chip navigation for the four core services
   const segments = [
-    { id: "full-advocacy", label: "Full‑service advocacy" },
+    { id: "full-advocacy", label: "Full\u2011service advocacy" },
     { id: "sourcing-research", label: "Sourcing & research" },
     { id: "auction-negotiation", label: "Auction & negotiation" },
     { id: "portfolio-strategy", label: "Portfolio strategy" },
   ];
 
-  // Process data (kept from your original page)
-  const processSteps = [
+  const defaultProcessSteps = [
     { step: "1", title: "Discovery Call", description: "Start with a relaxed conversation about your goals and requirements and confirm we're a good fit to help." },
     { step: "2", title: "Strategy Session", description: "Align on outcomes, approach, timelines and process, setting a tailored plan for your buying journey." },
     { step: "3", title: "Property Search & Research", description: "Deep-dive suburb insights, off-market and pre-market access, and comprehensive market investigation." },
@@ -43,133 +46,128 @@ export default function Services() {
     { step: "7", title: "Post-Settlement Support", description: "Smooth transition with preferred providers and local connections to get you settled quickly." },
   ];
 
+  const processSteps = (page?.processSteps && page.processSteps.length > 0)
+    ? page.processSteps.map((s, i) => ({ step: String(i + 1), title: s.title, description: s.description }))
+    : defaultProcessSteps;
+
   return (
     <div className="bg-white">
-      {/* Uniform hero */}
       <section className="py-12 bg-white">
         <div className="site-container">
           <div className="max-w-3xl mx-auto text-center" style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}>
             <h1 className="text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.1] mx-auto">
-              Buyers Agent Services
+              {page?.heading || "Buyers Agent Services"}
             </h1>
             <p className="text-gray-600 text-base md:text-lg">
-              Independent buyers advocacy tailored to your needs - from search and due diligence to auction strategy and portfolio planning.
+              {page?.subtitle || "Independent buyers advocacy tailored to your needs - from search and due diligence to auction strategy and portfolio planning."}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Chip tabs (aligned to site container, smooth scroll already global) */}
       <div className="pb-4">
         <SegmentsNav segments={segments} />
       </div>
 
-      {/* Sections in the same look/feel as “Who we work with” */}
       <SegmentSection
         id="full-advocacy"
-        title="Full‑service buyers advocacy"
-        intro="End-to-end representation to find, assess and secure the right property, often off-market, with your interests protected at every step."
-        needs={[
+        title={page?.seg1Title || "Full\u2011service buyers advocacy"}
+        intro={page?.seg1Intro || "End-to-end representation to find, assess and secure the right property, often off-market, with your interests protected at every step."}
+        needs={page?.seg1Needs || [
           "Limited time to manage inspections and shortlists",
           "Competitive conditions and unclear value",
           "Complex negotiations, terms and risk",
         ]}
-        howWeHelp={[
+        howWeHelp={page?.seg1HowWeHelp || [
           "Brief, suburb selection and comparables to set a clear strategy",
-          "Private and off‑market access via our local agent network",
+          "Private and off\u2011market access via our local agent network",
           "Thorough due diligence and contract support to settlement",
         ]}
-        image="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/7ee9b92c9_CONTENTSHOOTJULY-20.jpg"
-        imageAlt="Compass team members"
+        image={page?.seg1ImageUrl || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/7ee9b92c9_CONTENTSHOOTJULY-20.jpg"}
+        imageAlt={page?.seg1ImageAlt || "Compass team members"}
         imageLeft={false}
       />
 
       <SegmentSection
         id="sourcing-research"
-        title="Sourcing & research"
-        intro="We halve the time it takes most buyers by handling research, outreach and inspections, surfacing the best options quickly."
-        needs={[
+        title={page?.seg2Title || "Sourcing & research"}
+        intro={page?.seg2Intro || "We halve the time it takes most buyers by handling research, outreach and inspections, surfacing the best options quickly."}
+        needs={page?.seg2Needs || [
           "Time consuming search across suburbs and agents",
-          "Missing pre‑market and off‑market opportunities",
-          "Difficult to compare real value street‑by‑street",
+          "Missing pre\u2011market and off\u2011market opportunities",
+          "Difficult to compare real value street\u2011by\u2011street",
         ]}
-        howWeHelp={[
+        howWeHelp={page?.seg2HowWeHelp || [
           "Proactive agent outreach and access before the portals",
           "Local insights and detailed property comparables",
-          "Shortlists refined to your brief with clear trade‑offs",
+          "Shortlists refined to your brief with clear trade\u2011offs",
         ]}
-        image="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/d62d38c74_CONTENTSHOOTJULY-16.jpg"
-        imageAlt="Aerial view of Northern Rivers waterfront properties"
+        image={page?.seg2ImageUrl || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/d62d38c74_CONTENTSHOOTJULY-16.jpg"}
+        imageAlt={page?.seg2ImageAlt || "Aerial view of Northern Rivers waterfront properties"}
         imageLeft
       />
 
       <SegmentSection
         id="auction-negotiation"
-        title="Auction bidding & negotiation"
-        intro="Keep emotion out and results in. Our team plans the strategy and represents you on the day or in pre-auction and private negotiations."
-        needs={[
+        title={page?.seg3Title || "Auction bidding & negotiation"}
+        intro={page?.seg3Intro || "Keep emotion out and results in. Our team plans the strategy and represents you on the day or in pre-auction and private negotiations."}
+        needs={page?.seg3Needs || [
           "Unclear tactics and pricing at auction",
-          "High‑pressure negotiations with vendors’ agents",
-          "Risk of over‑paying or poor contract terms",
+          "High\u2011pressure negotiations with vendors' agents",
+          "Risk of over\u2011paying or poor contract terms",
         ]}
-        howWeHelp={[
+        howWeHelp={page?.seg3HowWeHelp || [
           "Auction plan with price guardrails and scenarios",
-          "Experienced on‑the‑day bidding and vendor negotiation",
+          "Experienced on\u2011the\u2011day bidding and vendor negotiation",
           "Sharp negotiation on price and terms that protect you",
         ]}
-        image={assetImages[2] || "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop"}
-        imageAlt="Auction planning and representation"
+        image={page?.seg3ImageUrl || assetImages[2] || "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop"}
+        imageAlt={page?.seg3ImageAlt || "Auction planning and representation"}
         imageLeft={false}
       />
 
       <SegmentSection
         id="portfolio-strategy"
-        title="Portfolio strategy"
-        intro="A longer-term plan to grow your portfolio, aligning yield, growth and risk with clear criteria for each acquisition."
-        needs={[
+        title={page?.seg4Title || "Portfolio strategy"}
+        intro={page?.seg4Intro || "A longer-term plan to grow your portfolio, aligning yield, growth and risk with clear criteria for each acquisition."}
+        needs={page?.seg4Needs || [
           "Unsure how to balance yield vs growth",
           "Limited clarity on sequencing next purchases",
           "Hard to assess risk at suburb and property level",
         ]}
-        howWeHelp={[
+        howWeHelp={page?.seg4HowWeHelp || [
           "Tailored strategy aligned to goals and timeframe",
           "Modelled returns, rental demand and risk assessment",
           "Buy rules and review cadence to keep you on track",
         ]}
-        image={assetImages[3] || "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1600&auto=format&fit=crop"}
-        imageAlt="Portfolio planning session"
+        image={page?.seg4ImageUrl || assetImages[3] || "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1600&auto=format&fit=crop"}
+        imageAlt={page?.seg4ImageAlt || "Portfolio planning session"}
         imageLeft
       />
 
-      {/* Value highlights */}
       <ServiceStats />
 
-      {/* Areas we service - NEW */}
       <Regions />
 
-      {/* Recent acquisitions */}
       <RecentAcquisitionsStrip bg="white" showEyebrow={false} title="Recent acquisitions" />
 
-      {/* Process */}
-      <ProcessSteps steps={processSteps} title="How We Work With You" />
+      <ProcessSteps steps={processSteps} title={page?.processTitle || "How We Work With You"} />
 
-      {/* Why choose us */}
       <FeatureSplit
-        title="Why choose Compass?"
-        description={`As locals and property professionals, we provide unique access to off‑market opportunities and pre‑market options that aren't published online. With 30+ years of combined experience, we simplify the buying process and protect your position at each step.`}
-        image="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8be7777cb_ChrisCompass.jpg"
-        imageAlt="Compass advisor speaking with a client"
+        title={page?.whyTitle || "Why choose Compass?"}
+        description={page?.whyDescription || `As locals and property professionals, we provide unique access to off\u2011market opportunities and pre\u2011market options that aren't published online. With 30+ years of combined experience, we simplify the buying process and protect your position at each step.`}
+        image={page?.whyImageUrl || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8be7777cb_ChrisCompass.jpg"}
+        imageAlt={page?.whyImageAlt || "Compass advisor speaking with a client"}
         imageLeft={false}
         mobileImageFirst={true}
         variant="white"
-        ctaLabel="Learn more about us"
+        ctaLabel={page?.whyCtaLabel || "Learn more about us"}
         ctaHref={createPageUrl("About")}
       />
 
-      {/* Contact CTA */}
       <CTASection
-        heading="Ready to Start Your Property Journey?"
-        buttonText="Get Started Today"
+        heading={page?.ctaHeading || "Ready to Start Your Property Journey?"}
+        buttonText={page?.ctaButtonText || "Get Started Today"}
         onButtonClick={() => navigate(createPageUrl("Contact"))}
         supportingText="We're here to help you with your property purchase journey."
       />

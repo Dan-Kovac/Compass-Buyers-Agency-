@@ -8,22 +8,65 @@ import WhyStandOutGrid from "../components/home/WhyStandOutGrid";
 import Regions from "../components/home/Regions";
 import TestimonialsPlaceholder from "../components/home/TestimonialsPlaceholder";
 import CTASection from "../components/shared/CTASection.jsx";
+import HomeFAQ from "../components/home/HomeFAQ";
 import { createPageUrl } from "@/utils";
+import { fetchPage } from "@/lib/sanityClient";
 
 export default function Home() {
+  const [page, setPage] = React.useState(null);
+
+  React.useEffect(() => {
+    fetchPage("homePage").then(setPage).catch(() => {});
+  }, []);
+
   return (
     <div className="overflow-hidden">
-      <HomeHero />
-      <AboutExpertise />
-      <ServicesAccordionShowcase />
-      <RecentAcquisitionsStrip />
-      <InvestmentAndRelationship />
+      <HomeHero
+        title={page?.heroTitle}
+        subtitle={page?.heroSubtitle}
+        ctaText={page?.heroCtaText}
+      />
+      <AboutExpertise
+        quoteText={page?.expertiseQuoteText}
+        authorName={page?.expertiseAuthorName}
+        authorRole={page?.expertiseAuthorRole}
+        authorAvatarUrl={page?.expertiseAuthorAvatarUrl}
+      />
+      <ServicesAccordionShowcase
+        heading={page?.servicesHeading}
+        teamImageUrl={page?.servicesTeamImageUrl}
+        teamImageAlt={page?.servicesTeamImageAlt}
+        items={page?.servicesItems}
+      />
+      <RecentAcquisitionsStrip
+        eyebrow={page?.acquisitionsEyebrow}
+        title={page?.acquisitionsHeading}
+        description={page?.acquisitionsSubheading}
+      />
+      <InvestmentAndRelationship
+        heading={page?.relationshipHeading}
+        body={page?.relationshipBody}
+        imageUrl={page?.relationshipImageUrl}
+        imageAlt={page?.relationshipImageAlt}
+        checklist={page?.relationshipChecklist?.map(c => c.item)}
+      />
       <TestimonialsPlaceholder />
-      <Regions />
-      <WhyStandOutGrid />
+      <Regions
+        heading={page?.regionsHeading}
+        subtitle={page?.regionsSubtitle}
+        ctaText={page?.regionsCtaText}
+      />
+      <WhyStandOutGrid
+        heading={page?.whyHeading}
+        cards={page?.whyCards}
+      />
+      <HomeFAQ
+        heading={page?.faqHeading}
+        faqItems={page?.faqItems}
+      />
       <CTASection
-        heading="Take the first step toward your Northern Rivers home with Compass"
-        buttonText="Book a Free Consultation"
+        heading={page?.contactStripHeading || "Take the first step toward your Northern Rivers home with Compass"}
+        buttonText={page?.contactStripPrimaryButtonLabel || "Book a Free Consultation"}
         buttonHref={createPageUrl("Contact")}
         showReviewsCarousel={true}
       />

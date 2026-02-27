@@ -1,6 +1,5 @@
 import React from "react";
-import { BlogPost } from "@/entities/BlogPost";
-import { TemplateSettings } from "@/entities/TemplateSettings";
+import { fetchBlogPost } from "@/lib/sanityClient";
 import ArticlePreviewFrame from "@/components/detail/ArticlePreviewFrame";
 import RelatedBlogs from "@/components/detail/RelatedBlogs";
 import CaseStudyStatsInline from "@/components/detail/CaseStudyStatsInline";
@@ -27,22 +26,8 @@ export default function BlogPostDetail() {
 
   React.useEffect(() => {
     (async () => {
-      const found = await TemplateSettings.filter({ template_type: "blog_post" }, "-updated_date", 1);
-      if (found && found.length) setSettings({ ...settings, ...found[0] });
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  React.useEffect(() => {
-    (async () => {
       if (!id && !slug) return;
-      let list = [];
-      if (id) {
-        list = await BlogPost.filter({ id }, "-updated_date", 1);
-      } else if (slug) {
-        list = await BlogPost.filter({ slug }, "-updated_date", 1);
-      }
-      const rec = list && list.length ? list[0] : null;
+      const rec = await fetchBlogPost(id || slug);
       setPost(rec);
       if (rec?.meta_title || rec?.title) {
         document.title = rec.meta_title || rec.title;

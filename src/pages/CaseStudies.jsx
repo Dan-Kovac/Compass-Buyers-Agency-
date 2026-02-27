@@ -1,5 +1,5 @@
 import React from "react";
-import { CaseStudy } from "@/entities/CaseStudy";
+import { fetchCaseStudies } from "@/lib/sanityClient";
 import CaseStudyCard from "@/components/caseStudies/CaseStudyCard";
 import MinimalFilters from "@/components/caseStudies/MinimalFilters";
 import CTASection from "@/components/shared/CTASection";
@@ -19,25 +19,8 @@ export default function CaseStudies() {
 
   React.useEffect(() => {
     (async () => {
-      try {
-        const items = await CaseStudy.filter({ status: "published" }, "-created_date", 100);
-        const arr = Array.isArray(items) ? items : [];
-        const sorted = [...arr].sort((a, b) => {
-          const ad = a.published_date || a.created_date;
-          const bd = b.published_date || b.created_date;
-          return new Date(bd) - new Date(ad);
-        });
-        setAllItems(sorted);
-      } catch {
-        const items = await CaseStudy.list("-created_date", 50);
-        const arr = Array.isArray(items) ? items : [];
-        const sorted = [...arr].sort((a, b) => {
-          const ad = a.published_date || a.created_date;
-          const bd = b.published_date || b.created_date;
-          return new Date(bd) - new Date(ad);
-        });
-        setAllItems(sorted);
-      }
+      const items = await fetchCaseStudies();
+      setAllItems(Array.isArray(items) ? items : []);
       setLoading(false);
     })();
   }, []);

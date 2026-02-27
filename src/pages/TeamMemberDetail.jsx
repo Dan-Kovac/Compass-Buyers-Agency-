@@ -1,7 +1,5 @@
 import React from "react";
-import { TeamMember } from "@/entities/TeamMember";
-import { Acquisition } from "@/entities/Acquisition";
-import { BlogPost } from "@/entities/BlogPost";
+import { fetchTeamMember, client } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
 import { Mail, Phone, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -53,26 +51,23 @@ export default function TeamMemberDetail() {
 
       try {
         // Load team member
-        const memberList = await TeamMember.filter({ id }, "-updated_date", 1);
-        const memberData = memberList && memberList.length ? memberList[0] : null;
+        const memberData = await fetchTeamMember(id);
         setMember(memberData);
 
         if (memberData) {
           document.title = `${memberData.name} - Compass Buyers Agency`;
 
           // Load acquisitions by this agent
-          const acqList = await Acquisition.filter(
-            { agent: memberData.name, status: "published" },
-            "-purchase_date",
-            12
+          const acqList = await client.fetch(
+            `*[_type=="acquisition" && status=="published" && agent==$name]|order(purchase_date desc)[0..11]{"id":_id,title,"slug":slug.current,suburb,state,lga,property_type,beds,baths,cars,purchase_price,price_display,purchase_date,agent,market_visibility,timeframe,excerpt,main_image_url,tags,featured}`,
+            { name: memberData.name }
           );
           setAcquisitions(acqList || []);
 
           // Load blog posts by this author
-          const blogList = await BlogPost.filter(
-            { author: memberData.name, status: "published" },
-            "-published_date",
-            6
+          const blogList = await client.fetch(
+            `*[_type=="blogPost" && status=="published" && author==$name]|order(published_date desc)[0..5]{"id":_id,title,"slug":slug.current,status,category,tags,author,featured_image,excerpt,published_date,featured}`,
+            { name: memberData.name }
           );
           setBlogs(blogList || []);
         }

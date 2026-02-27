@@ -1,6 +1,6 @@
 import React from "react";
 import ReviewsWidget from "../shared/ReviewsWidget";
-import { Testimonial } from "@/entities/Testimonial";
+import { fetchTestimonials } from "@/lib/sanityClient";
 import { Button } from "@/components/ui/button";
 
 export default function Testimonials() {
@@ -9,7 +9,7 @@ export default function Testimonials() {
 
   React.useEffect(() => {
     (async () => {
-      const list = await Testimonial.filter({ status: "published" }, "-created_date", 10);
+      const list = await fetchTestimonials();
       setItems(list || []);
     })();
   }, []);
