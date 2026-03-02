@@ -3,11 +3,12 @@ import React from "react";
 export default function PrivacyPolicy() {
   return (
     <div className="bg-white">
-      <section className="py-12 md:py-16">
-        <div className="site-container max-w-3xl">
+      <section className="section-padding">
+        <div className="site-container">
+          <div className="max-w-3xl mx-auto">
           <h1 className="mb-6">Privacy Policy</h1>
 
-          <div className="prose prose-gray max-w-none space-y-6 text-gray-700 leading-relaxed">
+          <div className="prose prose-gray max-w-none space-y-6 text-[var(--ink)]/70 leading-relaxed">
             <p>
               Compass Buyers Agency ABN [ABN] (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is committed to
               protecting your personal information in accordance with the Australian Privacy
@@ -69,9 +70,10 @@ export default function PrivacyPolicy() {
               on this page with an updated effective date.
             </p>
 
-            <p className="text-sm text-gray-500 pt-4 border-t border-gray-200">
+            <p className="text-sm text-[var(--ink)]/50 pt-4 border-t border-[var(--border)]">
               Last updated: February 2026
             </p>
+          </div>
           </div>
         </div>
       </section>

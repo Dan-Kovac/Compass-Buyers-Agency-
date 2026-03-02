@@ -2,10 +2,14 @@ import React from "react";
 import { fetchAcquisitions } from "@/lib/sanityClient";
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import AcquisitionFilters from "@/components/acquisitions/AcquisitionFilters";
+import CTASection from "@/components/shared/CTASection.jsx";
+import { createPageUrl } from "@/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function Acquisitions() {
   const [items, setItems] = React.useState([]);
   const [filters, setFilters] = React.useState({ region: "All Regions", suburb: "All Suburbs" });
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     (async () => {
@@ -38,24 +42,22 @@ export default function Acquisitions() {
   return (
     <div className="bg-white">
       {/* Centered hero aligned with other pages */}
-      <section className="py-12 bg-white">
+      <section className="section-padding bg-white">
         <div className="site-container">
           <div
             className="max-w-3xl mx-auto text-center"
             style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.1] mx-auto">
-              Acquisitions
-            </h1>
-            <p className="text-gray-600 text-base md:text-lg">
-              Browse properties we've purchased for clients. Filter by region or suburb to see activity in your area.
+            <h1>Acquisitions</h1>
+            <p className="text-[var(--ink)]/70 text-base md:text-lg">
+              Browse properties we've secured for clients. Filter by region or suburb to see activity in your area.
             </p>
           </div>
         </div>
       </section>
 
       {/* Minimal filter row (no search) */}
-      <section className="py-6 bg-white border-t border-b border-[var(--border)]">
+      <section className="section-padding-sm bg-white border-t border-b border-[var(--border)]">
         <div className="site-container">
           <AcquisitionFilters
             suburbs={allSuburbs}
@@ -66,12 +68,22 @@ export default function Acquisitions() {
       </section>
 
       {/* Grid */}
-      <section className="py-10 bg-white">
+      <section className="section-padding bg-white">
         <div className="site-container">
           {filtered.length === 0 ? (
-            <div className="text-gray-600">No acquisitions found. Try changing your filters.</div>
+            <div className="text-center py-16">
+              <div className="text-xl font-semibold text-[var(--ink)]/80 mb-2">No acquisitions found</div>
+              <p className="text-[var(--ink)]/50 mb-6">Try changing your filters to see more results.</p>
+              <button
+                type="button"
+                onClick={() => setFilters({ region: "All Regions", suburb: "All Suburbs" })}
+                className="inline-flex items-center px-4 py-2 rounded-token border border-[var(--border)] text-[var(--ink)]/70 hover:bg-[var(--bright-grey)]/50"
+              >
+                Clear filters
+              </button>
+            </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((it) => (
                 <AcquisitionCard key={it.id} item={it} />
               ))}
@@ -79,6 +91,14 @@ export default function Acquisitions() {
           )}
         </div>
       </section>
+
+      {/* CTA */}
+      <CTASection
+        heading="Looking for a Buyers Agent?"
+        buttonText="Book a Free Consultation"
+        onButtonClick={() => navigate(createPageUrl("Contact"))}
+        supportingText="We'll help you find and secure the right property."
+      />
     </div>
   );
 }

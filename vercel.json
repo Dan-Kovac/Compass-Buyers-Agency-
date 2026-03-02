@@ -1,5 +1,58 @@
 {
+  "redirects": [
+    { "source": "/byron-bay", "destination": "/byron-bay-buyers-agent", "permanent": true },
+    { "source": "/our-story", "destination": "/about", "permanent": true },
+    { "source": "/our-story/", "destination": "/about", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact", "permanent": true },
+    { "source": "/contact-us/", "destination": "/contact", "permanent": true },
+    { "source": "/coolangatta", "destination": "/gold-coast-buyers-agent", "permanent": true },
+    { "source": "/coolangatta/", "destination": "/gold-coast-buyers-agent", "permanent": true },
+    { "source": "/tweed-heads", "destination": "/tweed-heads-buyers-agent", "permanent": true },
+    { "source": "/tweed-heads/", "destination": "/tweed-heads-buyers-agent", "permanent": true },
+    { "source": "/banora-point", "destination": "/case-studies", "permanent": true },
+    { "source": "/banora-point/", "destination": "/case-studies", "permanent": true },
+    { "source": "/byron-bay-buyers-agents", "destination": "/byron-bay-buyers-agent", "permanent": true },
+    { "source": "/gold-coast-buyers-agents", "destination": "/gold-coast-buyers-agent", "permanent": true },
+    { "source": "/services/", "destination": "/services", "permanent": true },
+    { "source": "/about/", "destination": "/about", "permanent": true },
+    { "source": "/contact/", "destination": "/contact", "permanent": true },
+    { "source": "/areas/", "destination": "/areas", "permanent": true },
+    { "source": "/blog/", "destination": "/blog", "permanent": true },
+    { "source": "/northern-rivers", "destination": "/northern-rivers-buyers-agent", "permanent": true },
+    { "source": "/northern-rivers/", "destination": "/northern-rivers-buyers-agent", "permanent": true },
+    { "source": "/who-we-work-with/", "destination": "/who-we-work-with", "permanent": true },
+    { "source": "/privacy-policy/", "destination": "/privacy-policy", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api|fonts|images|videos|favicon|robots|sitemap).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    }
   ]
 }

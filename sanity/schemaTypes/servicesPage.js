@@ -4,6 +4,13 @@ export default {
   type: 'document',
   fields: [
 
+    // ─── SEO ────────────────────────────────────────────────────────────────
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'seoFields',
+    },
+
     // ─── PAGE HEADER ─────────────────────────────────────────────────────────
     {
       name: 'heading',
@@ -138,6 +145,14 @@ export default {
           initialValue: 'Get in touch',
         },
       ],
+    },
+
+    // ─── VIDEO TESTIMONIALS ─────────────────────────────────────────────────
+    {
+      name: 'testimonialVideos',
+      title: 'Video Testimonials',
+      type: 'array',
+      of: [{ type: 'testimonialVideo' }],
     },
 
   ],

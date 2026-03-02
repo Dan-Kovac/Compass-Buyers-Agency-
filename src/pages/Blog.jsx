@@ -1,10 +1,9 @@
 import React from "react";
 import { fetchBlogPosts } from "@/lib/sanityClient";
 import BlogCard from "@/components/blog/BlogCard";
-import BlogMinimalFilters from "@/components/blog/BlogMinimalFilters";
 import SuburbProfilesStrip from "@/components/blog/SuburbProfilesStrip";
 import CTASection from "@/components/shared/CTASection.jsx";
-import { useNavigate } from "react-router-dom";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 
 export default function Blog() {
@@ -13,8 +12,6 @@ export default function Blog() {
 
   const [category, setCategory] = React.useState();
   const [tag, setTag] = React.useState();
-
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     (async () => {
@@ -33,7 +30,7 @@ export default function Blog() {
     if (catParam) setCategory(catParam);
   }, []);
 
-  // Keep URL in sync for shareable links (no navigation)
+  // Keep URL in sync for shareable links
   React.useEffect(() => {
     const params = new URLSearchParams();
     if (category) params.set("category", category);
@@ -51,7 +48,9 @@ export default function Blog() {
     if (b === "suburb-profiles") return 1;
     return String(a).localeCompare(String(b));
   });
-  const tagOptions = uniq(posts.flatMap((p) => Array.isArray(p.tags) ? p.tags : []));
+  const tagOptions = uniq(
+    posts.flatMap((p) => (Array.isArray(p.tags) ? p.tags : []))
+  );
 
   const filtered = posts.filter((p) => {
     const a = !category || p.category === category;
@@ -71,86 +70,147 @@ export default function Blog() {
 
   return (
     <div className="bg-white">
-      {/* Minimal, centered hero */}
-      <section className="py-12 bg-white">
+      {/* Editorial page header */}
+      <section
+        className="bg-warm-gradient"
+        style={{ padding: "var(--section-breathing-lg) 0 var(--section-standard-lg)" }}
+      >
         <div className="site-container">
-          <div
-            className="max-w-3xl mx-auto text-center"
-            style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.1] mx-auto">
-              Blog
-            </h1>
-            <p className="text-gray-600 text-base md:text-lg">
-              Market insights, buying tips, suburb profiles and local knowledge to help you make informed property decisions in the Northern Rivers and Southern Gold Coast.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">Insights</p>
+              <h1 className="mb-4">Blog</h1>
+              <p className="intro-text mx-auto" style={{ maxWidth: "36rem" }}>
+                Market insights, buying tips, suburb profiles and local
+                knowledge to help you make informed property decisions in the
+                Northern Rivers and Southern Gold Coast.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Priority quick-access row */}
-      <section className="py-4 bg-white border-t border-[var(--border)]">
+      {/* Filters */}
+      <section
+        className="bg-white border-b border-[var(--border)]"
+        style={{ padding: "var(--section-compact) 0" }}
+      >
         <div className="site-container">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
+              aria-pressed={!category}
               onClick={() => handleChange({ ...value, category: undefined })}
-              className={`px-4 py-2 rounded-full text-sm border ${!category ? 'bg-[var(--hills)] text-white border-[var(--hills)]' : 'bg-white text-[var(--ink)]/80 border-[var(--border)] hover:bg-[var(--bright-grey)]'}`}
+              className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                !category
+                  ? "bg-[var(--hills)] text-white border-[var(--hills)]"
+                  : "bg-white text-[var(--ink)] border-[var(--border)] hover:bg-[var(--bright-grey)]"
+              }`}
             >
               All
             </button>
-            <button
-              type="button"
-              onClick={() => handleChange({ ...value, category: "suburb-profiles" })}
-              className={`px-4 py-2 rounded-full text-sm border ${category === 'suburb-profiles' ? 'bg-[var(--hills)] text-white border-[var(--hills)]' : 'bg-white text-[var(--ink)]/80 border-[var(--border)] hover:bg-[var(--bright-grey)]'}`}
-            >
-              Suburb Profiles
-            </button>
+            {categoryOptions.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                aria-pressed={category === cat}
+                onClick={() => handleChange({ ...value, category: cat })}
+                className={`px-4 py-2 rounded-full text-sm border transition-colors ${
+                  category === cat
+                    ? "bg-[var(--hills)] text-white border-[var(--hills)]"
+                    : "bg-white text-[var(--ink)] border-[var(--border)] hover:bg-[var(--bright-grey)]"
+                }`}
+              >
+                {cat
+                  .replace(/-/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase())}
+              </button>
+            ))}
+            {(category || tag) && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="text-xs text-[var(--stone)] hover:text-[var(--hills)] underline underline-offset-2 ml-1 transition-colors"
+              >
+                Clear
+              </button>
+            )}
           </div>
+          {tagOptions.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5 mt-3">
+              {tagOptions.slice(0, 8).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  aria-pressed={tag === t}
+                  onClick={() =>
+                    handleChange({ ...value, tag: tag === t ? undefined : t })
+                  }
+                  className={`px-3 py-1 rounded-full text-xs border transition-colors ${
+                    tag === t
+                      ? "bg-[var(--hills)]/10 text-[var(--hills)] border-[var(--hills)]/30"
+                      : "text-[var(--stone)] border-[var(--border)] hover:bg-[var(--bright-grey)]"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Minimal filter row - aligned with Case Studies */}
-      <section className="py-6 bg-white border-t border-b border-[var(--border)]">
-        <BlogMinimalFilters
-          categoryOptions={categoryOptions}
-          tagOptions={tagOptions}
-          value={value}
-          onChange={handleChange}
-          onClear={handleClear}
-        />
-      </section>
-
-      {/* Featured Suburb Profiles (first two) */}
+      {/* Featured Suburb Profiles */}
       {!loading && (
-        <section className="pt-4 pb-0 bg-white">
+        <section style={{ padding: "var(--section-standard) 0 0" }}>
           <SuburbProfilesStrip posts={posts} />
         </section>
       )}
 
-      {/* Grid of posts */}
-      <section className="py-10 bg-white">
+      {/* Post grid */}
+      <section
+        style={{ padding: "var(--section-standard) 0 var(--section-standard-lg)" }}
+      >
         <div className="site-container">
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
                 <BlogCard key={i} item={null} />
               ))}
             </div>
           ) : filtered.length ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {filtered.map((it) => (
                 <BlogCard key={it.id} item={it} />
               ))}
             </div>
           ) : (
             <div className="text-center py-20">
-              <div className="text-xl font-semibold text-gray-700 mb-2">No posts match your filters</div>
-              <p className="text-gray-500 mb-6">Try clearing filters to see all posts.</p>
+              <div
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 400,
+                  fontSize: "1.375rem",
+                  letterSpacing: "-0.01em",
+                  marginBottom: "8px",
+                }}
+              >
+                No posts match your filters
+              </div>
+              <p
+                style={{
+                  color: "var(--stone)",
+                  fontWeight: "var(--font-body-light)",
+                  fontSize: "1rem",
+                  marginBottom: "24px",
+                }}
+              >
+                Try clearing filters to see all posts.
+              </p>
               <button
                 type="button"
                 onClick={handleClear}
-                className="inline-flex items-center px-4 py-2 rounded-md border border-[var(--border)] text-gray-700 hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 rounded-full border border-[var(--border)] text-[var(--ink)] hover:bg-[var(--bright-grey)] transition-colors text-sm"
               >
                 Clear filters
               </button>
@@ -163,8 +223,8 @@ export default function Blog() {
       <CTASection
         heading="Want buyer insights tailored to you?"
         buttonText="Book a Free Consultation"
-        onButtonClick={() => navigate(createPageUrl("Contact"))}
-        supportingText="Local expertise • Independent advice • Proven results"
+        buttonHref={createPageUrl("Contact")}
+        supportingText="Local expertise, independent advice, proven results"
       />
     </div>
   );

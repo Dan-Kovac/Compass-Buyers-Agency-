@@ -30,7 +30,7 @@ export default function CaseStudyDetail() {
   if (!item) {
     return (
       <div className="site-container py-16">
-        <div className="text-gray-500">Loading...</div>
+        <div className="text-[var(--ink)]/50">Loading...</div>
       </div>
     );
   }
@@ -40,9 +40,9 @@ export default function CaseStudyDetail() {
 
   return (
     <div className="bg-white">
-      <section className="site-container py-8 md:py-10">
+      <section className="site-container section-padding">
         <div className="flex justify-between items-center mb-4">
-          <div className="text-sm text-gray-500">Case Study</div>
+          <div className="text-sm text-[var(--ink)]/50">Case Study</div>
           {source && (
             <Link to={createPageUrl("CMSManager?collection=case_studies")} className="text-sm text-[var(--hills)] hover:underline">
               Back to CMS
@@ -54,13 +54,13 @@ export default function CaseStudyDetail() {
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.1] mb-2">
+            <h1 className="mb-2">
               {item?.title}
             </h1>
 
             {/* Excerpt under title */}
             {item?.excerpt && (
-              <p className="text-gray-600 text-lg mb-4">
+              <p className="text-[var(--ink)]/60 text-lg mb-4">
                 {item.excerpt}
               </p>
             )}
@@ -121,11 +121,30 @@ export default function CaseStudyDetail() {
         {/* <div className="lg:col-span-1"><RightRailList ... /></div> */}
       </section>
 
+      {/* JSON-LD Article schema */}
+      {item && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: item.meta_title || item.title,
+          description: item.meta_description || item.excerpt || `${item.client_type || "Buyer"} case study in ${item.location || "Northern Rivers"}`,
+          image: item.featured_image || undefined,
+          author: { "@type": "Organization", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+          publisher: {
+            "@type": "Organization",
+            name: "Compass Buyers Agency",
+            logo: { "@type": "ImageObject", url: "https://compassagency.com.au/images/compass-logo.png" },
+          },
+          datePublished: item.published_date || undefined,
+          mainEntityOfPage: { "@type": "WebPage", "@id": window.location.href },
+        }) }} />
+      )}
+
       <style>{`
         .prose-custom h2 { font-size: 1.5rem; line-height: 1.3; margin: 1.25rem 0 .5rem; font-weight: 600; }
         .prose-custom h3 { font-size: 1.25rem; line-height: 1.35; margin: 1rem 0 .25rem; font-weight: 600; }
-        .prose-custom p { color: #334155; margin-bottom: 1rem; }
-        .prose-custom ul, .prose-custom ol { margin: .75rem 0 .75rem 1.25rem; color: #334155;}
+        .prose-custom p { color: var(--ink); opacity: 0.7; margin-bottom: 1rem; }
+        .prose-custom ul, .prose-custom ol { margin: .75rem 0 .75rem 1.25rem; color: var(--ink); opacity: 0.7;}
         .prose-custom a { color: ${accent}; text-decoration: underline; }
         .prose-custom img { border-radius: 12px; margin: .75rem 0; }
         @media (min-width: 1024px) {

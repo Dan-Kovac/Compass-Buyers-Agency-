@@ -28,7 +28,7 @@ export default function MetaRow({
   ].filter(Boolean);
 
   return (
-    <div className={`text-sm text-gray-600 flex flex-wrap items-center gap-x-3 gap-y-1 ${className}`}>
+    <div className={`text-sm text-[var(--ink)]/70 flex flex-wrap items-center gap-x-3 gap-y-1 ${className}`}>
       {parts.map((p, i) => (
         <span key={i} className="whitespace-pre-line">
           {p}

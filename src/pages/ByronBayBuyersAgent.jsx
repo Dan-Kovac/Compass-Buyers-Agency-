@@ -1,18 +1,103 @@
 import React from "react";
-import LandingHero from "../components/landing/LandingHero";
-import AboutExpertise from "../components/home/AboutExpertise";
-import ServicesAccordionShowcase from "../components/home/ServicesAccordionShowcase";
-import RecentAcquisitionsStrip from "../components/home/RecentAcquisitionsStrip";
-import TestimonialsPlaceholder from "../components/home/TestimonialsPlaceholder";
-import Regions from "../components/home/Regions";
-import WhyStandOutGrid from "../components/home/WhyStandOutGrid";
-import CTASection from "../components/shared/CTASection.jsx";
-import FAQAccordion from "../components/landing/FAQAccordion";
-import InfoSplit from "../components/landing/InfoSplit";
-import { createPageUrl } from "@/utils";
+import LandingPageTemplate from "../components/landing/LandingPageTemplate";
 
-export default function ByronBayBuyersAgent() {
-  const schema = {
+const DATA = {
+  heroTitle: "Byron Bay Buyers Agent",
+  heroSubtitle: "Australia's toughest property market. $2.45M median. 5+ competing bidders. 42% never advertised. We know what you're up against.",
+
+  marketStats: [
+    { value: "$2.45M", label: "Median Price" },
+    { value: "42%", label: "Off-Market" },
+    { value: "5+", label: "Competing Bidders" },
+    { value: "67%", label: "Interstate Buyers" },
+  ],
+
+  infoSplits: [
+    {
+      title: "Byron Market Reality Check",
+      description: "Seller leverage, low stock and whisper listings define Byron. The market rewards speed and punishes hesitation.",
+      bullets: [
+        "About 400 houses sold last year at ~ $2.45M median",
+        "~67% interstate buyers drive competition",
+        "Median ~66 days on market; quality trades under 30",
+        "~42% of sales are off-market via agent networks",
+        "Expect 5+ bidders on desirable listings",
+      ],
+      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop",
+      imageSide: "right",
+    },
+    {
+      title: "Why Use a Buyers Agent in Byron",
+      description: "We compress timelines, widen access and protect you from costly traps unique to Byron.",
+      bullets: [
+        "Seller leverage is extreme: low stock, high demand",
+        "Best properties often trade before public listing",
+        "Due diligence traps: flood, bushfire, septic, E4 zoning",
+        "Emotional bidding inflates prices. Discipline matters",
+        "Move within 24-48 hours or miss it",
+      ],
+      imageUrl: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=2069&auto=format&fit=crop",
+      imageSide: "left",
+    },
+  ],
+
+  suburbs: ["Byron Bay", "Suffolk Park", "Bangalow", "Brunswick Heads", "Broken Head"],
+
+  approach: {
+    heading: "Our Approach in Byron",
+    body: "Brutally honest advice, fast execution and deep diligence.",
+    bullets: [
+      "15+ years of Byron agent relationships",
+      "~58% of our Byron deals secured off-market",
+      "Speed advantage: pre-approved clients move in 24-48 hours",
+      "Strategic candour: we'll tell you when to walk",
+      "Due diligence depth: flood, bushfire, septic, bores",
+    ],
+  },
+
+  faqHeading: "Byron Bay FAQ",
+  faqItems: [
+    {
+      question: "What is the median price in Byron Bay?",
+      bullets: ["Postcode median ~ $2.45M", "Byron town ~ $2.95M; Suffolk Park ~ $2.38M; Bangalow ~ $1.85M"],
+      answer: "The Byron Bay postcode median sits around $2.45M, but that figure masks big variation between suburbs. Byron town itself is closer to $2.95M for a house, while Suffolk Park trades around $2.38M and Bangalow in the hinterland is closer to $1.85M. Price also depends on proximity to the beach, block size, and whether the property has development potential. We track every sale in the shire and can give you a realistic range for whatever you're looking at.",
+    },
+    {
+      question: "Is Byron Bay overpriced?",
+      bullets: ["Trades 30-40% above comparable beach towns", "Premium driven by cultural capital and scarcity"],
+      answer: "Byron trades at a 30-40% premium over comparable coastal towns like Noosa or Lennox Head. That gap is driven by scarcity (limited developable land, strict council controls) and cultural capital that's hard to replicate. Whether that premium is worth it depends on your goals. If you're buying a lifestyle property you'll hold for 10+ years, the long-term trajectory has been strong. If you're investing for yield, there are better numbers further along the coast. We'll give you an honest read on whether Byron makes sense for your situation.",
+    },
+    {
+      question: "Do I need a buyers agent in Byron?",
+      bullets: ["About 42% of sales are off-market", "5+ bidders common; relationships and disciplined negotiation are essential"],
+      answer: "In Byron, around 42% of properties sell off-market or before they're publicly listed. That means nearly half the opportunities are invisible to buyers searching online. Add 5+ competing bidders on most quality listings, and the odds are stacked against anyone without agent relationships and a fast, disciplined approach. A buyers agent gives you access to those off-market deals, negotiates without the emotional attachment, and helps you avoid the due diligence traps (flood, bushfire, septic, zoning) that catch interstate buyers out.",
+    },
+    {
+      question: "Best nearby alternatives?",
+      bullets: ["Suffolk Park ~ 18% cheaper", "Bangalow ~ 25% cheaper", "Brunswick Heads ~ 14% cheaper"],
+      answer: "Suffolk Park is about 18% cheaper than Byron town and only a five-minute drive south, with a quieter beach and more family-friendly feel. Bangalow in the hinterland is around 25% cheaper and popular with creative types and families who want space and a village main street. Brunswick Heads is roughly 14% cheaper, with a river, a proper pub, and a community that actively resists over-development. All three are within the Byron Shire, so you get the same council, same postcode cachet, and similar long-term growth trends at a lower entry point.",
+    },
+    {
+      question: "How competitive is Byron?",
+      bullets: ["Expect 5+ bidders on quality listings", "Sellers rarely counter low offers; speed and discipline decide outcomes"],
+      answer: "Very. Quality listings in Byron regularly attract 5+ serious bidders, and that number climbs on beachside or hinterland view properties. Sellers know their leverage, so low-ball offers are typically ignored rather than countered. The properties that get the best results are the ones where the buyer moved fast, had their finance sorted, and made a clean offer within 24-48 hours. Coming in late with conditions usually means you miss out. That speed advantage is one of the main reasons our clients use us.",
+    },
+    {
+      question: "What are key risks?",
+      bullets: ["Flood zones: Belongil and parts of Suffolk", "Bushfire overlays: Broken Head", "E4 zoning limits, septic and water considerations on rural blocks"],
+      answer: "The biggest due diligence risks in Byron are flood zones (Belongil, parts of Suffolk Park, and low-lying pockets near Tallow Creek), which can affect insurance premiums and resale value. Bushfire overlays apply to properties around Broken Head and some rural blocks in the hinterland. If you're looking at rural-residential land, check whether it's E4 zoning, which limits what you can build, and whether it's on town water or relies on septic and bore water. We run flood certificates, council overlay checks, and building and pest reports on every property before recommending it.",
+    },
+    {
+      question: "Can I negotiate in Byron?",
+      bullets: ["Limited room; sellers hold leverage", "First reasonable offer often wins"],
+      answer: "There's less room to negotiate in Byron than in most Australian property markets. Sellers hold leverage because stock is low and demand is consistent. The best strategy is usually a strong first offer at a fair price, rather than trying to negotiate down from a low starting point. On off-market deals, there's sometimes more flexibility because the seller hasn't tested the open market. Our approach is to identify the property's true value, then position our client's offer to win without overpaying.",
+    },
+  ],
+
+  ctaHeading: "Buying in Byron? Move fast, move smart.",
+  ctaButtonText: "Start a Conversation",
+
+  localBusinessSchema: {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Compass Buyers Agency",
@@ -24,143 +109,9 @@ export default function ByronBayBuyersAgent() {
     areaServed: { "@type": "City", name: "Byron Bay" },
     serviceType: "Buyers Agent",
     priceRange: "$$",
-  };
+  },
+};
 
-  return (
-    <div className="overflow-hidden">
-      <LandingHero
-        title="Byron Bay Buyers Agent"
-        subtitle="Australia's toughest property market. $2.45M median. 5+ competing bidders. 42% never advertised. We know what you're up against."
-      />
-
-      {/* Market Positioning */}
-      <InfoSplit
-        title="Byron Market Reality Check"
-        description="Seller leverage, low stock and whisper listings define Byron. The market rewards speed and punishes hesitation."
-        bullets={[
-          "About 400 houses sold last year at ~ $2.45M median",
-          "~67% interstate buyers drive competition",
-          "Median ~66 days on market; quality trades under 30",
-          "~42% of sales are off-market via agent networks",
-          "Expect 5+ bidders on desirable listings",
-        ]}
-        imageUrl="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop"
-        imageAlt="Byron Bay coastline"
-        imageSide="right"
-      />
-
-      {/* Why Use a Buyers Agent Here */}
-      <InfoSplit
-        title="Why Use a Buyers Agent in Byron"
-        description="We compress timelines, widen access and protect you from costly traps unique to Byron."
-        bullets={[
-          "Seller leverage is extreme: low stock, high demand",
-          "Best properties often trade before public listing",
-          "Due diligence traps: flood, bushfire, septic, E4 zoning",
-          "Emotional bidding inflates prices. Discipline matters",
-          "Move within 24-48 hours or miss it",
-        ]}
-        imageUrl="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=2069&auto=format&fit=crop"
-        imageAlt="Byron streets and coastline"
-        imageSide="left"
-      />
-
-      {/* Suburbs We Cover */}
-      <section className="py-6 md:py-8 bg-white">
-        <div className="site-container">
-          <h2 className="mb-2">Suburbs We Cover</h2>
-          <ul className="grid sm:grid-cols-2 gap-y-2 list-disc ml-5 text-gray-700">
-            <li><a className="underline" href={`${createPageUrl("Blog")}?category=suburb-profiles&tag=byron-bay`}>Byron Bay</a></li>
-            <li><a className="underline" href={`${createPageUrl("Blog")}?category=suburb-profiles&tag=suffolk-park`}>Suffolk Park</a></li>
-            <li><a className="underline" href={`${createPageUrl("Blog")}?category=suburb-profiles&tag=bangalow`}>Bangalow</a></li>
-            <li><a className="underline" href={`${createPageUrl("Blog")}?category=suburb-profiles&tag=brunswick-heads`}>Brunswick Heads</a></li>
-            <li><a className="underline" href={`${createPageUrl("Blog")}?category=suburb-profiles&tag=broken-head`}>Broken Head</a></li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Our Approach */}
-      <section className="py-6 md:py-8 bg-white">
-        <div className="site-container">
-          <h2 className="mb-2">Our Approach in Byron</h2>
-          <p className="text-gray-700 mb-4">Brutally honest advice, fast execution and deep diligence.</p>
-          <ul className="list-disc ml-5 text-gray-700 space-y-1">
-            <li>15+ years of Byron agent relationships</li>
-            <li>~58% of our Byron deals secured off-market</li>
-            <li>Speed advantage: pre-approved clients move in 24-48 hours</li>
-            <li>Strategic candour: we’ll tell you when to walk</li>
-            <li>Due diligence depth: flood, bushfire, septic, bores</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-6 md:py-10 bg-white">
-        <div className="site-container">
-          <h2 className="mb-4">Byron Bay FAQ</h2>
-          <FAQAccordion
-            items={[
-              { question: "What is the median price in Byron Bay?", bullets: [
-                "Postcode median ~ $2.45M",
-                "Byron town ~ $2.95M; Suffolk Park ~ $2.38M; Bangalow ~ $1.85M",
-              ]},
-              { question: "Is Byron Bay overpriced?", bullets: [
-                "Trades 30-40% above comparable beach towns",
-                "Premium driven by cultural capital and scarcity",
-              ]},
-              { question: "Do I need a buyers agent in Byron?", bullets: [
-                "About 42% of sales are off-market",
-                "5+ bidders common; relationships and disciplined negotiation are essential",
-              ]},
-              { question: "Best nearby alternatives?", bullets: [
-                "Suffolk Park ~ 18% cheaper",
-                "Bangalow ~ 25% cheaper",
-                "Brunswick Heads ~ 14% cheaper",
-              ]},
-              { question: "How competitive is Byron?", bullets: [
-                "Expect 5+ bidders on quality listings",
-                "Sellers rarely counter low offers; speed and discipline decide outcomes",
-              ]},
-              { question: "What are key risks?", bullets: [
-                "Flood zones: Belongil and parts of Suffolk",
-                "Bushfire overlays: Broken Head",
-                "E4 zoning limits, septic and water considerations on rural blocks",
-              ]},
-              { question: "Can I negotiate in Byron?", bullets: [
-                "Limited room; sellers hold leverage",
-                "First reasonable offer often wins",
-              ]},
-            ]}
-          />
-        </div>
-      </section>
-      <AboutExpertise />
-      <ServicesAccordionShowcase />
-      <RecentAcquisitionsStrip />
-      <TestimonialsPlaceholder />
-      <Regions />
-      <WhyStandOutGrid />
-      <CTASection
-        heading="Buying in Byron? Move fast, move smart."
-        buttonText="Book a Free Consultation"
-        buttonHref={createPageUrl("Contact")}
-        showReviewsCarousel={true}
-      />
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-          { "@type": "Question", name: "What is the median price in Byron Bay?", acceptedAnswer: { "@type": "Answer", text: "Postcode median is approximately $2.45M. Byron town sits around $2.95M, Suffolk Park around $2.38M, and Bangalow around $1.85M." }},
-          { "@type": "Question", name: "Is Byron Bay overpriced?", acceptedAnswer: { "@type": "Answer", text: "Byron trades 30-40% above comparable beach towns. The premium is driven by cultural capital and scarcity." }},
-          { "@type": "Question", name: "Do I need a buyers agent in Byron?", acceptedAnswer: { "@type": "Answer", text: "About 42% of sales are off-market. With 5+ bidders common, relationships and disciplined negotiation are essential." }},
-          { "@type": "Question", name: "Best nearby alternatives to Byron Bay?", acceptedAnswer: { "@type": "Answer", text: "Suffolk Park is approximately 18% cheaper, Bangalow approximately 25% cheaper, and Brunswick Heads approximately 14% cheaper." }},
-          { "@type": "Question", name: "How competitive is Byron Bay?", acceptedAnswer: { "@type": "Answer", text: "Expect 5+ bidders on quality listings. Sellers rarely counter low offers; speed and discipline decide outcomes." }},
-          { "@type": "Question", name: "What are key risks buying in Byron Bay?", acceptedAnswer: { "@type": "Answer", text: "Flood zones around Belongil and parts of Suffolk, bushfire overlays at Broken Head, and E4 zoning limits, septic and water considerations on rural blocks." }},
-          { "@type": "Question", name: "Can I negotiate in Byron Bay?", acceptedAnswer: { "@type": "Answer", text: "Limited room as sellers hold leverage. First reasonable offer often wins." }},
-        ]
-      }) }} />
-    </div>
-  );
+export default function ByronBayBuyersAgent() {
+  return <LandingPageTemplate data={DATA} />;
 }

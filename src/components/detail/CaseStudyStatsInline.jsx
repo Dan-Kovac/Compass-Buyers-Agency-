@@ -8,7 +8,7 @@ export default function CaseStudyStatsInline({ location, property_type, timefram
       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] bg-white">
         <Icon className="w-4 h-4 text-[var(--hills)]" />
         <span className="text-sm">
-          {label ? <span className="text-gray-500 mr-1">{label}:</span> : null}
+          {label ? <span className="text-[var(--ink)]/50 mr-1">{label}:</span> : null}
           <span className="text-[var(--ink)] font-medium">{value}</span>
         </span>
       </div>

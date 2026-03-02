@@ -91,7 +91,7 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
 
         {settings.show_gallery !== false && gallery.length > 0 && (
           <div className="mt-10">
-            <h3 className="mb-4">Gallery</h3>
+            <h2 className="mb-4" style={{ fontSize: "var(--h3-fs)", lineHeight: "var(--h3-lh)" }}>Gallery</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {gallery.map((img, i) => (
                 <div key={i} className="aspect-square rounded-token overflow-hidden border border-[var(--border)]">

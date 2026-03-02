@@ -36,7 +36,7 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
           <Link key={it.id} to={toDetail(it)}>
             <Card className="overflow-hidden hover:shadow-md transition-shadow">
               <div className="flex gap-3 p-3">
-                <div className="w-24 h-16 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
+                <div className="w-24 h-16 rounded-md overflow-hidden bg-[var(--bright-grey)] flex-shrink-0">
                   <img
                     src={it.featured_image || it.image || PLACEHOLDER_IMG}
                     alt={it.title || it.name || "Preview"}
@@ -50,7 +50,7 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
                   />
                 </div>
                 <CardContent className="p-0">
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-[var(--ink)]/50">
                     {type === "case_study" ? (it.location || "—") : (it.category || "Blog")}
                   </div>
                   <div className="text-sm font-medium leading-snug line-clamp-2">

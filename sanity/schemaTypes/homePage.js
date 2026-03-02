@@ -4,6 +4,13 @@ export default {
   type: 'document',
   fields: [
 
+    // ─── SEO ────────────────────────────────────────────────────────────────
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'seoFields',
+    },
+
     // ─── HERO ───────────────────────────────────────────────────────────────
     {
       name: 'hero',
@@ -313,6 +320,14 @@ export default {
           initialValue: 'Call Us Now',
         },
       ],
+    },
+
+    // ─── VIDEO TESTIMONIALS ─────────────────────────────────────────────────
+    {
+      name: 'testimonialVideos',
+      title: 'Video Testimonials',
+      type: 'array',
+      of: [{ type: 'testimonialVideo' }],
     },
 
   ],

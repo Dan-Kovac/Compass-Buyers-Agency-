@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 export default function ContactStrip() {
   const navigate = useNavigate();
@@ -18,13 +19,16 @@ export default function ContactStrip() {
       />
       <div className="absolute inset-0 bg-black/35" aria-hidden="true" />
       <div className="relative site-container py-16 md:py-20 text-white">
-        <h2 className="mb-4">Get Started</h2>
-        <p className="text-white/90 text-lg mb-6">
-          Talk to Northern Rivers’ trusted buyers agents. Free consultation, no obligation.
-        </p>
+        <ScrollReveal>
+          <h2 className="mb-4">Get Started</h2>
+          <p className="text-white/90 text-lg mb-6">
+            Talk to Northern Rivers’ trusted buyers agents. Free consultation, no obligation.
+          </p>
+        </ScrollReveal>
+        <ScrollReveal delay={120}>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button
-            className="btn-cta w-full sm:w-auto bg-white text-[var(--hills)] hover:bg-gray-100"
+            className="btn-cta w-full sm:w-auto bg-white text-[var(--hills)] hover:bg-[var(--bright-grey)]"
             onClick={() => navigate(createPageUrl("Contact"))}
             style={{ fontFamily: 'var(--font-body)' }}
           >
@@ -39,6 +43,7 @@ export default function ContactStrip() {
             </Button>
           </a>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

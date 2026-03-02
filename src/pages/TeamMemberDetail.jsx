@@ -95,7 +95,7 @@ export default function TeamMemberDetail() {
       <div className="site-container py-12">
         <div className="rounded-token border border-[var(--border)] bg-white p-8">
           <h2 className="text-2xl font-semibold mb-4">Profile not found</h2>
-          <p className="text-gray-600 mb-6">The team member you're looking for doesn't exist.</p>
+          <p className="text-[var(--ink)]/70 mb-6">The team member you're looking for doesn't exist.</p>
           <a href={createPageUrl("About")} className="text-[var(--hills)] hover:underline">
             ← Back to team
           </a>
@@ -107,11 +107,11 @@ export default function TeamMemberDetail() {
   return (
     <div className="bg-white min-h-screen">
       {/* Back button bar */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-[var(--border)]">
         <div className="site-container py-4">
           <a 
             href={createPageUrl("About")} 
-            className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-[var(--hills)] transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-[var(--ink)]/60 hover:text-[var(--hills)] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Team
@@ -120,7 +120,7 @@ export default function TeamMemberDetail() {
       </div>
 
       {/* Hero section with profile */}
-      <section className="py-12 md:py-16 bg-gradient-to-b from-[var(--sea-breeze)]/40 to-white">
+      <section className="section-padding-lg bg-gradient-to-b from-[var(--sea-breeze)]/40 to-white">
         <div className="site-container">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 items-start">
@@ -152,6 +152,7 @@ export default function TeamMemberDetail() {
                       src={member.photo}
                       alt={member.name}
                       className="w-full aspect-square object-cover rounded-2xl shadow-lg"
+                      fetchPriority="high"
                     />
                   )
                 )}
@@ -169,7 +170,7 @@ export default function TeamMemberDetail() {
                   {member.email && (
                     <a
                       href={`mailto:${member.email}`}
-                      className="flex items-center gap-3 text-gray-700 hover:text-[var(--hills)] transition-colors"
+                      className="flex items-center gap-3 text-[var(--ink)]/70 hover:text-[var(--hills)] transition-colors"
                     >
                       <Mail className="w-5 h-5" />
                       <span>{member.email}</span>
@@ -178,7 +179,7 @@ export default function TeamMemberDetail() {
                   {member.phone && (
                     <a
                       href={`tel:${member.phone}`}
-                      className="flex items-center gap-3 text-gray-700 hover:text-[var(--hills)] transition-colors"
+                      className="flex items-center gap-3 text-[var(--ink)]/70 hover:text-[var(--hills)] transition-colors"
                     >
                       <Phone className="w-5 h-5" />
                       <span>{member.phone}</span>
@@ -190,14 +191,14 @@ export default function TeamMemberDetail() {
                 {/* Credentials */}
                 {member.credentials && member.credentials.length > 0 && (
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <h3 className="text-sm font-semibold text-[var(--ink)]/50 uppercase tracking-wider mb-2">
                       Credentials
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {member.credentials.map((cred, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1 bg-white rounded-full text-sm border border-gray-200"
+                          className="px-3 py-1 bg-white rounded-full text-sm border border-[var(--border)]"
                         >
                           {cred}
                         </span>
@@ -209,7 +210,7 @@ export default function TeamMemberDetail() {
                 {/* Specialties */}
                 {member.specialties && member.specialties.length > 0 && (
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <h3 className="text-sm font-semibold text-[var(--ink)]/50 uppercase tracking-wider mb-2">
                       Specialties
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -231,11 +232,11 @@ export default function TeamMemberDetail() {
       </section>
 
       {/* Bio section */}
-      <section className="py-12 border-b border-gray-200">
+      <section className="section-padding border-b border-[var(--border)]">
         <div className="site-container">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl font-semibold mb-6">About {member.name.split(' ')[0]}</h2>
-            <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+            <div className="prose prose-lg max-w-none text-[var(--ink)]/70 leading-relaxed">
               {member.bio}
             </div>
           </div>
@@ -244,7 +245,7 @@ export default function TeamMemberDetail() {
 
       {/* Acquisitions section */}
       {acquisitions.length > 0 && (
-        <section className="py-12 bg-gradient-to-b from-white to-[var(--sea-breeze)]/15 border-b border-gray-200">
+        <section className="section-padding-lg bg-gradient-to-b from-white to-[var(--sea-breeze)]/15 border-b border-[var(--border)]">
           <div className="site-container">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-semibold mb-8">Recent Acquisitions</h2>
@@ -267,7 +268,7 @@ export default function TeamMemberDetail() {
 
       {/* Blog posts section */}
       {blogs.length > 0 && (
-        <section className="py-12 border-b border-gray-200">
+        <section className="section-padding border-b border-[var(--border)]">
           <div className="site-container">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-semibold mb-8">Latest Insights</h2>
@@ -289,7 +290,7 @@ export default function TeamMemberDetail() {
       )}
 
       {/* Testimonials section */}
-      <section className="py-12 bg-gradient-to-b from-white to-[var(--sea-breeze)]/10">
+      <section className="section-padding-lg bg-gradient-to-b from-white to-[var(--sea-breeze)]/10">
         <div className="site-container">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-semibold mb-8 text-center">Client Testimonials</h2>
@@ -310,10 +311,10 @@ export default function TeamMemberDetail() {
                       </svg>
                     ))}
                   </div>
-                  <p className="text-gray-700 italic mb-4">"{testimonial.quote}"</p>
+                  <p className="text-[var(--ink)]/70 italic mb-4">"{testimonial.quote}"</p>
                   <div className="text-sm">
                     <div className="font-semibold text-[var(--ink)]">{testimonial.name}</div>
-                    <div className="text-gray-500">{testimonial.location}</div>
+                    <div className="text-[var(--ink)]/50">{testimonial.location}</div>
                   </div>
                 </div>
               ))}
@@ -322,12 +323,33 @@ export default function TeamMemberDetail() {
         </div>
       </section>
 
+      {/* JSON-LD Person schema */}
+      {member && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: member.name,
+          jobTitle: member.position,
+          description: member.bio || `${member.position} at Compass Buyers Agency`,
+          image: member.photo || undefined,
+          email: member.email || undefined,
+          telephone: member.phone || undefined,
+          worksFor: {
+            "@type": "Organization",
+            name: "Compass Buyers Agency",
+            url: "https://compassagency.com.au",
+          },
+          ...(member.specialties?.length > 0 && { knowsAbout: member.specialties }),
+          ...(member.linkedin_url && { sameAs: [member.linkedin_url] }),
+        }) }} />
+      )}
+
       {/* CTA section */}
-      <section className="py-16">
+      <section className="section-padding-lg">
         <div className="site-container">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="mb-6">Ready to work with {member.name.split(' ')[0]}?</h2>
-            <p className="text-gray-600 mb-8">
+            <p className="text-[var(--ink)]/60 mb-8">
               Get in touch to discuss your property requirements and how we can help you achieve your goals.
             </p>
             <a href={createPageUrl("Contact")}>

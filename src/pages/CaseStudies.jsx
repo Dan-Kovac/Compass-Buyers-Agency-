@@ -54,16 +54,16 @@ export default function CaseStudies() {
   return (
     <div className="bg-white">
       {/* Minimal, fully centered hero on white */}
-      <section className="py-12 bg-white">
+      <section className="section-padding bg-white">
         <div className="site-container">
           <div
             className="max-w-3xl mx-auto text-center"
             style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.1] mx-auto">
+            <h1>
               Case Studies
             </h1>
-            <p className="text-gray-600 text-base md:text-lg">
+            <p className="text-[var(--ink)]/70 text-base md:text-lg">
               Real results from buyers across Northern Rivers and the Southern Gold Coast.
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Minimal filter row */}
-      <section className="py-6 bg-white border-t border-b border-[var(--border)]">
+      <section className="section-padding-sm bg-white border-t border-b border-[var(--border)]">
         <MinimalFilters
           propertyTypeOptions={propertyTypeOptions}
           locationOptions={locationOptions}
@@ -83,7 +83,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Grid */}
-      <section className="py-10 bg-white">
+      <section className="section-padding bg-white">
         <div className="site-container">
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -99,12 +99,12 @@ export default function CaseStudies() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <div className="text-xl font-semibold text-gray-700 mb-2">No case studies match your filters</div>
-              <p className="text-gray-500 mb-6">Try clearing filters to see all results.</p>
+              <div className="text-xl font-semibold text-[var(--ink)]/70 mb-2">No case studies match your filters</div>
+              <p className="text-[var(--ink)]/50 mb-6">Try clearing filters to see all results.</p>
               <button
                 type="button"
                 onClick={handleClear}
-                className="inline-flex items-center px-4 py-2 rounded-md border border-[var(--border)] text-gray-700 hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 rounded-token border border-[var(--border)] text-[var(--ink)]/70 hover:bg-[var(--bright-grey)]/50"
               >
                 Clear filters
               </button>

@@ -1,16 +1,16 @@
 import React from "react";
 import HomeHero from "../components/home/HomeHero";
-import AboutExpertise from "../components/home/AboutExpertise";
+import TrustBar from "../components/home/TrustBar";
 import ServicesAccordionShowcase from "../components/home/ServicesAccordionShowcase";
 import RecentAcquisitionsStrip from "../components/home/RecentAcquisitionsStrip";
 import InvestmentAndRelationship from "../components/home/InvestmentAndRelationship";
-import WhyStandOutGrid from "../components/home/WhyStandOutGrid";
 import Regions from "../components/home/Regions";
-import TestimonialsPlaceholder from "../components/home/TestimonialsPlaceholder";
 import CTASection from "../components/shared/CTASection.jsx";
 import HomeFAQ from "../components/home/HomeFAQ";
+import TestimonialSection from "../components/shared/TestimonialSection";
+import ImageBand from "../components/shared/ImageBand";
 import { createPageUrl } from "@/utils";
-import { fetchPage } from "@/lib/sanityClient";
+import { fetchPage, urlFor } from "@/lib/sanityClient";
 
 export default function Home() {
   const [page, setPage] = React.useState(null);
@@ -21,54 +21,69 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
+      {/* 1. Hero — dark video overlay, full bleed */}
       <HomeHero
-        title={page?.heroTitle}
-        subtitle={page?.heroSubtitle}
-        ctaText={page?.heroCtaText}
+        title={page?.hero?.title}
+        subtitle={page?.hero?.subtitle}
+        ctaText={page?.hero?.ctaText}
+        backgroundVideoUrl="/videos/COMPASS-WEBSITE-BANNER-LOGO-FADE.mp4"
       />
-      <AboutExpertise
-        quoteText={page?.expertiseQuoteText}
-        authorName={page?.expertiseAuthorName}
-        authorRole={page?.expertiseAuthorRole}
-        authorAvatarUrl={page?.expertiseAuthorAvatarUrl}
-      />
+
+      {/* 2. Trust stats bar — social proof */}
+      <TrustBar />
+
+      {/* 3. Services accordion — dark editorial */}
       <ServicesAccordionShowcase
-        heading={page?.servicesHeading}
-        teamImageUrl={page?.servicesTeamImageUrl}
-        teamImageAlt={page?.servicesTeamImageAlt}
-        items={page?.servicesItems}
+        heading={page?.servicesAccordion?.heading}
+        teamImageUrl={page?.servicesAccordion?.teamImage ? urlFor(page.servicesAccordion.teamImage).width(800).url() : undefined}
+        items={page?.servicesAccordion?.items}
       />
+
+      {/* 4. Atmospheric image band — coastal lifestyle */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
+        alt="Aerial view of Northern Rivers coastline"
+        height="280px"
+        overlay
+      />
+
+      {/* 5. Featured acquisitions — bright grey bg */}
       <RecentAcquisitionsStrip
-        eyebrow={page?.acquisitionsEyebrow}
-        title={page?.acquisitionsHeading}
-        description={page?.acquisitionsSubheading}
+        eyebrow={page?.acquisitionsStrip?.eyebrow}
+        title={page?.acquisitionsStrip?.heading}
+        description={page?.acquisitionsStrip?.subheading}
       />
+
+      {/* 6. Video Testimonials — social proof */}
+      <TestimonialSection />
+
+      {/* 7. Working with us — sand-wash bg, asymmetric split */}
       <InvestmentAndRelationship
-        heading={page?.relationshipHeading}
-        body={page?.relationshipBody}
-        imageUrl={page?.relationshipImageUrl}
-        imageAlt={page?.relationshipImageAlt}
-        checklist={page?.relationshipChecklist?.map(c => c.item)}
+        heading={page?.relationship?.heading}
+        body={page?.relationship?.body}
+        imageUrl={page?.relationship?.image ? urlFor(page.relationship.image).width(800).url() : undefined}
+        checklist={page?.relationship?.checklistItems}
       />
-      <TestimonialsPlaceholder />
+
+      {/* 8. Regions — white bg with destination cards */}
       <Regions
-        heading={page?.regionsHeading}
-        subtitle={page?.regionsSubtitle}
-        ctaText={page?.regionsCtaText}
+        heading={page?.regions?.heading}
+        subtitle={page?.regions?.subtitle}
+        ctaText={page?.regions?.ctaText}
       />
-      <WhyStandOutGrid
-        heading={page?.whyHeading}
-        cards={page?.whyCards}
-      />
+
+      {/* 9. FAQ — bright grey bg */}
       <HomeFAQ
-        heading={page?.faqHeading}
-        faqItems={page?.faqItems}
+        heading={page?.faq?.heading}
+        faqItems={page?.faq?.items}
       />
+
+      {/* 10. CTA — compact dark close */}
       <CTASection
-        heading={page?.contactStripHeading || "Take the first step toward your Northern Rivers home with Compass"}
-        buttonText={page?.contactStripPrimaryButtonLabel || "Book a Free Consultation"}
+        heading={page?.contactStrip?.heading || "Let's find your property"}
+        buttonText={page?.contactStrip?.primaryButtonLabel || "Start a Conversation"}
         buttonHref={createPageUrl("Contact")}
-        showReviewsCarousel={true}
+        variant="dark"
       />
 
       {/* Organization + LocalBusiness JSON-LD */}

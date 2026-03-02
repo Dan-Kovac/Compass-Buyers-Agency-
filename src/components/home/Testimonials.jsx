@@ -2,6 +2,7 @@ import React from "react";
 import ReviewsWidget from "../shared/ReviewsWidget";
 import { fetchTestimonials } from "@/lib/sanityClient";
 import { Button } from "@/components/ui/button";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 export default function Testimonials() {
   const [items, setItems] = React.useState([]);
@@ -20,8 +21,9 @@ export default function Testimonials() {
   const visible = items.slice(index, index + 3);
 
   return (
-    <section className="py-20 bg-white">
+    <section className="section-padding-lg bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ScrollReveal>
         <div className="flex items-center justify-between mb-8">
           <h2 className="mb-0">Client Reviews</h2>
           <div className="flex gap-2">
@@ -29,6 +31,7 @@ export default function Testimonials() {
             <Button variant="outline" onClick={next} disabled={index >= Math.max(0, items.length - 3)}>Next</Button>
           </div>
         </div>
+        </ScrollReveal>
 
         <ReviewsWidget />
       </div>

@@ -15,7 +15,7 @@ export default function ServicesAccordion({ items = [], defaultOpenFirst = true 
             <AccordionTrigger className="py-5 sm:py-6 text-left items-center">
               <span className="text-lg sm:text-xl font-medium">{it.title}</span>
             </AccordionTrigger>
-            <AccordionContent className="pt-0 pb-6 text-gray-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">
+            <AccordionContent className="pt-0 pb-6 text-[var(--ink)]/70 text-sm sm:text-base leading-relaxed whitespace-pre-line">
               {it.body}
             </AccordionContent>
           </AccordionItem>

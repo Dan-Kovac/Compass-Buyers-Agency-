@@ -13,8 +13,17 @@ import acquisition from './acquisition';
 import teamMember from './teamMember';
 import testimonial from './testimonial';
 import caseStudy from './caseStudy';
+import landingPage from './landingPage';
+
+// Reusable object types
+import seoFields from './objects/seoFields';
+import testimonialVideo from './objects/testimonialVideo';
 
 export const schemaTypes = [
+  // Reusable objects — must be registered before documents that reference them
+  seoFields,
+  testimonialVideo,
+
   // Singleton page documents — one document per page
   siteSettings,
   homePage,
@@ -31,4 +40,5 @@ export const schemaTypes = [
   teamMember,
   testimonial,
   caseStudy,
+  landingPage,
 ];

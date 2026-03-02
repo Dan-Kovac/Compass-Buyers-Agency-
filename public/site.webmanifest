@@ -1,0 +1,19 @@
+{
+  "name": "Compass Buyers Agency",
+  "short_name": "Compass",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/images/compass-logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "theme_color": "#4B7371",
+  "background_color": "#ffffff",
+  "display": "browser"
+}

@@ -58,7 +58,7 @@ export default function BlogMinimalFilters({
           <button
             type="button"
             onClick={onClear}
-            className="text-sm text-gray-500 hover:text-[var(--hills)] underline underline-offset-2 self-start md:self-auto"
+            className="text-sm text-[var(--ink)]/50 hover:text-[var(--hills)] underline underline-offset-2 self-start md:self-auto"
           >
             Clear filters
           </button>

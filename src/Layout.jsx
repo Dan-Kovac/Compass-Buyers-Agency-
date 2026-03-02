@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Menu } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -9,14 +9,8 @@ import {
   SheetTrigger,
   SheetClose } from
 "@/components/ui/sheet";
-import { SiteSettings } from "@/entities/SiteSettings";
-import AdminPageNavigator from "@/components/admin/AdminPageNavigator";
-import { PageSEO } from "@/entities/PageSEO";
-import { RedirectRule } from "@/entities/RedirectRule";
-import { base44 } from "@/api/base44Client";
-import { EditModeProvider } from "@/components/cms/EditModeContext";
-import EditModeToggle from "@/components/cms/EditModeToggle";
-import GlobalEditableImages from "@/components/cms/GlobalEditableImages";
+import { fetchSiteSettings, fetchPageSEO, urlFor, STATIC_SEO } from "@/lib/sanityClient";
+import StickyMobileCTA from "@/components/shared/StickyMobileCTA";
 
 const navigationItems = [
 { title: "Home", url: createPageUrl("Home") },
@@ -34,10 +28,8 @@ export default function Layout({ children, currentPageName }) {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [brand, setBrand] = React.useState(null);
   const [seo, setSeo] = React.useState(null);
-  const [fontsReady, setFontsReady] = React.useState(false);
   const [brandLoaded, setBrandLoaded] = React.useState(false);
-  const [user, setUser] = React.useState(null);
-  const [isAdmin, setIsAdmin] = React.useState(false);
+  const isHome = currentPageName === "Home";
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -50,8 +42,8 @@ export default function Layout({ children, currentPageName }) {
   React.useEffect(() => {
     (async () => {
       try {
-        const list = await SiteSettings.list();
-        setBrand(list[0] || null);
+        const settings = await fetchSiteSettings();
+        setBrand(settings || null);
       } catch (err) {
         console.warn("Could not load site settings, using defaults");
         setBrand(null);
@@ -61,59 +53,16 @@ export default function Layout({ children, currentPageName }) {
     })();
   }, []);
 
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const me = await base44.auth.me();
-        setUser(me);
-        setIsAdmin(me?.role === 'admin');
-        if (me?.role === 'admin') document.documentElement.classList.add('b44-edit-mode');
-      } catch {
-        setUser(null);
-        setIsAdmin(false);
-        document.documentElement.classList.remove('b44-edit-mode');
-      }
-    })();
-  }, []);
-
-  React.useEffect(() => {
-    if (!brand) return;
-    const addPreload = (href) => {
-      if (!href) return null;
-      const exists = Array.from(document.querySelectorAll('link[rel="preload"]')).some((l) => l.href === href);
-      if (exists) return null;
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'font';
-      link.type = 'font/woff2';
-      link.href = href;
-      link.crossOrigin = 'anonymous';
-      document.head.appendChild(link);
-      return link;
-    };
-    const links = [];
-    if (brand.heading_font_url_woff2) links.push(addPreload(brand.heading_font_url_woff2));
-    if (brand.body_font_url_woff2) links.push(addPreload(brand.body_font_url_woff2));
-  }, [brand]);
-
-  React.useEffect(() => {
-    if (!document.fonts || !document.fonts.ready) {
-      setFontsReady(true);
-      return;
-    }
-    document.fonts.ready.then(() => {
-      setFontsReady(true);
-    });
-  }, []);
 
   React.useEffect(() => {
     (async () => {
       if (!currentPageName) return;
       try {
-        const found = await PageSEO.filter({ page_name: currentPageName }, "-updated_date", 1);
-        setSeo(found && found.length ? found[0] : null);
+        const seoData = await fetchPageSEO(currentPageName);
+        // Fall back to hardcoded SEO for pages without Sanity singletons
+        setSeo(seoData || STATIC_SEO[currentPageName] || null);
       } catch {
-        setSeo(null);
+        setSeo(STATIC_SEO[currentPageName] || null);
       }
     })();
   }, [currentPageName]);
@@ -140,69 +89,39 @@ export default function Layout({ children, currentPageName }) {
       link.setAttribute("href", href);
     };
 
+    const defaultTitle = brand?.defaultMetaTitle || brand?.siteName || "Compass Buyers Agency";
+
     if (!seo) {
-      document.title = brand?.site_name || "Compass Buyers Agency";
+      document.title = defaultTitle;
       return;
     }
 
-    if (seo.meta_title) {
-      document.title = seo.meta_title;
-    } else {
-      document.title = brand?.site_name || "Compass Buyers Agency";
-    }
+    document.title = seo.metaTitle || defaultTitle;
 
-    const robots = `${seo.index === false ? "noindex" : "index"}, ${seo.nofollow ? "nofollow" : "follow"}`;
+    const description = seo.metaDescription || brand?.defaultMetaDescription || "";
+    const ogImageUrl = seo.ogImage ? urlFor(seo.ogImage).width(1200).url() : (brand?.defaultOgImage ? urlFor(brand.defaultOgImage).width(1200).url() : null);
+
+    const robots = `${seo.noIndex ? "noindex" : "index"}, follow`;
     upsertMeta("name", "robots", robots);
-    upsertMeta("name", "description", seo.meta_description || "");
-    upsertCanonical(seo.canonical_url || "");
-    upsertMeta("property", "og:title", seo.og_title || seo.meta_title || "");
-    upsertMeta("property", "og:description", seo.og_description || seo.meta_description || "");
+    upsertMeta("name", "description", description);
+    upsertCanonical(seo.canonicalUrl || "");
+    upsertMeta("property", "og:title", seo.metaTitle || defaultTitle);
+    upsertMeta("property", "og:description", description);
     upsertMeta("property", "og:type", "website");
+    upsertMeta("property", "og:site_name", brand?.siteName || "Compass Buyers Agency");
     if (typeof window !== "undefined") {
       upsertMeta("property", "og:url", window.location.href);
     }
-    if (seo.og_image_url) upsertMeta("property", "og:image", seo.og_image_url);
+    if (ogImageUrl) upsertMeta("property", "og:image", ogImageUrl);
 
     // Twitter Card meta
-    upsertMeta("name", "twitter:card", seo.og_image_url ? "summary_large_image" : "summary");
-    upsertMeta("name", "twitter:title", seo.og_title || seo.meta_title || "");
-    upsertMeta("name", "twitter:description", seo.og_description || seo.meta_description || "");
-    if (seo.og_image_url) upsertMeta("name", "twitter:image", seo.og_image_url);
+    upsertMeta("name", "twitter:card", ogImageUrl ? "summary_large_image" : "summary");
+    upsertMeta("name", "twitter:title", seo.metaTitle || defaultTitle);
+    upsertMeta("name", "twitter:description", description);
+    if (ogImageUrl) upsertMeta("name", "twitter:image", ogImageUrl);
+    upsertMeta("name", "twitter:site", "@compassbuyersagency");
   }, [seo, brand]);
 
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const path = window.location.pathname;
-        const rules = await RedirectRule.filter({ active: true, old_path: path }, "-updated_date", 1);
-        if (rules && rules.length) {
-          const target = rules[0].new_url;
-          if (target && target !== path) {
-            window.location.replace(target);
-            return;
-          }
-        }
-        // Fallback: map clean SEO slugs to internal routes
-        const seoMap = {
-          "/gold-coast-buyers-agent": createPageUrl("GoldCoastBuyersAgent"),
-          "/buyers-agent-gold-coast": createPageUrl("GoldCoastBuyersAgent"),
-          "/byron-bay-buyers-agent": createPageUrl("ByronBayBuyersAgent"),
-          "/buyers-agent-byron-bay": createPageUrl("ByronBayBuyersAgent"),
-          "/tweed-heads-buyers-agent": createPageUrl("TweedHeadsBuyersAgent"),
-          "/buyers-agent-tweed-heads": createPageUrl("TweedHeadsBuyersAgent"),
-          "/northern-rivers-buyers-agent": createPageUrl("NorthernRiversBuyersAgent"),
-          "/buyers-agent-northern-rivers": createPageUrl("NorthernRiversBuyersAgent"),
-        };
-        const normalised = path?.replace(/\/$/, "");
-        const target = seoMap[normalised] || seoMap[path];
-        if (target && target !== path) {
-          window.location.replace(target);
-        }
-      } catch {
-        // ignore
-      }
-    })();
-  }, [location.pathname]);
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -215,7 +134,6 @@ export default function Layout({ children, currentPageName }) {
   }, []);
 
   return (
-    <EditModeProvider>
     <div className={`min-h-screen bg-white transition-opacity duration-200 ${brandLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <style>{`
         :root {
@@ -224,48 +142,65 @@ export default function Layout({ children, currentPageName }) {
           --bright-grey: #ECEBEA;
           --sea-breeze: #D6EFFB;
           --sand: #F2ECCE;
-          --stone: #AFADA4;
+          --stone: #767470;
           --container-width: 80rem;
-          --font-heading: "Minerva Modern", Georgia, "Times New Roman", serif;
-          --font-body: Aeonik, "Helvetica Neue", Helvetica, Arial, sans-serif;
-          --h1-fs: 48px;
-          --h1-lh: 54px;
+          --font-heading: 'MinervaModern', Georgia, "Times New Roman", serif;
+          --font-body: 'Aeonik', "Helvetica Neue", Helvetica, Arial, sans-serif;
+          --h1-fs: 72px;
+          --h1-lh: 1.05;
           --h1-mb: 32px;
-          --h1-mw: 80%;
-          --h2-fs: 36px;
-          --h2-lh: 44px;
+          --h2-fs: 44px;
+          --h2-lh: 1.15;
           --h2-mb: 24px;
           --h3-fs: 28px;
-          --h3-lh: 36px;
+          --h3-lh: 1.2;
           --h3-mb: 16px;
           --body-fs: 18px;
           --body-lh: 28px;
           --body-mb: 20px;
-          --radius-lg: 10px;
+          --radius-lg: 8px;
           --radius-xl: 16px;
           --border: #E8E7E5;
-          --shadow-card: 0 6px 24px rgba(0,0,0,0.06);
-          --shadow-hover: 0 12px 32px rgba(0,0,0,0.08);
-          --btn-height: 44px;
+          --shadow-card: 0 8px 32px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+          --shadow-hover: 0 20px 48px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+          --btn-height: 48px;
           --btn-minw: 140px;
+
+          /* Typography weights — deploy unused Aeonik weights for contrast */
+          --font-heading-regular: 400;
+          --font-body-light: 300;
+          --font-body-regular: 400;
+          --font-body-medium: 500;
+          --font-body-bold: 700;
+
+          /* Spacing scale for section padding variety */
+          --section-compact: 2.5rem;
+          --section-standard: 4rem;
+          --section-standard-lg: 6rem;
+          --section-breathing: 5rem;
+          --section-breathing-lg: 8rem;
         }
         html { scroll-behavior: smooth; }
         @media (max-width: 768px) {
           :root {
-            --h1-fs: 32px;
-            --h1-lh: 38px;
+            --h1-fs: 42px;
+            --h1-lh: 1.1;
             --h1-mb: 24px;
-            --h1-mw: 85%;
-            --h2-fs: 26px;
-            --h2-lh: 32px;
+            --h2-fs: 30px;
+            --h2-lh: 1.2;
             --h2-mb: 16px;
             --h3-fs: 22px;
-            --h3-lh: 28px;
+            --h3-lh: 1.25;
             --h3-mb: 12px;
             --body-lh: 27px;
             --body-mb: 16px;
-            --btn-height: 48px;
+            --btn-height: 52px;
             --btn-minw: 120px;
+            /* Tighter section spacing on mobile */
+            --section-breathing-lg: 4rem;
+            --section-standard-lg: 3rem;
+            --section-breathing: 3rem;
+            --section-standard: 2.5rem;
           }
         }
         .site-container {
@@ -296,28 +231,29 @@ export default function Layout({ children, currentPageName }) {
         h1, h2, h3, h4, h5, h6 {
           font-family: var(--font-heading);
           color: var(--ink);
-          letter-spacing: -0.01em;
-          line-height: 1.2;
-          text-transform: capitalize;
+          font-weight: 400;
+          line-height: 1.15;
         }
         h1 {
-          font-size: var(--h1-fs) !important;
-          line-height: var(--h1-lh) !important;
-          font-weight: 600 !important;
-          margin-bottom: var(--h1-mb) !important;
-          max-width: var(--h1-mw);
+          font-size: var(--h1-fs);
+          line-height: var(--h1-lh);
+          font-weight: 400;
+          letter-spacing: -0.03em;
+          margin-bottom: var(--h1-mb);
         }
         h2 {
-          font-size: var(--h2-fs) !important;
-          line-height: var(--h2-lh) !important;
-          font-weight: 600 !important;
-          margin-bottom: var(--h2-mb) !important;
+          font-size: var(--h2-fs);
+          line-height: var(--h2-lh);
+          font-weight: 400;
+          letter-spacing: -0.02em;
+          margin-bottom: var(--h2-mb);
         }
         h3 {
-          font-size: var(--h3-fs) !important;
-          line-height: var(--h3-lh) !important;
-          font-weight: 500 !important;
-          margin-bottom: var(--h3-mb) !important;
+          font-size: var(--h3-fs);
+          line-height: var(--h3-lh);
+          font-weight: 400;
+          letter-spacing: -0.01em;
+          margin-bottom: var(--h3-mb);
         }
         p {
           font-size: var(--body-fs);
@@ -328,23 +264,18 @@ export default function Layout({ children, currentPageName }) {
         a:hover { text-decoration: none; }
         .surface {
           background: #fff;
-          border: 1px solid var(--border);
+          border: 1px solid rgba(0,0,0,0.04);
           border-radius: var(--radius-lg);
           box-shadow: var(--shadow-card);
-          transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease, background-color .25s ease;
-          will-change: transform, box-shadow;
+          transition: box-shadow .5s ease, border-color .5s ease, background-color .5s ease;
         }
         .surface:hover {
           box-shadow: var(--shadow-hover);
-          border-color: #e1e0dd;
-          transform: translateY(-2px);
-        }
-        .surface:active {
-          transform: translateY(-1px);
+          border-color: rgba(0,0,0,0.06);
         }
         .surface:focus-within {
           box-shadow: var(--shadow-hover);
-          border-color: #e1e0dd;
+          border-color: rgba(0,0,0,0.06);
         }
         .no-scrollbar {
           -ms-overflow-style: none;
@@ -355,9 +286,25 @@ export default function Layout({ children, currentPageName }) {
           width: 0;
           height: 0;
         }
+        /* ── ScrollReveal animations ─────────────────────────── */
+        .sr {
+          opacity: 0;
+          transition-property: opacity, transform;
+          transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+          will-change: opacity, transform;
+        }
+        .sr-fade-up    { transform: translateY(12px) scale(0.98); }
+        .sr-fade-in    { transform: scale(0.98); }
+        .sr-fade-left  { transform: translateX(16px); }
+        .sr-fade-right { transform: translateX(-16px); }
+        .sr-visible {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+
         @media (prefers-reduced-motion: reduce) {
+          .sr { opacity: 1; transform: none; transition: none; }
           .surface { transition: none; }
-          .surface:hover, .surface:active { transform: none; }
         }
         .btn-cta {
           display: inline-flex;
@@ -365,26 +312,28 @@ export default function Layout({ children, currentPageName }) {
           justify-content: center;
           height: var(--btn-height);
           min-width: var(--btn-minw);
-          padding: 0 28px;
+          padding: 0 32px;
           border-radius: var(--radius-lg);
           font-family: var(--font-body);
           font-weight: 500;
-          letter-spacing: 0.01em;
-          transition: transform .12s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
-          will-change: transform;
+          letter-spacing: 0.02em;
+          transition: box-shadow .4s ease, background-color .4s ease, color .4s ease, border-color .4s ease, opacity .2s ease;
           font-size: 16px;
         }
         .btn-cta:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+          box-shadow: 0 12px 32px rgba(75,115,113,0.2);
         }
         .btn-cta:active {
-          transform: translateY(0) scale(0.98);
+          opacity: 0.85;
+        }
+        .btn-cta:focus-visible {
+          outline: 2px solid var(--hills);
+          outline-offset: 2px;
         }
         .btn-outline-brand {
           background: #fff;
           color: var(--hills);
-          border: 2px solid var(--hills);
+          border: 1px solid var(--hills);
         }
         .btn-outline-brand:hover {
           background: var(--hills);
@@ -407,156 +356,277 @@ export default function Layout({ children, currentPageName }) {
             min-width: 0;
           }
         }
+        /* Image hover zoom on cards */
+        .surface img {
+          transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .surface:hover img {
+          transform: scale(1.012);
+        }
+        /* Subtle icon shift on feature cards */
+        .surface .lucide {
+          transition: opacity .5s ease;
+        }
+        .surface:hover .lucide {
+          opacity: 0.7;
+        }
+        /* ── Background wash utilities (layered, atmospheric) ──── */
+        .bg-sand-wash {
+          background:
+            radial-gradient(ellipse at 20% 50%, rgba(242,236,206,0.15) 0%, transparent 70%),
+            linear-gradient(180deg, rgba(242,236,206,0.08) 0%, rgba(242,236,206,0.18) 100%);
+        }
+        .bg-sea-wash {
+          background:
+            radial-gradient(ellipse at 80% 30%, rgba(214,239,251,0.12) 0%, transparent 60%),
+            linear-gradient(170deg, rgba(214,239,251,0.06) 0%, rgba(214,239,251,0.14) 100%);
+        }
+        .bg-hills-wash {
+          background:
+            radial-gradient(ellipse at 30% 80%, rgba(75,115,113,0.06) 0%, transparent 50%),
+            linear-gradient(175deg, rgba(75,115,113,0.03) 0%, rgba(75,115,113,0.08) 100%);
+        }
+        .bg-warm-gradient {
+          background: linear-gradient(165deg, #ffffff 0%, rgba(242,236,206,0.12) 50%, rgba(214,239,251,0.06) 100%);
+        }
+
+        /* ── Dark editorial section — contrast breaks ────────── */
+        .bg-editorial-dark {
+          background: linear-gradient(175deg, var(--ink) 0%, #1a2f2e 100%);
+          color: #fff;
+        }
+        .bg-editorial-dark .eyebrow,
+        .bg-editorial-dark .eyebrow-label { color: var(--sand); }
+        .bg-editorial-dark h2,
+        .bg-editorial-dark h3 { color: #fff !important; }
+        .bg-editorial-dark p { color: rgba(255,255,255,0.8); }
+        .bg-editorial-dark a { color: rgba(255,255,255,0.85); }
+        .bg-editorial-dark a:hover { color: #fff; }
+
+        /* ── Warm cream — richer than sand-wash ──────────────── */
+        .bg-cream {
+          background: linear-gradient(180deg, #FAF7EE 0%, #F5F0E1 100%);
+        }
+
+        /* ── Subtle texture overlay ──────────────────────────── */
+        .bg-textured { position: relative; }
+        .bg-textured::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+          pointer-events: none;
+          z-index: 0;
+        }
+        .bg-textured > * { position: relative; z-index: 1; }
+        /* ── Section eyebrow labels ─────────────────────────── */
+        .eyebrow,
+        .eyebrow-label {
+          font-family: var(--font-body);
+          font-size: 0.75rem;
+          font-weight: var(--font-body-medium);
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--hills);
+          margin-bottom: 0.75rem;
+        }
+
+        /* ── Large editorial stat number ─────────────────────── */
+        .stat-number {
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size: 3rem;
+          line-height: 1;
+          letter-spacing: -0.03em;
+          color: var(--hills);
+        }
+        @media (min-width: 768px) {
+          .stat-number { font-size: 3.5rem; }
+        }
+        @media (min-width: 1024px) {
+          .stat-number { font-size: 4rem; }
+        }
+
+        /* ── Pullquote — Aeonik Light, large, constrained ──── */
+        .pullquote {
+          font-family: var(--font-body);
+          font-weight: var(--font-body-light);
+          font-size: 1.5rem;
+          line-height: 1.5;
+          color: var(--stone);
+          max-width: 38ch;
+        }
+        @media (max-width: 768px) {
+          .pullquote { font-size: 1.25rem; }
+        }
+
+        /* ── Section divider — thin decorative line ──────────── */
+        .section-divider {
+          width: 48px;
+          height: 1px;
+          background: var(--sand);
+          margin: 0 auto;
+        }
+        .section-divider.left { margin: 0; }
+
+        /* ── Intro paragraph — first text after heading ──────── */
+        .intro-text {
+          font-family: var(--font-body);
+          font-weight: var(--font-body-light);
+          font-size: 1.25rem;
+          line-height: 1.6;
+          color: var(--stone);
+          max-width: 52ch;
+        }
+        @media (max-width: 768px) {
+          .intro-text { font-size: 1.125rem; }
+        }
+        /* ── Link hover ─────────────────────────── */
+        a { transition: color .3s ease; }
+        /* ── Focus visible for all interactive elements ──── */
+        a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
+          outline: 2px solid var(--hills);
+          outline-offset: 2px;
+        }
+        /* ── Skip navigation link ─────────────────────── */
+        .skip-link {
+          position: absolute;
+          top: -100%;
+          left: 1rem;
+          z-index: 100;
+          padding: 0.75rem 1.5rem;
+          background: var(--hills);
+          color: #fff;
+          border-radius: var(--radius-lg);
+          font-weight: 500;
+          font-size: 0.875rem;
+          text-decoration: none;
+          transition: top 0.2s ease;
+        }
+        .skip-link:focus {
+          top: 0.5rem;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .surface img, .surface:hover img { transform: none; transition: none; }
+          .surface .lucide, .surface:hover .lucide { opacity: 1; transition: none; }
+          a { transition: none; }
+          .btn-cta { transition: none; }
+          .skip-link { transition: none; }
+        }
       `}</style>
 
-      {brand &&
-      <style>{`
-          ${brand.heading_font_name && brand.heading_font_url_woff2 ? `
-          @font-face {
-            font-family: '${brand.heading_font_name}';
-            src: url('${brand.heading_font_url_woff2}') format('woff2');
-            font-weight: 400 700;
-            font-style: normal;
-            font-display: swap;
-          }` : ''}
+      <a href="#main-content" className="skip-link">Skip to main content</a>
 
-          ${brand.body_font_name && brand.body_font_url_woff2 ? `
-          @font-face {
-            font-family: '${brand.body_font_name}';
-            src: url('${brand.body_font_url_woff2}') format('woff2');
-            font-weight: 300 700;
-            font-style: normal;
-            font-display: swap;
-          }` : ''}
-
-          :root {
-            ${brand.heading_font_name ? `--font-heading: '${brand.heading_font_name}', Georgia, "Times New Roman", serif;` : ''}
-            ${brand.body_font_name ? `--font-body: '${brand.body_font_name}', "Helvetica Neue", Helvetica, Arial, sans-serif;` : ''}
-            ${brand.color_hills ? `--hills: ${brand.color_hills};` : ''}
-            ${brand.color_ink ? `--ink: ${brand.color_ink};` : ''}
-            ${brand.color_bright_grey ? `--bright-grey: ${brand.color_bright_grey};` : ''}
-            ${brand.color_sea_breeze ? `--sea-breeze: ${brand.color_sea_breeze};` : ''}
-            ${brand.color_sand ? `--sand: ${brand.color_sand};` : ''}
-            ${brand.color_stone ? `--stone: ${brand.color_stone};` : ''}
-            ${typeof brand.button_radius === 'number' ? `--radius-lg: ${brand.button_radius}px;` : ''}
-            ${typeof brand.button_height === 'number' ? `--btn-height: ${brand.button_height}px;` : ''}
-            ${typeof brand.button_min_width === 'number' ? `--btn-minw: ${brand.button_min_width}px;` : ''}
-            ${typeof brand.body_font_size === 'number' ? `--body-fs: ${brand.body_font_size}px;` : ''}
-            ${typeof brand.body_line_height_desktop === 'number' ? `--body-lh: ${brand.body_line_height_desktop}px;` : ''}
-            ${typeof brand.body_margin_bottom_desktop === 'number' ? `--body-mb: ${brand.body_margin_bottom_desktop}px;` : ''}
-            ${typeof brand.h1_desktop_size === 'number' ? `--h1-fs: ${brand.h1_desktop_size}px;` : ''}
-            ${typeof brand.h1_desktop_line_height === 'number' ? `--h1-lh: ${brand.h1_desktop_line_height}px;` : ''}
-            ${typeof brand.h1_desktop_margin_bottom === 'number' ? `--h1-mb: ${brand.h1_desktop_margin_bottom}px;` : ''}
-            ${typeof brand.h1_desktop_max_width === 'number' ? `--h1-mw: ${brand.h1_desktop_max_width}%;` : ''}
-            ${typeof brand.h2_desktop_size === 'number' ? `--h2-fs: ${brand.h2_desktop_size}px;` : ''}
-            ${typeof brand.h2_desktop_line_height === 'number' ? `--h2-lh: ${brand.h2_desktop_line_height}px;` : ''}
-            ${typeof brand.h2_desktop_margin_bottom === 'number' ? `--h2-mb: ${brand.h2_desktop_margin_bottom}px;` : ''}
-            ${typeof brand.h3_desktop_size === 'number' ? `--h3-fs: ${brand.h3_desktop_size}px;` : ''}
-            ${typeof brand.h3_desktop_line_height === 'number' ? `--h3-lh: ${brand.h3_desktop_line_height}px;` : ''}
-            ${typeof brand.h3_desktop_margin_bottom === 'number' ? `--h3-mb: ${brand.h3_desktop_margin_bottom}px;` : ''}
-          }
-
-          @media (max-width: 768px) {
-            :root {
-              ${typeof brand.body_line_height_mobile === 'number' ? `--body-lh: ${brand.body_line_height_mobile}px;` : ''}
-              ${typeof brand.body_margin_bottom_mobile === 'number' ? `--body-mb: ${brand.body_margin_bottom_mobile}px;` : ''}
-              ${typeof brand.h1_mobile_size === 'number' ? `--h1-fs: ${brand.h1_mobile_size}px;` : ''}
-              ${typeof brand.h1_mobile_line_height === 'number' ? `--h1-lh: ${brand.h1_mobile_line_height}px;` : ''}
-              ${typeof brand.h1_mobile_margin_bottom === 'number' ? `--h1-mb: ${brand.h1_mobile_margin_bottom}px;` : ''}
-              ${typeof brand.h1_mobile_max_width === 'number' ? `--h1-mw: ${brand.h1_mobile_max_width}%;` : ''}
-              ${typeof brand.h2_mobile_size === 'number' ? `--h2-fs: ${brand.h2_mobile_size}px;` : ''}
-              ${typeof brand.h2_mobile_line_height === 'number' ? `--h2-lh: ${brand.h2_mobile_line_height}px;` : ''}
-              ${typeof brand.h2_mobile_margin_bottom === 'number' ? `--h2-mb: ${brand.h2_mobile_margin_bottom}px;` : ''}
-              ${typeof brand.h3_mobile_size === 'number' ? `--h3-fs: ${brand.h3_mobile_size}px;` : ''}
-              ${typeof brand.h3_mobile_line_height === 'number' ? `--h3-lh: ${brand.h3_mobile_line_height}px;` : ''}
-              ${typeof brand.h3_mobile_margin_bottom === 'number' ? `--h3-mb: ${brand.h3_mobile_margin_bottom}px;` : ''}
-              ${typeof brand.button_height_mobile === 'number' ? `--btn-height: ${brand.button_height_mobile}px;` : ''}
-              ${typeof brand.button_min_width_mobile === 'number' ? `--btn-minw: ${brand.button_min_width_mobile}px;` : ''}
-            }
-          }
-        `}</style>
-      }
-
-      <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white shadow-lg py-3' : 'bg-white/95 backdrop-blur-sm py-5'}`
-      }>
-        <div className="mx-3 sm:mx-4 md:mx-6 lg:mx-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header
+        className={`fixed w-full top-0 z-50 transition-all duration-500 ${
+          isHome && !isScrolled
+            ? 'py-4'
+            : isScrolled
+              ? 'bg-white/95 backdrop-blur-md shadow-sm py-3'
+              : 'bg-white py-4'
+        }`}
+        style={isHome && !isScrolled ? { background: 'transparent' } : undefined}
+      >
+        <div className="site-container">
             <div className="flex justify-between items-center">
               <Link to={createPageUrl("Home")} className="flex items-center">
                 <img
-                  src={brand?.logo_url || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/eba70ebd7_10COMPASS_LOGO.png"}
-                  alt={brand?.site_name || "Compass Buyers Agency"}
-                  className="h-7 md:h-9 w-auto" />
+                  src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
+                  alt={brand?.siteName || "Compass Buyers Agency"}
+                  className="h-7 md:h-8 w-auto transition-all duration-300"
+                  style={isHome && !isScrolled ? { filter: 'brightness(0) invert(1)' } : undefined} />
 
-                <span className="sr-only">{brand?.site_name || "Compass Buyers Agency"}</span>
+                <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
               </Link>
 
-              <nav className="hidden xl:flex items-center space-x-10">
+              <nav className="hidden xl:flex items-center gap-8" aria-label="Primary navigation">
                 {navigationItems.
                 filter((item) => item.title !== "Contact" && !(currentPageName === "Home" && item.title === "Home")).
                 map((item) =>
                 <Link
                   key={item.title}
                   to={item.url}
-                  className={`text-[18px] font-medium transition-colors duration-200 hover:text-[var(--hills)] ${
-                  location.pathname === item.url ?
-                  'text-[var(--hills)] border-b-2 border-[var(--hills)] pb-1' :
-                  'text-[var(--ink)]/90'}`
-                  }
-                  style={{ fontFamily: 'var(--font-body)' }}>
-
-                    {item.title}
-                  </Link>
+                  aria-current={location.pathname === item.url ? "page" : undefined}
+                  className={`text-[16px] transition-colors duration-300 ${
+                    isHome && !isScrolled
+                      ? location.pathname === item.url
+                        ? 'text-white font-medium'
+                        : 'text-white/70 hover:text-white font-normal'
+                      : location.pathname === item.url
+                        ? 'text-[var(--hills)] font-medium'
+                        : 'text-[var(--ink)]/70 hover:text-[var(--hills)] font-normal'
+                  }`}
+                >
+                  {item.title}
+                </Link>
                 )}
                 <Link to={createPageUrl("Contact")}>
-                  <Button
-                    className="btn-cta bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white"
-                    style={{ fontFamily: 'var(--font-body)' }}>
-
-                    Contact
+                  <Button className={`btn-cta text-[14px] ${
+                    isHome && !isScrolled
+                      ? 'bg-white/10 backdrop-blur-sm text-white border border-white/25 hover:bg-white/20'
+                      : 'bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white'
+                  }`}>
+                    Speak to an Agent
                   </Button>
                 </Link>
               </nav>
 
-              {/* Mobile/Tablet: Hamburger only */}
+              {/* Mobile/Tablet: Phone + Hamburger */}
               <div className="xl:hidden flex items-center gap-3">
+                <a
+                  href="tel:0403536390"
+                  className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
+                    isHome && !isScrolled
+                      ? 'border-white/30 hover:bg-white/10'
+                      : 'border-[var(--stone)]/30 hover:bg-[var(--bright-grey)]/50'
+                  }`}
+                  aria-label="Call Compass Buyers Agency"
+                >
+                  <Phone className="h-4 w-4" style={{ color: isHome && !isScrolled ? '#fff' : 'var(--hills)' }} />
+                </a>
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="outline" size="icon" className="border-[var(--stone)]">
-                      <Menu className="h-5 w-5" style={{ color: 'var(--hills)' }} />
-                    </Button>
+                    <button
+                      className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
+                        isHome && !isScrolled
+                          ? 'border-white/30 bg-transparent hover:bg-white/10'
+                          : 'border-[var(--stone)]/30 bg-transparent hover:bg-[var(--bright-grey)]/50'
+                      }`}
+                      aria-label="Open menu"
+                    >
+                      <Menu className="h-5 w-5" style={{ color: isHome && !isScrolled ? '#fff' : 'var(--hills)' }} />
+                    </button>
                   </SheetTrigger>
-                  <SheetContent side="right" className="w-[300px] bg-white">
+                  <SheetContent side="right" className="w-[300px] max-w-[90vw] bg-white">
                     <div className="flex flex-col h-full">
                       <div className="flex justify-between items-center py-6 border-b border-[var(--bright-grey)]">
                         <div className="flex items-center">
                           <img
-                            src={brand?.logo_url || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/eba70ebd7_10COMPASS_LOGO.png"}
-                            alt={brand?.site_name || "Compass Buyers Agency"}
+                            src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
+                            alt={brand?.siteName || "Compass Buyers Agency"}
                             className="h-7 w-auto" />
 
-                          <span className="sr-only">{brand?.site_name || "Compass Buyers Agency"}</span>
+                          <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
                         </div>
                         <SheetClose />
                       </div>
                       
-                      <nav className="flex flex-col space-y-6 py-8">
+                      <nav className="flex flex-col space-y-6 py-8" aria-label="Mobile navigation">
                         {navigationItems.
                         filter((item) => item.title !== "Contact" && !(currentPageName === "Home" && item.title === "Home")).
                         map((item) =>
                         <SheetClose asChild key={item.title}>
                             <Link
                             to={item.url}
-                            className={`text-[18px] font-medium transition-colors duration-200 capitalize ${
-                            location.pathname === item.url ?
-                            'text-[var(--hills)]' :
-                            'text-[var(--ink)] hover:text-[var(--hills)]'}`
-                            }
-                            style={{ fontFamily: 'var(--font-body)' }}>
-
-                              {item.title}
-                            </Link>
+                            aria-current={location.pathname === item.url ? "page" : undefined}
+                            className={`text-lg font-medium transition-colors duration-200 capitalize ${
+                              location.pathname === item.url
+                                ? 'text-[var(--hills)]'
+                                : 'text-[var(--ink)] hover:text-[var(--hills)]'
+                            }`}
+                          >
+                            {item.title}
+                          </Link>
                           </SheetClose>
                         )}
                       </nav>
@@ -564,11 +634,8 @@ export default function Layout({ children, currentPageName }) {
                       <div className="mt-auto py-6 border-t border-[var(--bright-grey)]">
                         <SheetClose asChild>
                           <Link to={createPageUrl("Contact")}>
-                            <Button
-                              className="btn-cta w-full bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white"
-                              style={{ fontFamily: 'var(--font-body)' }}>
-
-                              Contact
+                            <Button className="btn-cta w-full bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
+                              Speak to an Agent
                             </Button>
                           </Link>
                         </SheetClose>
@@ -578,91 +645,80 @@ export default function Layout({ children, currentPageName }) {
                 </Sheet>
               </div>
             </div>
-          </div>
         </div>
       </header>
 
-      <main className="pt-20">
+      <main id="main-content" className={isHome ? '' : 'pt-20'}>
         {children}
       </main>
 
-      <footer className="bg-transparent">
-        <div className="site-container pb-10">
-          <div className="bg-[var(--ink)] text-white rounded-[28px] p-8 md:p-10 lg:p-12 shadow-xl">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-10">
-              <div className="md:col-span-1">
+      <StickyMobileCTA />
+
+      <footer className="bg-editorial-dark text-white" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="site-container py-12 md:py-16 pb-24 md:pb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+
+              {/* Col 1: Brand + contact */}
+              <div>
                 <div
-                  className="text-2xl font-bold mb-2"
-                  style={{ color: 'var(--sea-breeze)', fontFamily: 'var(--font-heading)' }}>
-
-                  {brand?.site_name || "Compass Buyers Agency"}
+                  className="text-lg mb-3"
+                  style={{ color: "#fff", fontFamily: "var(--font-heading)", fontWeight: 400, letterSpacing: "-0.01em" }}>
+                  {brand?.siteName || "Compass Buyers Agency"}
                 </div>
-                <p className="text-white/80 mx-1 text-sm leading-relaxed max-w-sm">Your trusted partner in the Northern Rivers. We find, assess and secure the right property with local insight and care.
-
+                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", fontWeight: 300, lineHeight: 1.65, maxWidth: "28ch", marginBottom: "1.25rem" }}>
+                  Northern Rivers and Gold Coast buyers agents. Local knowledge, honest advice.
                 </p>
+                <div className="space-y-1.5" style={{ fontSize: "0.875rem" }}>
+                  <div><a href="tel:0403536390" className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>0403 536 390</a></div>
+                  <div><a href="mailto:hello@compassbuyersagency.com.au" className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>hello@compassbuyersagency.com.au</a></div>
+                </div>
+                <div className="flex gap-5 mt-5">
+                  <a href="https://www.instagram.com/compassbuyersagency/" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Instagram</a>
+                  <a href="https://www.facebook.com/compassbuyersagency/" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Facebook</a>
+                </div>
               </div>
 
+              {/* Col 2: Pages */}
               <div>
-                <div className="text-white/90 font-semibold mb-3">Main Pages</div>
-                <ul className="space-y-2 text-white/75">
+                <div style={{ color: "rgba(255,255,255,0.35)", fontWeight: 500, fontSize: "0.6875rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Pages</div>
+                <ul className="grid grid-cols-2 gap-x-6 gap-y-2" style={{ fontSize: "0.875rem" }}>
                   {navigationItems.map((item) =>
-                  <li key={item.title}>
-                      <Link to={item.url} className="hover:text-white transition-colors">
-                        {item.title}
-                      </Link>
+                    <li key={item.title}>
+                      <Link to={item.url} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>{item.title}</Link>
                     </li>
                   )}
+                  <li><Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Privacy Policy</Link></li>
                 </ul>
               </div>
 
+              {/* Col 3: Service areas */}
               <div>
-                <div className="text-white/90 font-semibold mb-3">Other Pages</div>
-                <ul className="space-y-2 text-white/75">
-                  <li><Link to={createPageUrl("Areas")} className="hover:text-white transition-colors">Areas</Link></li>
-                  <li><Link to={createPageUrl("Acquisitions")} className="hover:text-white transition-colors">Acquisitions</Link></li>
-                  <li><Link to={createPageUrl("Blog")} className="hover:text-white transition-colors">Blog</Link></li>
-                  <li><Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                </ul>
-
-                <div className="text-white/90 font-semibold mt-5 mb-3">Service Areas</div>
-                <ul className="space-y-2 text-white/75">
-                  <li><Link to={createPageUrl("GoldCoastBuyersAgent")} className="hover:text-white transition-colors">Gold Coast Buyers Agent</Link></li>
-                  <li><Link to={createPageUrl("ByronBayBuyersAgent")} className="hover:text-white transition-colors">Byron Bay Buyers Agent</Link></li>
-                  <li><Link to={createPageUrl("TweedHeadsBuyersAgent")} className="hover:text-white transition-colors">Tweed Heads Buyers Agent</Link></li>
-                  <li><Link to={createPageUrl("NorthernRiversBuyersAgent")} className="hover:text-white transition-colors">Northern Rivers Buyers Agent</Link></li>
-                </ul>
-              </div>
-
-              <div>
-                <div className="text-white/90 font-semibold mb-3">Follow us</div>
-                <ul className="space-y-2 text-white/75">
-
-                  <li><a href="https://www.instagram.com/compassbuyersagency/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
-                  <li><a href="https://www.facebook.com/compassbuyersagency/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Facebook</a></li>
+                <div style={{ color: "rgba(255,255,255,0.35)", fontWeight: 500, fontSize: "0.6875rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Service Areas</div>
+                <ul className="space-y-2" style={{ fontSize: "0.875rem" }}>
+                  <li><Link to={createPageUrl("ByronBayBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Byron Bay</Link></li>
+                  <li><Link to={createPageUrl("GoldCoastBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Gold Coast</Link></li>
+                  <li><Link to={createPageUrl("TweedHeadsBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Tweed Heads</Link></li>
+                  <li><Link to={createPageUrl("NorthernRiversBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Northern Rivers</Link></li>
                 </ul>
               </div>
             </div>
 
-            <div className="mt-8 text-white/70 text-sm leading-relaxed">
-              We acknowledge the Bundjalung, Gumbaynggirr and Yaegl people as the Traditional Owners of the land on which we live and work. We honour the First Nations peoples&apos; culture and connection to land, sea and community. We pay our respects to their Elders past, present and emerging.
+            <div className="mt-8" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", lineHeight: 1.6 }}>
+              We acknowledge the Bundjalung, Gumbaynggirr and Yaegl people as the Traditional Owners of the land on which we live and work. We pay our respects to their Elders past, present and emerging.
             </div>
 
-            <div className="border-t border-white/10 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="text-white/60 text-sm">
-                © {new Date().getFullYear()} {brand?.site_name || "Compass Buyers Agency"}. All rights reserved.
+            <div className="flex flex-col md:flex-row items-center justify-between gap-2 mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
+                &copy; {new Date().getFullYear()} {brand?.siteName || "Compass Buyers Agency"}
               </div>
-              <div className="text-white/60 text-sm">
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
                 Built by Roadmap Labs
               </div>
             </div>
-          </div>
         </div>
       </footer>
 
-      <AdminPageNavigator />
-      {isAdmin && <EditModeToggle enabled={isAdmin} />}
-      <GlobalEditableImages />
       </div>
-      </EditModeProvider>);
+  );
 
       }

@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "@sanity/vision": "^3.0.0",
-    "sanity": "^3.0.0"
+    "sanity": "^3.0.0",
+    "styled-components": "^6.3.11",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@sanity/client": "^7.16.0",

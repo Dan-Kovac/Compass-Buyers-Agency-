@@ -71,7 +71,7 @@ export default function AcquisitionDetail() {
       <div className="site-container py-12">
         <div className="rounded-token border border-[var(--border)] bg-white p-8">
           <h2 className="text-2xl font-semibold mb-4">Acquisition not found</h2>
-          <p className="text-gray-600 mb-6">The property you're looking for doesn't exist or has been removed.</p>
+          <p className="text-[var(--ink)]/70 mb-6">The property you're looking for doesn't exist or has been removed.</p>
           <a href={createPageUrl("Acquisitions")} className="text-[var(--hills)] hover:underline">
             ← Back to all acquisitions
           </a>
@@ -89,11 +89,11 @@ export default function AcquisitionDetail() {
   return (
     <div className="bg-white min-h-screen">
       {/* Simple header bar */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-[var(--border)]">
         <div className="site-container py-4">
           <a 
             href={createPageUrl("Acquisitions")} 
-            className="text-xs uppercase tracking-wider text-gray-500 hover:text-[var(--hills)] transition-colors"
+            className="text-xs uppercase tracking-wider text-[var(--ink)]/50 hover:text-[var(--hills)] transition-colors"
           >
             ← Back to Acquisitions
           </a>
@@ -101,7 +101,7 @@ export default function AcquisitionDetail() {
       </div>
 
       {/* Main content */}
-      <section className="py-12 md:py-16">
+      <section className="section-padding">
         <div className="site-container">
           <div className="max-w-6xl mx-auto">
             {/* Two column layout */}
@@ -117,37 +117,37 @@ export default function AcquisitionDetail() {
                 </div>
 
                 {/* Property specs with icons */}
-                <div className="flex flex-wrap gap-6 pb-6 border-b border-gray-200">
-                  {typeof item.beds === "number" && (
+                <div className="flex flex-wrap gap-6 pb-6 border-b border-[var(--border)]">
+                  {item.beds > 0 && (
                     <div className="flex items-center gap-2">
-                      <Bed className="w-5 h-5 text-gray-400" />
-                      <span className="text-gray-700">{item.beds}</span>
+                      <Bed className="w-5 h-5 text-[var(--ink)]/40" />
+                      <span className="text-[var(--ink)]/70">{item.beds}</span>
                     </div>
                   )}
-                  {typeof item.baths === "number" && (
+                  {item.baths > 0 && (
                     <div className="flex items-center gap-2">
-                      <Bath className="w-5 h-5 text-gray-400" />
-                      <span className="text-gray-700">{item.baths}</span>
+                      <Bath className="w-5 h-5 text-[var(--ink)]/40" />
+                      <span className="text-[var(--ink)]/70">{item.baths}</span>
                     </div>
                   )}
-                  {typeof item.cars === "number" && (
+                  {item.cars > 0 && (
                     <div className="flex items-center gap-2">
-                      <Car className="w-5 h-5 text-gray-400" />
-                      <span className="text-gray-700">{item.cars}</span>
+                      <Car className="w-5 h-5 text-[var(--ink)]/40" />
+                      <span className="text-[var(--ink)]/70">{item.cars}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Description */}
                 {item.excerpt && (
-                  <div className="text-gray-700 leading-relaxed">
+                  <div className="text-[var(--ink)]/70 leading-relaxed">
                     {item.excerpt}
                   </div>
                 )}
 
                 {/* Realestate.com link */}
                 {item.realestate_link && (
-                  <div className="pt-6 border-t border-gray-200">
+                  <div className="pt-6 border-t border-[var(--border)]">
                     <a
                       href={item.realestate_link}
                       target="_blank"
@@ -164,8 +164,8 @@ export default function AcquisitionDetail() {
 
                 {/* Agent info */}
                 {item.agent && (
-                  <div className="pt-6 border-t border-gray-200">
-                    <div className="uppercase text-xs tracking-wider text-gray-500 mb-4">
+                  <div className="pt-6 border-t border-[var(--border)]">
+                    <div className="uppercase text-xs tracking-wider text-[var(--ink)]/50 mb-4">
                       Bought by {item.agent}
                     </div>
                     {agent ? (
@@ -175,6 +175,7 @@ export default function AcquisitionDetail() {
                             src={agent.photo}
                             alt={agent.name}
                             className="w-16 h-16 rounded-full object-cover"
+                            loading="lazy"
                           />
                         )}
                         <div>
@@ -182,14 +183,14 @@ export default function AcquisitionDetail() {
                             {agent.name}
                           </div>
                           {agent.phone && (
-                            <div className="text-sm text-gray-600 mb-0.5">
+                            <div className="text-sm text-[var(--ink)]/60 mb-0.5">
                               {agent.phone}
                             </div>
                           )}
                           {agent.email && (
                             <a 
                               href={`mailto:${agent.email}`}
-                              className="text-sm text-gray-600 hover:text-[var(--hills)] transition-colors"
+                              className="text-sm text-[var(--ink)]/60 hover:text-[var(--hills)] transition-colors"
                             >
                               {agent.email}
                             </a>
@@ -197,7 +198,7 @@ export default function AcquisitionDetail() {
                         </div>
                       </div>
                     ) : (
-                      <div className="text-gray-600">{item.agent}</div>
+                      <div className="text-[var(--ink)]/60">{item.agent}</div>
                     )}
                   </div>
                 )}
@@ -206,12 +207,14 @@ export default function AcquisitionDetail() {
               {/* Right column: image */}
               <div className="lg:sticky lg:top-24">
                 {item.main_image_url && (
-                  <div className="aspect-[4/3] rounded-[20px] overflow-hidden surface p-0">
+                  <div className="aspect-[4/3] rounded-token overflow-hidden surface p-0">
                     <img
                       src={item.main_image_url}
                       alt={item.title}
                       className="w-full h-full object-cover"
                       loading="eager"
+                      fetchPriority="high"
+                      onError={(e) => { e.target.style.display = "none"; }}
                     />
                   </div>
                 )}
@@ -223,7 +226,7 @@ export default function AcquisitionDetail() {
 
       {/* Similar acquisitions by area */}
       {similarByArea.length > 0 && (
-        <section className="py-12 border-t border-gray-200">
+        <section className="section-padding border-t border-[var(--border)]">
           <div className="site-container">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-xl font-semibold mb-8">
@@ -236,7 +239,7 @@ export default function AcquisitionDetail() {
                     href={createPageUrl(`AcquisitionDetail?id=${acq.id}`)}
                     className="surface overflow-hidden rounded-token group"
                   >
-                    <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                    <div className="aspect-[4/3] bg-[var(--bright-grey)] relative overflow-hidden">
                       {acq.main_image_url && (
                         <img
                           src={acq.main_image_url}
@@ -247,7 +250,7 @@ export default function AcquisitionDetail() {
                       )}
                     </div>
                     <div className="p-4">
-                      <div className="text-sm text-gray-500 mb-1">{acq.suburb}</div>
+                      <div className="text-sm text-[var(--ink)]/50 mb-1">{acq.suburb}</div>
                       <h3 className="text-lg font-semibold truncate group-hover:text-[var(--hills)] transition-colors">
                         {acq.title}
                       </h3>
@@ -258,6 +261,24 @@ export default function AcquisitionDetail() {
             </div>
           </div>
         </section>
+      )}
+
+      {/* JSON-LD for acquisition */}
+      {item && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: item.title,
+          description: item.excerpt || `${item.beds || ''}BR ${item.property_type || 'property'} in ${item.suburb || 'Northern Rivers'}`,
+          image: item.main_image_url || undefined,
+          brand: { "@type": "Organization", name: "Compass Buyers Agency" },
+          offers: item.purchase_price ? {
+            "@type": "Offer",
+            price: item.purchase_price,
+            priceCurrency: "AUD",
+            availability: "https://schema.org/SoldOut",
+          } : undefined,
+        }) }} />
       )}
     </div>
   );

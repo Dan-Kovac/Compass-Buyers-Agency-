@@ -19,8 +19,8 @@ export default class ErrorBoundary extends React.Component {
       return (
         <div className="min-h-screen flex items-center justify-center bg-white">
           <div className="text-center px-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong</h1>
-            <p className="text-gray-600 mb-4">Please refresh the page or try again later.</p>
+            <h1 className="text-2xl font-bold text-[var(--ink)] mb-2">Something went wrong</h1>
+            <p className="text-[var(--ink)]/70 mb-4">Please refresh the page or try again later.</p>
             <button
               onClick={() => window.location.reload()}
               className="btn-cta bg-[var(--hills)] text-white px-6 py-2 rounded-lg"

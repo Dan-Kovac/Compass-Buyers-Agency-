@@ -42,6 +42,76 @@ export async function fetchSiteSettings() {
   return client.fetch(`*[_id == "siteSettings"][0]`);
 }
 
+// ─── Page SEO ─────────────────────────────────────────────────────────────────
+
+const PAGE_NAME_TO_ID = {
+  Home: 'homePage',
+  About: 'aboutPage',
+  Services: 'servicesPage',
+  Contact: 'contactPage',
+  Areas: 'areasPage',
+  WhoWeWorkWith: 'whoWeWorkWithPage',
+  PrivacyPolicy: 'privacyPolicyPage',
+};
+
+/**
+ * Hardcoded SEO fallbacks for pages without Sanity singletons.
+ * Layout.jsx reads these when fetchPageSEO returns null.
+ */
+export const STATIC_SEO = {
+  Blog: {
+    metaTitle: 'Blog | Northern Rivers & Gold Coast Property Insights',
+    metaDescription: 'Market updates, suburb profiles and buying guides for Byron Bay, Tweed Coast and Southern Gold Coast. Data-led insights from local buyers agents.',
+  },
+  Acquisitions: {
+    metaTitle: 'Acquisitions | Properties We\u2019ve Secured | Compass',
+    metaDescription: 'Browse properties secured by Compass across Byron Bay, Tweed Coast and Gold Coast. Filter by region, suburb and property type.',
+  },
+  CaseStudies: {
+    metaTitle: 'Case Studies | Real Buyer Results | Compass',
+    metaDescription: 'Real results from buyers across Northern Rivers and Southern Gold Coast. Filter by property type, location and buyer segment.',
+  },
+};
+
+/**
+ * Fetch the SEO object for a given page name.
+ * Returns { metaTitle, metaDescription, ogImage, canonicalUrl, noIndex } or null.
+ */
+export async function fetchPageSEO(pageName) {
+  const docId = PAGE_NAME_TO_ID[pageName];
+  if (!docId) return null;
+  return client.fetch(`*[_id == $id][0].seo`, { id: docId });
+}
+
+// ─── Landing Pages ────────────────────────────────────────────────────────────
+
+const LANDING_PAGE_FIELDS = `
+  _id,
+  title,
+  "slug": slug.current,
+  region,
+  seo,
+  heroTitle,
+  heroSubtitle,
+  heroImage,
+  marketStats,
+  infoSplits,
+  suburbs,
+  approach,
+  faqItems,
+  testimonialVideos,
+  ctaHeading,
+  ctaButtonText,
+  jsonLd
+`;
+
+export async function fetchLandingPage(slug) {
+  return client.fetch(
+    `*[_type == "landingPage" && slug.current == $slug][0] { ${LANDING_PAGE_FIELDS} }`,
+    { slug }
+  );
+}
+
 // ─── Blog Posts ───────────────────────────────────────────────────────────────
 
 const BLOG_POST_FIELDS = `

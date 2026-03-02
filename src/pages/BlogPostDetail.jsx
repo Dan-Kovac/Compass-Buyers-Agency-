@@ -55,7 +55,7 @@ export default function BlogPostDetail() {
       `}</style>
 
       {/* Centered article content, no right rail */}
-      <section className="py-8 md:py-12 bg-white">
+      <section className="section-padding bg-white">
         <div className="blog-preview">
           <ArticlePreviewFrame data={post} settings={settings} type="blog" />
         </div>

@@ -28,3 +28,12 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Claude Code session data
+.claude/
+
+# Debug screenshots
+captures/
+
+# Sanity runtime cache
+sanity/.sanity/

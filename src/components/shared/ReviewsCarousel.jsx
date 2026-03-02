@@ -39,7 +39,7 @@ export default function ReviewsCarousel({
   return (
     <div className="w-full">
       {!ready ? (
-        <div className="h-28 w-full rounded-lg border border-[var(--bright-grey)] bg-gray-50 animate-pulse" />
+        <div className="h-28 w-full rounded-lg border border-[var(--bright-grey)] bg-[var(--bright-grey)]/50 animate-pulse" />
       ) : (
         <emr-simple-carousel widget-id={widgetId}></emr-simple-carousel>
       )}

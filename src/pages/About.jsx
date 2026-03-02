@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { fetchTeamMembers } from "@/lib/sanityClient";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { fetchTeamMembers, fetchPage, urlFor } from "@/lib/sanityClient";
+import { Mail } from "lucide-react";
 import { createPageUrl } from "@/utils";
-import { Mail, Phone, ChevronDown } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import CTASection from "../components/shared/CTASection.jsx";
 import FeatureSplit from "../components/about/FeatureSplit";
-import { fetchPage } from "@/lib/sanityClient";
+import ImageBand from "../components/shared/ImageBand";
+import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
 export default function About() {
-  const navigate = useNavigate();
   const [teamMembers, setTeamMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(null);
@@ -36,129 +32,175 @@ export default function About() {
 
   return (
     <div className="bg-white">
-      <section className="py-12 bg-white">
-        <div className="site-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center" style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}>
-            <h1 className="text-4xl md:text-5xl font-bold text-[var(--ink)] leading-[1.1] mx-auto">
-              {page?.heading || "Our Team"}
-            </h1>
-            <p className="text-gray-600 text-base md:text-lg">
-              {page?.subtitle || "Local property professionals deeply embedded in our community, providing unique access to opportunities others simply can't."}
-            </p>
-          </div>
+      {/* Page header */}
+      <section className="bg-white" style={{ padding: "var(--section-standard) 0 var(--section-compact) 0" }}>
+        <div className="site-container">
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">About Compass</p>
+              <h1>
+                {page?.heading || "The People Behind Compass"}
+              </h1>
+              <p className="intro-text mx-auto">
+                {page?.subtitle || "Licensed buyers agents based on the Tweed Coast. We know these streets, these agents, and these markets because we live here."}
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
+      {/* Feature split 1 — white bg */}
       <FeatureSplit
-        title={page?.featureSplit1Title || "Your Local Advantage"}
-        description={page?.featureSplit1Description || "As both locals and property professionals deeply embedded in our community, we provide unique access to off-market properties, pre-market and many options not published online."}
-        image={page?.featureSplit1ImageUrl || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/1a4591edc_CONTENTSHOOTJULY-31.jpg"}
-        imageAlt={page?.featureSplit1ImageAlt || "Compass team meeting clients"}
+        eyebrow="Local Knowledge"
+        title={page?.featureSplit1?.title || "What Local Actually Means"}
+        description={page?.featureSplit1?.description || "We're based in Cabarita Beach. We inspect properties in person, talk to selling agents weekly, and know which streets flood and which don't.\n\n\u2022 42% of our deals come from off-market or pre-market channels\n\u2022 Street-level knowledge across Byron, Ballina, Tweed and the southern Gold Coast\n\u2022 Established relationships with local agents, solicitors and building inspectors"}
+        image={page?.featureSplit1?.image ? urlFor(page.featureSplit1.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/1a4591edc_CONTENTSHOOTJULY-31.jpg"}
+        imageAlt={page?.featureSplit1?.imageAlt || "Compass team meeting clients"}
         imageLeft={false}
         mobileImageFirst={true}
         variant="white"
-        mediaKey="about-feature-1"
       />
 
+      {/* Atmospheric image band */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
+        alt="Aerial view of Northern Rivers coastline"
+        height="260px"
+        overlay
+      />
+
+      {/* Feature split 2 — cream bg for contrast */}
       <FeatureSplit
-        title={page?.featureSplit2Title || "Why Compass Buyers Agency?"}
-        description={page?.featureSplit2Description || "We simplify the buying process, cutting through stress and confusion with clarity and support at every step."}
-        image={page?.featureSplit2ImageUrl || "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/6c2c9c4ac_CONTENTSHOOTJULY-30.jpg"}
-        imageAlt={page?.featureSplit2ImageAlt || "Compass team at office"}
+        eyebrow="Our Approach"
+        title={page?.featureSplit2?.title || "Buyers Only. No Exceptions."}
+        description={page?.featureSplit2?.description || "We only represent buyers. No selling. No conflicts. That changes the advice you get and the outcomes you get.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, not a hand-off between departments\n\u2022 You'll always know where things stand, no chasing for updates"}
+        image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/6c2c9c4ac_CONTENTSHOOTJULY-30.jpg"}
+        imageAlt={page?.featureSplit2?.imageAlt || "Compass team at office"}
         imageLeft={true}
-        variant="white"
+        variant="cream"
         ctaLabel="Get in touch"
         ctaHref={createPageUrl("Contact")}
-        mediaKey="about-feature-2"
       />
 
-      <section className="py-16 bg-gradient-to-b from-white to-[var(--sea-breeze)]/10">
-        <div className="site-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-[var(--ink)] mb-2">
-              {page?.teamSectionHeading || "Meet Your Property Experts"}
+      {/* Team section — editorial portrait cards */}
+      <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing-lg) 0" }}>
+        <div className="site-container">
+          <ScrollReveal className="text-center mb-12 md:mb-16">
+            <p className="eyebrow-label">The Team</p>
+            <h2>
+              {page?.teamSectionHeading || "Who you'll work with"}
             </h2>
-          </div>
+            <p className="intro-text mx-auto">
+              Every conversation, inspection and negotiation is handled by the people you see here. No hand-offs, no call centres.
+            </p>
+          </ScrollReveal>
 
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
               {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="surface p-6 animate-pulse">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-full bg-gray-200" />
-                    <div className="flex-1">
-                      <div className="h-4 bg-gray-200 rounded w-2/3 mb-2" />
-                      <div className="h-3 bg-gray-200 rounded w-1/2" />
-                    </div>
+                <div key={i} className="animate-pulse">
+                  <div className="aspect-[4/5] rounded-lg bg-[var(--bright-grey)]" />
+                  <div className="pt-5">
+                    <div className="h-0.5 w-8 bg-[var(--bright-grey)] rounded-full mb-3" />
+                    <div className="h-5 bg-[var(--bright-grey)] rounded w-2/3 mb-2" />
+                    <div className="h-4 bg-[var(--bright-grey)] rounded w-1/2 mb-4" />
+                    <div className="h-3 bg-[var(--bright-grey)] rounded w-full mb-1.5" />
+                    <div className="h-3 bg-[var(--bright-grey)] rounded w-5/6" />
                   </div>
-                  <div className="h-3 bg-gray-200 rounded w-full mt-4" />
-                  <div className="h-3 bg-gray-200 rounded w-5/6 mt-2" />
                 </div>
               ))}
             </div>
           ) : teamMembers && teamMembers.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+              <StaggerGroup stagger={120}>
               {teamMembers.map((m) => (
-                <div key={m.id} className="surface p-6 group flex flex-col h-full">
-                  <div className="flex-1">
-                    <div className="relative rounded-token overflow-hidden aspect-square ring-1 ring-[var(--border)]">
-                      {m.intro_video_url ? (
-                        (m.intro_video_url.includes("youtube.com") || m.intro_video_url.includes("youtu.be")) ? (
-                          <iframe src={m.intro_video_url.replace("watch?v=", "embed/")} title={`${m.name} introduction video`} className="w-full h-full" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
-                        ) : (
-                          <video src={m.intro_video_url} poster={m.photo || undefined} controls className="w-full h-full object-cover" />
-                        )
-                      ) : (
-                        <img src={m.photo || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"} alt={m.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy" />
-                      )}
-                      <div className="absolute inset-0 bg-[var(--hills)] opacity-0 group-hover:opacity-[0.06] transition-opacity duration-300" />
+                <ScrollReveal key={m.id}>
+                <div className="group flex flex-col h-full">
+                  {/* Portrait photo */}
+                  <div className="relative overflow-hidden aspect-[4/5] rounded-lg ring-1 ring-black/[0.04]">
+                    <img
+                      src={m.photo || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"}
+                      alt={m.name}
+                      className="w-full h-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="pt-5 flex-1 flex flex-col">
+                    <div className="h-0.5 w-8 rounded-full bg-[var(--hills)]/60 mb-3" />
+
+                    <div
+                      className="text-[var(--ink)] leading-tight"
+                      style={{ fontFamily: "var(--font-heading)", fontSize: "1.375rem", fontWeight: 400, letterSpacing: "-0.01em", marginBottom: "2px" }}
+                    >
+                      {m.name}
                     </div>
-                    <div className="mt-3 h-1 w-10 rounded-full bg-[var(--hills)]/70" />
-                    <div className="mt-3">
-                      <div className="text-lg font-semibold text-[var(--ink)] leading-tight tracking-tight">{m.name}</div>
-                      <div className="text-gray-600">{m.position}</div>
+
+                    <div style={{ fontWeight: "var(--font-body-light)", color: "var(--stone)", fontSize: "0.9375rem", marginBottom: "12px" }}>
+                      {m.position}
                     </div>
+
+                    {m.bio && (
+                      <p
+                        className="line-clamp-3 flex-1"
+                        style={{ fontWeight: "var(--font-body-light)", color: "var(--stone)", fontSize: "0.9375rem", lineHeight: "1.65", marginBottom: "0" }}
+                      >
+                        {m.bio}
+                      </p>
+                    )}
+
                     {Array.isArray(m.specialties) && m.specialties.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-3">
+                      <div className="flex flex-wrap gap-1.5 mt-4">
                         {m.specialties.slice(0, 4).map((s, idx) => (
-                          <Badge key={idx} variant="secondary" className="bg-[var(--bright-grey)] text-[var(--ink)]">{s}</Badge>
+                          <span
+                            key={idx}
+                            className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--stone)]"
+                            style={{ fontWeight: "var(--font-body-regular)" }}
+                          >
+                            {s}
+                          </span>
                         ))}
                       </div>
                     )}
-                  </div>
-                  <div className="mt-auto space-y-3">
-                    <div className="grid grid-cols-2 gap-3 w-full">
-                      {m.email && <Button asChild variant="outline" className="w-full"><a href={`mailto:${m.email}`} className="w-full inline-flex items-center justify-center gap-2"><Mail className="w-4 h-4" /> Email</a></Button>}
-                      {m.phone && <Button asChild variant="outline" className="w-full"><a href={`tel:${m.phone}`} className="w-full inline-flex items-center justify-center gap-2"><Phone className="w-4 h-4" /> Call</a></Button>}
-                    </div>
-                    <div className="mt-4">
-                      <a href={createPageUrl(`TeamMemberDetail?id=${m.id}`)}><Button variant="outline" className="w-full">View Full Profile</Button></a>
-                    </div>
-                    {m.bio && (
-                      <Collapsible className="mt-4">
-                        <CollapsibleTrigger asChild>
-                          <Button variant="link" className="px-0 text-[var(--hills)] hover:opacity-80 inline-flex items-center gap-1 group">
-                            Read bio <ChevronDown className="w-4 h-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                          </Button>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent><p className="text-gray-700 mt-3 leading-relaxed">{m.bio}</p></CollapsibleContent>
-                      </Collapsible>
+
+                    {m.email && (
+                      <a
+                        href={`mailto:${m.email}`}
+                        className="mt-4 text-sm text-[var(--hills)] hover:underline underline-offset-2 inline-flex items-center gap-1.5"
+                        style={{ fontWeight: "var(--font-body-medium)" }}
+                      >
+                        <Mail className="w-3.5 h-3.5" /> Get in touch
+                      </a>
                     )}
                   </div>
                 </div>
+                </ScrollReveal>
               ))}
+              </StaggerGroup>
             </div>
           ) : (
-            <div className="text-center text-gray-600">No team members yet. Add team profiles in the CMS to display them here.</div>
+            <div className="text-center" style={{ color: "var(--stone)" }}>
+              No team members yet. Add team profiles in the CMS to display them here.
+            </div>
           )}
         </div>
       </section>
 
+      {/* Coastal image band — rhythm break before CTA */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop"
+        alt="Ocean waves at golden hour"
+        height="200px"
+        overlay
+      />
+
+      {/* CTA — warm variant */}
       <CTASection
-        heading={page?.ctaHeading || "Ready to Start Your Property Journey?"}
-        buttonText={page?.ctaButtonText || "Contact Our Team"}
-        onButtonClick={() => navigate(createPageUrl("Contact"))}
-        supportingText="We're here to help you find and secure the right property."
+        heading={page?.cta?.heading || "Have questions? We're happy to chat."}
+        buttonText={page?.cta?.buttonText || "Get in Touch"}
+        buttonHref={createPageUrl("Contact")}
+        supportingText="No sales pitch. Just honest advice from people who know these markets inside out."
+        variant="warm"
       />
     </div>
   );

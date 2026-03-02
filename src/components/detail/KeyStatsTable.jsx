@@ -28,7 +28,7 @@ export default function KeyStatsTable(props) {
       <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-[var(--border)] bg-white">
         <Icon className="w-4 h-4 text-[var(--hills)]" />
         <div className="text-sm">
-          {label && <span className="text-gray-500 mr-1">{label}:</span>}
+          {label && <span className="text-[var(--ink)]/50 mr-1">{label}:</span>}
           <span className="text-[var(--ink)] font-medium">{value}</span>
         </div>
       </div>
@@ -43,7 +43,7 @@ export default function KeyStatsTable(props) {
           <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
             {/* Image thumbnail - render only when an image exists */}
             {image && (
-              <div className="w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden ring-1 ring-[var(--border)] bg-gray-100 shrink-0">
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden ring-1 ring-[var(--border)] bg-[var(--bright-grey)] shrink-0">
                 <img
                   src={image}
                   alt={title || propertyType || "Property"}
@@ -73,7 +73,7 @@ export default function KeyStatsTable(props) {
 
               {/* Excerpt */}
               {excerpt && (
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed line-clamp-2">
+                <p className="text-[var(--ink)]/70 text-sm md:text-base leading-relaxed line-clamp-2">
                   {excerpt}
                 </p>
               )}

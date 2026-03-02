@@ -1,75 +1,57 @@
-import { useLocation } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
-import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
-
-export default function PageNotFound({}) {
-    const location = useLocation();
-    const pageName = location.pathname.substring(1);
-
-    const { data: authData, isFetched } = useQuery({
-        queryKey: ['user'],
-        queryFn: async () => {
-            try {
-                const user = await base44.auth.me();
-                return { user, isAuthenticated: true };
-            } catch (error) {
-                return { user: null, isAuthenticated: false };
-            }
-        }
-    });
-    
-    return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
-            <div className="max-w-md w-full">
-                <div className="text-center space-y-6">
-                    {/* 404 Error Code */}
-                    <div className="space-y-2">
-                        <h1 className="text-7xl font-light text-slate-300">404</h1>
-                        <div className="h-0.5 w-16 bg-slate-200 mx-auto"></div>
-                    </div>
-                    
-                    {/* Main Message */}
-                    <div className="space-y-3">
-                        <h2 className="text-2xl font-medium text-slate-800">
-                            Page Not Found
-                        </h2>
-                        <p className="text-slate-600 leading-relaxed">
-                            The page <span className="font-medium text-slate-700">"{pageName}"</span> could not be found in this application.
-                        </p>
-                    </div>
-                    
-                    {/* Admin Note */}
-                    {isFetched && authData.isAuthenticated && authData.user?.role === 'admin' && (
-                        <div className="mt-8 p-4 bg-slate-100 rounded-lg border border-slate-200">
-                            <div className="flex items-start space-x-3">
-                                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center mt-0.5">
-                                    <div className="w-2 h-2 rounded-full bg-orange-400"></div>
-                                </div>
-                                <div className="text-left space-y-1">
-                                    <p className="text-sm font-medium text-slate-700">Admin Note</p>
-                                    <p className="text-sm text-slate-600 leading-relaxed">
-                                        This could mean that the AI hasn't implemented this page yet. Ask it to implement it in the chat.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {/* Action Button */}
-                    <div className="pt-6">
-                        <button 
-                            onClick={() => window.location.href = '/'} 
-                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500"
-                        >
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
-                            Go Home
-                        </button>
-                    </div>
-                </div>
-            </div>
+export default function PageNotFound() {
+  return (
+    <div className="min-h-[70vh] flex items-center justify-center px-6 py-20">
+      <div className="max-w-lg w-full text-center space-y-8">
+        {/* Compass motif */}
+        <div className="flex justify-center">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[var(--hills)] opacity-40">
+            <circle cx="32" cy="32" r="30" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="32" cy="32" r="22" stroke="currentColor" strokeWidth="1" opacity="0.5" />
+            {/* Compass needle */}
+            <path d="M32 10 L35 32 L32 54 L29 32 Z" fill="currentColor" opacity="0.15" />
+            <path d="M32 10 L35 32 L32 22 L29 32 Z" fill="currentColor" opacity="0.4" />
+            {/* Cardinal points */}
+            <text x="32" y="8" textAnchor="middle" fontSize="6" fill="currentColor" fontFamily="var(--font-body)" fontWeight="500">N</text>
+            <text x="32" y="62" textAnchor="middle" fontSize="6" fill="currentColor" fontFamily="var(--font-body)" fontWeight="500">S</text>
+            <text x="4" y="34" textAnchor="middle" fontSize="6" fill="currentColor" fontFamily="var(--font-body)" fontWeight="500">W</text>
+            <text x="60" y="34" textAnchor="middle" fontSize="6" fill="currentColor" fontFamily="var(--font-body)" fontWeight="500">E</text>
+          </svg>
         </div>
-    )
+
+        <div className="space-y-3">
+          <p className="text-sm uppercase tracking-[0.15em] text-[var(--ink)]/50 font-medium">404</p>
+          <h1 className="text-3xl md:text-4xl font-heading text-[var(--ink)]">
+            Off course
+          </h1>
+          <p className="text-[var(--ink)]/60 leading-relaxed max-w-sm mx-auto">
+            This page doesn't exist. You might have followed an old link, or the address has changed.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <Link
+            to="/"
+            className="btn-cta inline-flex items-center justify-center"
+          >
+            Back to Home
+          </Link>
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-[var(--hills)] border border-[var(--hills)]/20 rounded-lg hover:border-[var(--hills)]/40 transition-colors duration-400"
+          >
+            Get in Touch
+          </Link>
+        </div>
+
+        <div className="pt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[var(--ink)]/50">
+          <Link to="/services" className="hover:text-[var(--hills)] transition-colors duration-300">Services</Link>
+          <Link to="/areas" className="hover:text-[var(--hills)] transition-colors duration-300">Areas We Cover</Link>
+          <Link to="/about" className="hover:text-[var(--hills)] transition-colors duration-300">About</Link>
+          <Link to="/blog" className="hover:text-[var(--hills)] transition-colors duration-300">Blog</Link>
+        </div>
+      </div>
+    </div>
+  );
 }

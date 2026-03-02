@@ -2,12 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/images/compass-logo.png" />
+    <link rel="apple-touch-icon" href="/images/compass-logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4B7371" />
+
+    <!-- Font preloads -->
+    <link rel="preload" href="/fonts/MinervaModern-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/MinervaModern-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Aeonik-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Default SEO (overridden per-page by React Helmet / upsertMeta) -->
     <meta name="description" content="Independent buyers agent for Northern Rivers and Southern Gold Coast. Off-market access, local expertise, sharp negotiation. Book a free consultation." />
     <title>Compass Buyers Agency | Northern Rivers & Gold Coast Buyers Agent</title>
+
+    <!-- DNS prefetch for analytics -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <!-- Google Tag Manager (replace GTM-XXXXXXX with real container ID) -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    </script>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript fallback) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -1,15 +1,15 @@
 import React from "react";
-import { CheckCircle } from "lucide-react";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 const DEFAULT_CHECKLIST = [
-  "Tailored guidance for first‑home buyers and investors",
-  "Clear, timely updates you can rely on",
-  "End‑to‑end coordination with trusted local partners",
+  "One point of contact from first call to settlement",
+  "Weekly updates with clear next steps, not radio silence",
+  "Local solicitor, building inspector and broker referrals included",
 ];
 
 export default function InvestmentAndRelationship({
-  heading = "A Relationship‑First Approach",
-  body = "Your partners for the full journey - not just the transaction. Expect transparent advice, streamlined communication and support from initial consult to settlement.",
+  heading = "What working with us looks like",
+  body = "You'll deal with the same person from start to finish. We'll tell you when something's worth pursuing and when it isn't. No runaround, no surprises, no wasted weekends at open homes.",
   imageUrl = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8be7777cb_ChrisCompass.jpg",
   imageAlt = "Chris from Compass Buyers Agency speaking with a client",
   checklist = DEFAULT_CHECKLIST,
@@ -17,31 +17,57 @@ export default function InvestmentAndRelationship({
   const items = checklist && checklist.length > 0 ? checklist : DEFAULT_CHECKLIST;
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="bg-sand-wash" style={{ padding: "var(--section-breathing-lg) 0" }}>
       <div className="site-container">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          {/* Image */}
-          <div className="aspect-[4/3] rounded-[20px] overflow-hidden surface">
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              className="w-full h-full object-cover object-center"
-              loading="lazy" />
-          </div>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Image — clean, generous */}
+          <ScrollReveal animation="fade-right">
+            <div className="aspect-[4/3] overflow-hidden rounded-xl">
+              <img
+                src={imageUrl}
+                alt={imageAlt}
+                className="w-full h-full object-cover object-center"
+                loading="lazy"
+              />
+            </div>
+          </ScrollReveal>
 
           {/* Copy */}
-          <div>
-            <h3 className="bg-slate-50 mb-3 text-2xl">{heading}</h3>
-            <p className="text-gray-700 mb-4">{body}</p>
-            <ul className="text-gray-700 space-y-2">
+          <ScrollReveal animation="fade-left" delay={120}>
+            <p className="eyebrow-label">The Experience</p>
+            <h2 className="mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}>{heading}</h2>
+            <p
+              className="mb-6"
+              style={{
+                fontWeight: "var(--font-body-light)",
+                fontSize: "1.0625rem",
+                color: "var(--stone)",
+                lineHeight: "1.7",
+              }}
+            >
+              {body}
+            </p>
+            <ul className="space-y-3">
               {items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-[var(--hills)] mt-[2px]" />
+                <li
+                  key={i}
+                  className="flex items-start gap-3"
+                  style={{
+                    fontWeight: "var(--font-body-light)",
+                    fontSize: "1.0625rem",
+                    color: "var(--stone)",
+                    lineHeight: "1.6",
+                  }}
+                >
+                  <span
+                    className="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--hills)]"
+                    aria-hidden="true"
+                  />
                   {item}
                 </li>
               ))}
             </ul>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
