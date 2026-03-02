@@ -26,7 +26,8 @@ export default function Home() {
         title={page?.hero?.title}
         subtitle={page?.hero?.subtitle}
         ctaText={page?.hero?.ctaText}
-        backgroundVideoUrl="/videos/COMPASS-WEBSITE-BANNER-LOGO-FADE.mp4"
+        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-LOGO-FADE.mp4"}
+        backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
       />
 
       {/* 2. Trust stats bar — social proof */}
@@ -70,6 +71,10 @@ export default function Home() {
         heading={page?.regions?.heading}
         subtitle={page?.regions?.subtitle}
         ctaText={page?.regions?.ctaText}
+        items={page?.regions?.items?.map(it => ({
+          label: it.label,
+          imageUrl: it.image ? urlFor(it.image).width(1200).url() : undefined,
+        }))}
       />
 
       {/* 9. FAQ — bright grey bg */}

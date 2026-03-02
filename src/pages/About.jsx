@@ -119,7 +119,13 @@ export default function About() {
                   {/* Portrait photo */}
                   <div className="relative overflow-hidden aspect-[4/5] rounded-lg ring-1 ring-black/[0.04]">
                     <img
-                      src={m.photo || "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"}
+                      src={
+                        m.photo?.asset
+                          ? urlFor(m.photo).width(800).height(1000).fit('crop').url()
+                          : typeof m.photo === 'string'
+                            ? m.photo
+                            : "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
+                      }
                       alt={m.name}
                       className="w-full h-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.02]"
                       loading="lazy"
