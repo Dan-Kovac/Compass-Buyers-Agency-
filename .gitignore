@@ -37,3 +37,9 @@ captures/
 
 # Sanity runtime cache
 sanity/.sanity/
+
+# Original uncompressed video files
+public/videos/*-original.mp4
+
+# Migration scripts (one-time use)
+scripts/
