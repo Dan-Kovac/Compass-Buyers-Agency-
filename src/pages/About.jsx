@@ -1,11 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { fetchTeamMembers, fetchPage, urlFor } from "@/lib/sanityClient";
-import { Mail } from "lucide-react";
+import { Mail, ChevronDown } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import FeatureSplit from "../components/about/FeatureSplit";
 import ImageBand from "../components/shared/ImageBand";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
+
+function ExpandableBio({ bio }) {
+  const [expanded, setExpanded] = useState(false);
+  const [isClamped, setIsClamped] = useState(false);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const el = textRef.current;
+    if (el) setIsClamped(el.scrollHeight > el.clientHeight + 1);
+  }, [bio]);
+
+  return (
+    <div className="flex-1">
+      <p
+        ref={textRef}
+        className={expanded ? "" : "line-clamp-3"}
+        style={{ fontWeight: "var(--font-body-light)", color: "var(--stone)", fontSize: "0.9375rem", lineHeight: "1.65", marginBottom: "0" }}
+      >
+        {bio}
+      </p>
+      {isClamped && (
+        <button
+          onClick={() => setExpanded((prev) => !prev)}
+          className="mt-2 text-sm text-[var(--hills)] hover:underline underline-offset-2 inline-flex items-center gap-1 cursor-pointer"
+          style={{ fontWeight: "var(--font-body-medium)" }}
+        >
+          {expanded ? "Read less" : "Read more"}
+          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
+        </button>
+      )}
+    </div>
+  );
+}
 
 export default function About() {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -146,14 +179,7 @@ export default function About() {
                       {m.position}
                     </div>
 
-                    {m.bio && (
-                      <p
-                        className="line-clamp-3 flex-1"
-                        style={{ fontWeight: "var(--font-body-light)", color: "var(--stone)", fontSize: "0.9375rem", lineHeight: "1.65", marginBottom: "0" }}
-                      >
-                        {m.bio}
-                      </p>
-                    )}
+                    {m.bio && <ExpandableBio bio={m.bio} />}
 
                     {Array.isArray(m.specialties) && m.specialties.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-4">
