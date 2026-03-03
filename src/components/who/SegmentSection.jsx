@@ -3,10 +3,8 @@ import { createPageUrl } from "@/utils";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 /**
- * Buyer segment section with A/B layout variation.
- *
- * - Even indexes (0, 2): Side-by-side, image 55% width, refined list with dashes
- * - Odd indexes (1, 3): Full-width image band at top, centered text below
+ * Buyer segment section — consistent side-by-side layout.
+ * imageLeft alternates per section for visual rhythm.
  */
 export default function SegmentSection({
   id,
@@ -23,10 +21,8 @@ export default function SegmentSection({
   imageLeft = false,
   squareImage = false,
   bg = "bg-white",
+  showCta = true,
 }) {
-  const isVariantB = index % 2 === 1;
-
-  // List renderer
   const renderList = (items, label) =>
     items.length > 0 && (
       <div className="mt-5">
@@ -60,67 +56,14 @@ export default function SegmentSection({
       </div>
     );
 
-  const ctaButton = (alignment = "") => (
-    <div className={`mt-6 ${alignment}`}>
-      <a
-        href={ctaHref}
-        className="btn-cta inline-flex items-center justify-center bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white transition-colors"
-      >
-        {ctaText}
-      </a>
-    </div>
-  );
-
-  // ── Variation B: Full-width image top, centered text below ──
-  if (isVariantB) {
-    return (
-      <section id={id} className={`${bg} scroll-mt-24`} style={{ padding: "var(--section-standard) 0" }}>
-        <div className="site-container">
-          {/* Full-width image */}
-          <ScrollReveal animation="fade-in">
-            <div className="w-full overflow-hidden rounded-xl mb-8 md:mb-10" style={{ height: "280px" }}>
-              <img
-                src={image || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop"}
-                alt={imageAlt || title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </ScrollReveal>
-
-          {/* Centered text content */}
-          <ScrollReveal animation="fade-up" delay={100}>
-            <div className="max-w-2xl mx-auto text-center lg:text-left">
-              {eyebrow && <p className="eyebrow-label">{eyebrow}</p>}
-              <h2 className="mb-2">{title}</h2>
-              {intro && (
-                <p className="intro-text" style={{ maxWidth: "none" }}>
-                  {intro}
-                </p>
-              )}
-
-              <div className="text-left">
-                {renderList(needs, "Common challenges")}
-                {renderList(howWeHelp, "How we help")}
-              </div>
-
-              {ctaButton("text-center lg:text-left")}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-    );
-  }
-
-  // ── Variation A: Side-by-side, image 55% width ──
   return (
     <section id={id} className={`${bg} scroll-mt-24`} style={{ padding: "var(--section-standard) 0" }}>
       <div className="site-container">
-        <div className={`grid lg:grid-cols-9 gap-8 md:gap-10 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}>
-          {/* Image — takes 5 of 9 columns (55%) */}
+        <div className={`grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}>
+          {/* Image */}
           <ScrollReveal
             animation={imageLeft ? "fade-right" : "fade-left"}
-            className={`${imageLeft ? "lg:col-span-5 lg:col-start-1" : "lg:col-span-5 lg:col-start-5"}`}
+            className={imageLeft ? "lg:col-start-1" : "lg:col-start-2"}
           >
             <div
               className={`overflow-hidden ${squareImage ? "aspect-[4/3] lg:aspect-square" : "aspect-[4/3]"} w-full`}
@@ -135,11 +78,11 @@ export default function SegmentSection({
             </div>
           </ScrollReveal>
 
-          {/* Content — takes 4 of 9 columns (45%) */}
+          {/* Content */}
           <ScrollReveal
             animation={imageLeft ? "fade-left" : "fade-right"}
             delay={120}
-            className={`${imageLeft ? "lg:col-span-4 lg:col-start-6" : "lg:col-span-4 lg:col-start-1 lg:row-start-1"} flex items-center`}
+            className={`${imageLeft ? "lg:col-start-2" : "lg:col-start-1 lg:row-start-1"} flex items-center`}
           >
             <div>
               {eyebrow && <p className="eyebrow-label">{eyebrow}</p>}
@@ -153,7 +96,16 @@ export default function SegmentSection({
               {renderList(needs, "Common challenges")}
               {renderList(howWeHelp, "How we help")}
 
-              {ctaButton()}
+              {showCta && (
+                <div className="mt-6">
+                  <a
+                    href={ctaHref}
+                    className="btn-cta inline-flex items-center justify-center bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white transition-colors"
+                  >
+                    {ctaText}
+                  </a>
+                </div>
+              )}
             </div>
           </ScrollReveal>
         </div>

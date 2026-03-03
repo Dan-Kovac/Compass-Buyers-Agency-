@@ -2,7 +2,6 @@ import React from "react";
 import SegmentsNav from "@/components/who/SegmentsNav";
 import SegmentSection from "@/components/who/SegmentSection";
 import CTASection from "@/components/shared/CTASection";
-import ImageBand from "@/components/shared/ImageBand";
 import { createPageUrl } from "@/utils";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
@@ -205,7 +204,7 @@ export default function WhoWeWorkWith() {
         <SegmentsNav segments={navItems} />
       </div>
 
-      {/* Sections — A/B layout with ImageBands every 3 segments */}
+      {/* Sections — consistent side-by-side layout with alternating image position */}
       {renderSegments.map((seg, i) => {
         const id = useSanity ? (seg.id?.current || `segment-${i}`) : seg.id;
         const imageUrl = useSanity
@@ -215,34 +214,21 @@ export default function WhoWeWorkWith() {
           : seg.imageUrl;
 
         return (
-          <React.Fragment key={id}>
-            <SegmentSection
-              id={id}
-              title={seg.title}
-              intro={seg.intro}
-              needs={seg.needs || []}
-              howWeHelp={seg.howWeHelp || []}
-              image={imageUrl}
-              imageAlt={seg.imageAlt}
-              imageLeft={i > 0 && i % 2 === 0}
-              squareImage
-              bg={bgCycle[i % bgCycle.length]}
-              index={i}
-            />
-            {/* ImageBand breathers after every 3rd segment */}
-            {(i + 1) % 3 === 0 && i < renderSegments.length - 1 && (
-              <ImageBand
-                src={
-                  i === 2
-                    ? "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
-                    : "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop"
-                }
-                alt="Northern Rivers coastline"
-                height={i === 2 ? "280px" : "220px"}
-                overlay
-              />
-            )}
-          </React.Fragment>
+          <SegmentSection
+            key={id}
+            id={id}
+            title={seg.title}
+            intro={seg.intro}
+            needs={seg.needs || []}
+            howWeHelp={seg.howWeHelp || []}
+            image={imageUrl}
+            imageAlt={seg.imageAlt}
+            imageLeft={i % 2 === 1}
+            squareImage
+            bg={bgCycle[i % bgCycle.length]}
+            index={-1}
+            showCta={false}
+          />
         );
       })}
 
