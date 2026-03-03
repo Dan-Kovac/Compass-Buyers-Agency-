@@ -134,11 +134,6 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
               </a>
             </div>
 
-            <div className="mt-6 md:mt-8 hidden sm:flex items-center gap-5" style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 900ms forwards' }}>
-              <span className="text-white/50" style={{ fontSize: '13px', fontWeight: 300, letterSpacing: '0.02em' }}>62+ properties secured</span>
-              <span className="w-px h-3.5 bg-white/25" />
-              <span className="text-white/50" style={{ fontSize: '13px', fontWeight: 300, letterSpacing: '0.02em' }}>Byron Bay to Gold Coast</span>
-            </div>
           </div>
         </div>
       </div>

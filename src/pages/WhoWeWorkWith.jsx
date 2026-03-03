@@ -2,6 +2,7 @@ import React from "react";
 import SegmentsNav from "@/components/who/SegmentsNav";
 import SegmentSection from "@/components/who/SegmentSection";
 import CTASection from "@/components/shared/CTASection";
+import ImageBand from "@/components/shared/ImageBand";
 import { createPageUrl } from "@/utils";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
@@ -162,8 +163,8 @@ const fallbackSegments = [
   },
 ];
 
-/* Cycle through 4 background treatments for visual variety */
-const bgCycle = ["bg-white", "bg-sand-wash", "bg-white", "bg-sea-wash"];
+/* Simple white/sand alternation — sea-wash too cold for buyer personas */
+const bgCycle = ["bg-white", "bg-sand-wash"];
 
 export default function WhoWeWorkWith() {
   const [page, setPage] = React.useState(null);
@@ -183,19 +184,18 @@ export default function WhoWeWorkWith() {
 
   return (
     <div className="bg-white">
-      {/* Editorial page header */}
-      <section
-        className="bg-warm-gradient"
-        style={{ padding: "var(--section-breathing-lg) 0 var(--section-standard-lg)" }}
-      >
-        <div className="site-container text-center">
+      {/* Page header */}
+      <section className="bg-warm-gradient page-header">
+        <div className="site-container">
           <ScrollReveal>
-            <p className="eyebrow-label">Our Clients</p>
-            <h1 className="mb-4">{page?.heading || "Who We Work With"}</h1>
-            <p className="intro-text mx-auto" style={{ maxWidth: "36rem" }}>
-              {page?.subtitle ||
-                "Different goals need different approaches. Whether you're buying your first home, relocating interstate or building a portfolio, here's how we adapt."}
-            </p>
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">Our Clients</p>
+              <h1>{page?.heading || "Who We Work With"}</h1>
+              <p>
+                {page?.subtitle ||
+                  "Different goals need different approaches. Whether you're buying your first home, relocating interstate or building a portfolio, here's how we adapt."}
+              </p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -205,7 +205,7 @@ export default function WhoWeWorkWith() {
         <SegmentsNav segments={navItems} />
       </div>
 
-      {/* Sections — A/B layout variation with cycling backgrounds */}
+      {/* Sections — A/B layout with ImageBands every 3 segments */}
       {renderSegments.map((seg, i) => {
         const id = useSanity ? (seg.id?.current || `segment-${i}`) : seg.id;
         const imageUrl = useSanity
@@ -215,20 +215,34 @@ export default function WhoWeWorkWith() {
           : seg.imageUrl;
 
         return (
-          <SegmentSection
-            key={id}
-            id={id}
-            title={seg.title}
-            intro={seg.intro}
-            needs={seg.needs || []}
-            howWeHelp={seg.howWeHelp || []}
-            image={imageUrl}
-            imageAlt={seg.imageAlt}
-            imageLeft={i > 0 && i % 2 === 0}
-            squareImage
-            bg={bgCycle[i % bgCycle.length]}
-            index={i}
-          />
+          <React.Fragment key={id}>
+            <SegmentSection
+              id={id}
+              title={seg.title}
+              intro={seg.intro}
+              needs={seg.needs || []}
+              howWeHelp={seg.howWeHelp || []}
+              image={imageUrl}
+              imageAlt={seg.imageAlt}
+              imageLeft={i > 0 && i % 2 === 0}
+              squareImage
+              bg={bgCycle[i % bgCycle.length]}
+              index={i}
+            />
+            {/* ImageBand breathers after every 3rd segment */}
+            {(i + 1) % 3 === 0 && i < renderSegments.length - 1 && (
+              <ImageBand
+                src={
+                  i === 2
+                    ? "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
+                    : "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop"
+                }
+                alt="Northern Rivers coastline"
+                height={i === 2 ? "280px" : "220px"}
+                overlay
+              />
+            )}
+          </React.Fragment>
         );
       })}
 
@@ -237,7 +251,7 @@ export default function WhoWeWorkWith() {
         heading={page?.cta?.heading || "Tell us what you're looking for"}
         buttonText={page?.cta?.buttonText || "Start a Conversation"}
         buttonHref={createPageUrl("Contact")}
-        variant="warm"
+        variant="dark"
       />
     </div>
   );

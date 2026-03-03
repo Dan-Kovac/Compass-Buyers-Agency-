@@ -45,7 +45,7 @@ export default function ShireOverview({ shires = [] }) {
                   {shire.suburbs.length} suburbs serviced
                 </p>
 
-                <div className="space-y-0 divide-y divide-[var(--border)]/60 flex-1">
+                <div className="space-y-0 divide-y divide-[var(--bright-grey)] flex-1">
                   {shire.suburbs.map((suburb) => {
                     const isLive = suburb.isLive || false;
                     const profileUrl = suburb.slug

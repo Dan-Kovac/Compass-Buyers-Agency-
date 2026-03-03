@@ -33,7 +33,7 @@ export default function About() {
   return (
     <div className="bg-white">
       {/* Page header */}
-      <section className="bg-white" style={{ padding: "var(--section-standard) 0 var(--section-compact) 0" }}>
+      <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
@@ -41,7 +41,7 @@ export default function About() {
               <h1>
                 {page?.heading || "The People Behind Compass"}
               </h1>
-              <p className="intro-text mx-auto">
+              <p>
                 {page?.subtitle || "Licensed buyers agents based on the Tweed Coast. We know these streets, these agents, and these markets because we live here."}
               </p>
             </div>
@@ -61,15 +61,7 @@ export default function About() {
         variant="white"
       />
 
-      {/* Atmospheric image band */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
-        alt="Aerial view of Northern Rivers coastline"
-        height="260px"
-        overlay
-      />
-
-      {/* Feature split 2 — cream bg for contrast */}
+      {/* Feature split 2 — sand bg for contrast */}
       <FeatureSplit
         eyebrow="Our Approach"
         title={page?.featureSplit2?.title || "Buyers Only. No Exceptions."}
@@ -77,20 +69,28 @@ export default function About() {
         image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/6c2c9c4ac_CONTENTSHOOTJULY-30.jpg"}
         imageAlt={page?.featureSplit2?.imageAlt || "Compass team at office"}
         imageLeft={true}
-        variant="cream"
+        variant="sand"
         ctaLabel="Get in touch"
         ctaHref={createPageUrl("Contact")}
       />
 
+      {/* Atmospheric image band — rhythm break before team */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
+        alt="Aerial view of Northern Rivers coastline"
+        height="280px"
+        overlay
+      />
+
       {/* Team section — editorial portrait cards */}
-      <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing-lg) 0" }}>
+      <section className="bg-white" style={{ padding: "var(--section-breathing) 0" }}>
         <div className="site-container">
           <ScrollReveal className="text-center mb-12 md:mb-16">
             <p className="eyebrow-label">The Team</p>
             <h2>
               {page?.teamSectionHeading || "Who you'll work with"}
             </h2>
-            <p className="intro-text mx-auto">
+            <p>
               Every conversation, inspection and negotiation is handled by the people you see here. No hand-offs, no call centres.
             </p>
           </ScrollReveal>
@@ -160,7 +160,7 @@ export default function About() {
                         {m.specialties.slice(0, 4).map((s, idx) => (
                           <span
                             key={idx}
-                            className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--stone)]"
+                            className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--bright-grey)] text-[var(--stone)]"
                             style={{ fontWeight: "var(--font-body-regular)" }}
                           >
                             {s}
@@ -192,21 +192,13 @@ export default function About() {
         </div>
       </section>
 
-      {/* Coastal image band — rhythm break before CTA */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=2000&auto=format&fit=crop"
-        alt="Ocean waves at golden hour"
-        height="200px"
-        overlay
-      />
-
-      {/* CTA — warm variant */}
+      {/* CTA — dark variant */}
       <CTASection
         heading={page?.cta?.heading || "Have questions? We're happy to chat."}
         buttonText={page?.cta?.buttonText || "Get in Touch"}
         buttonHref={createPageUrl("Contact")}
         supportingText="No sales pitch. Just honest advice from people who know these markets inside out."
-        variant="warm"
+        variant="dark"
       />
     </div>
   );

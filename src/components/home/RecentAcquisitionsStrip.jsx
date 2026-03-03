@@ -7,8 +7,8 @@ import { createPageUrl } from "@/utils";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
 export default function RecentAcquisitionsStrip({
-  limit = 6,
-  bg = "bright",
+  limit = 4,
+  bg = "white",
   showEyebrow = true,
   title = "Featured acquisitions",
   sortBy = "value",
@@ -102,38 +102,32 @@ export default function RecentAcquisitionsStrip({
           </button>
         </ScrollReveal>
 
-        <div className="relative">
-          <div className="flex gap-5 overflow-x-auto no-scrollbar pb-4 snap-x snap-mandatory -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <StaggerGroup stagger={120}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {loading ? (
               Array.from({ length: limit }).map((_, idx) => (
-                <div key={idx} className="flex-shrink-0 w-[280px] md:w-[360px] snap-start">
+                <ScrollReveal key={idx}>
                   <AcquisitionCard item={null} />
-                </div>
+                </ScrollReveal>
               ))
             ) : items.length > 0 ? (
               items.map((it) => (
-                <div key={it.id} className="flex-shrink-0 w-[280px] md:w-[360px] snap-start">
+                <ScrollReveal key={it.id}>
                   <AcquisitionCard
                     item={it}
                     onClick={() => navigate(createPageUrl("Acquisitions"))}
                   />
-                </div>
+                </ScrollReveal>
               ))
             ) : (
               Array.from({ length: limit }).map((_, idx) => (
-                <div key={idx} className="flex-shrink-0 w-[280px] md:w-[360px] snap-start">
+                <ScrollReveal key={idx}>
                   <AcquisitionCard item={null} />
-                </div>
+                </ScrollReveal>
               ))
             )}
           </div>
-
-          {/* Mobile scroll fade hint */}
-          <div
-            className="absolute top-0 right-0 bottom-4 w-8 pointer-events-none md:hidden"
-            style={{ background: `linear-gradient(to left, var(--bright-grey) 0%, transparent 100%)` }}
-          />
-        </div>
+        </StaggerGroup>
       </div>
     </section>
   );

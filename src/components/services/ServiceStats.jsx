@@ -4,32 +4,35 @@ import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 export default function ServiceStats({
   eyebrow = "By the Numbers",
   items = [
-    { value: "62+", label: "Properties Secured" },
+    { value: "70+", label: "Properties Secured" },
+    { value: "42%", label: "Off-Market Deals" },
     { value: "~5.5%", label: "Avg. Saving Below Asking" },
-    { value: "100%", label: "Buyer-Only Representation" },
+    { value: "100%", label: "Buyer-Only Focus" },
   ],
   bg = "bg-sand-wash",
 }) {
   return (
-    <section className={bg} style={{ padding: "var(--section-standard-lg) 0" }}>
+    <section className={bg} style={{ padding: "var(--section-standard) 0" }}>
       <div className="site-container">
         <ScrollReveal className="text-center mb-8 md:mb-10">
           {eyebrow && <p className="eyebrow-label">{eyebrow}</p>}
-          <div className="section-divider" />
         </ScrollReveal>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <StaggerGroup stagger={120}>
             {items.map(({ value, label }, i) => (
               <ScrollReveal key={i}>
                 <div className="text-center">
                   <div className="stat-number mb-1">{value}</div>
                   <div
+                    className="stat-label"
                     style={{
-                      fontWeight: "var(--font-body-light)",
-                      fontSize: "0.875rem",
+                      fontFamily: "var(--font-body)",
+                      fontWeight: 300,
+                      fontSize: "0.8125rem",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
                       color: "var(--stone)",
-                      letterSpacing: "0.02em",
                     }}
                   >
                     {label}

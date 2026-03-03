@@ -3,7 +3,7 @@ import { fetchBlogPosts } from "@/lib/sanityClient";
 import BlogCard from "@/components/blog/BlogCard";
 import SuburbProfilesStrip from "@/components/blog/SuburbProfilesStrip";
 import CTASection from "@/components/shared/CTASection.jsx";
-import ScrollReveal from "@/components/shared/ScrollReveal";
+import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 
 export default function Blog() {
@@ -70,17 +70,14 @@ export default function Blog() {
 
   return (
     <div className="bg-white">
-      {/* Editorial page header */}
-      <section
-        className="bg-warm-gradient"
-        style={{ padding: "var(--section-breathing-lg) 0 var(--section-standard-lg)" }}
-      >
+      {/* Page header */}
+      <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">Insights</p>
-              <h1 className="mb-4">Blog</h1>
-              <p className="intro-text mx-auto" style={{ maxWidth: "36rem" }}>
+              <h1>Blog</h1>
+              <p>
                 Market insights, buying tips, suburb profiles and local
                 knowledge to help you make informed property decisions in the
                 Northern Rivers and Southern Gold Coast.
@@ -92,7 +89,7 @@ export default function Blog() {
 
       {/* Filters */}
       <section
-        className="bg-white border-b border-[var(--border)]"
+        className="bg-white border-b border-[var(--bright-grey)]"
         style={{ padding: "var(--section-compact) 0" }}
       >
         <div className="site-container">
@@ -104,7 +101,7 @@ export default function Blog() {
               className={`px-4 py-2 rounded-full text-sm border transition-colors ${
                 !category
                   ? "bg-[var(--hills)] text-white border-[var(--hills)]"
-                  : "bg-white text-[var(--ink)] border-[var(--border)] hover:bg-[var(--bright-grey)]"
+                  : "bg-white text-[var(--ink)] border-[var(--bright-grey)] hover:bg-[var(--bright-grey)]"
               }`}
             >
               All
@@ -118,7 +115,7 @@ export default function Blog() {
                 className={`px-4 py-2 rounded-full text-sm border transition-colors ${
                   category === cat
                     ? "bg-[var(--hills)] text-white border-[var(--hills)]"
-                    : "bg-white text-[var(--ink)] border-[var(--border)] hover:bg-[var(--bright-grey)]"
+                    : "bg-white text-[var(--ink)] border-[var(--bright-grey)] hover:bg-[var(--bright-grey)]"
                 }`}
               >
                 {cat
@@ -149,7 +146,7 @@ export default function Blog() {
                   className={`px-3 py-1 rounded-full text-xs border transition-colors ${
                     tag === t
                       ? "bg-[var(--hills)]/10 text-[var(--hills)] border-[var(--hills)]/30"
-                      : "text-[var(--stone)] border-[var(--border)] hover:bg-[var(--bright-grey)]"
+                      : "text-[var(--stone)] border-[var(--bright-grey)] hover:bg-[var(--bright-grey)]"
                   }`}
                 >
                   {t}
@@ -169,7 +166,7 @@ export default function Blog() {
 
       {/* Post grid */}
       <section
-        style={{ padding: "var(--section-standard) 0 var(--section-standard-lg)" }}
+        style={{ padding: "var(--section-standard) 0" }}
       >
         <div className="site-container">
           {loading ? (
@@ -180,9 +177,13 @@ export default function Blog() {
             </div>
           ) : filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {filtered.map((it) => (
-                <BlogCard key={it.id} item={it} />
-              ))}
+              <StaggerGroup stagger={120}>
+                {filtered.map((it) => (
+                  <ScrollReveal key={it.id}>
+                    <BlogCard item={it} />
+                  </ScrollReveal>
+                ))}
+              </StaggerGroup>
             </div>
           ) : (
             <div className="text-center py-20">
@@ -210,7 +211,7 @@ export default function Blog() {
               <button
                 type="button"
                 onClick={handleClear}
-                className="inline-flex items-center px-4 py-2 rounded-full border border-[var(--border)] text-[var(--ink)] hover:bg-[var(--bright-grey)] transition-colors text-sm"
+                className="inline-flex items-center px-4 py-2 rounded-full border border-[var(--bright-grey)] text-[var(--ink)] hover:bg-[var(--bright-grey)] transition-colors text-sm"
               >
                 Clear filters
               </button>
@@ -225,6 +226,7 @@ export default function Blog() {
         buttonText="Book a Free Consultation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Local expertise, independent advice, proven results"
+        variant="dark"
       />
     </div>
   );

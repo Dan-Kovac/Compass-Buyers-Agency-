@@ -2,12 +2,9 @@ import React from "react";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import ProcessSteps from "../components/services/ProcessSteps";
-import FeatureSplit from "../components/about/FeatureSplit";
 import ServiceStats from "../components/services/ServiceStats";
-import RecentAcquisitionsStrip from "../components/home/RecentAcquisitionsStrip";
 import SegmentsNav from "../components/who/SegmentsNav";
 import SegmentSection from "../components/who/SegmentSection";
-import Regions from "../components/home/Regions";
 import ImageBand from "../components/shared/ImageBand";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
@@ -45,7 +42,7 @@ export default function Services() {
   return (
     <div className="bg-white">
       {/* Page header */}
-      <section className="bg-white" style={{ padding: "var(--section-standard) 0 var(--section-compact) 0" }}>
+      <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
@@ -53,9 +50,7 @@ export default function Services() {
               <h1>
                 {page?.heading || "How We Help You Buy"}
               </h1>
-              <p
-                className="intro-text mx-auto"
-              >
+              <p>
                 {page?.subtitle || "From finding the right property to handing you the keys. We search, assess, negotiate and manage the process so you don't have to."}
               </p>
             </div>
@@ -67,7 +62,7 @@ export default function Services() {
         <SegmentsNav segments={segments} />
       </div>
 
-      {/* Segment 1 — white */}
+      {/* Segment 1 — white, image right */}
       <SegmentSection
         id="full-advocacy"
         title={seg(0)?.title || "Full\u2011service buyers advocacy"}
@@ -89,7 +84,7 @@ export default function Services() {
         index={0}
       />
 
-      {/* Segment 2 — sand-wash */}
+      {/* Segment 2 — sand-wash, image left */}
       <SegmentSection
         id="sourcing-research"
         title={seg(1)?.title || "Sourcing & research"}
@@ -111,15 +106,19 @@ export default function Services() {
         index={1}
       />
 
-      {/* Image band — coastal interior, breaks the segment rhythm */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop"
-        alt="Coastal property interior"
-        height="240px"
-        overlay
+      {/* Dark stats break — contrast section between segment pairs */}
+      <ServiceStats
+        eyebrow="By the Numbers"
+        bg="bg-editorial-dark"
+        items={[
+          { value: "70+", label: "Properties Secured" },
+          { value: "42%", label: "Off-Market Deals" },
+          { value: "~5.5%", label: "Avg. Saving Below Asking" },
+          { value: "100%", label: "Buyer-Only Focus" },
+        ]}
       />
 
-      {/* Segment 3 — white */}
+      {/* Segment 3 — white, image right */}
       <SegmentSection
         id="auction-negotiation"
         title={seg(2)?.title || "Auction bidding & negotiation"}
@@ -141,7 +140,7 @@ export default function Services() {
         index={2}
       />
 
-      {/* Segment 4 — sea-wash for variety */}
+      {/* Segment 4 — sand-wash, image left */}
       <SegmentSection
         id="portfolio-strategy"
         title={seg(3)?.title || "Portfolio strategy"}
@@ -159,43 +158,28 @@ export default function Services() {
         image={seg(3)?.image ? urlFor(seg(3).image).width(800).url() : "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1600&auto=format&fit=crop"}
         imageAlt={seg(3)?.imageAlt || "Portfolio planning session"}
         imageLeft
-        bg="bg-sea-wash"
+        bg="bg-sand-wash"
         index={3}
       />
 
-      {/* Stats — dark contrast break */}
-      <ServiceStats />
-
-      {/* Process — cream bg */}
-      <ProcessSteps steps={processSteps} title={page?.process?.heading || "How We Work With You"} />
-
-      {/* Regions */}
-      <Regions />
-
-      {/* Recent acquisitions */}
-      <RecentAcquisitionsStrip bg="white" showEyebrow={false} title="Recent acquisitions" />
-
-      {/* Why choose us — sand variant FeatureSplit with eyebrow */}
-      <FeatureSplit
-        eyebrow="Why Compass"
-        title={page?.whyChooseUs?.title || "Why choose Compass?"}
-        description={page?.whyChooseUs?.description || `42% of our deals never hit the portals. We live on the Tweed Coast, inspect properties in person, and talk to local selling agents every week. That's how we find what others miss and negotiate harder than buyers can on their own.`}
-        image={page?.whyChooseUs?.image ? urlFor(page.whyChooseUs.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8be7777cb_ChrisCompass.jpg"}
-        imageAlt={page?.whyChooseUs?.imageAlt || "Compass advisor speaking with a client"}
-        imageLeft={false}
-        mobileImageFirst={true}
-        variant="sand"
-        ctaLabel="Learn more about us"
-        ctaHref={createPageUrl("About")}
+      {/* Image band — atmospheric break before process */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop"
+        alt="Coastal property interior"
+        height="280px"
+        overlay
       />
 
-      {/* CTA — warm variant (different from Home's dark) */}
+      {/* Process steps — cream bg */}
+      <ProcessSteps steps={processSteps} title={page?.process?.heading || "How We Work With You"} />
+
+      {/* CTA — dark variant */}
       <CTASection
         heading={page?.cta?.heading || "Thinking about buying in the Northern Rivers or Gold Coast?"}
         buttonText={page?.cta?.buttonText || "Talk to Us"}
         buttonHref={createPageUrl("Contact")}
         supportingText="Free consultation. No obligation. We'll give you honest advice on your situation."
-        variant="warm"
+        variant="dark"
       />
 
       {/* ProfessionalService JSON-LD */}

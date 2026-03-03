@@ -84,20 +84,14 @@ export default function Areas() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Editorial page header */}
-      <section
-        className="bg-warm-gradient"
-        style={{ padding: "var(--section-breathing-lg) 0 var(--section-standard-lg)" }}
-      >
+      {/* Page header */}
+      <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">Where We Work</p>
-              <h1 className="mb-4">{page?.heading || "Where We Buy"}</h1>
-              <p
-                className="intro-text mx-auto"
-                style={{ maxWidth: "38rem" }}
-              >
+              <h1>{page?.heading || "Where We Buy"}</h1>
+              <p>
                 {page?.subtitle ||
                   "Four shires, dozens of suburbs, one focus: finding you the right property at the right price. Every market has its own rhythm. Here's how we navigate them."}
               </p>
@@ -108,8 +102,8 @@ export default function Areas() {
 
       {/* Shire cards */}
       <section
-        className="bg-sand-wash"
-        style={{ padding: "var(--section-standard-lg) 0" }}
+        className="bg-white"
+        style={{ padding: "var(--section-standard) 0" }}
       >
         <div className="site-container">
           <ShireOverview shires={shires} />
@@ -129,7 +123,7 @@ export default function Areas() {
         heading={page?.cta?.heading || "Looking to buy in one of these areas?"}
         buttonText={page?.cta?.buttonText || "Start a Conversation"}
         buttonHref={createPageUrl("Contact")}
-        variant="warm"
+        variant="dark"
       />
     </div>
   );
