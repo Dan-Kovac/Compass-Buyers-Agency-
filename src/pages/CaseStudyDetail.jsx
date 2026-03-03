@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchCaseStudy } from "@/lib/sanityClient";
+import { fetchCaseStudy, resolveImageUrl } from "@/lib/sanityClient";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
 import { Link } from "react-router-dom";
@@ -95,7 +95,7 @@ export default function CaseStudyDetail() {
             {/* Hero image card with placeholder fallback */}
             <div className="surface overflow-hidden mb-6">
               <img
-                src={item.featured_image || PLACEHOLDER_IMG}
+                src={resolveImageUrl(item.image, item.featured_image, { width: 1200 }) || PLACEHOLDER_IMG}
                 alt={item.title}
                 className="w-full h-auto object-cover"
                 onError={(e) => {
@@ -128,7 +128,7 @@ export default function CaseStudyDetail() {
           "@type": "Article",
           headline: item.meta_title || item.title,
           description: item.meta_description || item.excerpt || `${item.client_type || "Buyer"} case study in ${item.location || "Northern Rivers"}`,
-          image: item.featured_image || undefined,
+          image: resolveImageUrl(item.image, item.featured_image) || undefined,
           author: { "@type": "Organization", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
           publisher: {
             "@type": "Organization",

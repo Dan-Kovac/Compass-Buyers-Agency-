@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, Users, Clock, DollarSign } from "lucide-react";
+import { resolveImageUrl } from "@/lib/sanityClient";
 
 export default function KeyStatsTable(props) {
   // Backward-compatible: accept item, caseStudy, record, data, or direct props
@@ -20,7 +21,7 @@ export default function KeyStatsTable(props) {
   const price = cs.purchase_price;
   const title = cs.title;
   const excerpt = cs.excerpt;
-  const image = cs.featured_image;
+  const image = resolveImageUrl(cs.image, cs.featured_image, { width: 200 });
 
   const StatPill = ({ icon: Icon, label, value }) => {
     if (!value) return null;

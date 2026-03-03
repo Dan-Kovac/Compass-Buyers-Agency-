@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchAcquisition, fetchAcquisitions, fetchTeamMembers } from "@/lib/sanityClient";
+import { fetchAcquisition, fetchAcquisitions, fetchTeamMembers, resolveImageUrl } from "@/lib/sanityClient";
 import { Home, Bed, Bath, Car } from "lucide-react";
 import { createPageUrl } from "@/utils";
 
@@ -170,9 +170,9 @@ export default function AcquisitionDetail() {
                     </div>
                     {agent ? (
                       <div className="flex items-start gap-4">
-                        {agent.photo && (
+                        {resolveImageUrl(agent.photo) && (
                           <img
-                            src={agent.photo}
+                            src={resolveImageUrl(agent.photo)}
                             alt={agent.name}
                             className="w-16 h-16 rounded-full object-cover"
                             loading="lazy"
@@ -206,10 +206,10 @@ export default function AcquisitionDetail() {
 
               {/* Right column: image */}
               <div className="lg:sticky lg:top-24">
-                {item.main_image_url && (
+                {resolveImageUrl(item.main_image, item.main_image_url, { width: 1200 }) && (
                   <div className="aspect-[4/3] rounded-token overflow-hidden surface p-0">
                     <img
-                      src={item.main_image_url}
+                      src={resolveImageUrl(item.main_image, item.main_image_url, { width: 1200 })}
                       alt={item.title}
                       className="w-full h-full object-cover"
                       loading="eager"
@@ -240,9 +240,9 @@ export default function AcquisitionDetail() {
                     className="surface overflow-hidden rounded-token group"
                   >
                     <div className="aspect-[4/3] bg-[var(--bright-grey)] relative overflow-hidden">
-                      {acq.main_image_url && (
+                      {resolveImageUrl(acq.main_image, acq.main_image_url, { width: 600 }) && (
                         <img
-                          src={acq.main_image_url}
+                          src={resolveImageUrl(acq.main_image, acq.main_image_url, { width: 600 })}
                           alt={acq.title}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           loading="lazy"
@@ -270,7 +270,7 @@ export default function AcquisitionDetail() {
           "@type": "Product",
           name: item.title,
           description: item.excerpt || `${item.beds || ''}BR ${item.property_type || 'property'} in ${item.suburb || 'Northern Rivers'}`,
-          image: item.main_image_url || undefined,
+          image: resolveImageUrl(item.main_image, item.main_image_url) || undefined,
           brand: { "@type": "Organization", name: "Compass Buyers Agency" },
           offers: item.purchase_price ? {
             "@type": "Offer",

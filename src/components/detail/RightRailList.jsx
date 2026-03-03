@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { fetchCaseStudies, fetchBlogPosts } from "@/lib/sanityClient";
+import { fetchCaseStudies, fetchBlogPosts, resolveImageUrl } from "@/lib/sanityClient";
 
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop";
 
@@ -38,7 +38,7 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
               <div className="flex gap-3 p-3">
                 <div className="w-24 h-16 rounded-md overflow-hidden bg-[var(--bright-grey)] flex-shrink-0">
                   <img
-                    src={it.featured_image || it.image || PLACEHOLDER_IMG}
+                    src={resolveImageUrl(it.image, it.featured_image, { width: 200 }) || PLACEHOLDER_IMG}
                     alt={it.title || it.name || "Preview"}
                     className="w-full h-full object-cover"
                     loading="lazy"

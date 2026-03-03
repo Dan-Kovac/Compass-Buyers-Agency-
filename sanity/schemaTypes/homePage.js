@@ -21,14 +21,14 @@ export default {
           name: 'title',
           title: 'Heading',
           type: 'string',
-          initialValue: 'Property Acquisition Experts',
+          initialValue: 'Your Buyers Agent, Byron to the Gold Coast',
         },
         {
           name: 'subtitle',
           title: 'Subtitle',
           type: 'text',
           rows: 3,
-          initialValue: 'Leading Northern NSW & Gold Coast Buyer Advocates',
+          initialValue: '62+ properties secured across the Northern Rivers and Gold Coast. Most off-market. Local agents, honest advice, sharper deals.',
         },
         {
           name: 'backgroundImage',
@@ -40,40 +40,7 @@ export default {
           name: 'ctaText',
           title: 'CTA Button Label',
           type: 'string',
-          initialValue: 'Book a Free Consultation',
-        },
-      ],
-    },
-
-    // ─── ABOUT / REVIEW STRIP ───────────────────────────────────────────────
-    {
-      name: 'aboutExpertise',
-      title: 'About / Review Strip',
-      type: 'object',
-      fields: [
-        {
-          name: 'quoteText',
-          title: 'Quote Text',
-          type: 'text',
-          rows: 3,
-        },
-        {
-          name: 'authorName',
-          title: 'Author Name',
-          type: 'string',
-          initialValue: 'Mick Caine',
-        },
-        {
-          name: 'authorRole',
-          title: 'Author Role',
-          type: 'string',
-          initialValue: 'Property buyer',
-        },
-        {
-          name: 'authorAvatar',
-          title: 'Author Avatar',
-          type: 'image',
-          options: { hotspot: true },
+          initialValue: 'Speak to an Agent',
         },
       ],
     },
@@ -174,37 +141,6 @@ export default {
       ],
     },
 
-    // ─── WHY COMPASS STANDS OUT ─────────────────────────────────────────────
-    {
-      name: 'whyCompass',
-      title: 'Why Compass Stands Out',
-      type: 'object',
-      fields: [
-        {
-          name: 'heading',
-          title: 'Section Heading',
-          type: 'string',
-          initialValue: 'Why Compass Stands Out',
-        },
-        {
-          name: 'cards',
-          title: 'Feature Cards (max 6)',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                { name: 'title', title: 'Card Title', type: 'string' },
-                { name: 'description', title: 'Card Description', type: 'text', rows: 2 },
-              ],
-              preview: { select: { title: 'title' } },
-            },
-          ],
-          validation: Rule => Rule.max(6),
-        },
-      ],
-    },
-
     // ─── REGIONS ────────────────────────────────────────────────────────────
     {
       name: 'regions',
@@ -293,41 +229,15 @@ export default {
           name: 'heading',
           title: 'Heading',
           type: 'string',
-          initialValue: 'Get Started',
-        },
-        {
-          name: 'subtitle',
-          title: 'Subtitle',
-          type: 'text',
-          rows: 2,
-        },
-        {
-          name: 'backgroundImage',
-          title: 'Background Image',
-          type: 'image',
-          options: { hotspot: true },
+          initialValue: "Let's find your property",
         },
         {
           name: 'primaryButtonLabel',
           title: 'Primary Button Label',
           type: 'string',
-          initialValue: 'Book a Free Consultation',
-        },
-        {
-          name: 'secondaryButtonLabel',
-          title: 'Secondary Button Label',
-          type: 'string',
-          initialValue: 'Call Us Now',
+          initialValue: 'Start a Conversation',
         },
       ],
-    },
-
-    // ─── VIDEO TESTIMONIALS ─────────────────────────────────────────────────
-    {
-      name: 'testimonialVideos',
-      title: 'Video Testimonials',
-      type: 'array',
-      of: [{ type: 'testimonialVideo' }],
     },
 
   ],

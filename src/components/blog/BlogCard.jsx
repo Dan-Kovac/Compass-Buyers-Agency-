@@ -1,5 +1,6 @@
 import React from "react";
 import { createPageUrl } from "@/utils";
+import { resolveImageUrl } from "@/lib/sanityClient";
 
 export default function BlogCard({ item }) {
   if (!item) {
@@ -16,7 +17,7 @@ export default function BlogCard({ item }) {
   }
 
   const img =
-    item.featured_image ||
+    resolveImageUrl(item.image, item.featured_image, { width: 800 }) ||
     "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop";
   const category = item.category || "";
   const title = item.title || "Untitled";

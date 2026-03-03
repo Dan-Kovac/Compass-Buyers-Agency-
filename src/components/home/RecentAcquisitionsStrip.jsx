@@ -44,8 +44,8 @@ export default function RecentAcquisitionsStrip({
 
         // Also prioritise items that have images
         sorted = sorted.sort((a, b) => {
-          const hasA = a.main_image_url ? 1 : 0;
-          const hasB = b.main_image_url ? 1 : 0;
+          const hasA = (a.main_image?.asset || a.main_image_url) ? 1 : 0;
+          const hasB = (b.main_image?.asset || b.main_image_url) ? 1 : 0;
           return hasB - hasA;
         });
 

@@ -24,6 +24,29 @@ export function urlFor(source) {
   return builder.image(source);
 }
 
+/**
+ * Resolve an image field that may be a Sanity image object OR a legacy URL string.
+ * Returns a URL string or null.
+ *
+ * Usage:
+ *   resolveImageUrl(item.main_image, item.main_image_url, { width: 800 })
+ *   resolveImageUrl(member.photo)
+ */
+export function resolveImageUrl(imageOrUrl, legacyUrl, { width, height, fit } = {}) {
+  // Prefer native Sanity image object
+  if (imageOrUrl?.asset) {
+    let b = urlFor(imageOrUrl);
+    if (width) b = b.width(width);
+    if (height) b = b.height(height);
+    if (fit) b = b.fit(fit);
+    return b.url();
+  }
+  // Fall back to legacy URL string (old data or URL field)
+  if (typeof imageOrUrl === 'string' && imageOrUrl) return imageOrUrl;
+  if (typeof legacyUrl === 'string' && legacyUrl) return legacyUrl;
+  return null;
+}
+
 // ─── Fetch helpers ───────────────────────────────────────────────────────────
 
 /**
@@ -122,6 +145,7 @@ const BLOG_POST_FIELDS = `
   category,
   tags,
   author,
+  image,
   featured_image,
   excerpt,
   content,
@@ -129,6 +153,7 @@ const BLOG_POST_FIELDS = `
   featured,
   meta_title,
   meta_description,
+  gallery,
   gallery_images
 `;
 
@@ -170,7 +195,9 @@ const ACQUISITION_FIELDS = `
   market_visibility,
   timeframe,
   excerpt,
+  main_image,
   main_image_url,
+  agent_photo,
   agent_image,
   realestate_link,
   tags,
@@ -246,11 +273,13 @@ const CASE_STUDY_FIELDS = `
   timeframe,
   excerpt,
   content,
+  image,
   featured_image,
   client_name,
   client_testimonial,
   challenges_overcome,
   results_achieved,
+  gallery,
   property_images,
   featured,
   published_date,

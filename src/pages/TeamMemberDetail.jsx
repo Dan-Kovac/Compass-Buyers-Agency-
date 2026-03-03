@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchTeamMember, client } from "@/lib/sanityClient";
+import { fetchTeamMember, client, resolveImageUrl } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
 import { Mail, Phone, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -59,14 +59,14 @@ export default function TeamMemberDetail() {
 
           // Load acquisitions by this agent
           const acqList = await client.fetch(
-            `*[_type=="acquisition" && status=="published" && agent==$name]|order(purchase_date desc)[0..11]{"id":_id,title,"slug":slug.current,suburb,state,lga,property_type,beds,baths,cars,purchase_price,price_display,purchase_date,agent,market_visibility,timeframe,excerpt,main_image_url,tags,featured}`,
+            `*[_type=="acquisition" && status=="published" && agent==$name]|order(purchase_date desc)[0..11]{"id":_id,title,"slug":slug.current,suburb,state,lga,property_type,beds,baths,cars,purchase_price,price_display,purchase_date,agent,market_visibility,timeframe,excerpt,main_image,main_image_url,tags,featured}`,
             { name: memberData.name }
           );
           setAcquisitions(acqList || []);
 
           // Load blog posts by this author
           const blogList = await client.fetch(
-            `*[_type=="blogPost" && status=="published" && author==$name]|order(published_date desc)[0..5]{"id":_id,title,"slug":slug.current,status,category,tags,author,featured_image,excerpt,published_date,featured}`,
+            `*[_type=="blogPost" && status=="published" && author==$name]|order(published_date desc)[0..5]{"id":_id,title,"slug":slug.current,status,category,tags,author,image,featured_image,excerpt,published_date,featured}`,
             { name: memberData.name }
           );
           setBlogs(blogList || []);
@@ -141,15 +141,15 @@ export default function TeamMemberDetail() {
                   ) : (
                     <video
                       src={member.intro_video_url}
-                      poster={member.photo || undefined}
+                      poster={resolveImageUrl(member.photo) || undefined}
                       controls
                       className="w-full aspect-video rounded-2xl shadow-lg object-cover"
                     />
                   )
                 ) : (
-                  member.photo && (
+                  resolveImageUrl(member.photo) && (
                     <img
-                      src={member.photo}
+                      src={resolveImageUrl(member.photo)}
                       alt={member.name}
                       className="w-full aspect-square object-cover rounded-2xl shadow-lg"
                       fetchPriority="high"
@@ -331,7 +331,7 @@ export default function TeamMemberDetail() {
           name: member.name,
           jobTitle: member.position,
           description: member.bio || `${member.position} at Compass Buyers Agency`,
-          image: member.photo || undefined,
+          image: resolveImageUrl(member.photo) || undefined,
           email: member.email || undefined,
           telephone: member.phone || undefined,
           worksFor: {

@@ -147,14 +147,6 @@ export default {
       ],
     },
 
-    // ─── VIDEO TESTIMONIALS ─────────────────────────────────────────────────
-    {
-      name: 'testimonialVideos',
-      title: 'Video Testimonials',
-      type: 'array',
-      of: [{ type: 'testimonialVideo' }],
-    },
-
   ],
   preview: {
     prepare() {

@@ -8,7 +8,7 @@ export default defineType({
     defineField({ name: 'name', title: 'Full Name', type: 'string', validation: Rule => Rule.required() }),
     defineField({ name: 'position', title: 'Position / Title', type: 'string', validation: Rule => Rule.required() }),
     defineField({ name: 'bio', title: 'Bio', type: 'text', rows: 6, validation: Rule => Rule.required() }),
-    defineField({ name: 'photo', title: 'Photo URL', type: 'url' }),
+    defineField({ name: 'photo', title: 'Photo', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'email', title: 'Email', type: 'string' }),
     defineField({ name: 'phone', title: 'Phone', type: 'string' }),
     defineField({ name: 'credentials', title: 'Credentials', type: 'array', of: [{ type: 'string' }] }),

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { resolveImageUrl } from "@/lib/sanityClient";
 
 export default function AcquisitionCard({ item }) {
   if (!item) {
@@ -30,9 +31,9 @@ export default function AcquisitionCard({ item }) {
       className="surface overflow-hidden rounded-xl flex flex-col group relative h-full"
     >
       <div className="aspect-[4/3] bg-[var(--bright-grey)] relative overflow-hidden flex-shrink-0">
-        {item.main_image_url ? (
+        {resolveImageUrl(item.main_image, item.main_image_url, { width: 800 }) ? (
           <img
-            src={item.main_image_url}
+            src={resolveImageUrl(item.main_image, item.main_image_url, { width: 800 })}
             alt={item.title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"

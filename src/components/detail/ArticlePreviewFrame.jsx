@@ -1,13 +1,16 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, User } from "lucide-react";
+import { resolveImageUrl } from "@/lib/sanityClient";
 
 export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "article" }) {
   const {
     title,
     content,
     excerpt,
+    image,
     featured_image,
+    gallery,
     property_images = [],
     author,
     created_date,
@@ -19,14 +22,17 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
     client_type,
   } = data;
 
-  const feat = Array.isArray(property_images) && property_images.length
+  const heroImg = resolveImageUrl(image, featured_image, { width: 1200 });
+  const feat = Array.isArray(gallery) && gallery.length
+    ? gallery.map((g) => resolveImageUrl(g) || '').filter(Boolean)
+    : Array.isArray(property_images) && property_images.length
     ? property_images
-    : featured_image
-    ? [featured_image]
+    : heroImg
+    ? [heroImg]
     : [];
 
   const hero = feat[0] || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop";
-  const gallery = feat.slice(1);
+  const galleryImages = feat.slice(1);
 
   const aspectMap = {
     "21:9": "aspect-[21/9]",
@@ -89,11 +95,11 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
           dangerouslySetInnerHTML={{ __html: content || "" }}
         />
 
-        {settings.show_gallery !== false && gallery.length > 0 && (
+        {settings.show_gallery !== false && galleryImages.length > 0 && (
           <div className="mt-10">
             <h2 className="mb-4" style={{ fontSize: "var(--h3-fs)", lineHeight: "var(--h3-lh)" }}>Gallery</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {gallery.map((img, i) => (
+              {galleryImages.map((img, i) => (
                 <div key={i} className="aspect-square rounded-token overflow-hidden border border-[var(--border)]">
                   <img src={img} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
                 </div>

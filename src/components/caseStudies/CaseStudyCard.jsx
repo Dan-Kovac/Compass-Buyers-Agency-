@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { resolveImageUrl } from "@/lib/sanityClient";
 
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop";
 
@@ -25,7 +26,7 @@ export default function CaseStudyCard({ item }) {
       <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-white h-full flex flex-col border-[var(--border)]">
         <div className="aspect-[4/3] bg-[var(--bright-grey)] shrink-0">
           <img
-            src={item.featured_image || PLACEHOLDER_IMG}
+            src={resolveImageUrl(item.image, item.featured_image, { width: 800 }) || PLACEHOLDER_IMG}
             alt={item.title || "Case study"}
             className="w-full h-full object-cover"
             loading="lazy"
