@@ -113,7 +113,7 @@ export default function About() {
           ) : teamMembers && teamMembers.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
               <StaggerGroup stagger={120}>
-              {teamMembers.map((m) => (
+              {teamMembers.filter((m) => m.id !== "teamMember-68c27c6d1248fbc816dd0339").map((m) => (
                 <ScrollReveal key={m.id}>
                 <div className="group flex flex-col h-full">
                   {/* Portrait photo */}
