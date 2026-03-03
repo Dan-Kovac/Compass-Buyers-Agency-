@@ -8,7 +8,7 @@ import React from "react";
  *   posterSrc   string  — poster image (webp/jpg)
  *   clientName  string
  *   subtitle    string  — e.g. "Purchased in Kingscliff"
- *   size        "default" | "large"
+ *   size        "default" | "large" | "full"
  */
 export default function VideoTestimonialCard({ videoSrc, posterSrc, clientName, subtitle, size = "default" }) {
   const [playing, setPlaying] = React.useState(false);
@@ -25,12 +25,14 @@ export default function VideoTestimonialCard({ videoSrc, posterSrc, clientName, 
     setPlaying(false);
   };
 
-  const widthClass = size === "large"
-    ? "w-[260px] sm:w-[340px] md:w-[360px]"
-    : "w-[240px] sm:w-[300px]";
+  const widthClass = size === "full"
+    ? "w-full"
+    : size === "large"
+      ? "w-[260px] sm:w-[340px] md:w-[360px]"
+      : "w-[240px] sm:w-[300px]";
 
   return (
-    <div className={`group flex-shrink-0 ${widthClass}`}>
+    <div className={`group ${size === "full" ? "" : "flex-shrink-0"} ${widthClass}`}>
       {/* Video / Poster area — square aspect */}
       <div className="relative aspect-square rounded-xl overflow-hidden bg-[var(--bright-grey)]">
         {playing ? (

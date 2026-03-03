@@ -73,6 +73,9 @@ export default function RecentAcquisitionsStrip({
 
   const bgClass = bg === "white" ? "bg-white" : "bg-[var(--bright-grey)]";
 
+  // Hide the entire section when there's no data (avoids permanent skeleton cards)
+  if (!loading && items.length === 0) return null;
+
   return (
     <section className={bgClass} style={{ padding: "var(--section-breathing-lg) 0" }}>
       <div className="site-container">

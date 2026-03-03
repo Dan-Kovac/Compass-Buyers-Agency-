@@ -3,13 +3,12 @@ import { fetchAcquisitions } from "@/lib/sanityClient";
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import AcquisitionFilters from "@/components/acquisitions/AcquisitionFilters";
 import CTASection from "@/components/shared/CTASection.jsx";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
-import { useNavigate } from "react-router-dom";
 
 export default function Acquisitions() {
   const [items, setItems] = React.useState([]);
   const [filters, setFilters] = React.useState({ region: "All Regions", suburb: "All Suburbs" });
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     (async () => {
@@ -41,18 +40,18 @@ export default function Acquisitions() {
 
   return (
     <div className="bg-white">
-      {/* Centered hero aligned with other pages */}
-      <section className="section-padding bg-white">
+      {/* Page header — standard pattern */}
+      <section className="bg-warm-gradient page-header">
         <div className="site-container">
-          <div
-            className="max-w-3xl mx-auto text-center"
-            style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}
-          >
-            <h1>Acquisitions</h1>
-            <p className="text-[var(--ink)]/70 text-base md:text-lg">
-              Browse properties we've secured for clients. Filter by region or suburb to see activity in your area.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">Our Work</p>
+              <h1>Acquisitions</h1>
+              <p>
+                Browse properties we've secured for clients. Filter by region or suburb to see activity in your area.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -96,7 +95,7 @@ export default function Acquisitions() {
       <CTASection
         heading="Looking for a Buyers Agent?"
         buttonText="Book a Free Consultation"
-        onButtonClick={() => navigate(createPageUrl("Contact"))}
+        buttonHref={createPageUrl("Contact")}
         supportingText="We'll help you find and secure the right property."
       />
     </div>

@@ -3,7 +3,7 @@ import { fetchCaseStudies } from "@/lib/sanityClient";
 import CaseStudyCard from "@/components/caseStudies/CaseStudyCard";
 import MinimalFilters from "@/components/caseStudies/MinimalFilters";
 import CTASection from "@/components/shared/CTASection";
-import { useNavigate } from "react-router-dom";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 
 export default function CaseStudies() {
@@ -14,8 +14,6 @@ export default function CaseStudies() {
   const [propertyType, setPropertyType] = React.useState();
   const [location, setLocation] = React.useState();
   const [clientType, setClientType] = React.useState();
-
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     (async () => {
@@ -53,20 +51,18 @@ export default function CaseStudies() {
 
   return (
     <div className="bg-white">
-      {/* Minimal, fully centered hero on white */}
-      <section className="section-padding bg-white">
+      {/* Page header — standard pattern */}
+      <section className="bg-warm-gradient page-header">
         <div className="site-container">
-          <div
-            className="max-w-3xl mx-auto text-center"
-            style={{ "--h1-mw": "100%", "--h1-mb": "8px" }}
-          >
-            <h1>
-              Case Studies
-            </h1>
-            <p className="text-[var(--ink)]/70 text-base md:text-lg">
-              Real results from buyers across Northern Rivers and the Southern Gold Coast.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">Our Work</p>
+              <h1>Case Studies</h1>
+              <p>
+                Real results from buyers across Northern Rivers and the Southern Gold Coast.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -117,7 +113,7 @@ export default function CaseStudies() {
       <CTASection
         heading="Ready to buy with confidence?"
         buttonText="Book a Free Consultation"
-        onButtonClick={() => navigate(createPageUrl("Contact"))}
+        buttonHref={createPageUrl("Contact")}
         supportingText="Local expertise • Independent advice • Proven results"
       />
     </div>
