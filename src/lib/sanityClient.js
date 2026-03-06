@@ -4,8 +4,8 @@ import imageUrlBuilder from '@sanity/image-url';
 // ─── Client ──────────────────────────────────────────────────────────────────
 // projectId and dataset must match sanity/sanity.config.js
 export const client = createClient({
-  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || '31tdhl52',
-  dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
+  projectId: (import.meta.env.VITE_SANITY_PROJECT_ID || '31tdhl52').trim(),
+  dataset: (import.meta.env.VITE_SANITY_DATASET || 'production').trim(),
   apiVersion: '2024-01-01',
   useCdn: true, // fast cached reads; set false if you need live preview
 });
