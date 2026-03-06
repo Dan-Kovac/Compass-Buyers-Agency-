@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import SEOHead from "../components/shared/SEOHead";
 
 const DATA = {
   heroTitle: "Byron Bay Buyers Agent",
@@ -99,19 +100,48 @@ const DATA = {
 
   localBusinessSchema: {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Compass Buyers Agency",
-    "@id": "https://compassagency.com.au",
-    url: "https://compassagency.com.au/byron-bay-buyers-agent/",
-    logo: "https://compassagency.com.au/logo.png",
-    image: "https://compassagency.com.au/og-image.png",
-    description: "Byron Bay buyers agent. $2.45M median, 67% interstate buyers, 5+ competing bidders. Off-market access and local diligence across Byron Shire.",
-    areaServed: { "@type": "City", name: "Byron Bay" },
-    serviceType: "Buyers Agent",
-    priceRange: "$$",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://compassagency.com.au/#business",
+        name: "Compass Buyers Agency",
+        url: "https://compassagency.com.au/byron-bay-buyers-agent/",
+        logo: "https://compassagency.com.au/logo.png",
+        image: "https://compassagency.com.au/og-image.png",
+        description: "Byron Bay buyers agent. Off-market access, local due diligence and buyer-only representation across Byron Shire.",
+        telephone: "+61403536390",
+        email: "hello@compassbuyersagency.com.au",
+        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
+        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
+        areaServed: [
+          { "@type": "City", name: "Byron Bay" },
+          { "@type": "City", name: "Suffolk Park" },
+          { "@type": "City", name: "Bangalow" },
+          { "@type": "City", name: "Brunswick Heads" },
+        ],
+        priceRange: "$$",
+      },
+      {
+        "@type": "Service",
+        name: "Byron Bay Buyers Agent",
+        description: "Buyers agent service specialising in Byron Bay property. Off-market access, auction bidding, negotiation and due diligence across Byron Shire.",
+        provider: { "@id": "https://compassagency.com.au/#business" },
+        areaServed: { "@type": "City", name: "Byron Bay" },
+        serviceType: "Buyers Agent",
+      },
+    ],
   },
 };
 
 export default function ByronBayBuyersAgent() {
-  return <LandingPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead
+        title="Byron Bay Buyers Agent | Compass Buyers Agency"
+        description="Expert buyers agent in Byron Bay. $2.45M median, 42% off-market deals. Local knowledge, agent relationships and buyer-only representation."
+        canonicalPath="/byron-bay-buyers-agent"
+      />
+      <LandingPageTemplate data={DATA} />
+    </>
+  );
 }

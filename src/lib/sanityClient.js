@@ -223,6 +223,7 @@ export async function fetchAcquisition(id) {
 const TEAM_MEMBER_FIELDS = `
   "id": _id,
   name,
+  "slug": slug.current,
   position,
   bio,
   photo,
@@ -243,10 +244,10 @@ export async function fetchTeamMembers({ activeOnly = true } = {}) {
   return client.fetch(`*[${filter}] | order(order asc) { ${TEAM_MEMBER_FIELDS} }`);
 }
 
-export async function fetchTeamMember(id) {
+export async function fetchTeamMember(idOrSlug) {
   return client.fetch(
-    `*[_type == "teamMember" && _id == $id][0] { ${TEAM_MEMBER_FIELDS} }`,
-    { id }
+    `*[_type == "teamMember" && (_id == $id || slug.current == $id)][0] { ${TEAM_MEMBER_FIELDS} }`,
+    { id: idOrSlug }
   );
 }
 

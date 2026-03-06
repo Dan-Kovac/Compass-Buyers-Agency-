@@ -35,17 +35,31 @@ const DEFAULT_TESTIMONIALS = [
 
 export default function TestimonialSection({
   heading = "What Our Buyers Say",
+  subtitle = "Real conversations with real buyers. Hear how working with Compass changed their experience.",
   testimonials,
   className = "",
 }) {
   const items = testimonials?.length ? testimonials : DEFAULT_TESTIMONIALS;
 
   return (
-    <section className={`bg-white ${className}`} style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className={`bg-sand-wash ${className}`} style={{ padding: "var(--section-breathing-lg) 0" }}>
       <div className="site-container">
         <ScrollReveal className="mb-10 md:mb-12">
           <p className="eyebrow-label">Client Stories</p>
-          <h2 className="mb-0">{heading}</h2>
+          <h2 className="mb-2">{heading}</h2>
+          {subtitle && (
+            <p
+              style={{
+                fontWeight: "var(--font-body-light)",
+                fontSize: "1.0625rem",
+                color: "var(--stone)",
+                lineHeight: "1.7",
+                maxWidth: "48ch",
+              }}
+            >
+              {subtitle}
+            </p>
+          )}
         </ScrollReveal>
 
         <StaggerGroup stagger={120}>

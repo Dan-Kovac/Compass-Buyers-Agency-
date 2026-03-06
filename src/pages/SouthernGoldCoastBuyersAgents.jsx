@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import SEOHead from "../components/shared/SEOHead";
 
 const DATA = {
   heroTitle: "Southern Gold Coast Buyers Agent",
@@ -116,19 +117,49 @@ const DATA = {
 
   localBusinessSchema: {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Compass Buyers Agency",
-    "@id": "https://compassagency.com.au",
-    url: "https://compassagency.com.au/southern-gold-coast-buyers-agent/",
-    logo: "https://compassagency.com.au/logo.png",
-    image: "https://compassagency.com.au/og-image.png",
-    description: "Southern Gold Coast buyers agent covering Burleigh Heads, Currumbin, Palm Beach and Elanora. $1.85M Burleigh median. 720+ annual sales. Off-market access and local due diligence.",
-    areaServed: { "@type": "City", name: "Southern Gold Coast" },
-    serviceType: "Buyers Agent",
-    priceRange: "$$",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://compassagency.com.au/#business",
+        name: "Compass Buyers Agency",
+        url: "https://compassagency.com.au/southern-gold-coast-buyers-agent/",
+        logo: "https://compassagency.com.au/logo.png",
+        image: "https://compassagency.com.au/og-image.png",
+        description: "Southern Gold Coast buyers agent covering Burleigh Heads, Currumbin, Palm Beach and Elanora. Off-market access, strata due diligence and buyer-only representation.",
+        telephone: "+61403536390",
+        email: "hello@compassbuyersagency.com.au",
+        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
+        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
+        areaServed: [
+          { "@type": "City", name: "Burleigh Heads" },
+          { "@type": "City", name: "Currumbin" },
+          { "@type": "City", name: "Palm Beach" },
+          { "@type": "City", name: "Currumbin Valley" },
+          { "@type": "City", name: "Elanora" },
+        ],
+        priceRange: "$$",
+      },
+      {
+        "@type": "Service",
+        name: "Southern Gold Coast Buyers Agent",
+        description: "Buyers agent service specialising in Southern Gold Coast property. Off-market access, strata analysis, negotiation and due diligence across Burleigh, Currumbin and Palm Beach.",
+        provider: { "@id": "https://compassagency.com.au/#business" },
+        areaServed: { "@type": "City", name: "Southern Gold Coast" },
+        serviceType: "Buyers Agent",
+      },
+    ],
   },
 };
 
 export default function SouthernGoldCoastBuyersAgents() {
-  return <LandingPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead
+        title="Southern Gold Coast Buyers Agent | Compass Buyers Agency"
+        description="Buyers agent on the Southern Gold Coast covering Burleigh, Currumbin and Palm Beach. 28% off-market. Strata expertise and buyer-only focus."
+        canonicalPath="/southern-gold-coast-buyers-agent"
+      />
+      <LandingPageTemplate data={DATA} />
+    </>
+  );
 }

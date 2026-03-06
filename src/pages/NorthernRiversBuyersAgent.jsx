@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import SEOHead from "../components/shared/SEOHead";
 
 const DATA = {
   heroTitle: "Northern Rivers Buyers Agent",
@@ -107,19 +108,50 @@ const DATA = {
 
   localBusinessSchema: {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Compass Buyers Agency",
-    "@id": "https://compassagency.com.au",
-    url: "https://compassagency.com.au/northern-rivers-buyers-agent/",
-    logo: "https://compassagency.com.au/logo.png",
-    image: "https://compassagency.com.au/og-image.png",
-    description: "Northern Rivers buyers agent covering Byron Bay, Brunswick Heads, Lennox Head, Ballina, Bangalow to the Tweed Coast. Regional median $1.65M. 400+ annual transactions.",
-    areaServed: { "@type": "AdministrativeArea", name: "Northern Rivers" },
-    serviceType: "Buyers Agent",
-    priceRange: "$$",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://compassagency.com.au/#business",
+        name: "Compass Buyers Agency",
+        url: "https://compassagency.com.au/northern-rivers-buyers-agent/",
+        logo: "https://compassagency.com.au/logo.png",
+        image: "https://compassagency.com.au/og-image.png",
+        description: "Northern Rivers buyers agent covering Byron Bay to the Tweed Coast. Off-market access, multi-shire due diligence and buyer-only representation across 15+ suburbs.",
+        telephone: "+61403536390",
+        email: "hello@compassbuyersagency.com.au",
+        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
+        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
+        areaServed: [
+          { "@type": "AdministrativeArea", name: "Northern Rivers" },
+          { "@type": "City", name: "Byron Bay" },
+          { "@type": "City", name: "Bangalow" },
+          { "@type": "City", name: "Ballina" },
+          { "@type": "City", name: "Lennox Head" },
+          { "@type": "City", name: "Kingscliff" },
+        ],
+        priceRange: "$$",
+      },
+      {
+        "@type": "Service",
+        name: "Northern Rivers Buyers Agent",
+        description: "Buyers agent service covering the Northern Rivers region from Byron Bay to the Tweed Coast. Multi-suburb comparisons, off-market access and cross-shire due diligence.",
+        provider: { "@id": "https://compassagency.com.au/#business" },
+        areaServed: { "@type": "AdministrativeArea", name: "Northern Rivers" },
+        serviceType: "Buyers Agent",
+      },
+    ],
   },
 };
 
 export default function NorthernRiversBuyersAgent() {
-  return <LandingPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead
+        title="Northern Rivers Buyers Agent | Compass Buyers Agency"
+        description="Buyers agent across the Northern Rivers from Byron Bay to Tweed Heads. 1,200+ annual transactions. Local knowledge and off-market access."
+        canonicalPath="/northern-rivers-buyers-agent"
+      />
+      <LandingPageTemplate data={DATA} />
+    </>
+  );
 }

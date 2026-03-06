@@ -7,6 +7,7 @@ import SegmentsNav from "../components/who/SegmentsNav";
 import SegmentSection from "../components/who/SegmentSection";
 import ImageBand from "../components/shared/ImageBand";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
+import SEOHead from "../components/shared/SEOHead";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 export default function Services() {
@@ -41,6 +42,12 @@ export default function Services() {
 
   return (
     <div className="bg-white">
+      <SEOHead
+        title={page?.seo?.metaTitle || "Our Services | Compass Buyers Agency"}
+        description={page?.seo?.metaDescription || "Property search, due diligence, negotiation and settlement support. Compass Buyers Agency represents buyers only across the Northern Rivers and Gold Coast."}
+        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        canonicalPath="/services"
+      />
       {/* Page header */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
@@ -182,23 +189,81 @@ export default function Services() {
         variant="dark"
       />
 
-      {/* ProfessionalService JSON-LD */}
+      {/* ProfessionalService + Service JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        name: "Compass Buyers Agency",
-        url: "https://compassagency.com.au/services",
-        description: "Full-service buyer advocacy from search to settlement. Property sourcing, auction bidding, negotiation and portfolio strategy across Northern Rivers and Gold Coast.",
-        telephone: "+61403536390",
-        email: "hello@compassbuyersagency.com.au",
-        areaServed: [
-          { "@type": "City", name: "Byron Bay" },
-          { "@type": "City", name: "Gold Coast" },
-          { "@type": "City", name: "Tweed Heads" },
-          { "@type": "AdministrativeArea", name: "Northern Rivers" },
+        "@graph": [
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://compassagency.com.au/#business",
+            name: "Compass Buyers Agency",
+            url: "https://compassagency.com.au/services",
+            description: "Full-service buyer advocacy from search to settlement. Property sourcing, auction bidding, negotiation and portfolio strategy across Northern Rivers and Gold Coast.",
+            telephone: "+61403536390",
+            email: "hello@compassbuyersagency.com.au",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Cabarita Beach",
+              addressLocality: "Cabarita Beach",
+              addressRegion: "NSW",
+              postalCode: "2488",
+              addressCountry: "AU",
+            },
+            areaServed: [
+              { "@type": "City", name: "Byron Bay" },
+              { "@type": "City", name: "Gold Coast" },
+              { "@type": "City", name: "Tweed Heads" },
+              { "@type": "AdministrativeArea", name: "Northern Rivers" },
+            ],
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Buyers Agency Services",
+              itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", "@id": "https://compassagency.com.au/services#full-advocacy", name: "Full-Service Buyers Advocacy" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", "@id": "https://compassagency.com.au/services#sourcing-research", name: "Sourcing and Research" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", "@id": "https://compassagency.com.au/services#auction-negotiation", name: "Auction Bidding and Negotiation" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", "@id": "https://compassagency.com.au/services#portfolio-strategy", name: "Portfolio Strategy" } },
+              ],
+            },
+            priceRange: "$$",
+          },
+          {
+            "@type": "Service",
+            "@id": "https://compassagency.com.au/services#full-advocacy",
+            name: "Full-Service Buyers Advocacy",
+            description: "End-to-end representation to find, assess and secure the right property, often off-market, with your interests protected at every step.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: [{ "@type": "City", name: "Byron Bay" }, { "@type": "City", name: "Gold Coast" }, { "@type": "AdministrativeArea", name: "Northern Rivers" }],
+            serviceType: "Buyers Agent",
+          },
+          {
+            "@type": "Service",
+            "@id": "https://compassagency.com.au/services#sourcing-research",
+            name: "Sourcing and Research",
+            description: "We halve the time it takes most buyers by handling research, outreach and inspections, surfacing the best options quickly.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: [{ "@type": "City", name: "Byron Bay" }, { "@type": "City", name: "Gold Coast" }, { "@type": "AdministrativeArea", name: "Northern Rivers" }],
+            serviceType: "Property Sourcing",
+          },
+          {
+            "@type": "Service",
+            "@id": "https://compassagency.com.au/services#auction-negotiation",
+            name: "Auction Bidding and Negotiation",
+            description: "Keep emotion out and results in. Our team plans the strategy and represents you on the day or in pre-auction and private negotiations.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: [{ "@type": "City", name: "Byron Bay" }, { "@type": "City", name: "Gold Coast" }, { "@type": "AdministrativeArea", name: "Northern Rivers" }],
+            serviceType: "Auction Bidding",
+          },
+          {
+            "@type": "Service",
+            "@id": "https://compassagency.com.au/services#portfolio-strategy",
+            name: "Portfolio Strategy",
+            description: "A longer-term plan to grow your portfolio, aligning yield, growth and risk with clear criteria for each buy.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: [{ "@type": "City", name: "Byron Bay" }, { "@type": "City", name: "Gold Coast" }, { "@type": "AdministrativeArea", name: "Northern Rivers" }],
+            serviceType: "Investment Strategy",
+          },
         ],
-        serviceType: ["Buyers Agent", "Property Sourcing", "Auction Bidding", "Negotiation"],
-        priceRange: "$$",
       }) }} />
     </div>
   );

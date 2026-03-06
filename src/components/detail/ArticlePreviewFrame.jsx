@@ -1,7 +1,8 @@
 import React from "react";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, User } from "lucide-react";
 import { resolveImageUrl } from "@/lib/sanityClient";
+import { estimateReadingTime } from "@/utils/readingTime";
+import { formatDate } from "@/utils/formatDate";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "article" }) {
   const {
@@ -24,84 +25,236 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
 
   const heroImg = resolveImageUrl(image, featured_image, { width: 1200 });
   const feat = Array.isArray(gallery) && gallery.length
-    ? gallery.map((g) => resolveImageUrl(g) || '').filter(Boolean)
+    ? gallery.map((g) => resolveImageUrl(g) || "").filter(Boolean)
     : Array.isArray(property_images) && property_images.length
     ? property_images
     : heroImg
     ? [heroImg]
     : [];
 
-  const hero = feat[0] || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600&auto=format&fit=crop";
+  const hero = feat[0] || null;
   const galleryImages = feat.slice(1);
-
-  const aspectMap = {
-    "21:9": "aspect-[21/9]",
-    "16:9": "aspect-[16/9]",
-    "3:2": "aspect-[3/2]",
-    "4:3": "aspect-[4/3]",
-  };
-  const heroAspect = aspectMap[settings.hero_aspect] || "aspect-[16/9]";
 
   const maxW = settings.content_max_width ? `${settings.content_max_width}px` : "820px";
 
   const displayDate = published_date || created_date;
+  const readingTime = estimateReadingTime(content);
+  const dateStr = formatDate(displayDate, "long");
+
+  const formatCategoryLabel = (cat) => {
+    if (!cat) return "";
+    return cat.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  };
 
   return (
-    <article className="site-container py-8 md:py-12">
+    <article className="site-container" style={{ paddingTop: "var(--section-compact)", paddingBottom: 0 }}>
       <div className="mx-auto" style={{ maxWidth: maxW }}>
-        {settings.show_badges !== false && (
-          <div className="flex flex-wrap gap-2 mb-3">
-            {category && <Badge variant="secondary">{category.replace("-", " ")}</Badge>}
-            {property_type && <Badge className="badge-accent">{property_type}</Badge>}
-            {location && <Badge variant="outline">{location}</Badge>}
-            {client_type && <Badge variant="outline">{client_type.replace("-", " ")}</Badge>}
-            {Array.isArray(tags) && tags.map((t, i) => <Badge key={i} variant="outline">{t}</Badge>)}
+        {/* Category + property badges */}
+        <ScrollReveal>
+          {settings.show_badges !== false && (
+            <div className="flex flex-wrap gap-2" style={{ marginBottom: "1.25rem" }}>
+              {category && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.6875rem",
+                    fontWeight: "var(--font-body-medium)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--hills)",
+                    background: "rgba(75, 115, 113, 0.06)",
+                    padding: "0.375rem 0.875rem",
+                    borderRadius: "var(--radius-badge)",
+                  }}
+                >
+                  {formatCategoryLabel(category)}
+                </span>
+              )}
+              {property_type && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.6875rem",
+                    fontWeight: "var(--font-body-medium)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "white",
+                    background: "var(--hills)",
+                    padding: "0.375rem 0.875rem",
+                    borderRadius: "var(--radius-badge)",
+                  }}
+                >
+                  {property_type}
+                </span>
+              )}
+              {location && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.6875rem",
+                    fontWeight: "var(--font-body-medium)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--stone)",
+                    border: "1px solid var(--bright-grey)",
+                    padding: "0.375rem 0.875rem",
+                    borderRadius: "var(--radius-badge)",
+                  }}
+                >
+                  {location}
+                </span>
+              )}
+              {client_type && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.6875rem",
+                    fontWeight: "var(--font-body-medium)",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--stone)",
+                    border: "1px solid var(--bright-grey)",
+                    padding: "0.375rem 0.875rem",
+                    borderRadius: "var(--radius-badge)",
+                  }}
+                >
+                  {client_type.replace(/-/g, " ")}
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Title */}
+          <h1
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontWeight: 400,
+              fontSize: "clamp(2rem, 4vw, 3rem)",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.12,
+              color: "var(--ink)",
+              marginBottom: "1rem",
+              maxWidth: "820px",
+            }}
+          >
+            {title || "Untitled"}
+          </h1>
+
+          {/* Excerpt / Standfirst */}
+          {settings.show_excerpt !== false && excerpt && (
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: "var(--font-body-light)",
+                fontSize: "clamp(1.0625rem, 1.4vw, 1.25rem)",
+                lineHeight: 1.65,
+                color: "var(--stone)",
+                marginBottom: "1.5rem",
+                maxWidth: "820px",
+              }}
+            >
+              {excerpt}
+            </p>
+          )}
+
+          {/* Meta row */}
+          {settings.show_meta !== false && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "0.75rem",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.8125rem",
+                fontWeight: "var(--font-body-light)",
+                color: "var(--stone)",
+                marginBottom: "2rem",
+                paddingBottom: "1.5rem",
+                borderBottom: "1px solid var(--bright-grey)",
+              }}
+            >
+              {author && (
+                <>
+                  <span>By {author}</span>
+                  <span style={{ color: "var(--bright-grey)" }}>|</span>
+                </>
+              )}
+              {dateStr && (
+                <>
+                  <span>{dateStr}</span>
+                  <span style={{ color: "var(--bright-grey)" }}>|</span>
+                </>
+              )}
+              <span>{readingTime} min read</span>
+            </div>
+          )}
+        </ScrollReveal>
+      </div>
+
+      {/* Hero image -- wider than text column for editorial impact */}
+      {hero && (
+        <ScrollReveal animation="fade-in" delay={200}>
+          <div
+            className="mx-auto overflow-hidden"
+            style={{
+              maxWidth: "min(1000px, 100%)",
+              aspectRatio: "16/9",
+              borderRadius: "var(--radius-card)",
+              marginBottom: "2.5rem",
+            }}
+          >
+            <img
+              src={hero}
+              alt={title || ""}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "center" }}
+              loading="lazy"
+            />
           </div>
-        )}
+        </ScrollReveal>
+      )}
 
-        <h1 className="mb-3">{title || "Untitled"}</h1>
-
-        {settings.show_meta !== false && (author || displayDate) && (
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
-            {author && (
-              <div className="flex items-center gap-1">
-                <User className="w-4 h-4" />
-                {author}
-              </div>
-            )}
-            {displayDate && (
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                {new Date(displayDate).toLocaleDateString("en-AU", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </div>
-            )}
-          </div>
-        )}
-
-        {settings.show_excerpt !== false && excerpt && (
-          <p className="text-lg text-gray-700 leading-relaxed mb-6">{excerpt}</p>
-        )}
-
-        <div className={`${heroAspect} rounded-token overflow-hidden mb-8 border border-[var(--border)]`}>
-          <img src={hero} alt={title || ""} className="w-full h-full object-cover" loading="lazy" />
-        </div>
-
-        <div 
-          className="prose prose-lg max-w-none"
+      {/* Article body */}
+      <div className="mx-auto" style={{ maxWidth: maxW }}>
+        <div
+          className="article-body"
           dangerouslySetInnerHTML={{ __html: content || "" }}
         />
 
+        {/* Gallery (for case studies with additional images) */}
         {settings.show_gallery !== false && galleryImages.length > 0 && (
-          <div className="mt-10">
-            <h2 className="mb-4" style={{ fontSize: "var(--h3-fs)", lineHeight: "var(--h3-lh)" }}>Gallery</h2>
+          <div style={{ marginTop: "2.5rem" }}>
+            <h2
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 400,
+                fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
+                letterSpacing: "-0.015em",
+                lineHeight: 1.2,
+                color: "var(--ink)",
+                marginBottom: "1rem",
+              }}
+            >
+              Gallery
+            </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {galleryImages.map((img, i) => (
-                <div key={i} className="aspect-square rounded-token overflow-hidden border border-[var(--border)]">
-                  <img src={img} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+                <div
+                  key={i}
+                  className="aspect-square overflow-hidden"
+                  style={{ borderRadius: "var(--radius-card)" }}
+                >
+                  <img
+                    src={img}
+                    alt={`Gallery ${i + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
               ))}
             </div>

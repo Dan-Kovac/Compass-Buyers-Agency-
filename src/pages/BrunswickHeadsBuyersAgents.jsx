@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import SEOHead from "../components/shared/SEOHead";
 
 const DATA = {
   heroTitle: "Brunswick Heads Buyers Agent",
@@ -116,19 +117,49 @@ const DATA = {
 
   localBusinessSchema: {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Compass Buyers Agency",
-    "@id": "https://compassagency.com.au",
-    url: "https://compassagency.com.au/brunswick-heads-buyers-agent/",
-    logo: "https://compassagency.com.au/logo.png",
-    image: "https://compassagency.com.au/og-image.png",
-    description: "Brunswick Heads buyers agent covering Brunswick Heads, Ocean Shores, New Brighton and South Golden Beach. ~$2.1M median. 39% off-market. Byron Shire expertise.",
-    areaServed: { "@type": "City", name: "Brunswick Heads" },
-    serviceType: "Buyers Agent",
-    priceRange: "$$",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://compassagency.com.au/#business",
+        name: "Compass Buyers Agency",
+        url: "https://compassagency.com.au/brunswick-heads-buyers-agent/",
+        logo: "https://compassagency.com.au/logo.png",
+        image: "https://compassagency.com.au/og-image.png",
+        description: "Brunswick Heads buyers agent covering Brunswick Heads, Ocean Shores, New Brighton and South Golden Beach. Off-market access, flood analysis and Byron Shire expertise.",
+        telephone: "+61403536390",
+        email: "hello@compassbuyersagency.com.au",
+        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
+        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
+        areaServed: [
+          { "@type": "City", name: "Brunswick Heads" },
+          { "@type": "City", name: "Ocean Shores" },
+          { "@type": "City", name: "New Brighton" },
+          { "@type": "City", name: "South Golden Beach" },
+          { "@type": "City", name: "Mullumbimby" },
+        ],
+        priceRange: "$$",
+      },
+      {
+        "@type": "Service",
+        name: "Brunswick Heads Buyers Agent",
+        description: "Buyers agent service specialising in Brunswick Heads and surrounds. Off-market access, flood certificate analysis, negotiation and Byron Shire planning expertise.",
+        provider: { "@id": "https://compassagency.com.au/#business" },
+        areaServed: { "@type": "City", name: "Brunswick Heads" },
+        serviceType: "Buyers Agent",
+      },
+    ],
   },
 };
 
 export default function BrunswickHeadsBuyersAgents() {
-  return <LandingPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead
+        title="Brunswick Heads Buyers Agent | Compass Buyers Agency"
+        description="Buyers agent in Brunswick Heads. Village charm, river frontage, Byron Shire address. ~$2.1M median. 39% off-market deals."
+        canonicalPath="/brunswick-heads-buyers-agent"
+      />
+      <LandingPageTemplate data={DATA} />
+    </>
+  );
 }

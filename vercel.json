@@ -1,57 +1,113 @@
 {
   "redirects": [
-    { "source": "/byron-bay", "destination": "/byron-bay-buyers-agent", "permanent": true },
-    { "source": "/our-story", "destination": "/about", "permanent": true },
-    { "source": "/our-story/", "destination": "/about", "permanent": true },
-    { "source": "/contact-us", "destination": "/contact", "permanent": true },
-    { "source": "/contact-us/", "destination": "/contact", "permanent": true },
-    { "source": "/coolangatta", "destination": "/gold-coast-buyers-agent", "permanent": true },
-    { "source": "/coolangatta/", "destination": "/gold-coast-buyers-agent", "permanent": true },
-    { "source": "/tweed-heads", "destination": "/tweed-heads-buyers-agent", "permanent": true },
-    { "source": "/tweed-heads/", "destination": "/tweed-heads-buyers-agent", "permanent": true },
-    { "source": "/banora-point", "destination": "/case-studies", "permanent": true },
-    { "source": "/banora-point/", "destination": "/case-studies", "permanent": true },
-    { "source": "/byron-bay-buyers-agents", "destination": "/byron-bay-buyers-agent", "permanent": true },
-    { "source": "/gold-coast-buyers-agents", "destination": "/gold-coast-buyers-agent", "permanent": true },
-    { "source": "/services/", "destination": "/services", "permanent": true },
-    { "source": "/about/", "destination": "/about", "permanent": true },
-    { "source": "/contact/", "destination": "/contact", "permanent": true },
-    { "source": "/areas/", "destination": "/areas", "permanent": true },
-    { "source": "/blog/", "destination": "/blog", "permanent": true },
-    { "source": "/northern-rivers", "destination": "/northern-rivers-buyers-agent", "permanent": true },
-    { "source": "/northern-rivers/", "destination": "/northern-rivers-buyers-agent", "permanent": true },
-    { "source": "/who-we-work-with/", "destination": "/who-we-work-with", "permanent": true },
-    { "source": "/privacy-policy/", "destination": "/privacy-policy", "permanent": true }
+    {"source": "/our-story", "destination": "/about", "permanent": true},
+    {"source": "/our-story/", "destination": "/about", "permanent": true},
+    {"source": "/contact-us", "destination": "/contact", "permanent": true},
+    {"source": "/contact-us/", "destination": "/contact", "permanent": true},
+    {"source": "/coolangatta", "destination": "/gold-coast-buyers-agent", "permanent": true},
+    {"source": "/coolangatta/", "destination": "/gold-coast-buyers-agent", "permanent": true},
+    {"source": "/tweed-heads", "destination": "/tweed-heads-buyers-agent", "permanent": true},
+    {"source": "/tweed-heads/", "destination": "/tweed-heads-buyers-agent", "permanent": true},
+    {"source": "/banora-point", "destination": "/case-studies", "permanent": true},
+    {"source": "/banora-point/", "destination": "/case-studies", "permanent": true},
+    {"source": "/byron-bay", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/byron-bay/", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/northern-rivers", "destination": "/northern-rivers-buyers-agent", "permanent": true},
+    {"source": "/northern-rivers/", "destination": "/northern-rivers-buyers-agent", "permanent": true},
+
+    {"source": "/byron-bay-buyers-agents", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/byron-bay-buyers-agents/", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/gold-coast-buyers-agents", "destination": "/gold-coast-buyers-agent", "permanent": true},
+    {"source": "/gold-coast-buyers-agents/", "destination": "/gold-coast-buyers-agent", "permanent": true},
+    {"source": "/tweed-heads-buyers-agents", "destination": "/tweed-heads-buyers-agent", "permanent": true},
+    {"source": "/tweed-heads-buyers-agents/", "destination": "/tweed-heads-buyers-agent", "permanent": true},
+    {"source": "/northern-rivers-buyers-agents", "destination": "/northern-rivers-buyers-agent", "permanent": true},
+    {"source": "/northern-rivers-buyers-agents/", "destination": "/northern-rivers-buyers-agent", "permanent": true},
+    {"source": "/brunswick-heads-buyers-agents", "destination": "/brunswick-heads-buyers-agent", "permanent": true},
+    {"source": "/brunswick-heads-buyers-agents/", "destination": "/brunswick-heads-buyers-agent", "permanent": true},
+    {"source": "/southern-gold-coast-buyers-agents", "destination": "/southern-gold-coast-buyers-agent", "permanent": true},
+    {"source": "/southern-gold-coast-buyers-agents/", "destination": "/southern-gold-coast-buyers-agent", "permanent": true},
+
+    {"source": "/WhoWeWorkWith", "destination": "/who-we-work-with", "permanent": true},
+    {"source": "/ByronBayBuyersAgent", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/GoldCoastBuyersAgent", "destination": "/gold-coast-buyers-agent", "permanent": true},
+    {"source": "/TweedHeadsBuyersAgent", "destination": "/tweed-heads-buyers-agent", "permanent": true},
+    {"source": "/NorthernRiversBuyersAgent", "destination": "/northern-rivers-buyers-agent", "permanent": true},
+    {"source": "/BrunswickHeadsBuyersAgents", "destination": "/brunswick-heads-buyers-agent", "permanent": true},
+    {"source": "/SouthernGoldCoastBuyersAgents", "destination": "/southern-gold-coast-buyers-agent", "permanent": true},
+    {"source": "/CaseStudies", "destination": "/case-studies", "permanent": true},
+    {"source": "/PrivacyPolicy", "destination": "/privacy-policy", "permanent": true},
+    {"source": "/AcquisitionDetail", "destination": "/acquisition-detail", "permanent": true},
+    {"source": "/BlogPostDetail", "destination": "/blog-post-detail", "permanent": true},
+    {"source": "/CaseStudyDetail", "destination": "/case-study-detail", "permanent": true},
+    {"source": "/ByronBay", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/TeamMemberDetail", "destination": "/about", "permanent": true},
+
+    {"source": "/services/", "destination": "/services", "permanent": true},
+    {"source": "/about/", "destination": "/about", "permanent": true},
+    {"source": "/contact/", "destination": "/contact", "permanent": true},
+    {"source": "/areas/", "destination": "/areas", "permanent": true},
+    {"source": "/blog/", "destination": "/blog", "permanent": true},
+    {"source": "/who-we-work-with/", "destination": "/who-we-work-with", "permanent": true},
+    {"source": "/privacy-policy/", "destination": "/privacy-policy", "permanent": true},
+    {"source": "/acquisitions/", "destination": "/acquisitions", "permanent": true},
+    {"source": "/case-studies/", "destination": "/case-studies", "permanent": true},
+    {"source": "/byron-bay-buyers-agent/", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/gold-coast-buyers-agent/", "destination": "/gold-coast-buyers-agent", "permanent": true},
+    {"source": "/tweed-heads-buyers-agent/", "destination": "/tweed-heads-buyers-agent", "permanent": true},
+    {"source": "/northern-rivers-buyers-agent/", "destination": "/northern-rivers-buyers-agent", "permanent": true},
+    {"source": "/brunswick-heads-buyers-agent/", "destination": "/brunswick-heads-buyers-agent", "permanent": true},
+    {"source": "/southern-gold-coast-buyers-agent/", "destination": "/southern-gold-coast-buyers-agent", "permanent": true},
+
+    {"source": "/wp-admin", "destination": "/", "permanent": true},
+    {"source": "/wp-admin/:path*", "destination": "/", "permanent": true},
+    {"source": "/wp-login.php", "destination": "/", "permanent": true},
+    {"source": "/wp-content/:path*", "destination": "/", "permanent": true},
+    {"source": "/wp-includes/:path*", "destination": "/", "permanent": true},
+    {"source": "/wp-json/:path*", "destination": "/", "permanent": true},
+    {"source": "/xmlrpc.php", "destination": "/", "permanent": true},
+    {"source": "/wp-cron.php", "destination": "/", "permanent": true},
+    {"source": "/wp-signup.php", "destination": "/", "permanent": true},
+    {"source": "/wp-register.php", "destination": "/", "permanent": true},
+    {"source": "/wp-comments-post.php", "destination": "/", "permanent": true},
+    {"source": "/wp-trackback.php", "destination": "/", "permanent": true},
+    {"source": "/feed", "destination": "/blog", "permanent": true},
+    {"source": "/feed/", "destination": "/blog", "permanent": true},
+    {"source": "/feed/:path*", "destination": "/blog", "permanent": true},
+    {"source": "/comments/feed", "destination": "/blog", "permanent": true},
+    {"source": "/comments/feed/", "destination": "/blog", "permanent": true},
+    {"source": "/sitemap.xml", "destination": "/", "permanent": false},
+    {"source": "/robots.txt", "destination": "/robots.txt", "permanent": false}
   ],
   "rewrites": [
-    { "source": "/((?!api|fonts|images|videos|favicon|robots|sitemap).*)", "destination": "/index.html" }
+    {"source": "/((?!api|fonts|images|videos|favicon|robots|sitemap).*)", "destination": "/index.html"}
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+        {"key": "X-Content-Type-Options", "value": "nosniff"},
+        {"key": "X-Frame-Options", "value": "DENY"},
+        {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
+        {"key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload"}
       ]
     },
     {
       "source": "/fonts/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}
       ]
     },
     {
       "source": "/videos/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+        {"key": "Cache-Control", "value": "public, max-age=2592000"}
       ]
     },
     {
       "source": "/images/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+        {"key": "Cache-Control", "value": "public, max-age=2592000"}
       ]
     }
   ]

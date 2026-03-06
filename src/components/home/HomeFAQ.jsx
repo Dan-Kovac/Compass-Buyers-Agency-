@@ -42,7 +42,7 @@ export default function HomeFAQ({
   const right = faqs.slice(mid);
 
   return (
-    <section className="bg-[var(--bright-grey)]" style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className="bg-white" style={{ padding: "var(--section-breathing-lg) 0" }}>
       <div className="site-container">
         <ScrollReveal className="text-center mb-12 md:mb-16">
           <p className="eyebrow-label">Common Questions</p>

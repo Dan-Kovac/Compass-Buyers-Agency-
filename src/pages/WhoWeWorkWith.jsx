@@ -1,10 +1,13 @@
-import React from "react";
-import SegmentsNav from "@/components/who/SegmentsNav";
+import React, { useState, useEffect } from "react";
+import SegmentCardGrid from "@/components/who/SegmentCardGrid";
 import SegmentSection from "@/components/who/SegmentSection";
 import CTASection from "@/components/shared/CTASection";
+import ImageBand from "@/components/shared/ImageBand";
+import PullQuoteBreak from "@/components/shared/PullQuoteBreak";
 import { createPageUrl } from "@/utils";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
+import SEOHead from "../components/shared/SEOHead";
 
 const fallbackSegments = [
   {
@@ -40,6 +43,23 @@ const fallbackSegments = [
     ],
     imageUrl: "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1600&auto=format&fit=crop",
     imageAlt: "Downsizers lifestyle",
+  },
+  {
+    id: "prestige",
+    title: "Prestige Buyers",
+    intro: "Discreet, high\u2011touch representation for premium and luxury properties.",
+    needs: [
+      "Access to off\u2011market prestige stock before public listing",
+      "Privacy throughout the search and negotiation process",
+      "Expert assessment of build quality and long\u2011term value",
+    ],
+    howWeHelp: [
+      "Confidential search with access to our private network",
+      "Detailed due diligence on premium properties",
+      "Skilled negotiation protecting your position and price",
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
+    imageAlt: "Luxury coastal property",
   },
   {
     id: "investors",
@@ -85,156 +105,236 @@ const fallbackSegments = [
       "Trusted local representation for inspections and negotiations",
     ],
     howWeHelp: [
-      "Clear guidance on requirements and timelines",
-      "Curated options with video walkthroughs and analysis",
-      "End\u2011to\u2011end coordination to settlement and beyond",
+      "FIRB guidance and regulatory compliance support",
+      "Video inspections, detailed reports and local market context",
+      "Full representation from search through to settlement",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "International buyer support",
+    imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
+    imageAlt: "International property buying",
   },
   {
     id: "rural-acreage",
     title: "Rural & Acreage Buyers",
-    intro: "Find your perfect lifestyle property with local knowledge of land, water and zoning.",
+    intro: "Find the right property beyond the suburbs, from lifestyle acreage to working farms.",
     needs: [
-      "Understanding water rights, soil quality and zoning restrictions",
-      "Finding properties that match lifestyle goals and practical needs",
-      "Navigating rural due diligence beyond standard building reports",
+      "Assessing water, access, zoning and land capability",
+      "Understanding rural-specific risks and overlays",
+      "Finding properties that rarely appear on public portals",
     ],
     howWeHelp: [
-      "Local expertise on rural markets, land values and property potential",
-      "Coordination of specialist inspections for water, septic, fencing and infrastructure",
-      "Access to off-market acreage and rural listings through our agent network",
+      "On-ground inspections with local knowledge of rural areas",
+      "Due diligence on water rights, easements and land use",
+      "Connections with rural-specialist solicitors and surveyors",
     ],
     imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop",
     imageAlt: "Rural acreage property",
   },
   {
-    id: "commercial",
-    title: "Commercial Property Buyers",
-    intro: "Strategic commercial property buying backed by market insight and rigorous analysis.",
+    id: "developers",
+    title: "Developers",
+    intro: "Site acquisition with feasibility analysis and local planning insight.",
     needs: [
-      "Limited transparency in commercial pricing and yields",
-      "Complex lease structures and tenant risk assessment",
-      "Finding properties that meet investment criteria",
+      "Identifying sites with genuine development potential",
+      "Navigating council planning and zoning complexities",
+      "Securing sites at the right price before competition",
     ],
     howWeHelp: [
-      "Commercial market analysis and comparable sales data",
-      "Detailed lease review and tenant covenant assessment",
-      "Negotiation expertise to secure favourable terms and pricing",
+      "Local market intelligence on upcoming and off-market sites",
+      "Preliminary feasibility and planning overlay assessment",
+      "Negotiation and due diligence tailored to development timelines",
+    ],
+    imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600&auto=format&fit=crop",
+    imageAlt: "Property development site",
+  },
+  {
+    id: "commercial",
+    title: "Commercial Property Buyers",
+    intro: "Strategic acquisition of commercial assets aligned to your investment goals.",
+    needs: [
+      "Finding quality commercial assets with strong tenants",
+      "Understanding commercial lease terms and yield analysis",
+      "Navigating different due diligence requirements vs residential",
+    ],
+    howWeHelp: [
+      "Targeted search across retail, office and industrial sectors",
+      "Lease analysis, tenant assessment and yield modelling",
+      "Negotiation with commercial-specific terms and conditions",
     ],
     imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
     imageAlt: "Commercial property",
   },
-  {
-    id: "developers",
-    title: "Developers",
-    intro: "Site sourcing and feasibility support for residential and commercial development.",
-    needs: [
-      "Identifying development sites with genuine potential",
-      "Understanding planning controls, constraints and approval risk",
-      "Securing sites at the right price to support project viability",
-    ],
-    howWeHelp: [
-      "Site sourcing with preliminary feasibility and planning assessment",
-      "Network access to off-market development opportunities",
-      "Expert negotiation to secure the right price and contract terms",
-    ],
-    imageUrl: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Development site",
-  },
-  {
-    id: "prestige",
-    title: "Prestige Buyers",
-    intro: "Discreet sourcing and purchase of premium properties, handled with care.",
-    needs: [
-      "Access to exclusive, off-market and pre-market listings",
-      "Privacy and discretion throughout the purchase process",
-      "Expert assessment of quality, design and long-term value",
-    ],
-    howWeHelp: [
-      "Private access to prestige listings through our exclusive network",
-      "Detailed property analysis and architect/builder referrals",
-      "Confidential negotiation and seamless transaction management",
-    ],
-    imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Prestige property",
-  },
 ];
 
-/* Simple white/sand alternation — sea-wash too cold for buyer personas */
-const bgCycle = ["bg-white", "bg-sand-wash"];
+/* Rendering order: 3 thematic trios (Lifestyle -> Remote/Investor -> Specialist) */
+const segmentOrder = [
+  "first-home-buyers",
+  "downsizers",
+  "prestige",
+  "interstate",
+  "international",
+  "investors",
+  "rural-acreage",
+  "developers",
+  "commercial",
+];
+
+/* Background cycle per trio position */
+const bgCycle = [
+  /* Trio 1 */ "bg-white", "bg-sand-wash", "bg-white",
+  /* Trio 2 */ "bg-sand-wash", "bg-white", "bg-sand-wash",
+  /* Trio 3 */ "bg-white", "bg-sand-wash", "bg-white",
+];
 
 export default function WhoWeWorkWith() {
-  const [page, setPage] = React.useState(null);
+  const [page, setPage] = useState(null);
+  const [segments, setSegments] = useState(fallbackSegments);
 
-  React.useEffect(() => {
-    fetchPage("whoWeWorkWithPage").then(setPage).catch(() => {});
+  useEffect(() => {
+    fetchPage("whoWeWorkWithPage")
+      .then((data) => {
+        setPage(data);
+        if (data?.segments && data.segments.length > 0) {
+          setSegments(
+            data.segments.map((s) => ({
+              ...s,
+              imageUrl: s.image ? urlFor(s.image).width(1600).url() : s.imageUrl,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
   }, []);
 
-  const sanitySegments = page?.segments;
-  const useSanity = sanitySegments?.length > 0;
+  /* Sort segments into the defined order, falling back to original order */
+  const renderSegments = segmentOrder
+    .map((id) => segments.find((s) => s.id === id))
+    .filter(Boolean);
 
-  const navItems = useSanity
-    ? sanitySegments.map((s) => ({ id: s.id?.current || "", label: s.title || "" }))
-    : fallbackSegments.map((s) => ({ id: s.id, label: s.title }));
+  /* If some segments weren't in the order array, append them */
+  const orderedIds = new Set(segmentOrder);
+  const extras = segments.filter((s) => !orderedIds.has(s.id));
+  const allSegments = [...renderSegments, ...extras];
 
-  const renderSegments = useSanity ? sanitySegments : fallbackSegments;
+  /* Split into trios */
+  const trio1 = allSegments.slice(0, 3);
+  const trio2 = allSegments.slice(3, 6);
+  const trio3 = allSegments.slice(6, 9);
 
   return (
     <div className="bg-white">
-      {/* Page header */}
+      <SEOHead
+        title={page?.seo?.metaTitle || "Who We Work With | Compass Buyers Agency"}
+        description={page?.seo?.metaDescription || "Whether you're a first home buyer, investor, downsizer or buying from interstate, Compass Buyers Agency tailors its approach to your situation."}
+        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        canonicalPath="/who-we-work-with"
+      />
+
+      {/* 1. Page Hero */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">Our Clients</p>
-              <h1>{page?.heading || "Who We Work With"}</h1>
-              <p>
-                {page?.subtitle ||
-                  "Different goals need different approaches. Whether you're buying your first home, relocating interstate or building a portfolio, here's how we adapt."}
+              <h1>
+                {page?.heading || "Who We Work With"}
+              </h1>
+              <p className="intro-text" style={{ maxWidth: "48ch", margin: "1.25rem auto 0" }}>
+                {page?.subtitle || "Every buyer is different. Whether you're chasing a sea change, growing a portfolio or buying from interstate, we shape our approach around you."}
               </p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Segments chip nav */}
-      <div className="pb-6">
-        <SegmentsNav segments={navItems} />
-      </div>
+      {/* 2. Segment Card Grid */}
+      <SegmentCardGrid segments={allSegments} />
 
-      {/* Sections — consistent side-by-side layout with alternating image position */}
-      {renderSegments.map((seg, i) => {
-        const id = useSanity ? (seg.id?.current || `segment-${i}`) : seg.id;
-        const imageUrl = useSanity
-          ? seg.image
-            ? urlFor(seg.image).width(800).url()
-            : undefined
-          : seg.imageUrl;
+      {/* 3-5. Trio 1: Lifestyle Buyers */}
+      {trio1.map((seg, i) => (
+        <SegmentSection
+          key={seg.id}
+          id={seg.id}
+          index={i}
+          title={seg.title}
+          intro={seg.intro}
+          needs={seg.needs || []}
+          howWeHelp={seg.howWeHelp || []}
+          image={seg.imageUrl}
+          imageAlt={seg.imageAlt}
+          imageLeft={i % 2 === 1}
+          squareImage
+          bg={bgCycle[i]}
+          showCta={false}
+        />
+      ))}
 
-        return (
-          <SegmentSection
-            key={id}
-            id={id}
-            title={seg.title}
-            intro={seg.intro}
-            needs={seg.needs || []}
-            howWeHelp={seg.howWeHelp || []}
-            image={imageUrl}
-            imageAlt={seg.imageAlt}
-            imageLeft={i % 2 === 1}
-            squareImage
-            bg={bgCycle[i % bgCycle.length]}
-            index={-1}
-            showCta={false}
-          />
-        );
-      })}
+      {/* 6. Image Band Break 1 */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
+        alt="Byron Bay coastline at golden hour"
+        height="320px"
+        mobileHeight="200px"
+        overlay
+      />
 
-      {/* CTA */}
+      {/* 7-9. Trio 2: Remote & Investor Buyers */}
+      {trio2.map((seg, i) => (
+        <SegmentSection
+          key={seg.id}
+          id={seg.id}
+          index={i + 3}
+          title={seg.title}
+          intro={seg.intro}
+          needs={seg.needs || []}
+          howWeHelp={seg.howWeHelp || []}
+          image={seg.imageUrl}
+          imageAlt={seg.imageAlt}
+          imageLeft={i % 2 === 1}
+          squareImage
+          bg={bgCycle[i + 3]}
+          showCta={false}
+        />
+      ))}
+
+      {/* 10. Pull Quote Break */}
+      <PullQuoteBreak
+        quote={page?.pullQuote?.quote || "No two buyers are the same. We listen first, then build a plan that fits your life, not the other way around."}
+        attribution={page?.pullQuote?.attribution || "Bryce Holdaway, Compass Buyers Agency"}
+        bg="cream"
+      />
+
+      {/* 11-13. Trio 3: Specialist Buyers */}
+      {trio3.map((seg, i) => (
+        <SegmentSection
+          key={seg.id}
+          id={seg.id}
+          index={i + 6}
+          title={seg.title}
+          intro={seg.intro}
+          needs={seg.needs || []}
+          howWeHelp={seg.howWeHelp || []}
+          image={seg.imageUrl}
+          imageAlt={seg.imageAlt}
+          imageLeft={i % 2 === 1}
+          squareImage
+          bg={bgCycle[i + 6]}
+          showCta={false}
+        />
+      ))}
+
+      {/* 14. Image Band Break 2 */}
+      <ImageBand
+        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop"
+        alt="Luxury coastal property at dusk"
+        height="280px"
+        mobileHeight="180px"
+        overlay
+      />
+
+      {/* 15. CTA */}
       <CTASection
         heading={page?.cta?.heading || "Tell us what you're looking for"}
+        supportingText={page?.cta?.supportingText || "Every search starts with a conversation. We'll listen to your goals and explain how we can help."}
         buttonText={page?.cta?.buttonText || "Start a Conversation"}
         buttonHref={createPageUrl("Contact")}
         variant="dark"

@@ -1,72 +1,54 @@
 import React from "react";
-import { fetchTeamMember, client, resolveImageUrl } from "@/lib/sanityClient";
+import { useParams, Link } from "react-router-dom";
+import { fetchTeamMember, client, resolveImageUrl, urlFor } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
-import { Mail, Phone, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Mail, Phone, ArrowLeft, ArrowRight, Linkedin, MapPin, Calendar, Home as HomeIcon } from "lucide-react";
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import BlogCard from "@/components/blog/BlogCard";
-
-// Placeholder testimonials - will be replaced with real data later
-const PLACEHOLDER_TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Sarah M.",
-    location: "Byron Bay",
-    quote: "Working with this team made our dream home a reality. Their expertise and local knowledge were invaluable throughout the entire process.",
-    rating: 5
-  },
-  {
-    id: 2,
-    name: "Michael T.",
-    location: "Kingscliff",
-    quote: "Professional, responsive, and genuinely cared about finding the right property for us. Couldn't recommend them highly enough.",
-    rating: 5
-  },
-  {
-    id: 3,
-    name: "Emma L.",
-    location: "Ballina",
-    quote: "Their negotiation skills saved us thousands. They fought hard for us and secured a fantastic deal in a competitive market.",
-    rating: 5
-  }
-];
+import CTASection from "@/components/shared/CTASection.jsx";
+import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
 export default function TeamMemberDetail() {
+  const { slug } = useParams();
   const [member, setMember] = React.useState(null);
   const [acquisitions, setAcquisitions] = React.useState([]);
   const [blogs, setBlogs] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
+  // Fallback: support legacy ?id= query param
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+  const idFallback = urlParams.get("id");
+  const lookupKey = slug || idFallback;
 
   React.useEffect(() => {
+    if (!lookupKey) { setLoading(false); return; }
+
     (async () => {
-      if (!id) {
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
-
       try {
-        // Load team member
-        const memberData = await fetchTeamMember(id);
+        const memberData = await fetchTeamMember(lookupKey);
         setMember(memberData);
 
         if (memberData) {
-          document.title = `${memberData.name} - Compass Buyers Agency`;
+          document.title = `${memberData.name} | Compass Buyers Agency`;
 
           // Load acquisitions by this agent
           const acqList = await client.fetch(
-            `*[_type=="acquisition" && status=="published" && agent==$name]|order(purchase_date desc)[0..11]{"id":_id,title,"slug":slug.current,suburb,state,lga,property_type,beds,baths,cars,purchase_price,price_display,purchase_date,agent,market_visibility,timeframe,excerpt,main_image,main_image_url,tags,featured}`,
+            `*[_type=="acquisition" && status=="published" && agent==$name] | order(purchase_date desc) [0..11] {
+              "id":_id, title, "slug":slug.current, suburb, state, lga, property_type,
+              beds, baths, cars, land_size, purchase_price, price_display, purchase_date,
+              agent, market_visibility, timeframe, excerpt, main_image, main_image_url, tags, featured
+            }`,
             { name: memberData.name }
           );
           setAcquisitions(acqList || []);
 
           // Load blog posts by this author
           const blogList = await client.fetch(
-            `*[_type=="blogPost" && status=="published" && author==$name]|order(published_date desc)[0..5]{"id":_id,title,"slug":slug.current,status,category,tags,author,image,featured_image,excerpt,published_date,featured}`,
+            `*[_type=="blogPost" && status=="published" && author==$name] | order(published_date desc) [0..5] {
+              "id":_id, title, "slug":slug.current, status, category, tags, author,
+              image, featured_image, excerpt, published_date, featured
+            }`,
             { name: memberData.name }
           );
           setBlogs(blogList || []);
@@ -78,288 +60,324 @@ export default function TeamMemberDetail() {
         setLoading(false);
       }
     })();
-  }, [id]);
+  }, [lookupKey]);
 
   if (loading) {
     return (
-      <div className="site-container py-12">
-        <div className="rounded-token border border-[var(--border)] bg-white p-8">
-          Loading profile...
-        </div>
+      <div className="bg-white min-h-screen">
+        <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing) 0" }}>
+          <div className="site-container">
+            <div className="max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-5 gap-8 lg:gap-12 items-start animate-pulse">
+                <div className="md:col-span-2">
+                  <div className="aspect-[4/5] rounded-lg bg-[var(--bright-grey)]" />
+                </div>
+                <div className="md:col-span-3 space-y-4 pt-4">
+                  <div className="h-8 w-2/3 bg-[var(--bright-grey)] rounded" />
+                  <div className="h-5 w-1/3 bg-[var(--bright-grey)] rounded" />
+                  <div className="h-4 w-full bg-[var(--bright-grey)] rounded mt-8" />
+                  <div className="h-4 w-5/6 bg-[var(--bright-grey)] rounded" />
+                  <div className="h-4 w-4/6 bg-[var(--bright-grey)] rounded" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
 
   if (!member) {
     return (
-      <div className="site-container py-12">
-        <div className="rounded-token border border-[var(--border)] bg-white p-8">
-          <h2 className="text-2xl font-semibold mb-4">Profile not found</h2>
-          <p className="text-[var(--ink)]/70 mb-6">The team member you're looking for doesn't exist.</p>
-          <a href={createPageUrl("About")} className="text-[var(--hills)] hover:underline">
-            ← Back to team
-          </a>
-        </div>
+      <div className="bg-white min-h-screen">
+        <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing) 0" }}>
+          <div className="site-container">
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">Team</p>
+              <h1>Profile not found</h1>
+              <p style={{ color: "var(--stone)" }}>The team member you're looking for doesn't exist.</p>
+              <Link
+                to="/about"
+                className="mt-6 inline-flex items-center gap-2 text-sm text-[var(--hills)] hover:underline underline-offset-2"
+                style={{ fontWeight: "var(--font-body-medium)" }}
+              >
+                <ArrowLeft className="w-4 h-4" /> Back to team
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
 
-  return (
-    <div className="bg-white min-h-screen">
-      {/* Back button bar */}
-      <div className="border-b border-[var(--border)]">
-        <div className="site-container py-4">
-          <a 
-            href={createPageUrl("About")} 
-            className="inline-flex items-center gap-2 text-sm text-[var(--ink)]/60 hover:text-[var(--hills)] transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Team
-          </a>
-        </div>
-      </div>
+  const photoUrl = member.photo?.asset
+    ? urlFor(member.photo).width(800).height(1000).fit("crop").url()
+    : typeof member.photo === "string"
+      ? member.photo
+      : null;
 
-      {/* Hero section with profile */}
-      <section className="section-padding-lg bg-gradient-to-b from-[var(--sea-breeze)]/40 to-white">
+  const firstName = member.name.split(" ")[0];
+
+  return (
+    <div className="bg-white">
+      {/* ── Hero: Portrait + Info ────────────────────────────────────────── */}
+      <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing) 0" }}>
         <div className="site-container">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 items-start">
-              {/* Profile media (video when available) */}
-              <div className="md:col-span-1">
-                {member.intro_video_url ? (
-                  (member.intro_video_url.includes("youtube.com") || member.intro_video_url.includes("youtu.be")) ? (
-                    <div className="w-full aspect-video rounded-2xl overflow-hidden shadow-lg">
-                      <iframe
-                        src={member.intro_video_url.replace("watch?v=", "embed/")}
-                        title={`${member.name} introduction video`}
-                        className="w-full h-full"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
+          {/* Back link */}
+          <ScrollReveal>
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 text-sm text-[var(--stone)] hover:text-[var(--hills)] transition-colors mb-8 md:mb-10"
+              style={{ fontWeight: "var(--font-body-medium)" }}
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to team
+            </Link>
+          </ScrollReveal>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-5 gap-8 lg:gap-12 items-start">
+              {/* Portrait */}
+              <ScrollReveal className="md:col-span-2">
+                <div className="relative">
+                  {member.intro_video_url ? (
+                    (member.intro_video_url.includes("youtube.com") || member.intro_video_url.includes("youtu.be")) ? (
+                      <div className="w-full aspect-video rounded-lg overflow-hidden ring-1 ring-black/[0.04]">
+                        <iframe
+                          src={member.intro_video_url.replace("watch?v=", "embed/")}
+                          title={`${member.name} introduction`}
+                          className="w-full h-full"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : (
+                      <video
+                        src={member.intro_video_url}
+                        poster={photoUrl || undefined}
+                        controls
+                        className="w-full aspect-video rounded-lg object-cover ring-1 ring-black/[0.04]"
                       />
-                    </div>
-                  ) : (
-                    <video
-                      src={member.intro_video_url}
-                      poster={resolveImageUrl(member.photo) || undefined}
-                      controls
-                      className="w-full aspect-video rounded-2xl shadow-lg object-cover"
-                    />
-                  )
-                ) : (
-                  resolveImageUrl(member.photo) && (
+                    )
+                  ) : photoUrl ? (
                     <img
-                      src={resolveImageUrl(member.photo)}
+                      src={photoUrl}
                       alt={member.name}
-                      className="w-full aspect-square object-cover rounded-2xl shadow-lg"
+                      className="w-full aspect-[4/5] object-cover rounded-lg ring-1 ring-black/[0.04]"
                       fetchPriority="high"
                     />
-                  )
-                )}
-              </div>
-
-              {/* Profile info */}
-              <div className="md:col-span-2">
-                <h1 className="mb-2">{member.name}</h1>
-                <div className="text-xl text-[var(--hills)] font-medium mb-6">
-                  {member.position}
-                </div>
-
-                {/* Contact details */}
-                <div className="space-y-3 mb-6">
-                  {member.email && (
-                    <a
-                      href={`mailto:${member.email}`}
-                      className="flex items-center gap-3 text-[var(--ink)]/70 hover:text-[var(--hills)] transition-colors"
-                    >
-                      <Mail className="w-5 h-5" />
-                      <span>{member.email}</span>
-                    </a>
-                  )}
-                  {member.phone && (
-                    <a
-                      href={`tel:${member.phone}`}
-                      className="flex items-center gap-3 text-[var(--ink)]/70 hover:text-[var(--hills)] transition-colors"
-                    >
-                      <Phone className="w-5 h-5" />
-                      <span>{member.phone}</span>
-                    </a>
-                  )}
-                  
-                </div>
-
-                {/* Credentials */}
-                {member.credentials && member.credentials.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-[var(--ink)]/50 uppercase tracking-wider mb-2">
-                      Credentials
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {member.credentials.map((cred, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-white rounded-full text-sm border border-[var(--border)]"
-                        >
-                          {cred}
-                        </span>
-                      ))}
+                  ) : (
+                    <div className="w-full aspect-[4/5] rounded-lg bg-[var(--bright-grey)] flex items-center justify-center">
+                      <span className="text-6xl text-[var(--stone)]/30" style={{ fontFamily: "var(--font-heading)" }}>
+                        {member.name.charAt(0)}
+                      </span>
                     </div>
-                  </div>
-                )}
-
-                {/* Specialties */}
-                {member.specialties && member.specialties.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-semibold text-[var(--ink)]/50 uppercase tracking-wider mb-2">
-                      Specialties
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {member.specialties.map((spec, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-[var(--sea-breeze)] text-[var(--hills)] rounded-full text-sm font-medium"
-                        >
-                          {spec}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bio section */}
-      <section className="section-padding border-b border-[var(--border)]">
-        <div className="site-container">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-semibold mb-6">About {member.name.split(' ')[0]}</h2>
-            <div className="prose prose-lg max-w-none text-[var(--ink)]/70 leading-relaxed">
-              {member.bio}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Acquisitions section */}
-      {acquisitions.length > 0 && (
-        <section className="section-padding-lg bg-gradient-to-b from-white to-[var(--sea-breeze)]/15 border-b border-[var(--border)]">
-          <div className="site-container">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-semibold mb-8">Recent Acquisitions</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {acquisitions.slice(0, 6).map((acq) => (
-                  <AcquisitionCard key={acq.id} item={acq} />
-                ))}
-              </div>
-              {acquisitions.length > 6 && (
-                <div className="text-center mt-8">
-                  <a href={createPageUrl("Acquisitions")}>
-                    <Button variant="outline">View All Acquisitions</Button>
-                  </a>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+              </ScrollReveal>
 
-      {/* Blog posts section */}
-      {blogs.length > 0 && (
-        <section className="section-padding border-b border-[var(--border)]">
-          <div className="site-container">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-semibold mb-8">Latest Insights</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {blogs.slice(0, 6).map((post) => (
-                  <BlogCard key={post.id} post={post} />
-                ))}
-              </div>
-              {blogs.length > 6 && (
-                <div className="text-center mt-8">
-                  <a href={createPageUrl("Blog")}>
-                    <Button variant="outline">View All Posts</Button>
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
+              {/* Info */}
+              <ScrollReveal className="md:col-span-3">
+                <div className="md:pt-2">
+                  <p className="eyebrow-label">{member.position}</p>
+                  <h1 style={{ marginBottom: "1rem" }}>{member.name}</h1>
 
-      {/* Testimonials section */}
-      <section className="section-padding-lg bg-gradient-to-b from-white to-[var(--sea-breeze)]/10">
-        <div className="site-container">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl font-semibold mb-8 text-center">Client Testimonials</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {PLACEHOLDER_TESTIMONIALS.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="surface p-6 rounded-token"
-                >
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className="w-5 h-5 text-yellow-400 fill-current"
-                        viewBox="0 0 20 20"
+                  {/* Contact row */}
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6">
+                    {member.email && (
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="inline-flex items-center gap-2 text-sm text-[var(--stone)] hover:text-[var(--hills)] transition-colors"
+                        style={{ fontWeight: "var(--font-body-regular)" }}
                       >
-                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                      </svg>
-                    ))}
+                        <Mail className="w-4 h-4" /> {member.email}
+                      </a>
+                    )}
+                    {member.phone && (
+                      <a
+                        href={`tel:${member.phone}`}
+                        className="inline-flex items-center gap-2 text-sm text-[var(--stone)] hover:text-[var(--hills)] transition-colors"
+                        style={{ fontWeight: "var(--font-body-regular)" }}
+                      >
+                        <Phone className="w-4 h-4" /> {member.phone}
+                      </a>
+                    )}
+                    {member.linkedin_url && (
+                      <a
+                        href={member.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-[var(--stone)] hover:text-[var(--hills)] transition-colors"
+                        style={{ fontWeight: "var(--font-body-regular)" }}
+                      >
+                        <Linkedin className="w-4 h-4" /> LinkedIn
+                      </a>
+                    )}
                   </div>
-                  <p className="text-[var(--ink)]/70 italic mb-4">"{testimonial.quote}"</p>
-                  <div className="text-sm">
-                    <div className="font-semibold text-[var(--ink)]">{testimonial.name}</div>
-                    <div className="text-[var(--ink)]/50">{testimonial.location}</div>
-                  </div>
+
+                  {/* Bio */}
+                  {member.bio && (
+                    <div
+                      className="leading-relaxed"
+                      style={{ color: "var(--stone)", fontSize: "1.0625rem", lineHeight: 1.7, fontWeight: "var(--font-body-light)" }}
+                    >
+                      {member.bio.split("\n").map((para, i) => (
+                        <p key={i} style={{ marginBottom: i < member.bio.split("\n").length - 1 ? "1em" : 0 }}>
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Credentials + Specialties */}
+                  {((member.credentials?.length > 0) || (member.specialties?.length > 0)) && (
+                    <div className="mt-8 flex flex-col sm:flex-row gap-6">
+                      {member.credentials?.length > 0 && (
+                        <div>
+                          <div
+                            className="mb-2"
+                            style={{ fontSize: "0.6875rem", fontWeight: "var(--font-body-medium)", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--stone)" }}
+                          >
+                            Credentials
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {member.credentials.map((c, i) => (
+                              <span key={i} className="text-xs px-2.5 py-1 rounded-full border border-[var(--bright-grey)] text-[var(--ink)]" style={{ fontWeight: "var(--font-body-regular)" }}>
+                                {c}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {member.specialties?.length > 0 && (
+                        <div>
+                          <div
+                            className="mb-2"
+                            style={{ fontSize: "0.6875rem", fontWeight: "var(--font-body-medium)", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--stone)" }}
+                          >
+                            Specialties
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {member.specialties.map((s, i) => (
+                              <span key={i} className="text-xs px-2.5 py-1 rounded-full bg-[var(--sea-breeze)] text-[var(--hills)]" style={{ fontWeight: "var(--font-body-medium)" }}>
+                                {s}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
-              ))}
+              </ScrollReveal>
             </div>
           </div>
         </div>
       </section>
 
-      {/* JSON-LD Person schema */}
-      {member && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          name: member.name,
-          jobTitle: member.position,
-          description: member.bio || `${member.position} at Compass Buyers Agency`,
-          image: resolveImageUrl(member.photo) || undefined,
-          email: member.email || undefined,
-          telephone: member.phone || undefined,
-          worksFor: {
-            "@type": "Organization",
-            name: "Compass Buyers Agency",
-            url: "https://compassagency.com.au",
-          },
-          ...(member.specialties?.length > 0 && { knowsAbout: member.specialties }),
-          ...(member.linkedin_url && { sameAs: [member.linkedin_url] }),
-        }) }} />
+      {/* ── Acquisitions ─────────────────────────────────────────────────── */}
+      {acquisitions.length > 0 && (
+        <section className="bg-white" style={{ padding: "var(--section-standard) 0" }}>
+          <div className="site-container">
+            <div className="max-w-5xl mx-auto">
+              <ScrollReveal>
+                <p className="eyebrow-label">Properties Secured</p>
+                <h2 style={{ marginBottom: "2rem" }}>
+                  {firstName}'s Recent Acquisitions
+                </h2>
+              </ScrollReveal>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <StaggerGroup stagger={100}>
+                  {acquisitions.slice(0, 6).map((acq) => (
+                    <ScrollReveal key={acq.id}>
+                      <AcquisitionCard item={acq} />
+                    </ScrollReveal>
+                  ))}
+                </StaggerGroup>
+              </div>
+
+              {acquisitions.length > 6 && (
+                <ScrollReveal className="text-center mt-10">
+                  <Link
+                    to="/acquisitions"
+                    className="inline-flex items-center gap-2 text-sm text-[var(--hills)] hover:underline underline-offset-2"
+                    style={{ fontWeight: "var(--font-body-medium)" }}
+                  >
+                    View all acquisitions <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </ScrollReveal>
+              )}
+            </div>
+          </div>
+        </section>
       )}
 
-      {/* CTA section */}
-      <section className="section-padding-lg">
-        <div className="site-container">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="mb-6">Ready to work with {member.name.split(' ')[0]}?</h2>
-            <p className="text-[var(--ink)]/60 mb-8">
-              Get in touch to discuss your property requirements and how we can help you achieve your goals.
-            </p>
-            <a href={createPageUrl("Contact")}>
-              <Button className="bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
-                Get in Touch
-              </Button>
-            </a>
+      {/* ── Blog Posts ────────────────────────────────────────────────────── */}
+      {blogs.length > 0 && (
+        <section className="bg-[var(--sand)]" style={{ padding: "var(--section-standard) 0" }}>
+          <div className="site-container">
+            <div className="max-w-5xl mx-auto">
+              <ScrollReveal>
+                <p className="eyebrow-label">Insights</p>
+                <h2 style={{ marginBottom: "2rem" }}>
+                  Latest from {firstName}
+                </h2>
+              </ScrollReveal>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <StaggerGroup stagger={100}>
+                  {blogs.slice(0, 6).map((post) => (
+                    <ScrollReveal key={post.id}>
+                      <BlogCard item={post} />
+                    </ScrollReveal>
+                  ))}
+                </StaggerGroup>
+              </div>
+
+              {blogs.length > 6 && (
+                <ScrollReveal className="text-center mt-10">
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center gap-2 text-sm text-[var(--hills)] hover:underline underline-offset-2"
+                    style={{ fontWeight: "var(--font-body-medium)" }}
+                  >
+                    View all posts <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </ScrollReveal>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ── CTA ───────────────────────────────────────────────────────────── */}
+      <CTASection
+        heading={`Ready to work with ${firstName}?`}
+        buttonText="Get in Touch"
+        buttonHref={createPageUrl("Contact")}
+        supportingText="No sales pitch. Just honest advice from people who know these markets inside out."
+        variant="dark"
+      />
+
+      {/* ── Person JSON-LD ─────────────────────────────────────────────── */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: member.name,
+        jobTitle: member.position,
+        description: member.bio || `${member.position} at Compass Buyers Agency`,
+        image: photoUrl || undefined,
+        email: member.email || undefined,
+        telephone: member.phone || undefined,
+        worksFor: {
+          "@type": "Organization",
+          name: "Compass Buyers Agency",
+          url: "https://compassagency.com.au",
+        },
+        ...(member.specialties?.length > 0 && { knowsAbout: member.specialties }),
+        ...(member.linkedin_url && { sameAs: [member.linkedin_url] }),
+      }) }} />
     </div>
   );
 }

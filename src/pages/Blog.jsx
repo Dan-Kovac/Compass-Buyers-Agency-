@@ -1,14 +1,20 @@
 import React from "react";
 import { fetchBlogPosts } from "@/lib/sanityClient";
 import BlogCard from "@/components/blog/BlogCard";
-import SuburbProfilesStrip from "@/components/blog/SuburbProfilesStrip";
+import FeaturedPost from "@/components/blog/FeaturedPost";
 import CTASection from "@/components/shared/CTASection.jsx";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
+import SEOHead from "../components/shared/SEOHead";
+
+const INITIAL_COUNT = 9;
+const INCREMENT = 6;
 
 export default function Blog() {
   const [posts, setPosts] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [visibleCount, setVisibleCount] = React.useState(INITIAL_COUNT);
+  const [allShownMessageVisible, setAllShownMessageVisible] = React.useState(false);
 
   const [category, setCategory] = React.useState();
   const [tag, setTag] = React.useState();
@@ -58,6 +64,29 @@ export default function Blog() {
     return a && b;
   });
 
+  // Featured post selection: prefer featured flag, then most recent
+  const featuredPost = filtered.find((p) => p.featured === true) || filtered[0];
+  const featuredPostId = featuredPost?.id;
+
+  // Grid posts exclude the featured post
+  const gridPosts = filtered.filter((p) => p.id !== featuredPostId);
+  const visiblePosts = gridPosts.slice(0, visibleCount);
+  const hasMore = visibleCount < gridPosts.length;
+
+  const handleLoadMore = () => {
+    const nextCount = visibleCount + INCREMENT;
+    setVisibleCount(nextCount);
+    if (nextCount >= gridPosts.length) {
+      setAllShownMessageVisible(true);
+      setTimeout(() => setAllShownMessageVisible(false), 2000);
+    }
+  };
+
+  // Reset visible count when filters change
+  React.useEffect(() => {
+    setVisibleCount(INITIAL_COUNT);
+  }, [category, tag]);
+
   const value = { category, tag };
   const handleChange = (next) => {
     setCategory(next.category);
@@ -70,6 +99,44 @@ export default function Blog() {
 
   return (
     <div className="bg-white">
+      <SEOHead
+        title="Blog | Compass Buyers Agency"
+        description="Market insights, suburb profiles and buying tips for the Northern Rivers and Gold Coast. Expert advice from local buyers agents."
+        canonicalPath="/blog"
+      />
+
+      {/* Blog CollectionPage JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Blog - Compass Buyers Agency",
+            url: "https://compassagency.com.au/blog",
+            description: "Market insights, buying tips, suburb profiles and local knowledge to help you make informed property decisions in the Northern Rivers and Southern Gold Coast.",
+            publisher: {
+              "@type": "Organization",
+              name: "Compass Buyers Agency",
+              url: "https://compassagency.com.au",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://compassagency.com.au/logo.png",
+              },
+            },
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: filtered.slice(0, 10).map((p, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                url: `https://compassagency.com.au/blog/${p.slug?.current || p.slug || p.id}`,
+                name: p.title,
+              })),
+            },
+          }),
+        }}
+      />
+
       {/* Page header */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
@@ -89,131 +156,299 @@ export default function Blog() {
 
       {/* Filters */}
       <section
-        className="bg-white border-b border-[var(--bright-grey)]"
-        style={{ padding: "var(--section-compact) 0" }}
+        style={{
+          background: "white",
+          padding: "var(--section-compact) 0",
+          boxShadow: "0 1px 0 0 rgba(0,0,0,0.04)",
+        }}
       >
         <div className="site-container">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center" style={{ gap: "0.5rem" }}>
             <button
               type="button"
               aria-pressed={!category}
               onClick={() => handleChange({ ...value, category: undefined })}
-              className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-                !category
-                  ? "bg-[var(--hills)] text-white border-[var(--hills)]"
-                  : "bg-white text-[var(--ink)] border-[var(--bright-grey)] hover:bg-[var(--bright-grey)]"
-              }`}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "0.875rem",
+                fontWeight: !category ? "var(--font-body-medium)" : "var(--font-body-regular)",
+                letterSpacing: "0.01em",
+                padding: "0.625rem 1.25rem",
+                minHeight: "44px",
+                borderRadius: "var(--radius-badge)",
+                border: "1.5px solid",
+                borderColor: !category ? "var(--hills)" : "var(--bright-grey)",
+                background: !category ? "var(--hills)" : "transparent",
+                color: !category ? "white" : "var(--ink)",
+                cursor: "pointer",
+                transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)",
+              }}
+              onMouseEnter={(e) => {
+                if (category) {
+                  e.currentTarget.style.background = "var(--bright-grey)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (category) {
+                  e.currentTarget.style.background = "transparent";
+                }
+              }}
             >
               All
             </button>
-            {categoryOptions.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                aria-pressed={category === cat}
-                onClick={() => handleChange({ ...value, category: cat })}
-                className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-                  category === cat
-                    ? "bg-[var(--hills)] text-white border-[var(--hills)]"
-                    : "bg-white text-[var(--ink)] border-[var(--bright-grey)] hover:bg-[var(--bright-grey)]"
-                }`}
-              >
-                {cat
-                  .replace(/-/g, " ")
-                  .replace(/\b\w/g, (c) => c.toUpperCase())}
-              </button>
-            ))}
+            {categoryOptions.map((cat) => {
+              const isActive = category === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => handleChange({ ...value, category: cat })}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.875rem",
+                    fontWeight: isActive ? "var(--font-body-medium)" : "var(--font-body-regular)",
+                    letterSpacing: "0.01em",
+                    padding: "0.625rem 1.25rem",
+                    minHeight: "44px",
+                    borderRadius: "var(--radius-badge)",
+                    border: "1.5px solid",
+                    borderColor: isActive ? "var(--hills)" : "var(--bright-grey)",
+                    background: isActive ? "var(--hills)" : "transparent",
+                    color: isActive ? "white" : "var(--ink)",
+                    cursor: "pointer",
+                    transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = "var(--bright-grey)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = "transparent";
+                    }
+                  }}
+                >
+                  {cat
+                    .replace(/-/g, " ")
+                    .replace(/\b\w/g, (c) => c.toUpperCase())}
+                </button>
+              );
+            })}
             {(category || tag) && (
               <button
                 type="button"
                 onClick={handleClear}
-                className="text-xs text-[var(--stone)] hover:text-[var(--hills)] underline underline-offset-2 ml-1 transition-colors"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.8125rem",
+                  fontWeight: "var(--font-body-regular)",
+                  color: "var(--stone)",
+                  background: "none",
+                  border: "none",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "2px",
+                  cursor: "pointer",
+                  marginLeft: "0.25rem",
+                  transition: "color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--hills)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--stone)";
+                }}
               >
                 Clear
               </button>
             )}
           </div>
           {tagOptions.length > 0 && (
-            <div className="flex flex-wrap items-center gap-1.5 mt-3">
-              {tagOptions.slice(0, 8).map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  aria-pressed={tag === t}
-                  onClick={() =>
-                    handleChange({ ...value, tag: tag === t ? undefined : t })
-                  }
-                  className={`px-3 py-1 rounded-full text-xs border transition-colors ${
-                    tag === t
-                      ? "bg-[var(--hills)]/10 text-[var(--hills)] border-[var(--hills)]/30"
-                      : "text-[var(--stone)] border-[var(--bright-grey)] hover:bg-[var(--bright-grey)]"
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
+            <div
+              className="flex flex-wrap items-center"
+              style={{ gap: "0.5rem", marginTop: "0.75rem" }}
+            >
+              {tagOptions.slice(0, 8).map((t) => {
+                const isActive = tag === t;
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() =>
+                      handleChange({ ...value, tag: tag === t ? undefined : t })
+                    }
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.8125rem",
+                      fontWeight: "var(--font-body-light)",
+                      letterSpacing: "0.01em",
+                      padding: "0.375rem 0.875rem",
+                      minHeight: "36px",
+                      borderRadius: "var(--radius-badge)",
+                      border: isActive
+                        ? "1px solid rgba(75, 115, 113, 0.25)"
+                        : "1px solid var(--bright-grey)",
+                      background: isActive
+                        ? "rgba(75, 115, 113, 0.08)"
+                        : "transparent",
+                      color: isActive ? "var(--hills)" : "var(--stone)",
+                      cursor: "pointer",
+                      transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.background = "var(--bright-grey)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.background = "transparent";
+                      }
+                    }}
+                  >
+                    {t}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
 
-      {/* Featured Suburb Profiles */}
-      {!loading && (
-        <section style={{ padding: "var(--section-standard) 0 0" }}>
-          <SuburbProfilesStrip posts={posts} />
-        </section>
-      )}
+      {/* Featured Post */}
+      {!loading && <FeaturedPost posts={posts} filteredPosts={filtered} />}
 
       {/* Post grid */}
-      <section
-        style={{ padding: "var(--section-standard) 0" }}
-      >
+      <section style={{ padding: "var(--section-standard) 0" }}>
         <div className="site-container">
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
               {Array.from({ length: 6 }).map((_, i) => (
                 <BlogCard key={i} item={null} />
               ))}
             </div>
-          ) : filtered.length ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              <StaggerGroup stagger={120}>
-                {filtered.map((it) => (
-                  <ScrollReveal key={it.id}>
-                    <BlogCard item={it} />
-                  </ScrollReveal>
-                ))}
-              </StaggerGroup>
-            </div>
+          ) : visiblePosts.length ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                <StaggerGroup stagger={120}>
+                  {visiblePosts.map((it) => (
+                    <ScrollReveal key={it.id}>
+                      <BlogCard item={it} />
+                    </ScrollReveal>
+                  ))}
+                </StaggerGroup>
+              </div>
+
+              {/* Load more / count */}
+              {(hasMore || allShownMessageVisible) && (
+                <div style={{ textAlign: "center", marginTop: "var(--section-compact)" }}>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.8125rem",
+                      fontWeight: "var(--font-body-light)",
+                      color: "var(--stone)",
+                      marginBottom: hasMore ? "0.75rem" : 0,
+                      transition: "opacity 0.5s ease",
+                      opacity: allShownMessageVisible && !hasMore ? 1 : hasMore ? 1 : 0,
+                    }}
+                  >
+                    {hasMore
+                      ? `Showing ${visiblePosts.length} of ${gridPosts.length} articles`
+                      : `Showing all ${gridPosts.length} articles`}
+                  </p>
+                  {hasMore && (
+                    <button
+                      type="button"
+                      onClick={handleLoadMore}
+                      style={{
+                        display: "inline-block",
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.9375rem",
+                        fontWeight: "var(--font-body-medium)",
+                        padding: "0.875rem 2.5rem",
+                        border: "1.5px solid var(--bright-grey)",
+                        borderRadius: "var(--radius-button)",
+                        background: "transparent",
+                        color: "var(--ink)",
+                        minHeight: "48px",
+                        minWidth: "200px",
+                        cursor: "pointer",
+                        transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = "var(--ink)";
+                        e.currentTarget.style.background = "var(--ink)";
+                        e.currentTarget.style.color = "white";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = "var(--bright-grey)";
+                        e.currentTarget.style.background = "transparent";
+                        e.currentTarget.style.color = "var(--ink)";
+                      }}
+                    >
+                      Load more articles
+                    </button>
+                  )}
+                </div>
+              )}
+            </>
           ) : (
-            <div className="text-center py-20">
+            <div style={{ textAlign: "center", padding: "var(--section-standard) 0" }}>
               <div
                 style={{
                   fontFamily: "var(--font-heading)",
                   fontWeight: 400,
-                  fontSize: "1.375rem",
-                  letterSpacing: "-0.01em",
-                  marginBottom: "8px",
+                  fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
+                  color: "var(--ink)",
+                  marginBottom: "0.5rem",
                 }}
               >
-                No posts match your filters
+                No articles match your filters
               </div>
               <p
                 style={{
-                  color: "var(--stone)",
+                  fontFamily: "var(--font-body)",
                   fontWeight: "var(--font-body-light)",
                   fontSize: "1rem",
-                  marginBottom: "24px",
+                  color: "var(--stone)",
+                  marginBottom: "1.5rem",
                 }}
               >
-                Try clearing filters to see all posts.
+                Try a different category or browse all our articles.
               </p>
               <button
                 type="button"
                 onClick={handleClear}
-                className="inline-flex items-center px-4 py-2 rounded-full border border-[var(--bright-grey)] text-[var(--ink)] hover:bg-[var(--bright-grey)] transition-colors text-sm"
+                style={{
+                  display: "inline-block",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.9375rem",
+                  fontWeight: "var(--font-body-medium)",
+                  padding: "0.875rem 2.5rem",
+                  border: "1.5px solid var(--bright-grey)",
+                  borderRadius: "var(--radius-button)",
+                  background: "transparent",
+                  color: "var(--ink)",
+                  minHeight: "48px",
+                  minWidth: "200px",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "var(--ink)";
+                  e.currentTarget.style.background = "var(--ink)";
+                  e.currentTarget.style.color = "white";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--bright-grey)";
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--ink)";
+                }}
               >
-                Clear filters
+                View all articles
               </button>
             </div>
           )}

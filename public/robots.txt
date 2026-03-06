@@ -1,4 +1,8 @@
+# Compass Buyers Agency - https://compassagency.com.au
+# Last updated: 2026-03-06
+
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://compassagency.com.au/sitemap.xml

@@ -4,10 +4,11 @@ import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { pagesConfig } from './pages.config'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import PageNotFound from './lib/PageNotFound';
 import ErrorBoundary from '@/components/shared/ErrorBoundary';
-import { PAGE_SLUGS } from '@/utils';
+import { PAGE_SLUGS, LEGACY_REDIRECTS } from '@/utils';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -26,6 +27,7 @@ const fallback = (
 function App() {
   return (
     <ErrorBoundary>
+      <HelmetProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <Suspense fallback={fallback}>
@@ -50,6 +52,14 @@ function App() {
                   />
                 );
               })}
+              {/* Redirects: old PascalCase paths → new kebab-case slugs */}
+              {Object.entries(LEGACY_REDIRECTS).map(([oldPath, newPath]) => (
+                <Route
+                  key={`redirect-${oldPath}`}
+                  path={oldPath}
+                  element={<Navigate to={newPath} replace />}
+                />
+              ))}
               <Route path="*" element={
                 <LayoutWrapper currentPageName="NotFound">
                   <PageNotFound />
@@ -60,6 +70,7 @@ function App() {
         </Router>
         <Toaster />
       </QueryClientProvider>
+      </HelmetProvider>
     </ErrorBoundary>
   )
 }

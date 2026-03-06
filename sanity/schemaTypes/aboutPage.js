@@ -25,6 +25,21 @@ export default {
       rows: 3,
     },
 
+    // ─── PHILOSOPHY QUOTE ──────────────────────────────────────────────────────
+    {
+      name: 'philosophyQuote',
+      title: 'Philosophy Quote',
+      type: 'text',
+      rows: 3,
+      description: 'Pull quote displayed below the page header',
+    },
+    {
+      name: 'philosophyAttribution',
+      title: 'Quote Attribution',
+      type: 'string',
+      description: 'Name and role for the quote attribution (e.g. "Bryce Holdaway, Founder")',
+    },
+
     // ─── FEATURE SPLIT 1 ─────────────────────────────────────────────────────
     {
       name: 'featureSplit1',
@@ -85,6 +100,21 @@ export default {
           type: 'string',
         },
       ],
+    },
+
+    // ─── TRUST STATISTICS ─────────────────────────────────────────────────────
+    {
+      name: 'stats',
+      title: 'Trust Statistics',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          { name: 'value', title: 'Value', type: 'string' },
+          { name: 'label', title: 'Label', type: 'string' },
+        ],
+      }],
+      description: 'Statistics displayed in the dark band (e.g. "70+", "Properties Secured")',
     },
 
     // ─── TEAM SECTION HEADING ─────────────────────────────────────────────────

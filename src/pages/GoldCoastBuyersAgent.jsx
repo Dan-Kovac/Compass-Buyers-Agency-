@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import SEOHead from "../components/shared/SEOHead";
 
 const DATA = {
   heroTitle: "Gold Coast Buyers Agent",
@@ -93,19 +94,49 @@ const DATA = {
 
   localBusinessSchema: {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Compass Buyers Agency",
-    "@id": "https://compassagency.com.au",
-    url: "https://compassagency.com.au/gold-coast-buyers-agent/",
-    logo: "https://compassagency.com.au/logo.png",
-    image: "https://compassagency.com.au/og-image.png",
-    description: "Gold Coast buyers agent specializing in Coolangatta, Kirra & Rainbow Bay. 31% of deals never hit portals. $1.65M median. Interstate buyers: we find, assess, secure.",
-    areaServed: { "@type": "City", name: "Gold Coast" },
-    serviceType: "Buyers Agent",
-    priceRange: "$$",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://compassagency.com.au/#business",
+        name: "Compass Buyers Agency",
+        url: "https://compassagency.com.au/gold-coast-buyers-agent/",
+        logo: "https://compassagency.com.au/logo.png",
+        image: "https://compassagency.com.au/og-image.png",
+        description: "Gold Coast buyers agent covering Coolangatta, Kirra and Rainbow Bay. Off-market access, strata due diligence and buyer-only representation.",
+        telephone: "+61403536390",
+        email: "hello@compassbuyersagency.com.au",
+        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
+        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
+        areaServed: [
+          { "@type": "City", name: "Coolangatta" },
+          { "@type": "City", name: "Kirra" },
+          { "@type": "City", name: "Rainbow Bay" },
+          { "@type": "City", name: "Tugun" },
+          { "@type": "City", name: "Bilinga" },
+        ],
+        priceRange: "$$",
+      },
+      {
+        "@type": "Service",
+        name: "Gold Coast Buyers Agent",
+        description: "Buyers agent service specialising in Southern Gold Coast property. Off-market access, strata analysis, negotiation and due diligence across Coolangatta, Kirra and Rainbow Bay.",
+        provider: { "@id": "https://compassagency.com.au/#business" },
+        areaServed: { "@type": "City", name: "Gold Coast" },
+        serviceType: "Buyers Agent",
+      },
+    ],
   },
 };
 
 export default function GoldCoastBuyersAgent() {
-  return <LandingPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead
+        title="Gold Coast Buyers Agent | Compass Buyers Agency"
+        description="Buyers agent on the Gold Coast covering Coolangatta, Kirra and Rainbow Bay. 31% off-market deals. Local expertise and buyer-only focus."
+        canonicalPath="/gold-coast-buyers-agent"
+      />
+      <LandingPageTemplate data={DATA} />
+    </>
+  );
 }

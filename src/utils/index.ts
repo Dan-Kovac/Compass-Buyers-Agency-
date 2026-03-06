@@ -1,4 +1,20 @@
 /**
+ * Convert a PascalCase (or camelCase) string to kebab-case.
+ * Handles runs of uppercase like "HTMLParser" → "html-parser".
+ *
+ * Examples:
+ *   "ByronBayBuyersAgent"  → "byron-bay-buyers-agent"
+ *   "WhoWeWorkWith"        → "who-we-work-with"
+ *   "Home"                 → "home"
+ */
+export function toKebabCase(str: string): string {
+  return str
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")   // camelCase boundary
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2") // acronym boundary (e.g. HTMLParser)
+    .toLowerCase();
+}
+
+/**
  * Page name → URL slug mapping
  * Used by both createPageUrl (for links) and App.jsx (for routes)
  */
@@ -15,16 +31,30 @@ export const PAGE_SLUGS: Record<string, string> = {
   BlogPostDetail: "/blog-post-detail",
   CaseStudies: "/case-studies",
   CaseStudyDetail: "/case-study-detail",
-  TeamMemberDetail: "/team-member-detail",
+  TeamMemberDetail: "/team/:slug",
   PrivacyPolicy: "/privacy-policy",
   ByronBayBuyersAgent: "/byron-bay-buyers-agent",
   GoldCoastBuyersAgent: "/gold-coast-buyers-agent",
   TweedHeadsBuyersAgent: "/tweed-heads-buyers-agent",
   NorthernRiversBuyersAgent: "/northern-rivers-buyers-agent",
-  BrunswickHeadsBuyersAgents: "/brunswick-heads-buyers-agents",
-  SouthernGoldCoastBuyersAgents: "/southern-gold-coast-buyers-agents",
+  BrunswickHeadsBuyersAgents: "/brunswick-heads-buyers-agent",
+  SouthernGoldCoastBuyersAgents: "/southern-gold-coast-buyers-agent",
   ByronBay: "/byron-bay",
 };
+
+/**
+ * Old PascalCase-style paths that should redirect to the new kebab-case slugs.
+ * Used by App.jsx to register <Navigate> redirect routes.
+ */
+export const LEGACY_REDIRECTS: Record<string, string> = Object.fromEntries(
+  Object.entries(PAGE_SLUGS)
+    .filter(([key, slug]) => {
+      // Only create redirects for pages whose slug differs from a naive lowercase key
+      const naive = "/" + key.toLowerCase();
+      return slug !== "/" && slug !== naive && slug !== "/team/:slug";
+    })
+    .map(([key, slug]) => ["/" + key, slug])
+);
 
 export function createPageUrl(pageName: string) {
   // Check for query params (e.g., "TeamMemberDetail?id=123")
@@ -33,12 +63,8 @@ export function createPageUrl(pageName: string) {
   if (slug) {
     return query ? `${slug}?${query}` : slug;
   }
-  // Fallback: convert PascalCase to kebab-case
+  // Fallback: convert PascalCase to kebab-case using the reusable utility
   return (
-    "/" +
-    base
-      .replace(/([a-z])([A-Z])/g, "$1-$2")
-      .toLowerCase() +
-    (query ? `?${query}` : "")
+    "/" + toKebabCase(base) + (query ? `?${query}` : "")
   );
 }

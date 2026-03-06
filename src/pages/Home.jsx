@@ -9,6 +9,7 @@ import CTASection from "../components/shared/CTASection.jsx";
 import HomeFAQ from "../components/home/HomeFAQ";
 import TestimonialSection from "../components/shared/TestimonialSection";
 import ImageBand from "../components/shared/ImageBand";
+import SEOHead from "../components/shared/SEOHead";
 import { createPageUrl } from "@/utils";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 
@@ -21,12 +22,18 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
+      <SEOHead
+        title={page?.seo?.metaTitle || "Buyers Agent Northern Rivers & Gold Coast | Compass"}
+        description={page?.seo?.metaDescription || "Local buyers agents on the Tweed Coast. Off-market access, honest advice and end-to-end support for property buyers across Byron, Ballina, Tweed and the Gold Coast."}
+        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        canonicalPath="/"
+      />
       {/* 1. Hero — dark video overlay, full bleed */}
       <HomeHero
         title={page?.hero?.title}
         subtitle={page?.hero?.subtitle}
         ctaText={page?.hero?.ctaText}
-        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-CLEAN.mp4"}
+        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-LOGO-FADE.mp4"}
         backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
       />
 

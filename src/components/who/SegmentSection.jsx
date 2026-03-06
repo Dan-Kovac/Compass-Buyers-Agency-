@@ -23,16 +23,26 @@ export default function SegmentSection({
   bg = "bg-white",
   showCta = true,
 }) {
-  const renderList = (items, label) =>
+  const renderList = (items, label, isSecondList = false) =>
     items.length > 0 && (
-      <div className="mt-5">
+      <div
+        style={{
+          marginTop: "clamp(1.5rem, 3vw, 2rem)",
+          ...(isSecondList
+            ? {
+                borderTop: "1px solid var(--bright-grey)",
+                paddingTop: "clamp(1.5rem, 3vw, 2rem)",
+              }
+            : {}),
+        }}
+      >
         <div
           className="eyebrow-label mb-3"
           style={{ fontSize: "0.6875rem" }}
         >
           {label}
         </div>
-        <ul className="space-y-2.5">
+        <ul style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           {items.map((n, i) => (
             <li
               key={i}
@@ -59,7 +69,7 @@ export default function SegmentSection({
   return (
     <section id={id} className={`${bg} scroll-mt-24`} style={{ padding: "var(--section-standard) 0" }}>
       <div className="site-container">
-        <div className={`grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}>
+        <div className={`grid lg:grid-cols-2 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`} style={{ gap: "clamp(2rem, 4vw, 4rem)" }}>
           {/* Image */}
           <ScrollReveal
             animation={imageLeft ? "fade-right" : "fade-left"}
@@ -74,6 +84,9 @@ export default function SegmentSection({
                 alt={imageAlt || title}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                style={{ transition: "transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.015)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
               />
             </div>
           </ScrollReveal>
@@ -93,8 +106,8 @@ export default function SegmentSection({
                 </p>
               )}
 
-              {renderList(needs, "Common challenges")}
-              {renderList(howWeHelp, "How we help")}
+              {renderList(needs, "Common challenges", false)}
+              {renderList(howWeHelp, "How we help", true)}
 
               {showCta && (
                 <div className="mt-6">

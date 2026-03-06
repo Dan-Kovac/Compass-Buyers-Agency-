@@ -506,9 +506,90 @@ export default function Layout({ children, currentPageName }) {
         .skip-link:focus {
           top: 0.5rem;
         }
+        /* ── Segment card grid ────────────────────────────── */
+        .segment-card {
+          overflow: hidden;
+          border-radius: var(--radius-card);
+          border: 1px solid var(--bright-grey);
+          background: #fff;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+          transition: box-shadow 0.5s var(--ease-out), border-color 0.5s var(--ease-out);
+          cursor: pointer;
+          text-decoration: none;
+          display: block;
+          color: inherit;
+        }
+        .segment-card:hover {
+          box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+          border-color: rgba(0,0,0,0.06);
+        }
+        .segment-card:focus-visible {
+          outline: 2px solid var(--hills);
+          outline-offset: 2px;
+        }
+        .segment-card img {
+          transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .segment-card:hover img {
+          transform: scale(1.03);
+        }
+        .segment-card-link {
+          transition: text-decoration 0.3s var(--ease-out);
+        }
+        .segment-card:hover .segment-card-link {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+        }
+
+        /* ── Segment card grid responsive columns ───────── */
+        .segment-card-grid {
+          display: grid;
+          gap: clamp(1rem, 2vw, 1.5rem);
+          grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) {
+          .segment-card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+          .segment-card-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ── Pull quote block ───────────────────────────── */
+        .pullquote-block {
+          font-family: var(--font-body);
+          font-weight: var(--font-body-light);
+          font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+          line-height: 1.5;
+          color: var(--stone);
+          text-align: center;
+          max-width: 42rem;
+          margin: 0 auto;
+          position: relative;
+          border: none;
+          padding: 0;
+        }
+        .pullquote-block::before {
+          content: "\u201C";
+          color: var(--sand);
+          font-size: 3em;
+          line-height: 0;
+          vertical-align: -0.3em;
+          margin-right: 0.1em;
+        }
+        .pullquote-block::after {
+          content: "\u201D";
+          color: var(--sand);
+          font-size: 3em;
+          line-height: 0;
+          vertical-align: -0.3em;
+          margin-left: 0.05em;
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .surface img, .surface:hover img { transform: none; transition: none; }
           .surface .lucide, .surface:hover .lucide { opacity: 1; transition: none; }
+          .segment-card img, .segment-card:hover img { transform: none; transition: none; }
+          .segment-card { transition: none; }
           a { transition: none; }
           .btn-cta { transition: none; }
           .skip-link { transition: none; }

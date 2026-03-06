@@ -26,7 +26,7 @@ export default function Regions({
     : DEFAULT_ITEMS;
 
   return (
-    <section className="bg-white" style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className="bg-cream" style={{ padding: "var(--section-breathing-lg) 0" }}>
       <div className="site-container">
         <SectionHeader
           eyebrow={eyebrow}

@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import SEOHead from "../components/shared/SEOHead";
 
 const DATA = {
   heroTitle: "Tweed Heads Buyers Agent",
@@ -89,19 +90,49 @@ const DATA = {
 
   localBusinessSchema: {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Compass Buyers Agency",
-    "@id": "https://compassagency.com.au",
-    url: "https://compassagency.com.au/tweed-heads-buyers-agent/",
-    logo: "https://compassagency.com.au/logo.png",
-    image: "https://compassagency.com.au/og-image.png",
-    description: "Tweed Heads buyers agent covering the Tweed Coast corridor. Kingscliff median $2.015M (35% discount to Byron). 66 days on market. Stock 36% below five-year norms.",
-    areaServed: { "@type": "City", name: "Tweed Heads" },
-    serviceType: "Buyers Agent",
-    priceRange: "$$",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://compassagency.com.au/#business",
+        name: "Compass Buyers Agency",
+        url: "https://compassagency.com.au/tweed-heads-buyers-agent/",
+        logo: "https://compassagency.com.au/logo.png",
+        image: "https://compassagency.com.au/og-image.png",
+        description: "Tweed Heads buyers agent covering Kingscliff, Cabarita Beach and Pottsville. Off-market access, flood analysis and buyer-only representation.",
+        telephone: "+61403536390",
+        email: "hello@compassbuyersagency.com.au",
+        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
+        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
+        areaServed: [
+          { "@type": "City", name: "Kingscliff" },
+          { "@type": "City", name: "Cabarita Beach" },
+          { "@type": "City", name: "Pottsville" },
+          { "@type": "City", name: "Banora Point" },
+          { "@type": "City", name: "Tweed Heads" },
+        ],
+        priceRange: "$$",
+      },
+      {
+        "@type": "Service",
+        name: "Tweed Heads Buyers Agent",
+        description: "Buyers agent service specialising in Tweed Coast property. Off-market access, flood certificate analysis, negotiation and due diligence across Kingscliff, Cabarita and Pottsville.",
+        provider: { "@id": "https://compassagency.com.au/#business" },
+        areaServed: { "@type": "City", name: "Tweed Heads" },
+        serviceType: "Buyers Agent",
+      },
+    ],
   },
 };
 
 export default function TweedHeadsBuyersAgent() {
-  return <LandingPageTemplate data={DATA} />;
+  return (
+    <>
+      <SEOHead
+        title="Tweed Heads Buyers Agent | Compass Buyers Agency"
+        description="Buyers agent in Tweed Heads, Kingscliff, Cabarita and Pottsville. 38% off-market access. Local agents who live on the Tweed Coast."
+        canonicalPath="/tweed-heads-buyers-agent"
+      />
+      <LandingPageTemplate data={DATA} />
+    </>
+  );
 }

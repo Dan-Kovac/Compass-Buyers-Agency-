@@ -1,44 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { fetchTeamMembers, fetchPage, urlFor } from "@/lib/sanityClient";
-import { Mail, ChevronDown } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import FeatureSplit from "../components/about/FeatureSplit";
-import ImageBand from "../components/shared/ImageBand";
+import PullQuoteBreak from "@/components/shared/PullQuoteBreak";
+import SEOHead from "../components/shared/SEOHead";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
-function ExpandableBio({ bio }) {
-  const [expanded, setExpanded] = useState(false);
-  const [isClamped, setIsClamped] = useState(false);
-  const textRef = useRef(null);
-
-  useEffect(() => {
-    const el = textRef.current;
-    if (el) setIsClamped(el.scrollHeight > el.clientHeight + 1);
-  }, [bio]);
-
-  return (
-    <div className="flex-1">
-      <p
-        ref={textRef}
-        className={expanded ? "" : "line-clamp-3"}
-        style={{ fontWeight: "var(--font-body-light)", color: "var(--stone)", fontSize: "0.9375rem", lineHeight: "1.65", marginBottom: "0" }}
-      >
-        {bio}
-      </p>
-      {isClamped && (
-        <button
-          onClick={() => setExpanded((prev) => !prev)}
-          className="mt-2 text-sm text-[var(--hills)] hover:underline underline-offset-2 inline-flex items-center gap-1 cursor-pointer"
-          style={{ fontWeight: "var(--font-body-medium)" }}
-        >
-          {expanded ? "Read less" : "Read more"}
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
-        </button>
-      )}
-    </div>
-  );
-}
+/* ── Fallback stat data ────────────────────────────────────────────────────── */
+const DEFAULT_STATS = [
+  { value: "70+", label: "Properties Secured" },
+  { value: "42%", label: "Off-Market Deals" },
+  { value: "~5.5%", label: "Avg. Saving Below Asking" },
+  { value: "100%", label: "Buyer-Only Focus" },
+];
 
 export default function About() {
   const [teamMembers, setTeamMembers] = useState([]);
@@ -63,9 +39,52 @@ export default function About() {
     setIsLoading(false);
   };
 
+  const stats = page?.stats?.length ? page.stats : DEFAULT_STATS;
+
   return (
     <div className="bg-white">
-      {/* Page header */}
+      <SEOHead
+        title={page?.seo?.metaTitle || "About Compass | Buyers Agent Northern Rivers"}
+        description={page?.seo?.metaDescription || "Meet the team behind Compass Buyers Agency. Licensed buyers agents based on the Tweed Coast with local knowledge across Byron, Ballina and the Gold Coast."}
+        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        canonicalPath="/about"
+      />
+      {/* AboutPage JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About Compass Buyers Agency",
+            url: "https://compassagency.com.au/about",
+            description: "Licensed buyers agents based on the Tweed Coast. Local knowledge, buyer-only representation, and a team that handles every step from search to settlement.",
+            mainEntity: {
+              "@type": "RealEstateAgent",
+              name: "Compass Buyers Agency",
+              url: "https://compassagency.com.au",
+              telephone: "+61403536390",
+              email: "hello@compassbuyersagency.com.au",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Cabarita Beach",
+                addressLocality: "Cabarita Beach",
+                addressRegion: "NSW",
+                postalCode: "2488",
+                addressCountry: "AU",
+              },
+              areaServed: [
+                { "@type": "City", name: "Byron Bay" },
+                { "@type": "City", name: "Gold Coast" },
+                { "@type": "City", name: "Tweed Heads" },
+                { "@type": "AdministrativeArea", name: "Northern Rivers" },
+              ],
+            },
+          }),
+        }}
+      />
+
+      {/* ── Section 0: Page Header ── bg-warm-gradient ─────────────────────── */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
@@ -74,7 +93,7 @@ export default function About() {
               <h1>
                 {page?.heading || "The People Behind Compass"}
               </h1>
-              <p>
+              <p className="text-balance">
                 {page?.subtitle || "Licensed buyers agents based on the Tweed Coast. We know these streets, these agents, and these markets because we live here."}
               </p>
             </div>
@@ -82,7 +101,14 @@ export default function About() {
         </div>
       </section>
 
-      {/* Feature split 1 — white bg */}
+      {/* ── Section 1: Philosophy Quote ── bg-white ───────────────────────── */}
+      <PullQuoteBreak
+        quote={page?.philosophyQuote || "We don't just know the market. We live here. Every recommendation we make, we'd make for ourselves."}
+        attribution={page?.philosophyAttribution || "Bryce Holdaway, Compass Buyers Agency"}
+        bg="white"
+      />
+
+      {/* ── Section 2: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
       <FeatureSplit
         eyebrow="Local Knowledge"
         title={page?.featureSplit1?.title || "What Local Actually Means"}
@@ -91,10 +117,10 @@ export default function About() {
         imageAlt={page?.featureSplit1?.imageAlt || "Compass team meeting clients"}
         imageLeft={false}
         mobileImageFirst={true}
-        variant="white"
+        variant="sand"
       />
 
-      {/* Feature split 2 — sand bg for contrast */}
+      {/* ── Section 3: FeatureSplit 2 ── bg-white (image left) ────────────── */}
       <FeatureSplit
         eyebrow="Our Approach"
         title={page?.featureSplit2?.title || "Buyers Only. No Exceptions."}
@@ -102,112 +128,214 @@ export default function About() {
         image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/6c2c9c4ac_CONTENTSHOOTJULY-30.jpg"}
         imageAlt={page?.featureSplit2?.imageAlt || "Compass team at office"}
         imageLeft={true}
-        variant="sand"
+        variant="white"
         ctaLabel="Get in touch"
         ctaHref={createPageUrl("Contact")}
       />
 
-      {/* Atmospheric image band — rhythm break before team */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
-        alt="Aerial view of Northern Rivers coastline"
-        height="280px"
-        overlay
-      />
-
-      {/* Team section — editorial portrait cards */}
-      <section className="bg-white" style={{ padding: "var(--section-breathing) 0" }}>
+      {/* ── Section 4: Stats / Trust Band ── bg-editorial-dark ────────────── */}
+      <section className="bg-editorial-dark" style={{ padding: "var(--section-standard) 0" }}>
         <div className="site-container">
-          <ScrollReveal className="text-center mb-12 md:mb-16">
-            <p className="eyebrow-label">The Team</p>
-            <h2>
-              {page?.teamSectionHeading || "Who you'll work with"}
-            </h2>
-            <p>
-              Every conversation, inspection and negotiation is handled by the people you see here. No hand-offs, no call centres.
-            </p>
+          <ScrollReveal animation="fade-up">
+            <dl
+              className="grid grid-cols-2 lg:grid-cols-4 text-center"
+              style={{ gap: "clamp(1.5rem, 3vw, 2.5rem)" }}
+            >
+              <StaggerGroup stagger={100}>
+                {stats.map((stat, i) => (
+                  <ScrollReveal key={i} as="div">
+                    <dt
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        fontSize: "clamp(2rem, 4vw, 3rem)",
+                        fontWeight: 400,
+                        color: "#fff",
+                        lineHeight: 1.1,
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      {stat.value}
+                    </dt>
+                    <dd
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.8125rem",
+                        fontWeight: "var(--font-body-regular)",
+                        color: "rgba(255,255,255,0.55)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginTop: "0.5rem",
+                        marginLeft: 0,
+                      }}
+                    >
+                      {stat.label}
+                    </dd>
+                  </ScrollReveal>
+                ))}
+              </StaggerGroup>
+            </dl>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── Section 5: Team Grid ── bg-sand-wash ──────────────────────────── */}
+      <section className="bg-sand-wash" style={{ padding: "var(--section-breathing) 0" }}>
+        <div className="site-container">
+
+          {/* Section header */}
+          <ScrollReveal animation="fade-up">
+            <div className="text-center" style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
+              <p className="eyebrow-label">The Team</p>
+              <h2>
+                {page?.teamSectionHeading || "Who you'll work with"}
+              </h2>
+              <p className="text-balance" style={{ maxWidth: "36rem", margin: "0 auto" }}>
+                Every conversation, inspection and negotiation is handled by the people you see here. No hand-offs, no call centres.
+              </p>
+            </div>
           </ScrollReveal>
 
+          {/* Team cards */}
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              style={{ gap: "clamp(1.5rem, 3vw, 2.5rem)", maxWidth: "64rem", margin: "0 auto" }}
+              aria-busy="true"
+              aria-label="Loading team members"
+            >
               {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="aspect-[4/5] rounded-lg bg-[var(--bright-grey)]" />
-                  <div className="pt-5">
+                <div key={i} className="team-card animate-pulse">
+                  <div className="aspect-[4/5] bg-[var(--bright-grey)]" />
+                  <div className="team-card__body">
                     <div className="h-0.5 w-8 bg-[var(--bright-grey)] rounded-full mb-3" />
-                    <div className="h-5 bg-[var(--bright-grey)] rounded w-2/3 mb-2" />
-                    <div className="h-4 bg-[var(--bright-grey)] rounded w-1/2 mb-4" />
+                    <div className="h-5 bg-[var(--bright-grey)] rounded w-2/3 mb-1" />
+                    <div className="h-3.5 bg-[var(--bright-grey)] rounded w-1/2 mb-3" />
                     <div className="h-3 bg-[var(--bright-grey)] rounded w-full mb-1.5" />
-                    <div className="h-3 bg-[var(--bright-grey)] rounded w-5/6" />
+                    <div className="h-3 bg-[var(--bright-grey)] rounded w-5/6 mb-1.5" />
+                    <div className="h-3 bg-[var(--bright-grey)] rounded w-4/6" />
                   </div>
                 </div>
               ))}
             </div>
           ) : teamMembers && teamMembers.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              style={{ gap: "clamp(1.5rem, 3vw, 2.5rem)", maxWidth: "64rem", margin: "0 auto" }}
+            >
               <StaggerGroup stagger={120}>
-              {teamMembers.filter((m) => m.id !== "teamMember-68c27c6d1248fbc816dd0339").map((m) => (
-                <ScrollReveal key={m.id}>
-                <div className="group flex flex-col h-full">
-                  {/* Portrait photo */}
-                  <div className="relative overflow-hidden aspect-[4/5] rounded-lg ring-1 ring-black/[0.04]">
-                    <img
-                      src={
-                        m.photo?.asset
-                          ? urlFor(m.photo).width(800).height(1000).fit('crop').url()
-                          : typeof m.photo === 'string'
-                            ? m.photo
-                            : "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
-                      }
-                      alt={m.name}
-                      className="w-full h-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                  </div>
+                {teamMembers
+                  .filter((m) => m.id !== "teamMember-68c27c6d1248fbc816dd0339")
+                  .map((m) => (
+                    <ScrollReveal key={m.id} animation="fade-up">
+                      <Link to={`/team/${m.slug}`} className="block h-full">
+                        <article className="team-card">
+                          {/* Portrait photo */}
+                          <div className="team-card__image">
+                            <img
+                              src={
+                                m.photo?.asset
+                                  ? urlFor(m.photo).width(800).height(1000).fit("crop").url()
+                                  : typeof m.photo === "string"
+                                    ? m.photo
+                                    : "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop"
+                              }
+                              alt={m.name}
+                              loading="lazy"
+                            />
+                          </div>
 
-                  <div className="pt-5 flex-1 flex flex-col">
-                    <div className="h-0.5 w-8 rounded-full bg-[var(--hills)]/60 mb-3" />
+                          {/* Card body */}
+                          <div className="team-card__body">
+                            {/* Decorative bar */}
+                            <div
+                              style={{
+                                width: "2rem",
+                                height: "2px",
+                                borderRadius: "999px",
+                                background: "var(--hills)",
+                                opacity: 0.5,
+                                marginBottom: "0.75rem",
+                              }}
+                            />
 
-                    <div
-                      className="text-[var(--ink)] leading-tight"
-                      style={{ fontFamily: "var(--font-heading)", fontSize: "1.375rem", fontWeight: 400, letterSpacing: "-0.01em", marginBottom: "2px" }}
-                    >
-                      {m.name}
-                    </div>
+                            {/* Name */}
+                            <h3
+                              style={{
+                                fontFamily: "var(--font-heading)",
+                                fontSize: "clamp(1.125rem, 1.5vw, 1.375rem)",
+                                fontWeight: 400,
+                                letterSpacing: "-0.01em",
+                                color: "var(--ink)",
+                                lineHeight: 1.2,
+                                marginBottom: "0.125rem",
+                              }}
+                            >
+                              {m.name}
+                            </h3>
 
-                    <div style={{ fontWeight: "var(--font-body-light)", color: "var(--stone)", fontSize: "0.9375rem", marginBottom: "12px" }}>
-                      {m.position}
-                    </div>
+                            {/* Position */}
+                            <p
+                              style={{
+                                fontFamily: "var(--font-body)",
+                                fontSize: "0.875rem",
+                                fontWeight: "var(--font-body-light)",
+                                color: "var(--stone)",
+                                marginBottom: "0.75rem",
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              {m.position}
+                            </p>
 
-                    {m.bio && <ExpandableBio bio={m.bio} />}
+                            {/* Bio excerpt -- 3-line clamp, no expand toggle */}
+                            {m.bio && (
+                              <p
+                                className="line-clamp-3"
+                                style={{
+                                  fontFamily: "var(--font-body)",
+                                  fontSize: "0.9375rem",
+                                  fontWeight: "var(--font-body-light)",
+                                  color: "var(--stone)",
+                                  lineHeight: 1.65,
+                                  marginBottom: 0,
+                                }}
+                              >
+                                {m.bio}
+                              </p>
+                            )}
 
-                    {Array.isArray(m.specialties) && m.specialties.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-4">
-                        {m.specialties.slice(0, 4).map((s, idx) => (
-                          <span
-                            key={idx}
-                            className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--bright-grey)] text-[var(--stone)]"
-                            style={{ fontWeight: "var(--font-body-regular)" }}
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {m.email && (
-                      <a
-                        href={`mailto:${m.email}`}
-                        className="mt-4 text-sm text-[var(--hills)] hover:underline underline-offset-2 inline-flex items-center gap-1.5"
-                        style={{ fontWeight: "var(--font-body-medium)" }}
-                      >
-                        <Mail className="w-3.5 h-3.5" /> Get in touch
-                      </a>
-                    )}
-                  </div>
-                </div>
-                </ScrollReveal>
-              ))}
+                            {/* Specialty badges (max 3) */}
+                            {Array.isArray(m.specialties) && m.specialties.length > 0 && (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: "0.375rem",
+                                  marginTop: "0.75rem",
+                                }}
+                              >
+                                {m.specialties.slice(0, 3).map((s, idx) => (
+                                  <span
+                                    key={idx}
+                                    style={{
+                                      fontSize: "0.6875rem",
+                                      padding: "0.25rem 0.625rem",
+                                      borderRadius: "var(--radius-badge)",
+                                      border: "1px solid var(--bright-grey)",
+                                      color: "var(--stone)",
+                                      fontWeight: "var(--font-body-regular)",
+                                    }}
+                                  >
+                                    {s}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </article>
+                      </Link>
+                    </ScrollReveal>
+                  ))}
               </StaggerGroup>
             </div>
           ) : (
@@ -218,7 +346,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA — dark variant */}
+      {/* ── Section 6: CTA ── bg-editorial-dark ───────────────────────────── */}
       <CTASection
         heading={page?.cta?.heading || "Have questions? We're happy to chat."}
         buttonText={page?.cta?.buttonText || "Get in Touch"}

@@ -7,6 +7,14 @@ export default defineType({
   fields: [
     defineField({ name: 'title', title: 'Title', type: 'string', validation: Rule => Rule.required() }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: Rule => Rule.required() }),
+
+    // ─── SEO ────────────────────────────────────────────────────────────────
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seoFields',
+    }),
+
     defineField({ name: 'status', title: 'Status', type: 'string', options: { list: [{ title: 'Draft', value: 'draft' }, { title: 'Published', value: 'published' }] }, initialValue: 'draft' }),
     defineField({ name: 'category', title: 'Category', type: 'string', options: { list: ['market-insights', 'buying-tips', 'local-knowledge', 'case-studies', 'industry-news', 'suburb-profiles'] } }),
     defineField({ name: 'tags', title: 'Tags', type: 'array', of: [{ type: 'string' }] }),
