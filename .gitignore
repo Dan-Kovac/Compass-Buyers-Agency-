@@ -43,3 +43,9 @@ public/videos/*-original.mp4
 
 # Migration scripts (one-time use)
 scripts/
+
+# Generated suburb report HTML files
+*-report.html
+
+# Design spec documents
+design-specs/
