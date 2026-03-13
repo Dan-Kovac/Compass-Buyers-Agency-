@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SegmentCardGrid from "@/components/who/SegmentCardGrid";
-import SegmentSection from "@/components/who/SegmentSection";
 import CTASection from "@/components/shared/CTASection";
-import ImageBand from "@/components/shared/ImageBand";
 import PullQuoteBreak from "@/components/shared/PullQuoteBreak";
+import TestimonialSection from "@/components/shared/TestimonialSection";
+import RecentAcquisitionsStrip from "@/components/home/RecentAcquisitionsStrip";
 import { createPageUrl } from "@/utils";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
@@ -165,7 +165,6 @@ const fallbackSegments = [
   },
 ];
 
-/* Rendering order: 3 thematic trios (Lifestyle -> Remote/Investor -> Specialist) */
 const segmentOrder = [
   "first-home-buyers",
   "downsizers",
@@ -176,13 +175,6 @@ const segmentOrder = [
   "rural-acreage",
   "developers",
   "commercial",
-];
-
-/* Background cycle per trio position */
-const bgCycle = [
-  /* Trio 1 */ "bg-white", "bg-sand-wash", "bg-white",
-  /* Trio 2 */ "bg-sand-wash", "bg-white", "bg-sand-wash",
-  /* Trio 3 */ "bg-white", "bg-sand-wash", "bg-white",
 ];
 
 export default function WhoWeWorkWith() {
@@ -210,15 +202,9 @@ export default function WhoWeWorkWith() {
     .map((id) => segments.find((s) => s.id === id))
     .filter(Boolean);
 
-  /* If some segments weren't in the order array, append them */
   const orderedIds = new Set(segmentOrder);
   const extras = segments.filter((s) => !orderedIds.has(s.id));
   const allSegments = [...renderSegments, ...extras];
-
-  /* Split into trios */
-  const trio1 = allSegments.slice(0, 3);
-  const trio2 = allSegments.slice(3, 6);
-  const trio3 = allSegments.slice(6, 9);
 
   return (
     <div className="bg-white">
@@ -229,7 +215,7 @@ export default function WhoWeWorkWith() {
         canonicalPath="/who-we-work-with"
       />
 
-      {/* 1. Page Hero */}
+      {/* 1. Hero */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
           <ScrollReveal>
@@ -246,92 +232,30 @@ export default function WhoWeWorkWith() {
         </div>
       </section>
 
-      {/* 2. Segment Card Grid */}
+      {/* 2. Compact segment grid with inline expand */}
       <SegmentCardGrid segments={allSegments} />
 
-      {/* 3-5. Trio 1: Lifestyle Buyers */}
-      {trio1.map((seg, i) => (
-        <SegmentSection
-          key={seg.id}
-          id={seg.id}
-          index={i}
-          title={seg.title}
-          intro={seg.intro}
-          needs={seg.needs || []}
-          howWeHelp={seg.howWeHelp || []}
-          image={seg.imageUrl}
-          imageAlt={seg.imageAlt}
-          imageLeft={i % 2 === 1}
-          squareImage
-          bg={bgCycle[i]}
-          showCta={false}
-        />
-      ))}
-
-      {/* 6. Image Band Break 1 */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
-        alt="Byron Bay coastline at golden hour"
-        height="320px"
-        mobileHeight="200px"
-        overlay
-      />
-
-      {/* 7-9. Trio 2: Remote & Investor Buyers */}
-      {trio2.map((seg, i) => (
-        <SegmentSection
-          key={seg.id}
-          id={seg.id}
-          index={i + 3}
-          title={seg.title}
-          intro={seg.intro}
-          needs={seg.needs || []}
-          howWeHelp={seg.howWeHelp || []}
-          image={seg.imageUrl}
-          imageAlt={seg.imageAlt}
-          imageLeft={i % 2 === 1}
-          squareImage
-          bg={bgCycle[i + 3]}
-          showCta={false}
-        />
-      ))}
-
-      {/* 10. Pull Quote Break */}
+      {/* 3. Pull quote */}
       <PullQuoteBreak
         quote={page?.pullQuote?.quote || "No two buyers are the same. We listen first, then build a plan that fits your life, not the other way around."}
         attribution={page?.pullQuote?.attribution || "Compass Buyers Agency"}
         bg="cream"
       />
 
-      {/* 11-13. Trio 3: Specialist Buyers */}
-      {trio3.map((seg, i) => (
-        <SegmentSection
-          key={seg.id}
-          id={seg.id}
-          index={i + 6}
-          title={seg.title}
-          intro={seg.intro}
-          needs={seg.needs || []}
-          howWeHelp={seg.howWeHelp || []}
-          image={seg.imageUrl}
-          imageAlt={seg.imageAlt}
-          imageLeft={i % 2 === 1}
-          squareImage
-          bg={bgCycle[i + 6]}
-          showCta={false}
-        />
-      ))}
-
-      {/* 14. Image Band Break 2 */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop"
-        alt="Luxury coastal property at dusk"
-        height="280px"
-        mobileHeight="180px"
-        overlay
+      {/* 4. Testimonials */}
+      <TestimonialSection
+        heading="Trusted by Buyers Across the Region"
+        subtitle="Hear from real buyers about their experience working with Compass."
       />
 
-      {/* 15. CTA */}
+      {/* 5. Recent acquisitions */}
+      <RecentAcquisitionsStrip
+        limit={4}
+        bg="white"
+        title="Properties We've Secured"
+      />
+
+      {/* 6. CTA */}
       <CTASection
         heading={page?.cta?.heading || "Tell us what you're looking for"}
         supportingText={page?.cta?.supportingText || "Every search starts with a conversation. We'll listen to your goals and explain how we can help."}

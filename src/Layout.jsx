@@ -550,6 +550,66 @@ export default function Layout({ children, currentPageName, navMode }) {
           .segment-card-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
+        /* ── Segment card active state ─────────────────── */
+        .segment-card--active {
+          border-color: var(--hills);
+          box-shadow: 0 0 0 2px var(--hills), var(--elevation-hover);
+        }
+        .segment-card--active:hover {
+          transform: none;
+        }
+
+        /* ── Segment expand panel ─────────────────────── */
+        .segment-expand-panel {
+          background: var(--bright-grey);
+          border-radius: var(--radius-card);
+          padding: clamp(1.5rem, 3vw, 2.5rem);
+          margin-top: clamp(0.5rem, 1vw, 0.75rem);
+          margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+          overflow: hidden;
+          animation: panelSlideDown 500ms var(--ease-reveal) forwards;
+        }
+        @keyframes panelSlideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .segment-expand-panel__grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: clamp(1.5rem, 3vw, 2rem);
+        }
+        @media (min-width: 768px) {
+          .segment-expand-panel__grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+        .segment-expand-panel__close {
+          position: absolute;
+          top: clamp(0.75rem, 1.5vw, 1rem);
+          right: clamp(0.75rem, 1.5vw, 1rem);
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 1px solid rgba(0,0,0,0.08);
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: var(--stone);
+          transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+        }
+        .segment-expand-panel__close:hover {
+          color: var(--ink);
+          border-color: rgba(0,0,0,0.15);
+        }
+
         /* ── Pull quote block ───────────────────────────── */
         .pullquote-block {
           font-family: var(--font-body);
@@ -587,6 +647,7 @@ export default function Layout({ children, currentPageName, navMode }) {
           .info-split-image img, .info-split:hover .info-split-image img { transform: none; transition: none; }
           .segment-card img, .segment-card:hover img { transform: none; transition: none; }
           .segment-card, .segment-card:hover { transition: none; transform: none; }
+          .segment-expand-panel { animation: none; }
           a { transition: none; }
           .suburb-tag { transition: none; }
           .btn-cta { transition: none; }
