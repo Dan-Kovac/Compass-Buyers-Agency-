@@ -8,9 +8,9 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
  * @param {"warm"|"dark"|"minimal"|"image"} variant
  */
 export default function CTASection({
-  heading = "Ready to get started?",
+  heading = "Let's find your property",
   supportingText,
-  buttonText = "Get in touch",
+  buttonText = "Start a Conversation",
   buttonHref,
   onButtonClick,
   variant = "warm",
@@ -32,7 +32,7 @@ export default function CTASection({
   return (
     <section
       className={sectionClasses[variant] || sectionClasses.warm}
-      style={{ padding: "var(--section-standard-lg) 0" }}
+      style={{ padding: "var(--section-padding) 0" }}
     >
       {variant === "image" && backgroundImage && (
         <>

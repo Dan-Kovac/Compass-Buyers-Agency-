@@ -77,13 +77,9 @@
   --sand: #F2ECCE;
   --stone: #767470;
 
-  /* Section spacing tiers (top + bottom padding) */
-  --section-hero: 0;
-  --section-breathing: clamp(5rem, 10vw, 8rem);
-  --section-breathing-lg: clamp(5rem, 10vw, 8rem);
-  --section-standard: clamp(4rem, 8vw, 6rem);
-  --section-compact: clamp(2.5rem, 5vw, 3.5rem);
-  --section-tight: clamp(1.5rem, 3vw, 2rem);
+  /* Section spacing — two tiers only */
+  --section-padding: clamp(4rem, 8vw, 7rem);
+  --section-padding-compact: clamp(2rem, 5vw, 3rem);
 
   /* Container */
   --container-max: 1200px;
@@ -96,8 +92,15 @@
 
   /* Transitions */
   --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-normal: 0.5s;
   --duration-slow: 0.8s;
+
+  /* Elevation system */
+  --elevation-0: none;
+  --elevation-1: 0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04);
+  --elevation-2: 0 2px 6px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+  --elevation-hover: 0 4px 12px rgba(0,0,0,0.05), 0 20px 48px rgba(0,0,0,0.08);
 
   /* Areas page tokens */
   --areas-hero-min-h: clamp(50vh, 60vw, 75vh);
@@ -179,10 +182,9 @@ body {
     margin-bottom: 1rem;
   }
 
-  /* Section padding tiers */
-  .section-padding    { padding-top: var(--section-standard); padding-bottom: var(--section-standard); }
-  .section-padding-lg { padding-top: var(--section-breathing); padding-bottom: var(--section-breathing); }
-  .section-padding-sm { padding-top: var(--section-compact); padding-bottom: var(--section-compact); }
+  /* Section padding tiers — two levels only */
+  .section-padding    { padding-top: var(--section-padding); padding-bottom: var(--section-padding); }
+  .section-padding-compact { padding-top: var(--section-padding-compact); padding-bottom: var(--section-padding-compact); }
 
   /* Primary CTA button */
   .btn-cta {
@@ -242,7 +244,7 @@ body {
   /* Page header section (used on all inner pages) */
   .page-header {
     padding-top: clamp(8rem, 15vw, 12rem);
-    padding-bottom: var(--section-standard);
+    padding-bottom: var(--section-padding);
     text-align: center;
   }
 
@@ -254,7 +256,7 @@ body {
     font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
     font-weight: 300;
     line-height: 1.65;
-    color: var(--stone);
+    color: #6b6965;
     max-width: 48ch;
     margin: 0 auto;
   }

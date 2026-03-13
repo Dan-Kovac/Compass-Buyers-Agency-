@@ -35,7 +35,7 @@ export default function ServicesAccordionShowcase({
   return (
     <section
       style={{
-        padding: "var(--section-breathing-lg) 0",
+        padding: "var(--section-padding) 0",
         background: "linear-gradient(175deg, var(--ink) 0%, #1a2f2e 100%)",
       }}
     >

@@ -12,6 +12,8 @@ export default function RecentAcquisitionsStrip({
   showEyebrow = true,
   title = "Featured acquisitions",
   sortBy = "value",
+  suburb,
+  lga,
 }) {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -49,7 +51,17 @@ export default function RecentAcquisitionsStrip({
           return hasB - hasA;
         });
 
-        const list = sorted.slice(0, limit);
+        // Location-based filtering: suburb first, then LGA, then all
+        let list;
+        if (suburb || lga) {
+          const suburbMatches = suburb ? sorted.filter(i => i.suburb === suburb) : [];
+          const lgaMatches = lga ? sorted.filter(i => i.lga === lga && i.suburb !== suburb) : [];
+          const remaining = sorted.filter(i => i.suburb !== suburb && i.lga !== lga);
+          list = [...suburbMatches, ...lgaMatches, ...remaining].slice(0, limit);
+        } else {
+          list = sorted.slice(0, limit);
+        }
+
         if (mounted) {
           setItems(list);
           setLoading(false);
@@ -69,7 +81,7 @@ export default function RecentAcquisitionsStrip({
       mounted = false;
       clearTimeout(timeout);
     };
-  }, [limit, sortBy]);
+  }, [limit, sortBy, suburb, lga]);
 
   const bgClass = bg === "white" ? "bg-white" : "bg-[var(--bright-grey)]";
 
@@ -77,7 +89,7 @@ export default function RecentAcquisitionsStrip({
   if (!loading && items.length === 0) return null;
 
   return (
-    <section className={bgClass} style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className={bgClass} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div className="max-w-2xl">
@@ -109,13 +121,13 @@ export default function RecentAcquisitionsStrip({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {loading ? (
               Array.from({ length: limit }).map((_, idx) => (
-                <ScrollReveal key={idx}>
+                <ScrollReveal key={idx} animation="scale-subtle" duration={600}>
                   <AcquisitionCard item={null} />
                 </ScrollReveal>
               ))
             ) : items.length > 0 ? (
               items.map((it) => (
-                <ScrollReveal key={it.id}>
+                <ScrollReveal key={it.id} animation="scale-subtle" duration={600}>
                   <AcquisitionCard
                     item={it}
                     onClick={() => navigate(createPageUrl("Acquisitions"))}
@@ -124,7 +136,7 @@ export default function RecentAcquisitionsStrip({
               ))
             ) : (
               Array.from({ length: limit }).map((_, idx) => (
-                <ScrollReveal key={idx}>
+                <ScrollReveal key={idx} animation="scale-subtle" duration={600}>
                   <AcquisitionCard item={null} />
                 </ScrollReveal>
               ))

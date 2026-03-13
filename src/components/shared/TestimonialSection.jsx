@@ -42,7 +42,7 @@ export default function TestimonialSection({
   const items = testimonials?.length ? testimonials : DEFAULT_TESTIMONIALS;
 
   return (
-    <section className={`bg-sand-wash ${className}`} style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className={`bg-sand-wash ${className}`} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <ScrollReveal className="mb-10 md:mb-12">
           <p className="eyebrow-label">Client Stories</p>
@@ -62,10 +62,10 @@ export default function TestimonialSection({
           )}
         </ScrollReveal>
 
-        <StaggerGroup stagger={120}>
+        <StaggerGroup stagger={80}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
             {items.map((t, i) => (
-              <ScrollReveal key={i}>
+              <ScrollReveal key={i} animation="scale-subtle" duration={600}>
                 <VideoTestimonialCard
                   videoSrc={t.videoSrc}
                   posterSrc={t.posterSrc}

@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { fetchBlogPost } from "@/lib/sanityClient";
 import ArticlePreviewFrame from "@/components/detail/ArticlePreviewFrame";
 import RelatedBlogs from "@/components/detail/RelatedBlogs";
@@ -25,18 +26,18 @@ export default function BlogPostDetail() {
     custom_css: "",
   });
 
+  const { slug: routeSlug } = useParams();
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
-  const slug = urlParams.get("slug");
+  const id = routeSlug || urlParams.get("id") || urlParams.get("slug");
 
   React.useEffect(() => {
     (async () => {
-      if (!id && !slug) return;
-      const rec = await fetchBlogPost(id || slug);
+      if (!id) return;
+      const rec = await fetchBlogPost(id);
       setPost(rec);
       /* SEOHead handles document.title via react-helmet-async */
     })();
-  }, [id, slug]);
+  }, [id]);
 
   const handleCopyLink = async () => {
     try {
@@ -62,7 +63,7 @@ export default function BlogPostDetail() {
 
   if (!post) {
     return (
-      <div className="site-container" style={{ padding: "var(--section-standard) 0" }}>
+      <div className="site-container" style={{ padding: "var(--section-padding) 0" }}>
         <div
           style={{
             background: "white",
@@ -115,7 +116,7 @@ export default function BlogPostDetail() {
       <div
         style={{
           background: "white",
-          padding: "var(--section-tight) 0",
+          padding: "var(--section-padding-compact) 0",
         }}
       >
         <div className="site-container">

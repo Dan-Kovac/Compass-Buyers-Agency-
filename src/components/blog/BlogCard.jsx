@@ -1,5 +1,4 @@
 import React from "react";
-import { createPageUrl } from "@/utils";
 import { resolveImageUrl } from "@/lib/sanityClient";
 import ImagePlaceholder from "@/components/shared/ImagePlaceholder";
 import { estimateReadingTime } from "@/utils/readingTime";
@@ -35,7 +34,7 @@ export default function BlogCard({ item }) {
 
   return (
     <a
-      href={createPageUrl(`BlogPostDetail?id=${item.id}`)}
+      href={`/blog/${item.slug || item.id}`}
       className="group h-full block"
     >
       <div
@@ -145,10 +144,10 @@ export default function BlogCard({ item }) {
             }}
           >
             {dateStr && <span>{dateStr}</span>}
-            {dateStr && (
+            {dateStr && readingTime && (
               <span style={{ color: "var(--bright-grey)", margin: "0 0.25rem" }}>{"\u00B7"}</span>
             )}
-            <span>{readingTime} min read</span>
+            {readingTime && <span>{readingTime} min read</span>}
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export default function InvestmentAndRelationship({
   const items = checklist && checklist.length > 0 ? checklist : DEFAULT_CHECKLIST;
 
   return (
-    <section className="bg-white" style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Image — clean, generous */}

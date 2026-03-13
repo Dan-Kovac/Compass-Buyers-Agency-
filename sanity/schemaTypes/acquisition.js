@@ -31,6 +31,7 @@ export default defineType({
     defineField({ name: 'tags', title: 'Tags', type: 'array', of: [{ type: 'string' }] }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'title' } }),
     defineField({ name: 'featured', title: 'Featured', type: 'boolean', initialValue: false }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seoFields' }),
   ],
   preview: {
     select: { title: 'title', suburb: 'suburb', status: 'status' },

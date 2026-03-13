@@ -1,7 +1,10 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { fetchAcquisition, fetchAcquisitions, fetchTeamMembers, resolveImageUrl } from "@/lib/sanityClient";
 import { Home, Bed, Bath, Car } from "lucide-react";
 import { createPageUrl } from "@/utils";
+import SEOHead from "@/components/shared/SEOHead";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 export default function AcquisitionDetail() {
   const [item, setItem] = React.useState(null);
@@ -9,8 +12,9 @@ export default function AcquisitionDetail() {
   const [similarByArea, setSimilarByArea] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
+  const { slug: routeSlug } = useParams();
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+  const id = routeSlug || urlParams.get("id");
 
   React.useEffect(() => {
     (async () => {
@@ -31,7 +35,7 @@ export default function AcquisitionDetail() {
       }
 
       if (rec) {
-        document.title = rec.title || "Acquisition Details";
+        // document.title now handled by SEOHead
 
         // Fetch similar by area
         if (rec.suburb) {
@@ -58,7 +62,7 @@ export default function AcquisitionDetail() {
 
   if (loading) {
     return (
-      <div className="site-container py-12">
+      <div className="site-container" style={{ padding: "var(--section-padding-compact) 0" }}>
         <div className="rounded-token border border-[var(--border)] bg-white p-8">
           Loading...
         </div>
@@ -68,9 +72,9 @@ export default function AcquisitionDetail() {
 
   if (!item) {
     return (
-      <div className="site-container py-12">
+      <div className="site-container" style={{ padding: "var(--section-padding-compact) 0" }}>
         <div className="rounded-token border border-[var(--border)] bg-white p-8">
-          <h2 className="text-2xl font-semibold mb-4">Acquisition not found</h2>
+          <h2 className="text-2xl mb-4">Acquisition not found</h2>
           <p className="text-[var(--ink)]/70 mb-6">The property you're looking for doesn't exist or has been removed.</p>
           <a href={createPageUrl("Acquisitions")} className="text-[var(--hills)] hover:underline">
             ← Back to all acquisitions
@@ -88,6 +92,14 @@ export default function AcquisitionDetail() {
 
   return (
     <div className="bg-white min-h-screen">
+      {item && (
+        <SEOHead
+          title={item.seo?.metaTitle || item.title || "Acquisition Details"}
+          description={item.seo?.metaDescription || item.excerpt || `${item.beds || ""}BR ${item.property_type || "property"} in ${item.suburb || "Northern Rivers"}`}
+          ogImage={resolveImageUrl(item.seo?.ogImage || item.main_image, item.main_image_url)}
+          canonicalPath={`/acquisitions/${id}`}
+        />
+      )}
       {/* Simple header bar */}
       <div className="border-b border-[var(--border)]">
         <div className="site-container py-4">
@@ -107,12 +119,13 @@ export default function AcquisitionDetail() {
             {/* Two column layout */}
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
               {/* Left column: specs and info */}
+              <ScrollReveal animation="fade-right">
               <div className="space-y-8">
                 {/* Title */}
                 <h1 className="mb-0">{item.title}</h1>
 
                 {/* Price */}
-                <div className="text-3xl font-semibold text-[var(--ink)]">
+                <div className="text-3xl font-medium text-[var(--ink)]">
                   {priceDisplay}
                 </div>
 
@@ -179,7 +192,7 @@ export default function AcquisitionDetail() {
                           />
                         )}
                         <div>
-                          <div className="font-semibold text-[var(--ink)] mb-1">
+                          <div className="font-medium text-[var(--ink)] mb-1">
                             {agent.name}
                           </div>
                           {agent.phone && (
@@ -203,8 +216,10 @@ export default function AcquisitionDetail() {
                   </div>
                 )}
               </div>
+              </ScrollReveal>
 
               {/* Right column: image */}
+              <ScrollReveal animation="fade-left" delay={120}>
               <div className="lg:sticky lg:top-24">
                 {resolveImageUrl(item.main_image, item.main_image_url, { width: 1200 }) && (
                   <div className="aspect-[4/3] rounded-token overflow-hidden surface p-0">
@@ -219,6 +234,7 @@ export default function AcquisitionDetail() {
                   </div>
                 )}
               </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -226,17 +242,19 @@ export default function AcquisitionDetail() {
 
       {/* Similar acquisitions by area */}
       {similarByArea.length > 0 && (
-        <section className="section-padding border-t border-[var(--border)]">
+        <section className="section-padding bg-sand-wash border-t border-[var(--border)]">
           <div className="site-container">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-xl font-semibold mb-8">
-                More of our acquisitions in {item.suburb}
-              </h2>
+              <ScrollReveal animation="fade-up">
+                <h2 className="text-xl mb-8">
+                  More of our acquisitions in {item.suburb}
+                </h2>
+              </ScrollReveal>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {similarByArea.map((acq) => (
                   <a
                     key={acq.id}
-                    href={createPageUrl(`AcquisitionDetail?id=${acq.id}`)}
+                    href={`/acquisitions/${acq.slug || acq.id}`}
                     className="surface overflow-hidden rounded-token group"
                   >
                     <div className="aspect-[4/3] bg-[var(--bright-grey)] relative overflow-hidden">
@@ -251,7 +269,7 @@ export default function AcquisitionDetail() {
                     </div>
                     <div className="p-4">
                       <div className="text-sm text-[var(--ink)]/50 mb-1">{acq.suburb}</div>
-                      <h3 className="text-lg font-semibold truncate group-hover:text-[var(--hills)] transition-colors">
+                      <h3 className="text-lg truncate group-hover:text-[var(--hills)] transition-colors">
                         {acq.title}
                       </h3>
                     </div>

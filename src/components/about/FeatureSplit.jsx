@@ -33,7 +33,7 @@ export default function FeatureSplit({
   const textAnim = imageLeft ? "fade-left" : "fade-right";
 
   return (
-    <section className={bg} style={{ padding: "var(--section-breathing) 0" }}>
+    <section className={bg} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         {/* Asymmetric grid: 3/5 image, 2/5 text (60/40) */}
         <div className={`grid lg:grid-cols-5 gap-10 lg:gap-14 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}>

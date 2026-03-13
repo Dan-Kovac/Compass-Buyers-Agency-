@@ -3,7 +3,7 @@ import React from "react";
 const STATS = [
   { end: 70, suffix: "+", label: "Properties Secured" },
   { end: 150, prefix: "$", suffix: "M+", label: "In Property Value" },
-  { end: 15, suffix: "+", label: "Years Experience" },
+  { end: 15, suffix: "+", label: "Years Local Experience" },
   { end: 100, suffix: "%", label: "Buyer Focused" },
 ];
 
@@ -92,13 +92,14 @@ function StatItem({ stat, isLast }) {
  * TrustBar — dark stats bar with count-up animation.
  * Sits between the hero and the editorial content.
  */
-export default function TrustBar() {
+export default function TrustBar({ stats }) {
+  const data = stats || STATS;
   return (
     <section style={{ backgroundColor: "var(--ink)" }}>
       <div className="site-container">
         <div className="grid grid-cols-2 md:grid-cols-4">
-          {STATS.map((stat, i) => (
-            <StatItem key={i} stat={stat} isLast={i === STATS.length - 1} />
+          {data.map((stat, i) => (
+            <StatItem key={i} stat={stat} isLast={i === data.length - 1} />
           ))}
         </div>
       </div>

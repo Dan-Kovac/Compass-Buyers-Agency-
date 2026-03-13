@@ -5,27 +5,27 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 const DEFAULT_FAQS = [
   {
     q: "What does a buyers agent actually do?",
-    a: "We work exclusively for you, the buyer. We search for properties on and off market, evaluate their true value, negotiate on your behalf, and support you through to settlement. In markets like Byron Bay and the Gold Coast where competition is high and off-market deals are common, that independent representation makes a real difference to what you pay and what you get.",
+    a: "We work exclusively for you. We search properties on and off market, evaluate what they're genuinely worth, negotiate on your behalf, and manage the process through to settlement. In markets like Byron Bay and the Gold Coast, where 42% of deals happen off-market and quality listings attract multiple bidders, that independent representation changes what you pay and what you get.",
   },
   {
     q: "How much does it cost?",
-    a: "Our fees depend on the service and complexity. Typically there's a small engagement fee to begin, then a success fee when we secure your property. We're upfront about costs from the first conversation, and most clients find the fee pays for itself through a better price or avoiding a costly mistake.",
+    a: "Our fees depend on the service and complexity. There's a small engagement fee to begin, then a success fee when we secure your property. We're upfront about costs from the first conversation. Most clients find the fee pays for itself through a better price, off-market access, or catching a costly issue during due diligence.",
   },
   {
     q: "Do you have access to off-market properties?",
-    a: "Yes. Around 42% of the properties we've secured were off-market, and many more came as pre-market opportunities before public listing. We've built deep relationships with local selling agents across Byron, Ballina, Tweed, and the Gold Coast over years of repeat business.",
+    a: "Around 42% of the properties we've secured were off-market or pre-market. We've built relationships with selling agents across Byron, Ballina, Tweed, and the Gold Coast over 15 years of repeat business. In tight markets, that access often determines whether you secure or miss out.",
   },
   {
     q: "Can you help with investment properties?",
-    a: "Absolutely. We analyse rental yields, vacancy rates, council zoning, and growth indicators across the region. Many of our investor clients are based in Sydney or Melbourne and rely on us as their local eyes and ears.",
+    a: "We analyse rental yields, vacancy rates, council zoning, and growth indicators across the region. We cover everything from sub-$1M entry points in Ballina to $3M+ prestige in Byron Bay. Many of our investor clients are based in Sydney or Melbourne and rely on us as their local eyes and ears.",
   },
   {
     q: "What's the typical process and timeline?",
-    a: "It starts with a free consultation where we learn what you're looking for. From there we build a shortlist, arrange inspections, and provide appraisals. When you find the right property, we negotiate or bid on your behalf and support you through to settlement. Most clients go from first call to keys in four to eight weeks.",
+    a: "It starts with a free consultation where we learn what you're looking for. From there, we build a shortlist, arrange inspections, and provide appraisals. When you find the right property, we negotiate or bid on your behalf and manage everything through to settlement. Most clients go from first call to keys in four to eight weeks.",
   },
   {
     q: "Can you help if I'm buying from interstate or overseas?",
-    a: "We regularly work with buyers relocating from interstate or overseas. We handle inspections via video walkthroughs, coordinate with solicitors, and manage the entire process remotely. Several recent clients settled in Byron Bay and Kingscliff without visiting until after exchange.",
+    a: "We regularly work with buyers relocating from Sydney, Melbourne, and overseas. We handle inspections via video walkthroughs, coordinate with solicitors, and manage the entire process remotely. Several recent clients settled in Byron Bay and Kingscliff without visiting until after exchange.",
   },
 ];
 
@@ -42,7 +42,7 @@ export default function HomeFAQ({
   const right = faqs.slice(mid);
 
   return (
-    <section className="bg-white" style={{ padding: "var(--section-breathing-lg) 0" }}>
+    <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <ScrollReveal className="text-center mb-12 md:mb-16">
           <p className="eyebrow-label">Common Questions</p>

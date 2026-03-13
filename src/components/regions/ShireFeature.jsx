@@ -68,7 +68,7 @@ export default function ShireFeature({
   return (
     <section
       className={bg}
-      style={{ padding: "var(--section-breathing) 0" }}
+      style={{ padding: "var(--section-padding) 0" }}
     >
       <div className="site-container">
         <div

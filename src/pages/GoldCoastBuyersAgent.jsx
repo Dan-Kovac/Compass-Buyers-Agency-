@@ -1,142 +1,161 @@
-import React from "react";
-import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import React, { useState, useEffect } from "react";
+import AdLandingTemplate from "../components/landing/AdLandingTemplate";
 import SEOHead from "../components/shared/SEOHead";
+import { createPageUrl } from "@/utils";
+import { fetchLandingPage, resolveImageUrl } from "@/lib/sanityClient";
 
-const DATA = {
-  heroTitle: "Gold Coast Buyers Agent",
-  heroSubtitle: "Coolangatta. Kirra. Rainbow Bay. 31% of deals never hit portals. We find what others miss.",
-
-  marketStats: [
-    { value: "$1.65M", label: "Median Price" },
-    { value: "31%", label: "Off-Market" },
-    { value: "580+", label: "Annual Sales" },
-    { value: "54%", label: "Interstate Buyers" },
-  ],
-
-  infoSplits: [
-    {
-      title: "Why Buy on the Southern Gold Coast",
-      description: "Village beaches, airport access, and genuine value against Byron. But don't mistake relaxed for easy. Quality stock is thin and the best homes rarely see a portal. Here's the current snapshot.",
-      bullets: [
-        "580+ houses transacted across the Southern Gold Coast in the last 12 months",
-        "$1.65M median price across Coolangatta / Kirra / Rainbow Bay",
-        "54% of buyers are interstate (Sydney/Melbourne downsizers)",
-        "31% of transactions off-market before listing",
-        "Stock 28% below five-year averages; cash buyers ~38%",
-      ],
-    },
-    {
-      title: "Why Use a Buyers Agent on the Gold Coast",
-      description: "This corridor rewards precision and punishes blind spots. We solve for the details that derail interstate buyers and unlock homes that never hit the open market.",
-      bullets: [
-        "Strata complexity: building condition, special levies, sinking funds",
-        "Flood and insurance mapping: premiums can swing outcomes by six figures",
-        "Off-market access is critical. Best stock is placed, not advertised",
-        "Interstate buyers miss micro-nuance between Coolangatta, Kirra and Rainbow Bay",
-      ],
-    },
-  ],
-
-  suburbs: ["Coolangatta", "Kirra", "Rainbow Bay", "Tugun", "Bilinga"],
-
-  approach: {
-    heading: "Our Approach on the Gold Coast",
-    body: "We know which buildings have problems, which streets flood, and which agents call us first. That changes the deals you see and the price you pay.",
-    bullets: [
-      "Direct relationships across Southern Gold Coast agents",
-      "Off-market pipeline: 73% of our deals via private networks",
-      "Strata/building due diligence to avoid high-rise pitfalls",
-      "Average negotiation result: 6.2% below asking (~$102k median saving)",
-    ],
+/* ── Hardcoded fallbacks ── */
+const FALLBACK = {
+  seo: {
+    metaTitle: "Gold Coast Buyers Agent | Coolangatta to Kirra | Compass",
+    metaDescription: "Gold Coast buyers agent covering Coolangatta, Kirra and Rainbow Bay. $1.65M median. 31% of deals are off-market. Strata and flood expertise.",
   },
-
-  faqHeading: "Gold Coast FAQ",
+  hero: {
+    title: "Gold Coast Buyers Agent",
+    subtitle: "Coolangatta. Kirra. Rainbow Bay. 31% of deals never hit portals. We find what others miss.",
+    ctaText: "Speak to an Agent",
+  },
+  stats: [
+    { end: 25, suffix: "+", label: "Gold Coast Properties Secured" },
+    { end: 31, suffix: "%", label: "Off-Market Deals" },
+    { end: 15, suffix: "+", label: "Years Local Experience" },
+    { end: 100, suffix: "%", label: "Buyer Focused" },
+  ],
+  acquisitions: {
+    suburb: "Coolangatta",
+    lga: "City of Gold Coast",
+    eyebrow: "Recent Gold Coast acquisitions",
+  },
   faqItems: [
     {
-      question: "What is the median price on the Gold Coast?",
-      bullets: ["Southern Gold Coast sits around $1.65M", "Range: Bilinga ~ $1.38M to Rainbow Bay beachfront ~ $2.3M"],
-      answer: "The southern Gold Coast corridor sits around $1.65M as a median, but that varies significantly by suburb and proximity to the beach. Bilinga starts around $1.38M, Coolangatta is closer to $1.85M for houses, and Rainbow Bay beachfront can push above $2.3M. Units and apartments follow a different curve, particularly in high-rise pockets. We track every transaction across the corridor and can give you a realistic range based on what you're after.",
+      question: "What is the median house price on the Gold Coast?",
+      answer: "The southern Gold Coast corridor sits around $1.65M as a median, but that varies significantly by suburb. Bilinga starts around $1.38M, Coolangatta is closer to $1.85M for houses, and Rainbow Bay beachfront pushes above $2.3M. Kirra sits between those two at roughly $1.95M.",
     },
     {
       question: "Is the Gold Coast cheaper than Byron Bay?",
-      bullets: ["Yes: ~$1.65M vs Byron ~$2.45M (about 33% lower)", "Similar lifestyle with less competition and faster airport access"],
-      answer: "Yes, roughly 33% cheaper. The southern Gold Coast median is around $1.65M versus Byron's $2.45M. You get similar beaches, a comparable lifestyle, and arguably better infrastructure: Gold Coast Airport is 10 minutes from Coolangatta, there are more dining and retail options, and you're within easy reach of Brisbane. Competition is also lower, with 2-3 bidders on most listings rather than Byron's 5+. For buyers who want the coastal lifestyle without the Byron premium, this corridor makes a strong case.",
+      answer: "Roughly 33% cheaper. The southern Gold Coast median is around $1.65M versus Byron's $2.45M. You get comparable beaches, arguably better infrastructure, and Gold Coast Airport is 10 minutes from Coolangatta. The trade-off is higher density and more development, but the southern corridor retains a village feel that the central Gold Coast lost years ago.",
     },
     {
       question: "Do I need a buyers agent on the Gold Coast?",
-      bullets: ["About 31% of deals are off-market", "Strata and flood mapping require local expertise"],
-      answer: "Around 31% of deals on the southern Gold Coast happen off-market, particularly beachside Coolangatta and Kirra where turnover is low and sellers rarely list publicly. Beyond access, there's real complexity here: strata buildings need careful due diligence on sinking funds, special levies, and building condition. Flood mapping affects insurance premiums in low-lying pockets. And the micro-differences between suburbs (Coolangatta village vs Kirra surf vs Rainbow Bay beachfront) can mean $200k-$400k in price variation over a few streets. A buyers agent helps you sort all of that before you commit.",
+      answer: "Around 31% of deals happen off-market, particularly in beachside Coolangatta and Kirra. Strata buildings on the Gold Coast need careful due diligence: sinking funds, special levies, and building condition reports. Older beachfront towers are where the biggest traps sit. Flood mapping in low-lying pockets also affects insurance costs and resale.",
     },
     {
-      question: "Best suburbs by budget?",
-      bullets: ["Coolangatta ~ $1.85M (village vibe)", "Kirra ~ $2.1M (surf culture)", "Tugun ~ $1.45M (value)"],
-      answer: "Tugun at around $1.45M is the value pick, with easy beach access, a local shopping strip, and a quieter residential feel. Coolangatta at roughly $1.85M gives you walkable village life, cafes, and a community that's held its character despite the growth around it. Kirra at about $2.1M is the premium surf suburb, with one of Australia's best point breaks and a tight-knit local culture. Bilinga at around $1.38M is often overlooked but sits right on the beach between the airport and Tugun.",
+      question: "How much does a buyers agent cost on the Gold Coast?",
+      answer: "Gold Coast buyers agents typically charge between 1.5% and 2.5% of the property price, or a fixed fee. The value comes from off-market access, negotiation savings, and catching strata issues that can cost six figures on older beachfront towers. At these price points, one avoided problem usually covers the fee.",
     },
     {
-      question: "How competitive is it?",
-      bullets: ["2-3 bidders vs Byron's 5+", "~54% interstate and ~38% cash buyers in premium pockets"],
-      answer: "Less intense than Byron but more competitive than most buyers expect. Quality listings typically attract 2-3 serious bidders. In premium pockets like Kirra beachside or Rainbow Bay, that can climb higher. Around 54% of buyers are from interstate (mostly Sydney and Melbourne), and roughly 38% of transactions in the premium tier are cash, which means sellers often prefer clean, unconditional offers over higher prices with conditions. Having your finance pre-approved and a buyers agent who can move fast gives you a real edge.",
+      question: "How competitive is the Gold Coast property market?",
+      answer: "Quality listings typically attract 2-3 serious bidders. In premium pockets like Kirra beachside, that can climb to 4-5. Around 54% of buyers are interstate, and roughly 38% of premium transactions settle in cash. Cash buyers hold an edge over conditional offers, which means preparation and speed matter.",
     },
     {
-      question: "Key risks?",
-      bullets: ["Flood/insurance in low-lying pockets", "Older towers with special levies; body corporate complexity"],
-      answer: "The two biggest risks are flooding and strata. Low-lying areas in parts of Tugun and near Currumbin Creek carry elevated flood risk, which pushes insurance premiums up significantly. For apartments and units, older beachfront towers can have large special levies for repairs (think facade work, lift replacements, waterproofing), and body corporate complexity varies widely building to building. We review strata reports, sinking fund balances, and building inspection histories before recommending any unit. On houses, council overlays and proximity to flight paths (especially around Bilinga) are worth checking early.",
+      question: "What are the best suburbs on the southern Gold Coast?",
+      answer: "Coolangatta offers strong lifestyle and value with Greenmount Beach, the airport, and a walkable town centre. Kirra is a tightly held surf pocket with consistent capital growth. Rainbow Bay is the premium end, anchored by Snapper Rocks. Tugun offers a quieter alternative at a lower entry point, roughly $1.2M median.",
     },
     {
-      question: "How long does buying take?",
-      bullets: ["Average ~82 days on market", "Quality stock moves 30-45 days; off-market closes in 2-3 weeks"],
-      answer: "The average time on market across the southern Gold Coast is around 82 days, but that figure includes overpriced listings that sit. Quality stock in desirable streets typically moves within 30-45 days, and off-market deals can close in 2-3 weeks if the buyer is ready. Our clients usually go from initial briefing to securing a property within 4-8 weeks, depending on how specific the search criteria are and what stock is available at the time.",
+      question: "Is the Gold Coast a good property investment?",
+      answer: "The southern Gold Coast has delivered consistent growth driven by interstate migration, infrastructure investment, and limited beachfront supply. Rental demand is strong year-round. Short-term holiday rental returns can significantly boost yield where body corporate rules allow it, but check the by-laws before assuming holiday letting is permitted.",
+    },
+    {
+      question: "What are the key risks when buying on the Gold Coast?",
+      answer: "Flooding and strata are the two biggest risks. Low-lying areas in parts of Tugun carry elevated flood risk that affects insurance and resale. Older beachfront towers can have special levies running into six figures for concrete cancer or facade repairs. We review strata reports, sinking fund balances, and building histories before recommending any property.",
+    },
+    {
+      question: "What is the difference between a buyers agent and a real estate agent on the Gold Coast?",
+      answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. On the Gold Coast, that means accessing the 31% of properties that sell off-market, reviewing strata reports for hidden liabilities, and negotiating against cashed-up interstate competition. We never list or sell property.",
+    },
+    {
+      question: "Can you find off-market properties on the Gold Coast?",
+      answer: "Around 31% of our Gold Coast acquisitions were off-market or pre-market. We maintain relationships with selling agents across Coolangatta, Kirra, Rainbow Bay and Tugun who contact us before listing publicly. In beachside pockets where stock is limited, early access often determines whether you secure or miss out.",
     },
   ],
-
-  ctaHeading: "Buying on the Gold Coast? Talk to a local.",
-  ctaButtonText: "Start a Conversation",
-
-  localBusinessSchema: {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://compassagency.com.au/#business",
-        name: "Compass Buyers Agency",
-        url: "https://compassagency.com.au/gold-coast-buyers-agent/",
-        logo: "https://compassagency.com.au/logo.png",
-        image: "https://compassagency.com.au/og-image.png",
-        description: "Gold Coast buyers agent covering Coolangatta, Kirra and Rainbow Bay. Off-market access, strata due diligence and buyer-only representation.",
-        telephone: "+61403536390",
-        email: "hello@compassbuyersagency.com.au",
-        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
-        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
-        areaServed: [
-          { "@type": "City", name: "Coolangatta" },
-          { "@type": "City", name: "Kirra" },
-          { "@type": "City", name: "Rainbow Bay" },
-          { "@type": "City", name: "Tugun" },
-          { "@type": "City", name: "Bilinga" },
-        ],
-        priceRange: "$$",
-      },
-      {
-        "@type": "Service",
-        name: "Gold Coast Buyers Agent",
-        description: "Buyers agent service specialising in Southern Gold Coast property. Off-market access, strata analysis, negotiation and due diligence across Coolangatta, Kirra and Rainbow Bay.",
-        provider: { "@id": "https://compassagency.com.au/#business" },
-        areaServed: { "@type": "City", name: "Gold Coast" },
-        serviceType: "Buyers Agent",
-      },
-    ],
+  cta: {
+    heading: "Buying on the Gold Coast? Talk to a local.",
+    buttonText: "Start a Conversation",
   },
 };
 
 export default function GoldCoastBuyersAgent() {
+  const [page, setPage] = useState(null);
+  useEffect(() => {
+    fetchLandingPage("gold-coast-buyers-agent").then(setPage).catch(() => {});
+  }, []);
+
+  const seo = page?.seo || FALLBACK.seo;
+  const faq = page?.faqItems?.length ? page.faqItems : FALLBACK.faqItems;
+  const stats = page?.marketStats?.length ? page.marketStats : FALLBACK.stats;
+  const acq = page?.acquisitionFilter || FALLBACK.acquisitions;
+
   return (
     <>
       <SEOHead
-        title="Gold Coast Buyers Agent | Compass Buyers Agency"
-        description="Buyers agent on the Gold Coast covering Coolangatta, Kirra and Rainbow Bay. 31% off-market deals. Local expertise and buyer-only focus."
+        title={seo.metaTitle ?? FALLBACK.seo.metaTitle}
+        description={seo.metaDescription ?? FALLBACK.seo.metaDescription}
         canonicalPath="/gold-coast-buyers-agent"
       />
-      <LandingPageTemplate data={DATA} />
+      <AdLandingTemplate
+        hero={{
+          title: page?.heroTitle ?? FALLBACK.hero.title,
+          subtitle: page?.heroSubtitle ?? FALLBACK.hero.subtitle,
+          ctaText: page?.heroCtaText ?? FALLBACK.hero.ctaText,
+          ctaHref: page?.heroCtaHref || createPageUrl("Contact"),
+          backgroundVideoUrl: page?.heroBackgroundVideoUrl || undefined,
+          backgroundImageUrl: page?.heroImage ? resolveImageUrl(page.heroImage, null, { width: 1920 }) : undefined,
+        }}
+        stats={stats}
+        acquisitions={{
+          suburb: acq.suburb ?? FALLBACK.acquisitions.suburb,
+          lga: acq.lga ?? FALLBACK.acquisitions.lga,
+          eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
+        }}
+        faqItems={faq}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : undefined}
+        imageBandAlt={page?.imageBandAlt || undefined}
+        cta={{
+          heading: page?.ctaHeading ?? FALLBACK.cta.heading,
+          buttonText: page?.ctaButtonText ?? FALLBACK.cta.buttonText,
+          buttonHref: page?.ctaButtonHref || createPageUrl("Contact"),
+        }}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
+        page?.jsonLd ? JSON.parse(page.jsonLd) : {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://compassagency.com.au/#business",
+            name: "Compass Buyers Agency",
+            url: "https://compassagency.com.au/gold-coast-buyers-agent/",
+            logo: "https://compassagency.com.au/logo.png",
+            description: "Gold Coast buyers agent covering Coolangatta, Kirra and Rainbow Bay. Off-market access, strata due diligence and buyer-only representation.",
+            telephone: "+61403536390",
+            email: "hello@compassbuyersagency.com.au",
+            areaServed: [
+              { "@type": "City", name: "Coolangatta" },
+              { "@type": "City", name: "Kirra" },
+              { "@type": "City", name: "Rainbow Bay" },
+              { "@type": "City", name: "Tugun" },
+              { "@type": "City", name: "Bilinga" },
+            ],
+            priceRange: "$$",
+          },
+          {
+            "@type": "Service",
+            name: "Gold Coast Buyers Agent",
+            description: "Buyers agent service specialising in Southern Gold Coast property. Off-market access, strata analysis, negotiation and due diligence across Coolangatta, Kirra and Rainbow Bay.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: { "@type": "City", name: "Gold Coast" },
+            serviceType: "Buyers Agent",
+          },
+          {
+            "@type": "FAQPage",
+            mainEntity: faq.map(f => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          },
+        ],
+      }) }} />
     </>
   );
 }

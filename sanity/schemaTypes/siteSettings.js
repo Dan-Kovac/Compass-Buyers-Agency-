@@ -111,6 +111,13 @@ export default {
       type: 'string',
       description: 'Displayed in footer and Privacy Policy.',
     },
+    {
+      name: 'acknowledgement',
+      title: 'Acknowledgement of Country',
+      type: 'text',
+      rows: 3,
+      description: 'Displayed in footer. Acknowledges Traditional Owners.',
+    },
 
     // ─── DEFAULT SEO ─────────────────────────────────────────────────────────
     {

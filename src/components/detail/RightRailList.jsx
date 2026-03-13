@@ -30,7 +30,7 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
 
   return (
     <div className="sticky top-28">
-      <h3 className="text-base font-semibold mb-4">{title}</h3>
+      <h3 className="text-base mb-4">{title}</h3>
       <div className="grid gap-4">
         {items.map((it) => (
           <Link key={it.id} to={toDetail(it)}>

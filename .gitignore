@@ -49,3 +49,4 @@ scripts/
 
 # Design spec documents
 design-specs/
+.env.vercel

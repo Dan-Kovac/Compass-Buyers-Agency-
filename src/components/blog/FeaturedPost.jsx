@@ -1,5 +1,4 @@
 import React from "react";
-import { createPageUrl } from "@/utils";
 import { resolveImageUrl } from "@/lib/sanityClient";
 import ImagePlaceholder from "@/components/shared/ImagePlaceholder";
 import ScrollReveal from "@/components/shared/ScrollReveal";
@@ -28,10 +27,10 @@ export default function FeaturedPost({ posts = [], filteredPosts = [] }) {
   const excerpt = featuredPost.excerpt || "";
   const readingTime = estimateReadingTime(featuredPost.content);
   const dateStr = formatDate(featuredPost.published_date || featuredPost.created_date, "long");
-  const href = createPageUrl(`BlogPostDetail?id=${featuredPost.id}`);
+  const href = `/blog/${featuredPost.slug || featuredPost.id}`;
 
   return (
-    <section className="bg-sand-wash" style={{ padding: "var(--section-standard) 0" }}>
+    <section className="bg-sand-wash" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <a href={href} className="group block">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-center">
@@ -124,13 +123,11 @@ export default function FeaturedPost({ posts = [], filteredPosts = [] }) {
                     marginBottom: "1.25rem",
                   }}
                 >
-                  <span>{readingTime} min read</span>
-                  {dateStr && (
-                    <>
-                      <span style={{ color: "var(--bright-grey)" }}>|</span>
-                      <span>{dateStr}</span>
-                    </>
+                  {readingTime && <span>{readingTime} min read</span>}
+                  {readingTime && dateStr && (
+                    <span style={{ color: "var(--bright-grey)" }}>|</span>
                   )}
+                  {dateStr && <span>{dateStr}</span>}
                 </div>
 
                 {/* Read more link (hidden on mobile since card is tappable) */}

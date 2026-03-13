@@ -3,7 +3,7 @@ import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
 export default function ProcessSteps({ steps = [], title, eyebrow }) {
   return (
-    <section className="bg-cream" style={{ padding: "var(--section-breathing) 0" }}>
+    <section className="bg-cream" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         {(eyebrow || title) && (
           <ScrollReveal>

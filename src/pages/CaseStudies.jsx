@@ -3,7 +3,8 @@ import { fetchCaseStudies } from "@/lib/sanityClient";
 import CaseStudyCard from "@/components/caseStudies/CaseStudyCard";
 import MinimalFilters from "@/components/caseStudies/MinimalFilters";
 import CTASection from "@/components/shared/CTASection";
-import ScrollReveal from "@/components/shared/ScrollReveal";
+import SEOHead from "@/components/shared/SEOHead";
+import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 
 export default function CaseStudies() {
@@ -51,6 +52,11 @@ export default function CaseStudies() {
 
   return (
     <div className="bg-white">
+      <SEOHead
+        title="Case Studies | Compass Buyers Agency"
+        description="Real results from buyers across Northern Rivers and the Southern Gold Coast. See how we've helped clients secure property."
+        canonicalPath="/case-studies"
+      />
       {/* Page header — standard pattern */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
@@ -79,7 +85,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Grid */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-sand-wash">
         <div className="site-container">
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -89,13 +95,17 @@ export default function CaseStudies() {
             </div>
           ) : filtered.length ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((it) => (
-                <CaseStudyCard key={it.id} item={it} />
-              ))}
+              <StaggerGroup stagger={80}>
+                {filtered.map((it) => (
+                  <ScrollReveal key={it.id} animation="fade-up">
+                    <CaseStudyCard item={it} />
+                  </ScrollReveal>
+                ))}
+              </StaggerGroup>
             </div>
           ) : (
-            <div className="text-center py-20">
-              <div className="text-xl font-semibold text-[var(--ink)]/70 mb-2">No case studies match your filters</div>
+            <div className="text-center" style={{ padding: "var(--section-padding) 0" }}>
+              <div className="text-xl font-medium text-[var(--ink)]/70 mb-2">No case studies match your filters</div>
               <p className="text-[var(--ink)]/50 mb-6">Try clearing filters to see all results.</p>
               <button
                 type="button"

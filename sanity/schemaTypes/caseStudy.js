@@ -25,8 +25,9 @@ export default defineType({
     defineField({ name: 'property_images', title: 'Property Image URLs (legacy)', type: 'array', of: [{ type: 'url' }], hidden: true }),
     defineField({ name: 'featured', title: 'Featured', type: 'boolean', initialValue: false }),
     defineField({ name: 'published_date', title: 'Published Date', type: 'date' }),
-    defineField({ name: 'meta_title', title: 'Meta Title', type: 'string' }),
-    defineField({ name: 'meta_description', title: 'Meta Description', type: 'text', rows: 2 }),
+    defineField({ name: 'meta_title', title: 'Meta Title (legacy)', type: 'string', hidden: true }),
+    defineField({ name: 'meta_description', title: 'Meta Description (legacy)', type: 'text', rows: 2, hidden: true }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seoFields' }),
   ],
   preview: {
     select: { title: 'title', location: 'location', status: 'status' },

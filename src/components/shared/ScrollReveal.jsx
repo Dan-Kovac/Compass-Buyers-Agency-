@@ -6,9 +6,9 @@ const RevealContext = React.createContext(null);
  * ScrollReveal — lightweight scroll-triggered animation wrapper.
  *
  * Props:
- *   animation  "fade-up" | "fade-in" | "fade-left" | "fade-right"  (default: "fade-up")
+ *   animation  "fade-up" | "fade-in" | "fade-left" | "fade-right" | "scale-subtle" | "fade-up-slow"  (default: "fade-up")
  *   delay      number in ms (default: 0)
- *   duration   number in ms (default: 600)
+ *   duration   number in ms (default: 700)
  *   threshold  0-1 visibility ratio to trigger (default: 0.15)
  *   once       boolean — animate only once (default: true)
  *   stagger    number in ms — auto-delay for children inside StaggerGroup
@@ -20,7 +20,7 @@ const RevealContext = React.createContext(null);
 export default function ScrollReveal({
   animation = "fade-up",
   delay = 0,
-  duration = 1200,
+  duration = 700,
   threshold = 0.15,
   once = true,
   as: Tag = "div",
@@ -81,7 +81,7 @@ export default function ScrollReveal({
  * StaggerGroup — wraps children and auto-assigns incremental delay.
  * Each direct ScrollReveal child receives stagger * index delay.
  */
-export function StaggerGroup({ stagger = 150, children }) {
+export function StaggerGroup({ stagger = 100, children }) {
   return React.Children.map(children, (child, i) => (
     <RevealContext.Provider value={i * stagger}>
       {child}

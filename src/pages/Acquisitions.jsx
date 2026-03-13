@@ -3,7 +3,8 @@ import { fetchAcquisitions } from "@/lib/sanityClient";
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import AcquisitionFilters from "@/components/acquisitions/AcquisitionFilters";
 import CTASection from "@/components/shared/CTASection.jsx";
-import ScrollReveal from "@/components/shared/ScrollReveal";
+import SEOHead from "@/components/shared/SEOHead";
+import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 
 export default function Acquisitions() {
@@ -40,6 +41,11 @@ export default function Acquisitions() {
 
   return (
     <div className="bg-white">
+      <SEOHead
+        title="Acquisitions | Properties Secured by Compass Buyers Agency"
+        description="Browse properties we've secured for clients across Northern Rivers and the Southern Gold Coast. Filter by region or suburb."
+        canonicalPath="/acquisitions"
+      />
       {/* Page header — standard pattern */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">
@@ -67,11 +73,11 @@ export default function Acquisitions() {
       </section>
 
       {/* Grid */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-sand-wash">
         <div className="site-container">
           {filtered.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="text-xl font-semibold text-[var(--ink)]/80 mb-2">No acquisitions found</div>
+            <div className="text-center" style={{ padding: "var(--section-padding) 0" }}>
+              <div className="text-xl font-medium text-[var(--ink)]/80 mb-2">No acquisitions found</div>
               <p className="text-[var(--ink)]/50 mb-6">Try changing your filters to see more results.</p>
               <button
                 type="button"
@@ -83,9 +89,13 @@ export default function Acquisitions() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((it) => (
-                <AcquisitionCard key={it.id} item={it} />
-              ))}
+              <StaggerGroup stagger={80}>
+                {filtered.map((it) => (
+                  <ScrollReveal key={it.id} animation="fade-up">
+                    <AcquisitionCard item={it} />
+                  </ScrollReveal>
+                ))}
+              </StaggerGroup>
             </div>
           )}
         </div>

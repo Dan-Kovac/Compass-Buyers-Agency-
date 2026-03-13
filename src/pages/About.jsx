@@ -44,8 +44,8 @@ export default function About() {
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "About Compass | Buyers Agent Northern Rivers"}
-        description={page?.seo?.metaDescription || "Meet the team behind Compass Buyers Agency. Licensed buyers agents based on the Tweed Coast with local knowledge across Byron, Ballina and the Gold Coast."}
+        title={page?.seo?.metaTitle || "Our Team | Compass Buyers Agency"}
+        description={page?.seo?.metaDescription || "Meet the Compass team. Licensed buyers agents with street-level knowledge across Byron Bay, the Tweed Coast and Southern Gold Coast."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/about"
       />
@@ -91,10 +91,10 @@ export default function About() {
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">About Compass</p>
               <h1>
-                {page?.heading || "The People Behind Compass"}
+                {page?.heading || "Your Team on the Tweed Coast"}
               </h1>
               <p className="text-balance">
-                {page?.subtitle || "Licensed buyers agents based on the Tweed Coast. We know these streets, these agents, and these markets because we live here."}
+                {page?.subtitle || "Licensed buyers agents who live where you're looking. Local streets, local agents, local knowledge, all working for you."}
               </p>
             </div>
           </ScrollReveal>
@@ -103,8 +103,8 @@ export default function About() {
 
       {/* ── Section 1: Philosophy Quote ── bg-white ───────────────────────── */}
       <PullQuoteBreak
-        quote={page?.philosophyQuote || "We don't just know the market. We live here. Every recommendation we make, we'd make for ourselves."}
-        attribution={page?.philosophyAttribution || "Bryce Holdaway, Compass Buyers Agency"}
+        quote={page?.philosophyQuote || "You deserve the same advice I'd give a close friend. That's the standard, every time."}
+        attribution={page?.philosophyAttribution || "Compass Buyers Agency"}
         bg="white"
       />
 
@@ -112,7 +112,7 @@ export default function About() {
       <FeatureSplit
         eyebrow="Local Knowledge"
         title={page?.featureSplit1?.title || "What Local Actually Means"}
-        description={page?.featureSplit1?.description || "We're based in Cabarita Beach. We inspect properties in person, talk to selling agents weekly, and know which streets flood and which don't.\n\n\u2022 42% of our deals come from off-market or pre-market channels\n\u2022 Street-level knowledge across Byron, Ballina, Tweed and the southern Gold Coast\n\u2022 Established relationships with local agents, solicitors and building inspectors"}
+        description={page?.featureSplit1?.description || "Your buying team is based in Cabarita Beach. Every property is inspected in person, selling agents are consulted weekly, and you get street-level insight most buyers never see.\n\n\u2022 42% of deals come from off-market or pre-market channels\n\u2022 Coverage across Byron, Ballina, Tweed and the southern Gold Coast\n\u2022 Trusted relationships with local agents, solicitors and building inspectors"}
         image={page?.featureSplit1?.image ? urlFor(page.featureSplit1.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/1a4591edc_CONTENTSHOOTJULY-31.jpg"}
         imageAlt={page?.featureSplit1?.imageAlt || "Compass team meeting clients"}
         imageLeft={false}
@@ -122,19 +122,19 @@ export default function About() {
 
       {/* ── Section 3: FeatureSplit 2 ── bg-white (image left) ────────────── */}
       <FeatureSplit
-        eyebrow="Our Approach"
+        eyebrow="Your Advantage"
         title={page?.featureSplit2?.title || "Buyers Only. No Exceptions."}
-        description={page?.featureSplit2?.description || "We only represent buyers. No selling. No conflicts. That changes the advice you get and the outcomes you get.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, not a hand-off between departments\n\u2022 You'll always know where things stand, no chasing for updates"}
+        description={page?.featureSplit2?.description || "You get a team that only represents buyers. No selling. No conflicts. That changes the advice you receive and the outcomes you achieve.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, no hand-offs between departments\n\u2022 You always know where things stand, no chasing for updates"}
         image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/6c2c9c4ac_CONTENTSHOOTJULY-30.jpg"}
         imageAlt={page?.featureSplit2?.imageAlt || "Compass team at office"}
         imageLeft={true}
         variant="white"
-        ctaLabel="Get in touch"
+        ctaLabel="Start a Conversation"
         ctaHref={createPageUrl("Contact")}
       />
 
       {/* ── Section 4: Stats / Trust Band ── bg-editorial-dark ────────────── */}
-      <section className="bg-editorial-dark" style={{ padding: "var(--section-standard) 0" }}>
+      <section className="bg-editorial-dark" style={{ padding: "var(--section-padding) 0" }}>
         <div className="site-container">
           <ScrollReveal animation="fade-up">
             <dl
@@ -143,7 +143,7 @@ export default function About() {
             >
               <StaggerGroup stagger={100}>
                 {stats.map((stat, i) => (
-                  <ScrollReveal key={i} as="div">
+                  <ScrollReveal key={i} as="div" animation="scale-subtle">
                     <dt
                       style={{
                         fontFamily: "var(--font-heading)",
@@ -179,7 +179,7 @@ export default function About() {
       </section>
 
       {/* ── Section 5: Team Grid ── bg-sand-wash ──────────────────────────── */}
-      <section className="bg-sand-wash" style={{ padding: "var(--section-breathing) 0" }}>
+      <section className="bg-sand-wash" style={{ padding: "var(--section-padding) 0" }}>
         <div className="site-container">
 
           {/* Section header */}
@@ -223,10 +223,8 @@ export default function About() {
               style={{ gap: "clamp(1.5rem, 3vw, 2.5rem)", maxWidth: "64rem", margin: "0 auto" }}
             >
               <StaggerGroup stagger={120}>
-                {teamMembers
-                  .filter((m) => m.id !== "teamMember-68c27c6d1248fbc816dd0339")
-                  .map((m) => (
-                    <ScrollReveal key={m.id} animation="fade-up">
+                {teamMembers.map((m) => (
+                    <ScrollReveal key={m.id} animation="scale-subtle" duration={600}>
                       <Link to={`/team/${m.slug}`} className="block h-full">
                         <article className="team-card">
                           {/* Portrait photo */}
@@ -348,8 +346,8 @@ export default function About() {
 
       {/* ── Section 6: CTA ── bg-editorial-dark ───────────────────────────── */}
       <CTASection
-        heading={page?.cta?.heading || "Have questions? We're happy to chat."}
-        buttonText={page?.cta?.buttonText || "Get in Touch"}
+        heading={page?.cta?.heading || "Have questions? Start a conversation."}
+        buttonText={page?.cta?.buttonText || "Start a Conversation"}
         buttonHref={createPageUrl("Contact")}
         supportingText="No sales pitch. Just honest advice from people who know these markets inside out."
         variant="dark"

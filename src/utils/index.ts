@@ -27,10 +27,10 @@ export const PAGE_SLUGS: Record<string, string> = {
   WhoWeWorkWith: "/who-we-work-with",
   Blog: "/blog",
   Acquisitions: "/acquisitions",
-  AcquisitionDetail: "/acquisition-detail",
-  BlogPostDetail: "/blog-post-detail",
+  AcquisitionDetail: "/acquisitions/:slug",
+  BlogPostDetail: "/blog/:slug",
   CaseStudies: "/case-studies",
-  CaseStudyDetail: "/case-study-detail",
+  CaseStudyDetail: "/case-studies/:slug",
   TeamMemberDetail: "/team/:slug",
   PrivacyPolicy: "/privacy-policy",
   ByronBayBuyersAgent: "/byron-bay-buyers-agent",
@@ -46,15 +46,21 @@ export const PAGE_SLUGS: Record<string, string> = {
  * Old PascalCase-style paths that should redirect to the new kebab-case slugs.
  * Used by App.jsx to register <Navigate> redirect routes.
  */
-export const LEGACY_REDIRECTS: Record<string, string> = Object.fromEntries(
-  Object.entries(PAGE_SLUGS)
-    .filter(([key, slug]) => {
-      // Only create redirects for pages whose slug differs from a naive lowercase key
-      const naive = "/" + key.toLowerCase();
-      return slug !== "/" && slug !== naive && slug !== "/team/:slug";
-    })
-    .map(([key, slug]) => ["/" + key, slug])
-);
+export const LEGACY_REDIRECTS: Record<string, string> = {
+  // Auto-generated: PascalCase → kebab-case redirects (excluding parameterised routes)
+  ...Object.fromEntries(
+    Object.entries(PAGE_SLUGS)
+      .filter(([key, slug]) => {
+        const naive = "/" + key.toLowerCase();
+        return slug !== "/" && slug !== naive && !slug.includes(":");
+      })
+      .map(([key, slug]) => ["/" + key, slug])
+  ),
+  // Old query-param detail pages → listing pages
+  "/blog-post-detail": "/blog",
+  "/acquisition-detail": "/acquisitions",
+  "/case-study-detail": "/case-studies",
+};
 
 export function createPageUrl(pageName: string) {
   // Check for query params (e.g., "TeamMemberDetail?id=123")

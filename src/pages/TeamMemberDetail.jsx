@@ -65,7 +65,7 @@ export default function TeamMemberDetail() {
   if (loading) {
     return (
       <div className="bg-white min-h-screen">
-        <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing) 0" }}>
+        <section className="bg-warm-gradient" style={{ padding: "var(--section-padding) 0" }}>
           <div className="site-container">
             <div className="max-w-5xl mx-auto">
               <div className="grid md:grid-cols-5 gap-8 lg:gap-12 items-start animate-pulse">
@@ -90,7 +90,7 @@ export default function TeamMemberDetail() {
   if (!member) {
     return (
       <div className="bg-white min-h-screen">
-        <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing) 0" }}>
+        <section className="bg-warm-gradient" style={{ padding: "var(--section-padding) 0" }}>
           <div className="site-container">
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">Team</p>
@@ -121,7 +121,7 @@ export default function TeamMemberDetail() {
   return (
     <div className="bg-white">
       {/* ── Hero: Portrait + Info ────────────────────────────────────────── */}
-      <section className="bg-warm-gradient" style={{ padding: "var(--section-breathing) 0" }}>
+      <section className="bg-warm-gradient" style={{ padding: "var(--section-padding) 0" }}>
         <div className="site-container">
           {/* Back link */}
           <ScrollReveal>
@@ -277,7 +277,7 @@ export default function TeamMemberDetail() {
 
       {/* ── Acquisitions ─────────────────────────────────────────────────── */}
       {acquisitions.length > 0 && (
-        <section className="bg-white" style={{ padding: "var(--section-standard) 0" }}>
+        <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
           <div className="site-container">
             <div className="max-w-5xl mx-auto">
               <ScrollReveal>
@@ -315,7 +315,7 @@ export default function TeamMemberDetail() {
 
       {/* ── Blog Posts ────────────────────────────────────────────────────── */}
       {blogs.length > 0 && (
-        <section className="bg-[var(--sand)]" style={{ padding: "var(--section-standard) 0" }}>
+        <section className="bg-[var(--sand)]" style={{ padding: "var(--section-padding) 0" }}>
           <div className="site-container">
             <div className="max-w-5xl mx-auto">
               <ScrollReveal>
@@ -354,7 +354,7 @@ export default function TeamMemberDetail() {
       {/* ── CTA ───────────────────────────────────────────────────────────── */}
       <CTASection
         heading={`Ready to work with ${firstName}?`}
-        buttonText="Get in Touch"
+        buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="No sales pitch. Just honest advice from people who know these markets inside out."
         variant="dark"

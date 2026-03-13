@@ -23,8 +23,8 @@ export default function RelatedBlogs({ currentId, limit = 3 }) {
     <section
       className="bg-sand-wash"
       style={{
-        paddingTop: "var(--section-breathing)",
-        paddingBottom: "var(--section-standard)",
+        paddingTop: "var(--section-padding)",
+        paddingBottom: "var(--section-padding)",
       }}
     >
       <div className="site-container">
@@ -59,7 +59,7 @@ export default function RelatedBlogs({ currentId, limit = 3 }) {
 
         {/* View all articles link */}
         <ScrollReveal>
-          <div style={{ textAlign: "center", marginTop: "var(--section-compact)" }}>
+          <div style={{ textAlign: "center", marginTop: "var(--section-padding-compact)" }}>
             <a
               href={createPageUrl("Blog")}
               className="text-link"

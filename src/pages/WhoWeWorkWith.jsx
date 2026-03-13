@@ -13,16 +13,16 @@ const fallbackSegments = [
   {
     id: "first-home-buyers",
     title: "First Home Buyers",
-    intro: "Navigate your first purchase with a clear plan, off\u2011market access and help at every step.",
+    intro: "Navigate your first buy with a clear plan, off-market access and help at every step.",
     needs: [
-      "Hard to know what's good value in fast\u2011moving markets",
+      "Hard to know what's good value in fast-moving markets",
       "Missing opportunities before inspection day",
       "Uncertainty around negotiations and contract terms",
     ],
     howWeHelp: [
       "Brief, suburb selection and property comparables to set a clear strategy",
-      "Private and off\u2011market access via our agent network",
-      "End\u2011to\u2011end guidance from inspections to settlement",
+      "Private and off-market access via our agent network",
+      "End-to-end guidance from inspections to settlement",
     ],
     imageUrl: "https://images.unsplash.com/photo-1512916206820-73b4f7ae252a?q=80&w=1600&auto=format&fit=crop",
     imageAlt: "Couple buying first home",
@@ -30,7 +30,7 @@ const fallbackSegments = [
   {
     id: "downsizers",
     title: "Downsizers",
-    intro: "Secure low\u2011maintenance, well\u2011located homes without compromise.",
+    intro: "Secure low-maintenance, well-located homes without compromise.",
     needs: [
       "Finding quality, accessible homes near lifestyle essentials",
       "Avoiding renovation risk and hidden issues",
@@ -47,11 +47,11 @@ const fallbackSegments = [
   {
     id: "prestige",
     title: "Prestige Buyers",
-    intro: "Discreet, high\u2011touch representation for premium and luxury properties.",
+    intro: "Discreet, high-touch representation for premium and luxury properties.",
     needs: [
-      "Access to off\u2011market prestige stock before public listing",
+      "Access to off-market prestige stock before public listing",
       "Privacy throughout the search and negotiation process",
-      "Expert assessment of build quality and long\u2011term value",
+      "Expert assessment of build quality and long-term value",
     ],
     howWeHelp: [
       "Confidential search with access to our private network",
@@ -64,16 +64,16 @@ const fallbackSegments = [
   {
     id: "investors",
     title: "Property Investors",
-    intro: "Data\u2011led purchases aligned to yield, growth and portfolio strategy.",
+    intro: "Data-led acquisitions aligned to yield, growth and portfolio strategy.",
     needs: [
       "Separating good deals from noise",
-      "Understanding street\u2011level risks and overlays",
+      "Understanding street-level risks and overlays",
       "Securing assets before the wider market",
     ],
     howWeHelp: [
       "Local insights and comparables beyond the portals",
       "Modelled returns, rental demand and risk assessment",
-      "Access to pre\u2011market and off\u2011market opportunities",
+      "Access to pre-market and off-market opportunities",
     ],
     imageUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/4f242bdaa_CompassServices1.jpg",
     imageAlt: "Investor review",
@@ -85,11 +85,11 @@ const fallbackSegments = [
     needs: [
       "Inconsistent information when buying from afar",
       "Missing properties due to travel constraints",
-      "Limited network for local services post\u2011purchase",
+      "Limited network for local services after settlement",
     ],
     howWeHelp: [
       "FaceTime/recorded inspections and detailed reports",
-      "On\u2011the\u2011ground access to pre\u2011market options",
+      "On-the-ground access to pre-market options",
       "Local network of trades and professionals to support your move",
     ],
     imageUrl: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop",
@@ -98,7 +98,7 @@ const fallbackSegments = [
   {
     id: "international",
     title: "International Buyers",
-    intro: "A seamless process across time zones, with careful compliance and representation.",
+    intro: "Buy from overseas with local representation, FIRB compliance and inspections handled on the ground.",
     needs: [
       "Understanding FIRB and local regulations",
       "Finding the right home or investment from overseas",
@@ -149,7 +149,7 @@ const fallbackSegments = [
   {
     id: "commercial",
     title: "Commercial Property Buyers",
-    intro: "Strategic acquisition of commercial assets aligned to your investment goals.",
+    intro: "Commercial property buying backed by lease analysis, yield modelling and local market knowledge.",
     needs: [
       "Finding quality commercial assets with strong tenants",
       "Understanding commercial lease terms and yield analysis",
@@ -223,8 +223,8 @@ export default function WhoWeWorkWith() {
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Who We Work With | Compass Buyers Agency"}
-        description={page?.seo?.metaDescription || "Whether you're a first home buyer, investor, downsizer or buying from interstate, Compass Buyers Agency tailors its approach to your situation."}
+        title={page?.seo?.metaTitle || "Who We Work With | First Home to Prestige | Compass"}
+        description={page?.seo?.metaDescription || "Buyers agent for first home buyers, downsizers, investors, interstate movers and prestige buyers. Nine buyer segments, one process."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/who-we-work-with"
       />
@@ -299,7 +299,7 @@ export default function WhoWeWorkWith() {
       {/* 10. Pull Quote Break */}
       <PullQuoteBreak
         quote={page?.pullQuote?.quote || "No two buyers are the same. We listen first, then build a plan that fits your life, not the other way around."}
-        attribution={page?.pullQuote?.attribution || "Bryce Holdaway, Compass Buyers Agency"}
+        attribution={page?.pullQuote?.attribution || "Compass Buyers Agency"}
         bg="cream"
       />
 

@@ -10,8 +10,6 @@
     {"source": "/tweed-heads/", "destination": "/tweed-heads-buyers-agent", "permanent": true},
     {"source": "/banora-point", "destination": "/case-studies", "permanent": true},
     {"source": "/banora-point/", "destination": "/case-studies", "permanent": true},
-    {"source": "/byron-bay", "destination": "/byron-bay-buyers-agent", "permanent": true},
-    {"source": "/byron-bay/", "destination": "/byron-bay-buyers-agent", "permanent": true},
     {"source": "/northern-rivers", "destination": "/northern-rivers-buyers-agent", "permanent": true},
     {"source": "/northern-rivers/", "destination": "/northern-rivers-buyers-agent", "permanent": true},
 
@@ -37,10 +35,13 @@
     {"source": "/SouthernGoldCoastBuyersAgents", "destination": "/southern-gold-coast-buyers-agent", "permanent": true},
     {"source": "/CaseStudies", "destination": "/case-studies", "permanent": true},
     {"source": "/PrivacyPolicy", "destination": "/privacy-policy", "permanent": true},
-    {"source": "/AcquisitionDetail", "destination": "/acquisition-detail", "permanent": true},
-    {"source": "/BlogPostDetail", "destination": "/blog-post-detail", "permanent": true},
-    {"source": "/CaseStudyDetail", "destination": "/case-study-detail", "permanent": true},
-    {"source": "/ByronBay", "destination": "/byron-bay-buyers-agent", "permanent": true},
+    {"source": "/AcquisitionDetail", "destination": "/acquisitions", "permanent": true},
+    {"source": "/BlogPostDetail", "destination": "/blog", "permanent": true},
+    {"source": "/CaseStudyDetail", "destination": "/case-studies", "permanent": true},
+    {"source": "/ByronBay", "destination": "/byron-bay", "permanent": true},
+    {"source": "/blog-post-detail", "destination": "/blog", "permanent": true},
+    {"source": "/acquisition-detail", "destination": "/acquisitions", "permanent": true},
+    {"source": "/case-study-detail", "destination": "/case-studies", "permanent": true},
     {"source": "/TeamMemberDetail", "destination": "/about", "permanent": true},
 
     {"source": "/services/", "destination": "/services", "permanent": true},
@@ -76,7 +77,6 @@
     {"source": "/feed/:path*", "destination": "/blog", "permanent": true},
     {"source": "/comments/feed", "destination": "/blog", "permanent": true},
     {"source": "/comments/feed/", "destination": "/blog", "permanent": true},
-    {"source": "/sitemap.xml", "destination": "/", "permanent": false},
     {"source": "/robots.txt", "destination": "/robots.txt", "permanent": false}
   ],
   "rewrites": [

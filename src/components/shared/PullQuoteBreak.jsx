@@ -6,12 +6,12 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
  * Reusable across pages. Provides an emotional reset between content sections.
  *
  * @param {string} quote - The quote text
- * @param {string} [attribution] - Attribution line (e.g. "Bryce Holdaway, Compass Buyers Agency")
+ * @param {string} [attribution] - Attribution line (e.g. "Compass Buyers Agency")
  * @param {"cream"|"sand-wash"|"white"} [bg] - Background style
  */
 export default function PullQuoteBreak({
   quote = "No two buyers are the same. We listen first, then build a plan that fits your life, not the other way around.",
-  attribution = "Bryce Holdaway, Compass Buyers Agency",
+  attribution = "Compass Buyers Agency",
   bg = "cream",
 }) {
   const bgClass =
@@ -24,7 +24,7 @@ export default function PullQuoteBreak({
   return (
     <section
       className={bgClass}
-      style={{ padding: "var(--section-compact) 0" }}
+      style={{ padding: "var(--section-padding-compact) 0" }}
     >
       <div className="site-container">
         <ScrollReveal animation="fade-in" duration={1200}>

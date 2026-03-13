@@ -1,165 +1,161 @@
-import React from "react";
-import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import React, { useState, useEffect } from "react";
+import AdLandingTemplate from "../components/landing/AdLandingTemplate";
 import SEOHead from "../components/shared/SEOHead";
+import { createPageUrl } from "@/utils";
+import { fetchLandingPage, resolveImageUrl } from "@/lib/sanityClient";
 
-const DATA = {
-  heroTitle: "Southern Gold Coast Buyers Agent",
-  heroSubtitle: "Burleigh. Currumbin. Palm Beach. Where surf culture meets serious property. $1.85M median. Quality stock moves in weeks.",
-
-  marketStats: [
-    { value: "$1.85M", label: "Burleigh Median" },
-    { value: "720+", label: "Annual Sales" },
-    { value: "28%", label: "Off-Market" },
-    { value: "49%", label: "Interstate Buyers" },
-  ],
-
-  infoSplits: [
-    {
-      title: "Why the Southern Gold Coast",
-      bullets: [
-        "Burleigh Heads median ~$1.85M; Currumbin ~$1.55M; Palm Beach ~$1.45M",
-        "720+ house transactions per year across the corridor",
-        "~49% interstate buyers, primarily Sydney and Melbourne families",
-        "Strong owner-occupier market with genuine village character at each beach",
-        "Stock ~25% below five-year averages; Burleigh beachside regularly trades off-market",
-      ],
-    },
-    {
-      title: "Why Use a Buyers Agent Here",
-      bullets: [
-        "Off-market rate ~28%; Burleigh beachside and Currumbin hill homes rarely see a portal",
-        "Council overlays, flood mapping and strata complexity require local expertise",
-        "James Street precinct has driven Burleigh premiums above comparable beaches",
-        "Interstate buyers misjudge micro-differences between Palm Beach, Currumbin and Burleigh",
-        "3-4 bidders on quality stock; disciplined strategy outperforms emotional bidding",
-      ],
-    },
-  ],
-
-  suburbs: ["Burleigh Heads", "Currumbin", "Palm Beach", "Currumbin Valley", "Elanora"],
-
-  approach: {
-    heading: "Our Approach on the Southern Gold Coast",
-    body: "We know the difference between a Burleigh beachside street and one that floods, which towers have sinking fund problems, and which agents call us first. That detail changes outcomes.",
-    bullets: [
-      "Direct relationships across Burleigh, Currumbin and Palm Beach agents",
-      "~28% of our Southern Gold Coast deals secured off-market",
-      "Strata and body corporate due diligence on beachfront complexes",
-      "Average negotiation result: ~5.5% under asking (~$102k median saving)",
-      "Honest guidance on which streets carry flood or insurance risk",
-    ],
+/* ── Hardcoded fallbacks ── */
+const FALLBACK = {
+  seo: {
+    metaTitle: "Southern Gold Coast Buyers Agent | Coolangatta to Tugun | Compass",
+    metaDescription: "Southern Gold Coast buyers agent. Coolangatta, Kirra, Bilinga and Tugun. Airport corridor with village beaches and $1.38M-$2.1M range.",
   },
-
-  faqHeading: "Southern Gold Coast FAQ",
+  hero: {
+    title: "Southern Gold Coast Buyers Agent",
+    subtitle: "Burleigh. Currumbin. Palm Beach. $1.85M median. 28% off-market. Interstate buyers account for 49% of sales.",
+    ctaText: "Speak to an Agent",
+  },
+  stats: [
+    { end: 20, suffix: "+", label: "Southern GC Properties Secured" },
+    { end: 28, suffix: "%", label: "Off-Market Deals" },
+    { end: 15, suffix: "+", label: "Years Local Experience" },
+    { end: 100, suffix: "%", label: "Buyer Focused" },
+  ],
+  acquisitions: {
+    suburb: "Burleigh Heads",
+    lga: "City of Gold Coast",
+    eyebrow: "Recent Southern Gold Coast acquisitions",
+  },
   faqItems: [
     {
-      question: "What is the median price on the Southern Gold Coast?",
-      bullets: [
-        "Burleigh Heads ~ $1.85M",
-        "Currumbin ~ $1.55M; Palm Beach ~ $1.45M; Elanora ~ $1.25M",
-      ],
-      answer: "Burleigh Heads leads the corridor at around $1.85M median for houses, driven by the James Street precinct, the beachfront national park, and strong owner-occupier demand. Currumbin sits around $1.55M with a mix of beachside and hill properties. Palm Beach is roughly $1.45M with a growing village feel and cafe culture. Elanora at about $1.25M offers the best family value while still being close to the beach. Prices vary sharply by proximity to the water and quality of the street.",
+      question: "What is the median house price on the Southern Gold Coast?",
+      answer: "Burleigh Heads leads the corridor at around $1.85M, driven by the James Street precinct and beachfront national park. Currumbin sits around $1.55M, Palm Beach roughly $1.45M, and Elanora at about $1.25M offers the strongest family value in the corridor.",
     },
     {
       question: "Is the Southern Gold Coast cheaper than Byron Bay?",
-      bullets: [
-        "Yes: Burleigh ~ $1.85M vs Byron ~ $2.45M (about 25% lower)",
-        "Better infrastructure, airport proximity and more stock diversity",
-      ],
-      answer: "Yes, roughly 25% cheaper. Burleigh at $1.85M versus Byron at $2.45M gives you a significant saving while still delivering a premium beach lifestyle. The Southern Gold Coast also has better infrastructure: more dining options, Gold Coast Airport nearby, better public transport, and a wider range of property types from beachfront apartments to hinterland acreage. The trade-off is a busier feel than Byron's village pace, though suburbs like Currumbin and Palm Beach still have genuine community character.",
+      answer: "Roughly 25% cheaper. Burleigh at $1.85M versus Byron at $2.45M delivers a significant saving while offering a premium beach lifestyle. The Southern Gold Coast has better infrastructure, more dining options, Gold Coast Airport nearby, and a wider range of property types from beachfront apartments to acreage.",
     },
     {
       question: "Do I need a buyers agent on the Southern Gold Coast?",
-      bullets: [
-        "About 28% of deals are off-market, especially beachside Burleigh",
-        "Strata complexity on beachfront; council overlays on hinterland fringe",
-      ],
-      answer: "Around 28% of deals here are off-market, especially beachside Burleigh where low-turnover properties change hands through agent networks. Strata complexity is a genuine trap on the Southern Gold Coast: older beachfront towers can carry massive special levies, poor sinking funds, and building defects that aren't obvious on inspection. We review strata reports, body corporate minutes, and building histories before recommending any unit or townhouse. On houses, council overlays and flood mapping in low-lying pockets add due diligence that's best handled by someone who knows the area.",
+      answer: "Around 28% of deals are off-market, especially in beachside Burleigh. Strata complexity is a genuine trap on the Gold Coast: older beachfront towers can carry massive special levies and building defects that aren't obvious on inspection. We review strata reports, body corporate minutes, and building histories before recommending any property.",
     },
     {
-      question: "Best suburb by budget?",
-      bullets: [
-        "Elanora ~ $1.25M (family value, close to beaches)",
-        "Palm Beach ~ $1.45M (village feel, strong cafe culture)",
-        "Burleigh Heads ~ $1.85M (premium beachside, James Street precinct)",
-      ],
-      answer: "Elanora at around $1.25M is the family value pick: good schools, quiet streets, and all the southern beaches within a 10-minute drive. Palm Beach at roughly $1.45M has a strong cafe and dining scene, a growing village identity, and is one of the areas we see the most upside in. Burleigh Heads at $1.85M is the premium choice, anchored by the James Street lifestyle precinct, Burleigh Heads National Park, and one of Australia's best surf breaks. Currumbin at $1.55M splits the difference with a mix of beachside character and hinterland valley properties.",
+      question: "How much does a buyers agent cost on the Southern Gold Coast?",
+      answer: "Buyers agent fees on the Southern Gold Coast typically range from 1.5% to 2.5% of the property price. The value comes from catching strata issues that can cost six figures, accessing the 28% of stock that sells off-market, and negotiation savings that typically outweigh the fee.",
     },
     {
-      question: "How competitive is it?",
-      bullets: [
-        "3-4 bidders on quality Burleigh listings; Palm Beach and Currumbin slightly less",
-        "~49% interstate buyers, mostly families with pre-approved budgets",
-      ],
-      answer: "Quality Burleigh listings typically attract 3-4 serious bidders. Palm Beach and Currumbin are slightly less competitive, with 2-3 bidders on most properties. Around 49% of buyers are interstate, primarily families from Sydney and Melbourne with pre-approved budgets, and many are cash buyers which gives them an edge on conditional offers. The corridor is less intense than Byron but more competitive than most buyers expect, especially on beachside stock. Being prepared and moving fast still makes a real difference.",
+      question: "How competitive is the Southern Gold Coast market?",
+      answer: "Quality Burleigh listings typically attract 3-4 serious bidders. Palm Beach and Currumbin are slightly less competitive at 2-3 bidders. Around 49% of buyers are interstate, and many settle in cash, which gives them an edge over conditional offers. Preparation and speed matter.",
     },
     {
-      question: "Key risks?",
-      bullets: [
-        "Flood mapping in low-lying Palm Beach and Currumbin Creek pockets",
-        "Strata and special levies on older beachfront towers",
-        "Airport flight path noise in some Bilinga/Palm Beach streets",
-      ],
-      answer: "Three main risks. First, flood mapping: low-lying areas in parts of Palm Beach and near Currumbin Creek carry elevated flood risk, which can add thousands per year to insurance premiums. Second, strata: older beachfront towers (especially 1980s-90s builds) can have large special levies for concrete cancer, waterproofing, and lift replacements, sometimes running into six figures. Third, airport flight path noise: some streets in Bilinga and northern Palm Beach sit under the Gold Coast Airport approach path, which affects livability and resale. We check all of these before recommending any property.",
+      question: "What are the best suburbs on the Southern Gold Coast?",
+      answer: "Burleigh Heads is the premium suburb with James Street dining, the national park, and strong walkability. Currumbin offers a quieter family feel with Currumbin Alley surf and rock pools at roughly $1.55M. Palm Beach has a growing cafe strip and beachside lifestyle at a lower entry point. Elanora suits families wanting space and value at around $1.25M.",
     },
     {
-      question: "Burleigh vs Coolangatta?",
-      bullets: [
-        "Burleigh: ~$1.85M, James Street lifestyle, stronger owner-occupier market",
-        "Coolangatta: ~$1.65M, quieter, closer to airport, more apartment stock",
-      ],
-      answer: "Burleigh at around $1.85M is the lifestyle premium pick, centred on the James Street dining and retail precinct, the national park headland, and one of Australia's most consistent surf breaks. It has a stronger owner-occupier market and less apartment dominance. Coolangatta at $1.65M is quieter and more established, with closer airport access, a genuine village feel, and more apartment stock for buyers looking at that segment. We cover both and can help you compare based on your priorities, budget, and whether you're buying to live or invest.",
+      question: "Is the Southern Gold Coast a good property investment?",
+      answer: "Burleigh Heads has shown consistent above-average capital growth, driven by lifestyle appeal, limited beachfront supply, and the James Street precinct. House prices increased 7.8% year-on-year across the southern corridor. Currumbin and Palm Beach offer growth potential at lower entry points. Rental demand is strong year-round.",
+    },
+    {
+      question: "What are the key risks when buying on the Southern Gold Coast?",
+      answer: "Three main risks. Flood mapping in low-lying Palm Beach and near Currumbin Creek affects insurance and resale. Strata issues on older beachfront towers, with special levies sometimes running into six figures for concrete cancer or facade repairs. Airport flight path noise in some Bilinga and northern Palm Beach streets affects livability and resale.",
+    },
+    {
+      question: "What is the difference between a buyers agent and a real estate agent on the Southern Gold Coast?",
+      answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. On the Southern Gold Coast, that means accessing the 28% of properties that sell off-market, reviewing strata reports for hidden liabilities on beachfront towers, and navigating flood mapping in low-lying areas. We never list or sell property.",
+    },
+    {
+      question: "Can you find off-market properties on the Southern Gold Coast?",
+      answer: "Around 28% of our Southern Gold Coast acquisitions were off-market. We maintain relationships with selling agents across Burleigh Heads, Currumbin, Palm Beach and surrounding suburbs who contact us before listing publicly. In beachside pockets where stock moves quickly, this early access is critical.",
     },
   ],
-
-  ctaHeading: "Buying on the Southern Gold Coast?",
-  ctaButtonText: "Start a Conversation",
-
-  localBusinessSchema: {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://compassagency.com.au/#business",
-        name: "Compass Buyers Agency",
-        url: "https://compassagency.com.au/southern-gold-coast-buyers-agent/",
-        logo: "https://compassagency.com.au/logo.png",
-        image: "https://compassagency.com.au/og-image.png",
-        description: "Southern Gold Coast buyers agent covering Burleigh Heads, Currumbin, Palm Beach and Elanora. Off-market access, strata due diligence and buyer-only representation.",
-        telephone: "+61403536390",
-        email: "hello@compassbuyersagency.com.au",
-        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
-        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
-        areaServed: [
-          { "@type": "City", name: "Burleigh Heads" },
-          { "@type": "City", name: "Currumbin" },
-          { "@type": "City", name: "Palm Beach" },
-          { "@type": "City", name: "Currumbin Valley" },
-          { "@type": "City", name: "Elanora" },
-        ],
-        priceRange: "$$",
-      },
-      {
-        "@type": "Service",
-        name: "Southern Gold Coast Buyers Agent",
-        description: "Buyers agent service specialising in Southern Gold Coast property. Off-market access, strata analysis, negotiation and due diligence across Burleigh, Currumbin and Palm Beach.",
-        provider: { "@id": "https://compassagency.com.au/#business" },
-        areaServed: { "@type": "City", name: "Southern Gold Coast" },
-        serviceType: "Buyers Agent",
-      },
-    ],
+  cta: {
+    heading: "Burleigh to Palm Beach. Local knowledge, smarter decisions.",
+    buttonText: "Start a Conversation",
   },
 };
 
 export default function SouthernGoldCoastBuyersAgents() {
+  const [page, setPage] = useState(null);
+  useEffect(() => {
+    fetchLandingPage("southern-gold-coast-buyers-agent").then(setPage).catch(() => {});
+  }, []);
+
+  const seo = page?.seo || FALLBACK.seo;
+  const faq = page?.faqItems?.length ? page.faqItems : FALLBACK.faqItems;
+  const stats = page?.marketStats?.length ? page.marketStats : FALLBACK.stats;
+  const acq = page?.acquisitionFilter || FALLBACK.acquisitions;
+
   return (
     <>
       <SEOHead
-        title="Southern Gold Coast Buyers Agent | Compass Buyers Agency"
-        description="Buyers agent on the Southern Gold Coast covering Burleigh, Currumbin and Palm Beach. 28% off-market. Strata expertise and buyer-only focus."
+        title={seo.metaTitle ?? FALLBACK.seo.metaTitle}
+        description={seo.metaDescription ?? FALLBACK.seo.metaDescription}
         canonicalPath="/southern-gold-coast-buyers-agent"
       />
-      <LandingPageTemplate data={DATA} />
+      <AdLandingTemplate
+        hero={{
+          title: page?.heroTitle ?? FALLBACK.hero.title,
+          subtitle: page?.heroSubtitle ?? FALLBACK.hero.subtitle,
+          ctaText: page?.heroCtaText ?? FALLBACK.hero.ctaText,
+          ctaHref: page?.heroCtaHref || createPageUrl("Contact"),
+          backgroundVideoUrl: page?.heroBackgroundVideoUrl || undefined,
+          backgroundImageUrl: page?.heroImage ? resolveImageUrl(page.heroImage, null, { width: 1920 }) : undefined,
+        }}
+        stats={stats}
+        acquisitions={{
+          suburb: acq.suburb ?? FALLBACK.acquisitions.suburb,
+          lga: acq.lga ?? FALLBACK.acquisitions.lga,
+          eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
+        }}
+        faqItems={faq}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : undefined}
+        imageBandAlt={page?.imageBandAlt || undefined}
+        cta={{
+          heading: page?.ctaHeading ?? FALLBACK.cta.heading,
+          buttonText: page?.ctaButtonText ?? FALLBACK.cta.buttonText,
+          buttonHref: page?.ctaButtonHref || createPageUrl("Contact"),
+        }}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
+        page?.jsonLd ? JSON.parse(page.jsonLd) : {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://compassagency.com.au/#business",
+            name: "Compass Buyers Agency",
+            url: "https://compassagency.com.au/southern-gold-coast-buyers-agent/",
+            logo: "https://compassagency.com.au/logo.png",
+            description: "Southern Gold Coast buyers agent covering Burleigh Heads, Currumbin, Palm Beach and Elanora. Off-market access, strata due diligence and buyer-only representation.",
+            telephone: "+61403536390",
+            email: "hello@compassbuyersagency.com.au",
+            areaServed: [
+              { "@type": "City", name: "Burleigh Heads" },
+              { "@type": "City", name: "Currumbin" },
+              { "@type": "City", name: "Palm Beach" },
+              { "@type": "City", name: "Currumbin Valley" },
+              { "@type": "City", name: "Elanora" },
+            ],
+            priceRange: "$$",
+          },
+          {
+            "@type": "Service",
+            name: "Southern Gold Coast Buyers Agent",
+            description: "Buyers agent service specialising in Southern Gold Coast property. Off-market access, strata analysis, negotiation and due diligence across Burleigh, Currumbin and Palm Beach.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: { "@type": "City", name: "Southern Gold Coast" },
+            serviceType: "Buyers Agent",
+          },
+          {
+            "@type": "FAQPage",
+            mainEntity: faq.map(f => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          },
+        ],
+      }) }} />
     </>
   );
 }

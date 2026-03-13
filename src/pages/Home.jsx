@@ -23,8 +23,8 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       <SEOHead
-        title={page?.seo?.metaTitle || "Buyers Agent Northern Rivers & Gold Coast | Compass"}
-        description={page?.seo?.metaDescription || "Local buyers agents on the Tweed Coast. Off-market access, honest advice and end-to-end support for property buyers across Byron, Ballina, Tweed and the Gold Coast."}
+        title={page?.seo?.metaTitle || "Buyers Agent Byron Bay to Gold Coast | Compass"}
+        description={page?.seo?.metaDescription || "Byron Bay to Gold Coast buyers agent. $2.45M median Byron, $1.65M Tweed. 42% of our deals are off-market. We find, assess, negotiate."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/"
       />
@@ -33,7 +33,7 @@ export default function Home() {
         title={page?.hero?.title}
         subtitle={page?.hero?.subtitle}
         ctaText={page?.hero?.ctaText}
-        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-LOGO-FADE.mp4"}
+        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-CLEAN.mp4"}
         backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
       />
 

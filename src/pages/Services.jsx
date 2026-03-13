@@ -20,7 +20,7 @@ export default function Services() {
   const seg = (i) => page?.segments?.[i];
 
   const segments = [
-    { id: "full-advocacy", label: "Full\u2011service advocacy" },
+    { id: "full-advocacy", label: "Full-service advocacy" },
     { id: "sourcing-research", label: "Sourcing & research" },
     { id: "auction-negotiation", label: "Auction & negotiation" },
     { id: "portfolio-strategy", label: "Portfolio strategy" },
@@ -43,8 +43,8 @@ export default function Services() {
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Our Services | Compass Buyers Agency"}
-        description={page?.seo?.metaDescription || "Property search, due diligence, negotiation and settlement support. Compass Buyers Agency represents buyers only across the Northern Rivers and Gold Coast."}
+        title={page?.seo?.metaTitle || "Buyers Agent Services | Search to Settlement | Compass"}
+        description={page?.seo?.metaDescription || "Full-service buyer advocacy from search to settlement. Property sourcing, auction bidding, negotiation and portfolio strategy across Northern Rivers and Gold Coast."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/services"
       />
@@ -65,14 +65,14 @@ export default function Services() {
         </div>
       </section>
 
-      <div className="pb-6">
+      <div style={{ paddingBottom: "var(--section-padding-compact)" }}>
         <SegmentsNav segments={segments} />
       </div>
 
       {/* Segment 1 — white, image right */}
       <SegmentSection
         id="full-advocacy"
-        title={seg(0)?.title || "Full\u2011service buyers advocacy"}
+        title={seg(0)?.title || "Full-service buyers advocacy"}
         intro={seg(0)?.intro || "End-to-end representation to find, assess and secure the right property, often off-market, with your interests protected at every step."}
         needs={seg(0)?.needs || [
           "Limited time to manage inspections and shortlists",
@@ -81,7 +81,7 @@ export default function Services() {
         ]}
         howWeHelp={seg(0)?.howWeHelp || [
           "Brief, suburb selection and comparables to set a clear strategy",
-          "Private and off\u2011market access via our local agent network",
+          "Private and off-market access via our local agent network",
           "Thorough due diligence and contract support to settlement",
         ]}
         image={seg(0)?.image ? urlFor(seg(0).image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/7ee9b92c9_CONTENTSHOOTJULY-20.jpg"}
@@ -98,13 +98,13 @@ export default function Services() {
         intro={seg(1)?.intro || "We halve the time it takes most buyers by handling research, outreach and inspections, surfacing the best options quickly."}
         needs={seg(1)?.needs || [
           "Time consuming search across suburbs and agents",
-          "Missing pre\u2011market and off\u2011market opportunities",
-          "Difficult to compare real value street\u2011by\u2011street",
+          "Missing pre-market and off-market opportunities",
+          "Difficult to compare real value street-by-street",
         ]}
         howWeHelp={seg(1)?.howWeHelp || [
           "Proactive agent outreach and access before the portals",
           "Local insights and detailed property comparables",
-          "Shortlists refined to your brief with clear trade\u2011offs",
+          "Shortlists refined to your brief with clear trade-offs",
         ]}
         image={seg(1)?.image ? urlFor(seg(1).image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/d62d38c74_CONTENTSHOOTJULY-16.jpg"}
         imageAlt={seg(1)?.imageAlt || "Aerial view of Northern Rivers waterfront properties"}
@@ -132,12 +132,12 @@ export default function Services() {
         intro={seg(2)?.intro || "Keep emotion out and results in. Our team plans the strategy and represents you on the day or in pre-auction and private negotiations."}
         needs={seg(2)?.needs || [
           "Unclear tactics and pricing at auction",
-          "High\u2011pressure negotiations with vendors' agents",
-          "Risk of over\u2011paying or poor contract terms",
+          "High-pressure negotiations with vendors' agents",
+          "Risk of over-paying or poor contract terms",
         ]}
         howWeHelp={seg(2)?.howWeHelp || [
           "Auction plan with price guardrails and scenarios",
-          "Experienced on\u2011the\u2011day bidding and vendor negotiation",
+          "Experienced on-the-day bidding and vendor negotiation",
           "Sharp negotiation on price and terms that protect you",
         ]}
         image={seg(2)?.image ? urlFor(seg(2).image).width(800).url() : "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop"}
@@ -154,7 +154,7 @@ export default function Services() {
         intro={seg(3)?.intro || "A longer-term plan to grow your portfolio, aligning yield, growth and risk with clear criteria for each buy."}
         needs={seg(3)?.needs || [
           "Unsure how to balance yield vs growth",
-          "Limited clarity on sequencing next purchases",
+          "Limited clarity on sequencing your next buys",
           "Hard to assess risk at suburb and property level",
         ]}
         howWeHelp={seg(3)?.howWeHelp || [
@@ -183,7 +183,7 @@ export default function Services() {
       {/* CTA — dark variant */}
       <CTASection
         heading={page?.cta?.heading || "Thinking about buying in the Northern Rivers or Gold Coast?"}
-        buttonText={page?.cta?.buttonText || "Talk to Us"}
+        buttonText={page?.cta?.buttonText || "Start a Conversation"}
         buttonHref={createPageUrl("Contact")}
         supportingText="Free consultation. No obligation. We'll give you honest advice on your situation."
         variant="dark"

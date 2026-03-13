@@ -1,138 +1,161 @@
-import React from "react";
-import LandingPageTemplate from "../components/landing/LandingPageTemplate";
+import React, { useState, useEffect } from "react";
+import AdLandingTemplate from "../components/landing/AdLandingTemplate";
 import SEOHead from "../components/shared/SEOHead";
+import { createPageUrl } from "@/utils";
+import { fetchLandingPage, resolveImageUrl } from "@/lib/sanityClient";
 
-const DATA = {
-  heroTitle: "Tweed Heads Buyers Agent",
-  heroSubtitle: "Kingscliff. Cabarita. Pottsville. Same beaches as Byron, 35% cheaper. Stock 36% below five-year norms.",
-
-  marketStats: [
-    { value: "$2.015M", label: "Kingscliff Median" },
-    { value: "35%", label: "Below Byron" },
-    { value: "38%", label: "Off-Market" },
-    { value: "52%", label: "Interstate Buyers" },
-  ],
-
-  infoSplits: [
-    {
-      title: "Why the Tweed Coast Works",
-      description: "The same beaches as Byron, a fraction of the competition, and genuine value. Kingscliff and Cabarita have built their own identity, and buyers are catching on.",
-      bullets: [
-        "Kingscliff median ~$2.015M (about 35% discount to Byron Bay)",
-        "Cabarita ~$1.85M, Pottsville ~$1.65M",
-        "~52% interstate buyers",
-        "~66 days on market; quality trades faster",
-        "2-3 bidders vs Byron's 5+ on comparable stock",
-      ],
-    },
-    {
-      title: "Why Use a Buyers Agent in Tweed",
-      description: "Stock is tight, off-market deals are common, and the due diligence traps are real. We solve those problems before they cost you.",
-      bullets: [
-        "Better value than Byron, but stock remains tight",
-        "Off-market advantage (~38% of deals)",
-        "Flood mapping critical (Cudgen Creek, low-lying pockets)",
-        "Interstate buyers miss Tweed Shire nuance",
-        "Council overlays add complexity",
-      ],
-    },
-  ],
-
-  suburbs: ["Kingscliff", "Cabarita Beach", "Pottsville", "Banora Point", "Tweed Heads"],
-
-  approach: {
-    heading: "Our Approach on the Tweed Coast",
-    body: "Local since the 2010s. Streets like Pearl St, Bellevue Pde and Salt Village aren't just names in listings; they define outcomes.",
-    bullets: [
-      "~38% of our Tweed deals are off-market",
-      "Flood certificate analysis and council overlay familiarity",
-      "Average negotiation result: ~5.8% under asking (~$117k median saving)",
-      "Buy-side discipline to avoid over-paying in hype pockets",
-    ],
+/* ── Hardcoded fallbacks ── */
+const FALLBACK = {
+  seo: {
+    metaTitle: "Tweed Heads Buyers Agent | 35% Below Byron | Compass",
+    metaDescription: "Tweed Coast buyers agent. Kingscliff $2.015M, Cabarita $1.85M, Pottsville $1.65M. Same beaches as Byron, 35% cheaper. 38% off-market.",
   },
-
-  faqHeading: "Tweed Heads FAQ",
+  hero: {
+    title: "Tweed Heads Buyers Agent",
+    subtitle: "Kingscliff. Cabarita. Pottsville. Same beaches as Byron, 35% cheaper. Stock 36% below five-year norms.",
+    ctaText: "Speak to an Agent",
+  },
+  stats: [
+    { end: 20, suffix: "+", label: "Tweed Properties Secured" },
+    { end: 38, suffix: "%", label: "Off-Market Deals" },
+    { end: 15, suffix: "+", label: "Years Local Experience" },
+    { end: 100, suffix: "%", label: "Buyer Focused" },
+  ],
+  acquisitions: {
+    suburb: "Kingscliff",
+    lga: "Tweed Shire",
+    eyebrow: "Recent Tweed Coast acquisitions",
+  },
   faqItems: [
     {
-      question: "What is the median in Kingscliff?",
-      bullets: ["Kingscliff ~ $2.015M", "Cabarita ~ $1.85M; Pottsville ~ $1.65M; Banora Point ~ $895k"],
-      answer: "Kingscliff sits around $2.015M for houses, making it the premium suburb on the Tweed Coast. Cabarita Beach is close behind at roughly $1.85M, Pottsville around $1.65M, and Banora Point offers entry-level buying around $895k. Salt Village and the beachfront streets of Kingscliff command the highest prices, while the blocks west of Kingscliff Road offer better value with the same village access.",
+      question: "What is the median house price in Kingscliff?",
+      answer: "Kingscliff sits around $2.015M for houses, making it the premium suburb on the Tweed Coast. Cabarita Beach is close behind at roughly $1.85M, Pottsville around $1.65M, and Banora Point offers entry-level buying around $895k. Casuarina and Salt, the newer beachfront estates, trade closer to $2.5M.",
     },
     {
       question: "Is Kingscliff cheaper than Byron Bay?",
-      bullets: ["Yes: about 35% cheaper", "Similar beaches; easier airport access (~15 minutes to OOL)"],
-      answer: "Yes, about 35% cheaper on median. Kingscliff gives you a similar beachside lifestyle to Byron, with better infrastructure, more restaurant options than most people expect, and Gold Coast Airport about 15 minutes away. The community is more family-oriented and less tourist-heavy than Byron, which many buyers see as an advantage. Long-term growth has tracked strongly as more Sydney and Melbourne buyers discover the Tweed Coast.",
+      answer: "About 35% cheaper on median. Kingscliff delivers a comparable beachside lifestyle to Byron, with better infrastructure, more restaurant options than most people expect, and Gold Coast Airport about 15 minutes away. The Salt Village dining precinct has shifted perceptions in recent years. For buyers priced out of Byron, the Tweed Coast is the strongest alternative.",
     },
     {
-      question: "Do I need a buyers agent in Tweed?",
-      bullets: ["Around 38% of deals are off-market", "Stock ~36% below five-year norms; flood mapping and overlays are critical"],
-      answer: "Around 38% of sales on the Tweed Coast happen off-market or pre-listing, particularly in Kingscliff and Cabarita where agents often place properties through their networks before going public. Stock is roughly 36% below five-year averages, which means there's less to choose from and good homes move fast. Flood mapping near Cudgen Creek, Tweed Shire council overlays, and varying lot sizes add complexity that catches interstate buyers off guard. A local buyers agent cuts through that and gets you to the right properties before they're gone.",
+      question: "Do I need a buyers agent on the Tweed Coast?",
+      answer: "Around 38% of sales happen off-market, particularly in Kingscliff and Cabarita where agents place properties through their networks before listing. Stock sits roughly 36% below five-year averages, so competition for quality homes is concentrated. Flood mapping near Cudgen Creek adds genuine complexity that most interstate buyers underestimate.",
     },
     {
-      question: "Best suburb on the Tweed Coast?",
-      bullets: ["Kingscliff for amenity", "Cabarita for surf", "Pottsville for family value"],
-      answer: "It depends on what you're after. Kingscliff has the best amenity: cafes, restaurants, Salt Village, and a walkable town centre right on the beach. Cabarita Beach is quieter, with arguably the best surf on the coast and a more laid-back, less developed feel. Pottsville offers the strongest family value with larger blocks, a protected river beach for kids, and prices roughly 20% below Kingscliff. We help buyers compare these options against their budget, lifestyle, and investment goals.",
+      question: "How much does a buyers agent cost on the Tweed Coast?",
+      answer: "Buyers agent fees on the Tweed Coast typically range from 1.5% to 2.5% of the property price. At Kingscliff price points, that investment is often recovered through negotiation savings and avoiding properties with hidden flood risk, council overlays, or building defects that aren't obvious on inspection.",
     },
     {
-      question: "Key risks?",
-      bullets: ["Flood zones near Cudgen Creek and low-lying Pottsville pockets", "Council overlays; limited premium-street stock"],
-      answer: "Flood mapping is the primary risk on the Tweed Coast. Properties near Cudgen Creek in Kingscliff and low-lying pockets of Pottsville can carry elevated flood risk, which directly affects insurance premiums and can reduce resale appeal. Tweed Shire council overlays vary across suburbs and can restrict what you can build or renovate. Premium-street stock is also limited, which means the best addresses get bid up quickly and there's no shortcut to finding them except through agent relationships. We run flood certificates and council checks on every property before recommending it.",
+      question: "What is the best suburb on the Tweed Coast?",
+      answer: "Kingscliff has the strongest amenity: cafes, restaurants, Salt Village, and a walkable town centre on the beach. Cabarita is quieter with arguably the best surf on the coast. Pottsville offers the strongest family value with larger blocks at roughly 20% below Kingscliff. Casuarina and Salt deliver newer beachfront homes at a premium.",
     },
     {
-      question: "Time to buy?",
-      bullets: ["~66 days on market on average", "Quality stock moves 30-45 days; off-market can close in 2-3 weeks"],
-      answer: "The average days-on-market across the Tweed Coast is around 66, but quality listings on the best streets of Kingscliff and Cabarita move within 30-45 days. Off-market deals can close even faster, sometimes in 2-3 weeks if both parties are ready. Our clients typically go from initial briefing to securing a property within 4-8 weeks, depending on how specific their criteria are and what's available at the time.",
+      question: "Is the Tweed Coast a good property investment?",
+      answer: "The Tweed Coast has outperformed most regional NSW markets over the past decade. Kingscliff and Cabarita have shown exceptional growth at +10.4% and +13.6% respectively in recent reporting periods. Strong interstate migration, Gold Coast Airport proximity, and limited beachfront supply continue to drive demand.",
+    },
+    {
+      question: "What are the key risks when buying on the Tweed Coast?",
+      answer: "Flood mapping is the primary risk. Properties near Cudgen Creek and low-lying Pottsville pockets carry elevated flood risk, affecting insurance premiums and resale. Tweed Shire council overlays vary across suburbs and can restrict what you build or renovate. We run flood certificates and council overlay checks on every property.",
+    },
+    {
+      question: "Kingscliff or Cabarita Beach: which is better?",
+      answer: "Kingscliff suits buyers who want walkable village amenity, Salt Village dining, and a town-centre feel. Cabarita suits buyers who prioritise surf quality, quiet streets, and a less developed coastal atmosphere. Kingscliff has stronger rental yield; Cabarita has shown higher recent capital growth at 13.6% annually.",
+    },
+    {
+      question: "What is the difference between a buyers agent and a real estate agent on the Tweed Coast?",
+      answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. On the Tweed Coast, that means accessing the 38% of properties that sell off-market, analysing flood certificates and council overlays, and navigating a market where stock sits 36% below five-year norms. We never list or sell property.",
+    },
+    {
+      question: "Can you find off-market properties on the Tweed Coast?",
+      answer: "Around 38% of our Tweed Coast acquisitions were off-market or pre-market. We maintain relationships with selling agents across Kingscliff, Cabarita, Pottsville and Banora Point who contact us before listing publicly. In a market this tight, off-market access often determines whether you secure or miss out.",
     },
   ],
-
-  ctaHeading: "Buying on the Tweed Coast?",
-  ctaButtonText: "Start a Conversation",
-
-  localBusinessSchema: {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://compassagency.com.au/#business",
-        name: "Compass Buyers Agency",
-        url: "https://compassagency.com.au/tweed-heads-buyers-agent/",
-        logo: "https://compassagency.com.au/logo.png",
-        image: "https://compassagency.com.au/og-image.png",
-        description: "Tweed Heads buyers agent covering Kingscliff, Cabarita Beach and Pottsville. Off-market access, flood analysis and buyer-only representation.",
-        telephone: "+61403536390",
-        email: "hello@compassbuyersagency.com.au",
-        address: { "@type": "PostalAddress", streetAddress: "Cabarita Beach", addressLocality: "Cabarita Beach", addressRegion: "NSW", postalCode: "2488", addressCountry: "AU" },
-        geo: { "@type": "GeoCoordinates", latitude: -28.3345, longitude: 153.5537 },
-        areaServed: [
-          { "@type": "City", name: "Kingscliff" },
-          { "@type": "City", name: "Cabarita Beach" },
-          { "@type": "City", name: "Pottsville" },
-          { "@type": "City", name: "Banora Point" },
-          { "@type": "City", name: "Tweed Heads" },
-        ],
-        priceRange: "$$",
-      },
-      {
-        "@type": "Service",
-        name: "Tweed Heads Buyers Agent",
-        description: "Buyers agent service specialising in Tweed Coast property. Off-market access, flood certificate analysis, negotiation and due diligence across Kingscliff, Cabarita and Pottsville.",
-        provider: { "@id": "https://compassagency.com.au/#business" },
-        areaServed: { "@type": "City", name: "Tweed Heads" },
-        serviceType: "Buyers Agent",
-      },
-    ],
+  cta: {
+    heading: "The Tweed Coast rewards preparation. Start here.",
+    buttonText: "Start a Conversation",
   },
 };
 
 export default function TweedHeadsBuyersAgent() {
+  const [page, setPage] = useState(null);
+  useEffect(() => {
+    fetchLandingPage("tweed-heads-buyers-agent").then(setPage).catch(() => {});
+  }, []);
+
+  const seo = page?.seo || FALLBACK.seo;
+  const faq = page?.faqItems?.length ? page.faqItems : FALLBACK.faqItems;
+  const stats = page?.marketStats?.length ? page.marketStats : FALLBACK.stats;
+  const acq = page?.acquisitionFilter || FALLBACK.acquisitions;
+
   return (
     <>
       <SEOHead
-        title="Tweed Heads Buyers Agent | Compass Buyers Agency"
-        description="Buyers agent in Tweed Heads, Kingscliff, Cabarita and Pottsville. 38% off-market access. Local agents who live on the Tweed Coast."
+        title={seo.metaTitle ?? FALLBACK.seo.metaTitle}
+        description={seo.metaDescription ?? FALLBACK.seo.metaDescription}
         canonicalPath="/tweed-heads-buyers-agent"
       />
-      <LandingPageTemplate data={DATA} />
+      <AdLandingTemplate
+        hero={{
+          title: page?.heroTitle ?? FALLBACK.hero.title,
+          subtitle: page?.heroSubtitle ?? FALLBACK.hero.subtitle,
+          ctaText: page?.heroCtaText ?? FALLBACK.hero.ctaText,
+          ctaHref: page?.heroCtaHref || createPageUrl("Contact"),
+          backgroundVideoUrl: page?.heroBackgroundVideoUrl || undefined,
+          backgroundImageUrl: page?.heroImage ? resolveImageUrl(page.heroImage, null, { width: 1920 }) : undefined,
+        }}
+        stats={stats}
+        acquisitions={{
+          suburb: acq.suburb ?? FALLBACK.acquisitions.suburb,
+          lga: acq.lga ?? FALLBACK.acquisitions.lga,
+          eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
+        }}
+        faqItems={faq}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : undefined}
+        imageBandAlt={page?.imageBandAlt || undefined}
+        cta={{
+          heading: page?.ctaHeading ?? FALLBACK.cta.heading,
+          buttonText: page?.ctaButtonText ?? FALLBACK.cta.buttonText,
+          buttonHref: page?.ctaButtonHref || createPageUrl("Contact"),
+        }}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
+        page?.jsonLd ? JSON.parse(page.jsonLd) : {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "LocalBusiness",
+            "@id": "https://compassagency.com.au/#business",
+            name: "Compass Buyers Agency",
+            url: "https://compassagency.com.au/tweed-heads-buyers-agent/",
+            logo: "https://compassagency.com.au/logo.png",
+            description: "Tweed Heads buyers agent covering Kingscliff, Cabarita Beach and Pottsville. Off-market access, flood analysis and buyer-only representation.",
+            telephone: "+61403536390",
+            email: "hello@compassbuyersagency.com.au",
+            areaServed: [
+              { "@type": "City", name: "Kingscliff" },
+              { "@type": "City", name: "Cabarita Beach" },
+              { "@type": "City", name: "Pottsville" },
+              { "@type": "City", name: "Banora Point" },
+              { "@type": "City", name: "Tweed Heads" },
+            ],
+            priceRange: "$$",
+          },
+          {
+            "@type": "Service",
+            name: "Tweed Heads Buyers Agent",
+            description: "Buyers agent service specialising in Tweed Coast property. Off-market access, flood certificate analysis, negotiation and due diligence across Kingscliff, Cabarita and Pottsville.",
+            provider: { "@id": "https://compassagency.com.au/#business" },
+            areaServed: { "@type": "City", name: "Tweed Heads" },
+            serviceType: "Buyers Agent",
+          },
+          {
+            "@type": "FAQPage",
+            mainEntity: faq.map(f => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          },
+        ],
+      }) }} />
     </>
   );
 }

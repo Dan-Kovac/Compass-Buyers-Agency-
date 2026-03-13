@@ -17,9 +17,9 @@ const fallbackShires = [
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop",
     description:
-      "From the world-famous lighthouse to the creative heart of Bangalow, Byron Shire offers a unique blend of coastal luxury and hinterland charm.",
+      "Byron Bay medians sit above $2.4M and 40% of stock moves off-market. Bangalow, Suffolk Park and the hinterland each have distinct pricing and character. We know which streets hold value and which carry risk.",
     suburbs: [
-      { name: "Byron Bay", isLive: true, slug: "byron-bay-market-update" },
+      { name: "Byron Bay", isLive: true, slug: "byron-bay-suburb-report-q1-2026" },
       { name: "Bangalow", isLive: false },
       { name: "Brunswick Heads", isLive: true, slug: "brunswick-heads-profile" },
       { name: "Mullumbimby", isLive: false },
@@ -31,9 +31,9 @@ const fallbackShires = [
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1974&auto=format&fit=crop",
     description:
-      "Stretching from the Gold Coast border south to Murwillumbah, Tweed Shire combines beachside living with lush hinterland valleys.",
+      "Kingscliff to Pottsville along the Tweed Coast, then inland through Murwillumbah to the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
     suburbs: [
-      { name: "Kingscliff", isLive: false },
+      { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
       { name: "Cabarita Beach", isLive: false },
       { name: "Casuarina", isLive: false },
       { name: "Pottsville", isLive: false },
@@ -46,7 +46,7 @@ const fallbackShires = [
     image:
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2070&auto=format&fit=crop",
     description:
-      "Home to Lennox Head and the Richmond River, Ballina Shire offers strong growth suburbs with a relaxed, family-friendly feel.",
+      "Lennox Head draws Byron-priced-out families, while Ballina and Cumbalum offer entry points from $850K. Richmond River frontage, strong school catchments and 15 minutes to Byron make this the shire most buyers underestimate.",
     suburbs: [
       { name: "Ballina", isLive: false },
       { name: "Lennox Head", isLive: false },
@@ -60,12 +60,12 @@ const fallbackShires = [
     image:
       "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=1974&auto=format&fit=crop",
     description:
-      "The southern Gold Coast blends surf culture with emerging lifestyle suburbs. Strong demand from interstate buyers and investors.",
+      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
     suburbs: [
       { name: "Currumbin", isLive: false },
       { name: "Palm Beach", isLive: false },
       { name: "Tallebudgera", isLive: false },
-      { name: "Burleigh Heads", isLive: false },
+      { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
       { name: "Miami", isLive: false },
       { name: "Mermaid Beach", isLive: false },
     ],
@@ -117,8 +117,8 @@ export default function Areas() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Areas We Cover | Compass Buyers Agency"}
-        description={page?.seo?.metaDescription || "Buyers agent services across Byron Shire, Ballina Shire, Tweed Shire and the Gold Coast. Local knowledge from agents who live here."}
+        title={page?.seo?.metaTitle || "Areas We Serve | Byron to Gold Coast | Compass"}
+        description={page?.seo?.metaDescription || "Buyers agent covering Byron, Ballina, Tweed and Gold Coast shires. 24 suburbs from $850k to $2.95M. Local street-level knowledge."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/areas"
       />
@@ -140,7 +140,7 @@ export default function Areas() {
       {/* Section 2: Region intro */}
       <section
         className="bg-white"
-        style={{ padding: "var(--section-standard) 0" }}
+        style={{ padding: "var(--section-padding) 0" }}
       >
         <div className="site-container">
           <ScrollReveal>

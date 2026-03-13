@@ -67,7 +67,7 @@ export default function KeyStatsTable(props) {
 
               {/* Title */}
               {title && (
-                <h1 className="text-2xl md:text-3xl font-semibold text-[var(--ink)] leading-tight mb-1 truncate">
+                <h1 className="text-2xl md:text-3xl text-[var(--ink)] leading-tight mb-1 truncate">
                   {title}
                 </h1>
               )}

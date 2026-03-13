@@ -78,16 +78,43 @@ const PAGE_NAME_TO_ID = {
 };
 
 /**
- * Hardcoded SEO fallbacks for pages without Sanity singletons.
- * Layout.jsx reads these when fetchPageSEO returns null.
+ * Hardcoded SEO fallbacks for all pages.
+ * Layout.jsx reads these when fetchPageSEO returns null (i.e. Sanity seo
+ * object is empty or the page has no Sanity singleton).
+ * Values sourced from Compass-SEO-Map.xlsx — do not edit without updating
+ * the spreadsheet first.
  */
 export const STATIC_SEO = {
+  Home: {
+    metaTitle: 'Buyers Agent Byron Bay to Gold Coast | Compass',
+    metaDescription: 'Byron Bay to Gold Coast buyers agent. $2.45M median Byron, $1.65M Tweed. 42% of our deals are off-market. We find, assess, negotiate.',
+  },
+  About: {
+    metaTitle: 'Our Team | Buyers Agent Byron Bay & Gold Coast | Compass',
+    metaDescription: 'Meet the Compass team. Licensed buyers agents with street-level knowledge across Byron Bay, the Tweed Coast and Southern Gold Coast.',
+  },
+  Services: {
+    metaTitle: 'Buyers Agent Services | Search to Settlement | Compass',
+    metaDescription: 'Search to settlement buyer advocacy. Property sourcing, auction bidding, negotiation and portfolio strategy across Northern Rivers and Gold Coast.',
+  },
+  Areas: {
+    metaTitle: 'Areas We Serve | Byron to Gold Coast | Compass',
+    metaDescription: 'Buyers agent covering Byron, Ballina, Tweed and Gold Coast shires. 24 suburbs from $850k to $2.95M. Local street-level knowledge.',
+  },
+  Contact: {
+    metaTitle: 'Contact Us | Talk to a Buyers Agent | Compass',
+    metaDescription: 'Talk to a buyers agent today. Call 0403 536 390 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation.',
+  },
+  WhoWeWorkWith: {
+    metaTitle: 'Who We Work With | First Home to Prestige | Compass',
+    metaDescription: 'Buyers agent for first home buyers, downsizers, investors, interstate movers and prestige buyers. Nine buyer segments, one process.',
+  },
   Blog: {
     metaTitle: 'Blog | Northern Rivers & Gold Coast Property Insights',
     metaDescription: 'Market updates, suburb profiles and buying guides for Byron Bay, Tweed Coast and Southern Gold Coast. Data-led insights from local buyers agents.',
   },
   Acquisitions: {
-    metaTitle: 'Acquisitions | Properties We\u2019ve Secured | Compass',
+    metaTitle: "Acquisitions | Properties We've Secured | Compass",
     metaDescription: 'Browse properties secured by Compass across Byron Bay, Tweed Coast and Gold Coast. Filter by region, suburb and property type.',
   },
   CaseStudies: {
@@ -116,15 +143,22 @@ const LANDING_PAGE_FIELDS = `
   seo,
   heroTitle,
   heroSubtitle,
+  heroCtaText,
+  heroCtaHref,
   heroImage,
+  heroBackgroundVideoUrl,
   marketStats,
   infoSplits,
   suburbs,
   approach,
   faqItems,
   testimonialVideos,
+  acquisitionFilter,
+  imageBandImage,
+  imageBandAlt,
   ctaHeading,
   ctaButtonText,
+  ctaButtonHref,
   jsonLd
 `;
 
@@ -157,12 +191,30 @@ const BLOG_POST_FIELDS = `
   gallery_images
 `;
 
+/** Lightweight projection for listing pages — excludes heavy content/gallery fields */
+const BLOG_POST_LIST_FIELDS = `
+  "id": _id,
+  title,
+  "slug": slug.current,
+  status,
+  category,
+  tags,
+  author,
+  image,
+  featured_image,
+  excerpt,
+  published_date,
+  featured,
+  meta_title,
+  meta_description
+`;
+
 export async function fetchBlogPosts({ status = 'published', category, featured } = {}) {
   let filter = `_type == "blogPost" && status == $status`;
   const params = { status };
   if (category) { filter += ` && category == $category`; params.category = category; }
   if (featured !== undefined) { filter += ` && featured == $featured`; params.featured = featured; }
-  return client.fetch(`*[${filter}] | order(published_date desc) { ${BLOG_POST_FIELDS} }`, params);
+  return client.fetch(`*[${filter}] | order(published_date desc) { ${BLOG_POST_LIST_FIELDS} }`, params);
 }
 
 export async function fetchBlogPost(id) {

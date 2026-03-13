@@ -3,6 +3,16 @@ module.exports = {
     darkMode: ["class"],
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
+  	/* Remap weights to match available brand fonts:
+  	   MinervaModern: 400, 700 | Aeonik: 300, 400, 500, 700
+  	   No 600 weight exists — remap semibold to 500 (Aeonik Medium) */
+  	fontWeight: {
+  		light: '300',
+  		normal: '400',
+  		medium: '500',
+  		semibold: '500',
+  		bold: '700',
+  	},
   	extend: {
   		fontFamily: {
   			heading: ['var(--font-heading)'],

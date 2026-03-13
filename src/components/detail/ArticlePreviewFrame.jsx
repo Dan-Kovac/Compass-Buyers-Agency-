@@ -47,7 +47,7 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
   };
 
   return (
-    <article className="site-container" style={{ paddingTop: "var(--section-compact)", paddingBottom: 0 }}>
+    <article className="site-container" style={{ paddingTop: "var(--section-padding-compact)", paddingBottom: 0 }}>
       <div className="mx-auto" style={{ maxWidth: maxW }}>
         {/* Category + property badges */}
         <ScrollReveal>
@@ -190,7 +190,7 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
                   <span style={{ color: "var(--bright-grey)" }}>|</span>
                 </>
               )}
-              <span>{readingTime} min read</span>
+              {readingTime && <span>{readingTime} min read</span>}
             </div>
           )}
         </ScrollReveal>

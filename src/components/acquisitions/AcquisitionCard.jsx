@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
 import { resolveImageUrl } from "@/lib/sanityClient";
 
 export default function AcquisitionCard({ item }) {
@@ -21,9 +20,9 @@ export default function AcquisitionCard({ item }) {
   const locationLine = [item.suburb, stateFull].filter(Boolean).join(", ");
 
   const market = item.market_visibility || "on_market";
-  const marketLabel = market === "off_market" ? "Off‑market purchase" : "On‑market purchase";
+  const marketLabel = market === "off_market" ? "Off‑market acquisition" : "On‑market acquisition";
 
-  const detailUrl = createPageUrl(`AcquisitionDetail?id=${item.id}`);
+  const detailUrl = `/acquisitions/${item.slug || item.id}`;
 
   return (
     <Link
@@ -63,9 +62,8 @@ export default function AcquisitionCard({ item }) {
       <div className="p-4 md:p-5 flex flex-col flex-grow">
         <div className="text-[13px] text-[var(--stone)] mb-1">{locationLine}</div>
         <h3
-          className="mb-2 truncate group-hover:text-[var(--hills)] transition-colors"
+          className="mb-2 truncate group-hover:text-[var(--hills)] transition-colors font-body font-medium text-[1.0625rem]"
           title={item.title}
-          style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "1.0625rem" }}
         >
           {item.title}
         </h3>

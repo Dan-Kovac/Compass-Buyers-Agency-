@@ -67,7 +67,7 @@ export default function SegmentSection({
     );
 
   return (
-    <section id={id} className={`${bg} scroll-mt-24`} style={{ padding: "var(--section-standard) 0" }}>
+    <section id={id} className={`${bg} scroll-mt-24`} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <div className={`grid lg:grid-cols-2 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`} style={{ gap: "clamp(2rem, 4vw, 4rem)" }}>
           {/* Image */}

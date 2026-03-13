@@ -75,7 +75,7 @@ export default function RegionLinksGrid() {
   return (
     <section
       className="bg-sea-wash"
-      style={{ padding: "var(--section-standard) 0" }}
+      style={{ padding: "var(--section-padding) 0" }}
     >
       <div className="site-container">
         <ScrollReveal>
@@ -91,7 +91,7 @@ export default function RegionLinksGrid() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           <StaggerGroup stagger={100}>
             {allRegionLinks.map((link) => (
-              <ScrollReveal key={link.slug}>
+              <ScrollReveal key={link.slug} animation="scale-subtle" duration={600}>
                 <a
                   href={link.slug}
                   className="region-link-card"

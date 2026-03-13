@@ -9,7 +9,7 @@ import {
   SheetTrigger,
   SheetClose } from
 "@/components/ui/sheet";
-import { fetchSiteSettings, fetchPageSEO, urlFor, STATIC_SEO } from "@/lib/sanityClient";
+import { fetchSiteSettings, urlFor } from "@/lib/sanityClient";
 import StickyMobileCTA from "@/components/shared/StickyMobileCTA";
 
 const navigationItems = [
@@ -23,13 +23,13 @@ const navigationItems = [
 { title: "Contact", url: createPageUrl("Contact") }];
 
 
-export default function Layout({ children, currentPageName }) {
+export default function Layout({ children, currentPageName, navMode }) {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [brand, setBrand] = React.useState(null);
-  const [seo, setSeo] = React.useState(null);
   const [brandLoaded, setBrandLoaded] = React.useState(false);
   const isHome = currentPageName === "Home";
+  const isLanding = navMode === "landing";
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -54,73 +54,8 @@ export default function Layout({ children, currentPageName }) {
   }, []);
 
 
-  React.useEffect(() => {
-    (async () => {
-      if (!currentPageName) return;
-      try {
-        const seoData = await fetchPageSEO(currentPageName);
-        // Fall back to hardcoded SEO for pages without Sanity singletons
-        setSeo(seoData || STATIC_SEO[currentPageName] || null);
-      } catch {
-        setSeo(STATIC_SEO[currentPageName] || null);
-      }
-    })();
-  }, [currentPageName]);
-
-  React.useEffect(() => {
-    const upsertMeta = (attr, key, value) => {
-      if (value == null || value === "") return;
-      let el = document.querySelector(`meta[${attr}="${key}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute(attr, key);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("content", value);
-    };
-    const upsertCanonical = (href) => {
-      if (!href) return;
-      let link = document.querySelector('link[rel="canonical"]');
-      if (!link) {
-        link = document.createElement("link");
-        link.setAttribute("rel", "canonical");
-        document.head.appendChild(link);
-      }
-      link.setAttribute("href", href);
-    };
-
-    const defaultTitle = brand?.defaultMetaTitle || brand?.siteName || "Compass Buyers Agency";
-
-    if (!seo) {
-      document.title = defaultTitle;
-      return;
-    }
-
-    document.title = seo.metaTitle || defaultTitle;
-
-    const description = seo.metaDescription || brand?.defaultMetaDescription || "";
-    const ogImageUrl = seo.ogImage ? urlFor(seo.ogImage).width(1200).url() : (brand?.defaultOgImage ? urlFor(brand.defaultOgImage).width(1200).url() : null);
-
-    const robots = `${seo.noIndex ? "noindex" : "index"}, follow`;
-    upsertMeta("name", "robots", robots);
-    upsertMeta("name", "description", description);
-    upsertCanonical(seo.canonicalUrl || "");
-    upsertMeta("property", "og:title", seo.metaTitle || defaultTitle);
-    upsertMeta("property", "og:description", description);
-    upsertMeta("property", "og:type", "website");
-    upsertMeta("property", "og:site_name", brand?.siteName || "Compass Buyers Agency");
-    if (typeof window !== "undefined") {
-      upsertMeta("property", "og:url", window.location.href);
-    }
-    if (ogImageUrl) upsertMeta("property", "og:image", ogImageUrl);
-
-    // Twitter Card meta
-    upsertMeta("name", "twitter:card", ogImageUrl ? "summary_large_image" : "summary");
-    upsertMeta("name", "twitter:title", seo.metaTitle || defaultTitle);
-    upsertMeta("name", "twitter:description", description);
-    if (ogImageUrl) upsertMeta("name", "twitter:image", ogImageUrl);
-    upsertMeta("name", "twitter:site", "@compassbuyersagency");
-  }, [seo, brand]);
+  /* SEO meta tags are handled per-page by SEOHead (react-helmet-async).
+     Layout no longer manipulates meta tags to avoid overriding Helmet. */
 
 
   React.useEffect(() => {
@@ -163,6 +98,12 @@ export default function Layout({ children, currentPageName }) {
           --border: #E8E7E5;
           --shadow-card: 0 8px 32px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
           --shadow-hover: 0 20px 48px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+
+          /* Elevation system */
+          --elevation-0: none;
+          --elevation-1: 0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04);
+          --elevation-2: 0 2px 6px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+          --elevation-hover: 0 4px 12px rgba(0,0,0,0.05), 0 20px 48px rgba(0,0,0,0.08);
           --btn-height: 48px;
           --btn-minw: 140px;
 
@@ -173,12 +114,9 @@ export default function Layout({ children, currentPageName }) {
           --font-body-medium: 500;
           --font-body-bold: 700;
 
-          /* Spacing scale for section padding variety */
-          --section-compact: 2.5rem;
-          --section-standard: 4rem;
-          --section-standard-lg: 6rem;
-          --section-breathing: 5rem;
-          --section-breathing-lg: 8rem;
+          /* Section spacing — two tiers only */
+          --section-padding: clamp(4rem, 8vw, 7rem);
+          --section-padding-compact: clamp(2rem, 5vw, 3rem);
         }
         html { scroll-behavior: smooth; }
         @media (max-width: 768px) {
@@ -196,11 +134,7 @@ export default function Layout({ children, currentPageName }) {
             --body-mb: 16px;
             --btn-height: 52px;
             --btn-minw: 120px;
-            /* Tighter section spacing on mobile */
-            --section-breathing-lg: 4rem;
-            --section-standard-lg: 3rem;
-            --section-breathing: 3rem;
-            --section-standard: 2.5rem;
+            /* clamp() handles mobile scaling automatically */
           }
         }
         .site-container {
@@ -266,15 +200,15 @@ export default function Layout({ children, currentPageName }) {
           background: #fff;
           border: 1px solid rgba(0,0,0,0.04);
           border-radius: var(--radius-lg);
-          box-shadow: var(--shadow-card);
-          transition: box-shadow .5s ease, border-color .5s ease, background-color .5s ease;
+          box-shadow: var(--elevation-1);
+          transition: box-shadow .5s var(--ease-out), border-color .5s var(--ease-out), transform .5s var(--ease-out);
         }
         .surface:hover {
-          box-shadow: var(--shadow-hover);
+          box-shadow: var(--elevation-hover);
           border-color: rgba(0,0,0,0.06);
         }
         .surface:focus-within {
-          box-shadow: var(--shadow-hover);
+          box-shadow: var(--elevation-hover);
           border-color: rgba(0,0,0,0.06);
         }
         .no-scrollbar {
@@ -290,20 +224,30 @@ export default function Layout({ children, currentPageName }) {
         .sr {
           opacity: 0;
           transition-property: opacity, transform;
-          transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+          transition-timing-function: var(--ease-reveal);
           will-change: opacity, transform;
         }
-        .sr-fade-up    { transform: translateY(12px) scale(0.98); }
-        .sr-fade-in    { transform: scale(0.98); }
-        .sr-fade-left  { transform: translateX(16px); }
-        .sr-fade-right { transform: translateX(-16px); }
+        .sr-fade-up      { transform: translateY(24px); }
+        .sr-fade-up-slow { transform: translateY(32px); }
+        .sr-fade-in      { transform: none; }
+        .sr-fade-left    { transform: translateX(40px); }
+        .sr-fade-right   { transform: translateX(-40px); }
+        .sr-scale-subtle { transform: scale(0.95); }
         .sr-visible {
           opacity: 1 !important;
           transform: none !important;
         }
 
+        @media (max-width: 767px) {
+          .sr-fade-up      { transform: translateY(16px); }
+          .sr-fade-up-slow { transform: translateY(20px); }
+          .sr-fade-left    { transform: translateX(24px); }
+          .sr-fade-right   { transform: translateX(-24px); }
+          .sr-scale-subtle { transform: scale(0.96); }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .sr { opacity: 1; transform: none; transition: none; }
+          .sr { opacity: 1 !important; transform: none !important; transition: none !important; }
           .surface { transition: none; }
         }
         .btn-cta {
@@ -512,16 +456,17 @@ export default function Layout({ children, currentPageName }) {
           border-radius: var(--radius-card);
           border: 1px solid var(--bright-grey);
           background: #fff;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-          transition: box-shadow 0.5s var(--ease-out), border-color 0.5s var(--ease-out);
+          box-shadow: var(--elevation-1);
+          transition: box-shadow 0.5s var(--ease-out), border-color 0.5s var(--ease-out), transform 0.5s var(--ease-out);
           cursor: pointer;
           text-decoration: none;
           display: block;
           color: inherit;
         }
         .segment-card:hover {
-          box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+          box-shadow: var(--elevation-hover);
           border-color: rgba(0,0,0,0.06);
+          transform: translateY(-2px);
         }
         .segment-card:focus-visible {
           outline: 2px solid var(--hills);
@@ -539,6 +484,57 @@ export default function Layout({ children, currentPageName }) {
         .segment-card:hover .segment-card-link {
           text-decoration: underline;
           text-underline-offset: 4px;
+        }
+        .segment-card .segment-card-image {
+          position: relative;
+        }
+        .segment-card .segment-card-image::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 40%;
+          background: linear-gradient(to top, rgba(0,0,0,0.03), transparent);
+          pointer-events: none;
+        }
+
+        /* ── Suburb pill tags ───────────────────────────── */
+        .suburb-tag {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.5rem 1.25rem;
+          background: #fff;
+          border: 1px solid var(--bright-grey);
+          border-radius: var(--radius-badge);
+          font-family: var(--font-body);
+          font-weight: var(--font-body-regular);
+          font-size: 0.9375rem;
+          color: var(--ink);
+          transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out);
+          text-decoration: none;
+        }
+        .suburb-tag:hover {
+          border-color: var(--hills);
+          background: rgba(75, 115, 113, 0.04);
+          color: var(--hills);
+        }
+
+        /* ── StatsBar desktop dividers ──────────────────── */
+        @media (min-width: 768px) {
+          .stats-bar-item + .stats-bar-item {
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding-left: 2rem;
+            margin-left: 2rem;
+          }
+        }
+
+        /* ── InfoSplit image hover zoom ─────────────────── */
+        .info-split-image img {
+          transition: transform 1.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .info-split:hover .info-split-image img {
+          transform: scale(1.015);
         }
 
         /* ── Segment card grid responsive columns ───────── */
@@ -588,9 +584,11 @@ export default function Layout({ children, currentPageName }) {
         @media (prefers-reduced-motion: reduce) {
           .surface img, .surface:hover img { transform: none; transition: none; }
           .surface .lucide, .surface:hover .lucide { opacity: 1; transition: none; }
+          .info-split-image img, .info-split:hover .info-split-image img { transform: none; transition: none; }
           .segment-card img, .segment-card:hover img { transform: none; transition: none; }
-          .segment-card { transition: none; }
+          .segment-card, .segment-card:hover { transition: none; transform: none; }
           a { transition: none; }
+          .suburb-tag { transition: none; }
           .btn-cta { transition: none; }
           .skip-link { transition: none; }
         }
@@ -600,13 +598,13 @@ export default function Layout({ children, currentPageName }) {
 
       <header
         className={`fixed w-full top-0 z-50 transition-all duration-500 ${
-          isHome && !isScrolled
+          (isHome || isLanding) && !isScrolled
             ? 'py-4'
             : isScrolled
               ? 'bg-white/95 backdrop-blur-md shadow-sm py-3'
               : 'bg-white py-4'
         }`}
-        style={isHome && !isScrolled ? { background: 'transparent' } : undefined}
+        style={(isHome || isLanding) && !isScrolled ? { background: 'transparent' } : undefined}
       >
         <div className="site-container">
             <div className="flex justify-between items-center">
@@ -615,11 +613,79 @@ export default function Layout({ children, currentPageName }) {
                   src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
                   alt={brand?.siteName || "Compass Buyers Agency"}
                   className="h-7 md:h-8 w-auto transition-all duration-300"
-                  style={isHome && !isScrolled ? { filter: 'brightness(0) invert(1)' } : undefined} />
+                  style={(isHome || isLanding) && !isScrolled ? { filter: 'brightness(0) invert(1)' } : undefined} />
 
                 <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
               </Link>
 
+              {isLanding ? (
+                /* Landing page: phone + hamburger — lets users navigate back to main site */
+                <div className="flex items-center gap-3">
+                  <a
+                    href={`tel:${brand?.phoneRaw || "0403536390"}`}
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
+                      !isScrolled
+                        ? 'border-white/30 hover:bg-white/10'
+                        : 'border-[var(--stone)]/30 hover:bg-[var(--bright-grey)]/50'
+                    }`}
+                    aria-label="Call Compass Buyers Agency"
+                  >
+                    <Phone className="h-4 w-4" style={{ color: !isScrolled ? '#fff' : 'var(--hills)' }} />
+                  </a>
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <button
+                        className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
+                          !isScrolled
+                            ? 'border-white/30 bg-transparent hover:bg-white/10'
+                            : 'border-[var(--stone)]/30 bg-transparent hover:bg-[var(--bright-grey)]/50'
+                        }`}
+                        aria-label="Open menu"
+                      >
+                        <Menu className="h-5 w-5" style={{ color: !isScrolled ? '#fff' : 'var(--hills)' }} />
+                      </button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-[300px] max-w-[90vw] bg-white">
+                      <div className="flex flex-col h-full">
+                        <div className="flex justify-between items-center py-6 border-b border-[var(--bright-grey)]">
+                          <div className="flex items-center">
+                            <img
+                              src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
+                              alt={brand?.siteName || "Compass Buyers Agency"}
+                              className="h-7 w-auto" />
+                            <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
+                          </div>
+                          <SheetClose />
+                        </div>
+                        <nav className="flex flex-col space-y-6 py-8" aria-label="Mobile navigation">
+                          {navigationItems
+                            .filter((item) => item.title !== "Contact")
+                            .map((item) =>
+                            <SheetClose asChild key={item.title}>
+                              <Link
+                                to={item.url}
+                                className="text-lg font-medium transition-colors duration-200 capitalize text-[var(--ink)] hover:text-[var(--hills)]"
+                              >
+                                {item.title}
+                              </Link>
+                            </SheetClose>
+                          )}
+                        </nav>
+                        <div className="mt-auto py-6 border-t border-[var(--bright-grey)]">
+                          <SheetClose asChild>
+                            <Link to={createPageUrl("Contact")}>
+                              <Button className="btn-cta w-full bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
+                                {brand?.navCtaLabel || "Speak to an Agent"}
+                              </Button>
+                            </Link>
+                          </SheetClose>
+                        </div>
+                      </div>
+                    </SheetContent>
+                  </Sheet>
+                </div>
+              ) : (
+              <>
               <nav className="hidden xl:flex items-center gap-8" aria-label="Primary navigation">
                 {navigationItems.
                 filter((item) => item.title !== "Contact" && !(currentPageName === "Home" && item.title === "Home")).
@@ -647,7 +713,7 @@ export default function Layout({ children, currentPageName }) {
                       ? 'bg-white/10 backdrop-blur-sm text-white border border-white/25 hover:bg-white/20'
                       : 'bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white'
                   }`}>
-                    Speak to an Agent
+                    {brand?.navCtaLabel || "Speak to an Agent"}
                   </Button>
                 </Link>
               </nav>
@@ -655,7 +721,7 @@ export default function Layout({ children, currentPageName }) {
               {/* Mobile/Tablet: Phone + Hamburger */}
               <div className="xl:hidden flex items-center gap-3">
                 <a
-                  href="tel:0403536390"
+                  href={`tel:${brand?.phoneRaw || "0403536390"}`}
                   className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
                     isHome && !isScrolled
                       ? 'border-white/30 hover:bg-white/10'
@@ -691,7 +757,7 @@ export default function Layout({ children, currentPageName }) {
                         </div>
                         <SheetClose />
                       </div>
-                      
+
                       <nav className="flex flex-col space-y-6 py-8" aria-label="Mobile navigation">
                         {navigationItems.
                         filter((item) => item.title !== "Contact" && !(currentPageName === "Home" && item.title === "Home")).
@@ -716,7 +782,7 @@ export default function Layout({ children, currentPageName }) {
                         <SheetClose asChild>
                           <Link to={createPageUrl("Contact")}>
                             <Button className="btn-cta w-full bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
-                              Speak to an Agent
+                              {brand?.navCtaLabel || "Speak to an Agent"}
                             </Button>
                           </Link>
                         </SheetClose>
@@ -725,16 +791,41 @@ export default function Layout({ children, currentPageName }) {
                   </SheetContent>
                 </Sheet>
               </div>
+              </>
+              )}
             </div>
         </div>
       </header>
 
-      <main id="main-content" className={isHome ? '' : 'pt-20'}>
+      <main id="main-content" className={(isHome || isLanding) ? '' : 'pt-20'}>
         {children}
       </main>
 
       <StickyMobileCTA />
 
+      {isLanding ? (
+        /* Landing page: minimal footer — contact + legal only, no nav escape routes */
+        <footer className="bg-editorial-dark text-white" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="site-container py-10 pb-24 md:pb-10">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6" style={{ fontSize: "0.875rem" }}>
+                <img
+                  src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
+                  alt={brand?.siteName || "Compass Buyers Agency"}
+                  className="h-6 w-auto"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
+                <a href={`tel:${brand?.phoneRaw || "0403536390"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0403 536 390"}</a>
+                <a href={`mailto:${brand?.email || "hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.email || "hello@compassbuyersagency.com.au"}</a>
+              </div>
+              <div className="flex items-center gap-4" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)" }}>
+                <Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white/70 transition-colors">Privacy Policy</Link>
+                <span>&copy; {new Date().getFullYear()} {brand?.siteName || "Compass Buyers Agency"}</span>
+              </div>
+            </div>
+          </div>
+        </footer>
+      ) : (
       <footer className="bg-editorial-dark text-white" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="site-container py-12 md:py-16 pb-24 md:pb-16">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
@@ -747,15 +838,15 @@ export default function Layout({ children, currentPageName }) {
                   {brand?.siteName || "Compass Buyers Agency"}
                 </div>
                 <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", fontWeight: 300, lineHeight: 1.65, maxWidth: "28ch", marginBottom: "1.25rem" }}>
-                  Northern Rivers and Gold Coast buyers agents. Local knowledge, honest advice.
+                  {brand?.footerTagline || "Northern Rivers and Gold Coast buyers agents. Local knowledge, honest advice."}
                 </p>
                 <div className="space-y-1.5" style={{ fontSize: "0.875rem" }}>
-                  <div><a href="tel:0403536390" className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>0403 536 390</a></div>
-                  <div><a href="mailto:hello@compassbuyersagency.com.au" className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>hello@compassbuyersagency.com.au</a></div>
+                  <div><a href={`tel:${brand?.phoneRaw || "0403536390"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0403 536 390"}</a></div>
+                  <div><a href={`mailto:${brand?.email || "hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.email || "hello@compassbuyersagency.com.au"}</a></div>
                 </div>
                 <div className="flex gap-5 mt-5">
-                  <a href="https://www.instagram.com/compassbuyersagency/" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Instagram</a>
-                  <a href="https://www.facebook.com/compassbuyersagency/" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Facebook</a>
+                  <a href={brand?.instagramUrl || "https://www.instagram.com/compassbuyersagency/"} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Instagram</a>
+                  <a href={brand?.facebookUrl || "https://www.facebook.com/compassbuyersagency/"} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Facebook</a>
                 </div>
               </div>
 
@@ -780,12 +871,14 @@ export default function Layout({ children, currentPageName }) {
                   <li><Link to={createPageUrl("GoldCoastBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Gold Coast</Link></li>
                   <li><Link to={createPageUrl("TweedHeadsBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Tweed Heads</Link></li>
                   <li><Link to={createPageUrl("NorthernRiversBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Northern Rivers</Link></li>
+                  <li><Link to={createPageUrl("BrunswickHeadsBuyersAgents")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Brunswick Heads</Link></li>
+                  <li><Link to={createPageUrl("SouthernGoldCoastBuyersAgents")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Southern Gold Coast</Link></li>
                 </ul>
               </div>
             </div>
 
             <div className="mt-8" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", lineHeight: 1.6 }}>
-              We acknowledge the Bundjalung, Gumbaynggirr and Yaegl people as the Traditional Owners of the land on which we live and work. We pay our respects to their Elders past, present and emerging.
+              {brand?.acknowledgement || "We acknowledge the Bundjalung, Gumbaynggirr and Yaegl people as the Traditional Owners of the land on which we live and work. We pay our respects to their Elders past, present and emerging."}
             </div>
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-2 mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
@@ -798,6 +891,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
         </div>
       </footer>
+      )}
 
       </div>
   );

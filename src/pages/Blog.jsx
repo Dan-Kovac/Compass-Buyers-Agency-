@@ -100,8 +100,8 @@ export default function Blog() {
   return (
     <div className="bg-white">
       <SEOHead
-        title="Blog | Compass Buyers Agency"
-        description="Market insights, suburb profiles and buying tips for the Northern Rivers and Gold Coast. Expert advice from local buyers agents."
+        title="Blog | Northern Rivers & Gold Coast Property Insights"
+        description="Market updates, suburb profiles and buying guides for Byron Bay, Tweed Coast and Southern Gold Coast. Data-led insights from local buyers agents."
         canonicalPath="/blog"
       />
 
@@ -158,7 +158,7 @@ export default function Blog() {
       <section
         style={{
           background: "white",
-          padding: "var(--section-compact) 0",
+          padding: "var(--section-padding-compact) 0",
           boxShadow: "0 1px 0 0 rgba(0,0,0,0.04)",
         }}
       >
@@ -321,7 +321,7 @@ export default function Blog() {
       {!loading && <FeaturedPost posts={posts} filteredPosts={filtered} />}
 
       {/* Post grid */}
-      <section style={{ padding: "var(--section-standard) 0" }}>
+      <section style={{ padding: "var(--section-padding) 0" }}>
         <div className="site-container">
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
@@ -334,7 +334,7 @@ export default function Blog() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                 <StaggerGroup stagger={120}>
                   {visiblePosts.map((it) => (
-                    <ScrollReveal key={it.id}>
+                    <ScrollReveal key={it.id} animation="scale-subtle" duration={600}>
                       <BlogCard item={it} />
                     </ScrollReveal>
                   ))}
@@ -343,7 +343,7 @@ export default function Blog() {
 
               {/* Load more / count */}
               {(hasMore || allShownMessageVisible) && (
-                <div style={{ textAlign: "center", marginTop: "var(--section-compact)" }}>
+                <div style={{ textAlign: "center", marginTop: "var(--section-padding-compact)" }}>
                   <p
                     style={{
                       fontFamily: "var(--font-body)",
@@ -396,7 +396,7 @@ export default function Blog() {
               )}
             </>
           ) : (
-            <div style={{ textAlign: "center", padding: "var(--section-standard) 0" }}>
+            <div style={{ textAlign: "center", padding: "var(--section-padding) 0" }}>
               <div
                 style={{
                   fontFamily: "var(--font-heading)",

@@ -91,7 +91,7 @@ const contactStyles = `
   .contact-availability p {
     font-size: clamp(0.8125rem, 1vw, 0.9375rem);
     font-weight: 300;
-    color: var(--stone);
+    color: #6b6965;
     line-height: 1.6;
     margin-bottom: 0;
   }
@@ -148,7 +148,7 @@ const contactStyles = `
   .contact-section-intro {
     font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
     font-weight: 300;
-    color: var(--stone);
+    color: #6b6965;
     margin-bottom: clamp(2rem, 4vw, 3rem);
     line-height: 1.65;
   }
@@ -169,8 +169,8 @@ export default function Contact() {
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Contact Us | Compass Buyers Agency"}
-        description={page?.seo?.metaDescription || "Get in touch with Compass Buyers Agency. Call 0403 536 390 or send us a message. Based in Cabarita Beach, serving Byron Bay to the Gold Coast."}
+        title={page?.seo?.metaTitle || "Contact Us | Talk to a Buyers Agent | Compass"}
+        description={page?.seo?.metaDescription || "Talk to a buyers agent today. Call 0403 536 390 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation."}
         canonicalPath="/contact"
       />
       {/* ContactPage JSON-LD */}
@@ -239,7 +239,7 @@ export default function Contact() {
       </section>
 
       {/* Contact details + enquiry form */}
-      <section className="bg-white" style={{ padding: "var(--section-breathing) 0" }}>
+      <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
         <div className="site-container">
           <div className="contact-grid max-w-5xl mx-auto">
             {/* Left column: contact info */}

@@ -19,7 +19,7 @@ export default function SuccessStories() {
   }, []);
 
   return (
-    <section className="section-padding-lg bg-[var(--sea-breeze)]">
+    <section className="section-padding bg-[var(--sea-breeze)]">
       <div className="site-container">
         {/* Header with copy and CTA aligned to the right */}
         <ScrollReveal>

@@ -26,8 +26,26 @@ export default {
       initialValue: 'Compass Buyers Agency services buyers across Byron Shire, Tweed Shire, Ballina Shire and the City of Gold Coast.',
     },
 
+    // ─── HERO IMAGE ─────────────────────────────────────────────────────────────
+    {
+      name: 'heroImage',
+      title: 'Hero Background Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Optional hero background image for the Areas page header',
+    },
+
+    // ─── MID-PAGE IMAGE BAND ─────────────────────────────────────────────────────
+    {
+      name: 'midBandImage',
+      title: 'Mid-Page Image Band',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Atmospheric image band displayed between the shire sections',
+    },
+
     // ─── SHIRES ───────────────────────────────────────────────────────────────
-    // Each shire has a title, image, and a list of suburbs
+    // Each shire has a title, image, description, and a list of suburbs
     {
       name: 'shires',
       title: 'Shires / Regions',
@@ -42,6 +60,13 @@ export default {
               title: 'Shire Image',
               type: 'image',
               options: { hotspot: true },
+            },
+            {
+              name: 'description',
+              title: 'Shire Description',
+              type: 'text',
+              rows: 3,
+              description: 'Brief description of the shire/region',
             },
             {
               name: 'suburbs',

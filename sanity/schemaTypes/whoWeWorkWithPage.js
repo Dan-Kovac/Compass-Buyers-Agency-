@@ -74,6 +74,27 @@ export default {
       validation: Rule => Rule.max(9),
     },
 
+    // ─── PULL QUOTE ─────────────────────────────────────────────────────────
+    {
+      name: 'pullQuote',
+      title: 'Pull Quote Section',
+      type: 'object',
+      fields: [
+        {
+          name: 'quote',
+          title: 'Quote Text',
+          type: 'text',
+          rows: 3,
+        },
+        {
+          name: 'attribution',
+          title: 'Attribution',
+          type: 'string',
+          description: 'Name and role (e.g. "Bryce Holdaway, Compass Buyers Agency")',
+        },
+      ],
+    },
+
     // ─── CTA SECTION ─────────────────────────────────────────────────────────
     {
       name: 'cta',
@@ -91,6 +112,13 @@ export default {
           title: 'Heading',
           type: 'string',
           initialValue: 'Ready to Get Started?',
+        },
+        {
+          name: 'supportingText',
+          title: 'Supporting Text',
+          type: 'text',
+          rows: 2,
+          description: 'Additional text shown below the heading',
         },
         {
           name: 'buttonText',

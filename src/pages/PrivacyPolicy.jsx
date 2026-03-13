@@ -1,8 +1,14 @@
 import React from "react";
+import SEOHead from "../components/shared/SEOHead";
 
 export default function PrivacyPolicy() {
   return (
     <div className="bg-white">
+      <SEOHead
+        title="Privacy Policy | Compass Buyers Agency"
+        description="How Compass Buyers Agency collects, uses and protects your personal information in accordance with the Australian Privacy Principles."
+        canonicalPath="/privacy-policy"
+      />
       <section className="section-padding">
         <div className="site-container">
           <div className="max-w-3xl mx-auto">
@@ -18,7 +24,7 @@ export default function PrivacyPolicy() {
             <h2>Information We Collect</h2>
             <p>
               We may collect personal information including your name, email address, phone
-              number, property preferences, budget range and purchase timeframe when you
+              number, property preferences, budget range and buying timeframe when you
               enquire through our website or engage our services.
             </p>
 

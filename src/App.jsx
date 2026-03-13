@@ -14,9 +14,21 @@ const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : <></>;
 
-const LayoutWrapper = ({ children, currentPageName }) => Layout ?
-  <Layout currentPageName={currentPageName}>{children}</Layout>
-  : <>{children}</>;
+const LANDING_PAGES = new Set([
+  "ByronBayBuyersAgent",
+  "GoldCoastBuyersAgent",
+  "TweedHeadsBuyersAgent",
+  "NorthernRiversBuyersAgent",
+  "BrunswickHeadsBuyersAgents",
+  "SouthernGoldCoastBuyersAgents",
+]);
+
+const LayoutWrapper = ({ children, currentPageName }) => {
+  const navMode = LANDING_PAGES.has(currentPageName) ? "landing" : undefined;
+  return Layout ?
+    <Layout currentPageName={currentPageName} navMode={navMode}>{children}</Layout>
+    : <>{children}</>;
+};
 
 const fallback = (
   <div className="fixed inset-0 flex items-center justify-center">

@@ -17,7 +17,7 @@ export default function SegmentCardGrid({ segments = [] }) {
   };
 
   return (
-    <section className="bg-white" style={{ padding: "var(--section-standard) 0" }}>
+    <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <nav
           role="navigation"
@@ -31,7 +31,7 @@ export default function SegmentCardGrid({ segments = [] }) {
         >
           <StaggerGroup stagger={100}>
             {segments.map((seg) => (
-              <ScrollReveal key={seg.id} animation="fade-up">
+              <ScrollReveal key={seg.id} animation="scale-subtle" duration={600}>
                 <a
                   href={`#${seg.id}`}
                   className="segment-card"
@@ -43,8 +43,9 @@ export default function SegmentCardGrid({ segments = [] }) {
                 >
                   {/* Card image */}
                   <div
+                    className="segment-card-image"
                     style={{
-                      aspectRatio: "16 / 10",
+                      aspectRatio: "3 / 2",
                       overflow: "hidden",
                     }}
                   >
@@ -62,7 +63,7 @@ export default function SegmentCardGrid({ segments = [] }) {
                   </div>
 
                   {/* Card text area */}
-                  <div style={{ padding: "clamp(1.25rem, 2.5vw, 1.75rem)" }}>
+                  <div style={{ padding: "clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2rem)" }}>
                     <h3
                       style={{
                         fontFamily: "var(--font-heading)",

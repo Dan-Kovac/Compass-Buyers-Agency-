@@ -2,19 +2,22 @@ import React from "react";
 import { fetchCaseStudy, resolveImageUrl } from "@/lib/sanityClient";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import SEOHead from "@/components/shared/SEOHead";
 import ShareBar from "@/components/detail/ShareBar"; // This import can remain, as it's not rendered
 import MetaRow from "@/components/detail/MetaRow";
 import RightRailList from "@/components/detail/RightRailList"; // This import can remain, as it's not rendered
 import RelatedCaseStudies from "@/components/detail/RelatedCaseStudies";
 import { Badge } from "@/components/ui/badge";
 import KeyStatsTable from "@/components/detail/KeyStatsTable";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop";
 
 export default function CaseStudyDetail() {
+  const { slug: routeSlug } = useParams();
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = routeSlug || params.get("id");
   const source = params.get("source");
   const [item, setItem] = React.useState(null);
 
@@ -22,14 +25,12 @@ export default function CaseStudyDetail() {
     (async () => {
       const cs = await fetchCaseStudy(id);
       setItem(cs);
-      if (cs?.meta_title) document.title = cs.meta_title;
-      else if (cs?.title) document.title = cs.title;
     })();
   }, [id]);
 
   if (!item) {
     return (
-      <div className="site-container py-16">
+      <div className="site-container" style={{ padding: "var(--section-padding) 0" }}>
         <div className="text-[var(--ink)]/50">Loading...</div>
       </div>
     );
@@ -40,32 +41,38 @@ export default function CaseStudyDetail() {
 
   return (
     <div className="bg-white">
+      {item && (
+        <SEOHead
+          title={item.seo?.metaTitle || item.meta_title || item.title || "Case Study"}
+          description={item.seo?.metaDescription || item.meta_description || item.excerpt || ""}
+          ogImage={resolveImageUrl(item.seo?.ogImage || item.image, item.featured_image)}
+          canonicalPath={`/case-studies/${id}`}
+        />
+      )}
       <section className="site-container section-padding">
-        <div className="flex justify-between items-center mb-4">
+        <div className="mb-4">
           <div className="text-sm text-[var(--ink)]/50">Case Study</div>
-          {source && (
-            <Link to={createPageUrl("CMSManager?collection=case_studies")} className="text-sm text-[var(--hills)] hover:underline">
-              Back to CMS
-            </Link>
-          )}
         </div>
 
         {/* Center content: replace 3-col grid with a centered max-width container */}
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
             {/* Title */}
-            <h1 className="mb-2">
-              {item?.title}
-            </h1>
+            <ScrollReveal animation="fade-up">
+              <h1 className="mb-2">
+                {item?.title}
+              </h1>
 
-            {/* Excerpt under title */}
-            {item?.excerpt && (
-              <p className="text-[var(--ink)]/60 text-lg mb-4">
-                {item.excerpt}
-              </p>
-            )}
+              {/* Excerpt under title */}
+              {item?.excerpt && (
+                <p className="text-[var(--ink)]/60 text-lg mb-4">
+                  {item.excerpt}
+                </p>
+              )}
+            </ScrollReveal>
 
             {/* REPLACE badges with minimal Key Stats table under the title */}
+            <ScrollReveal animation="fade-up" delay={80}>
             <KeyStatsTable
               location={item.location}
               clientName={item.client_name}
@@ -74,6 +81,8 @@ export default function CaseStudyDetail() {
               purchasePrice={item.purchase_price}
               propertyType={item.property_type}
             />
+
+            </ScrollReveal>
 
             {/* Meta row (date only) */}
             <div className="mt-3">
@@ -93,24 +102,28 @@ export default function CaseStudyDetail() {
             <div className="mt-2 mb-4" />
 
             {/* Hero image card with placeholder fallback */}
-            <div className="surface overflow-hidden mb-6">
-              <img
-                src={resolveImageUrl(item.image, item.featured_image, { width: 1200 }) || PLACEHOLDER_IMG}
-                alt={item.title}
-                className="w-full h-auto object-cover"
-                onError={(e) => {
-                  // Fixed typo: changed PLACEHELDER_IMG to PLACEHOLDER_IMG
-                  if (e.currentTarget.src !== PLACEHOLDER_IMG) e.currentTarget.src = PLACEHOLDER_IMG;
-                }}
-              />
-            </div>
+            <ScrollReveal animation="fade-up" delay={120}>
+              <div className="surface overflow-hidden mb-6">
+                <img
+                  src={resolveImageUrl(item.image, item.featured_image, { width: 1200 }) || PLACEHOLDER_IMG}
+                  alt={item.title}
+                  className="w-full h-auto object-cover"
+                  onError={(e) => {
+                    // Fixed typo: changed PLACEHELDER_IMG to PLACEHOLDER_IMG
+                    if (e.currentTarget.src !== PLACEHOLDER_IMG) e.currentTarget.src = PLACEHOLDER_IMG;
+                  }}
+                />
+              </div>
+            </ScrollReveal>
 
             {/* Content */}
-            <article
-              className="prose-custom"
-              style={{ maxWidth: maxW }}
-              dangerouslySetInnerHTML={{ __html: item.content || "" }}
-            />
+            <ScrollReveal animation="fade-up" delay={160}>
+              <article
+                className="prose-custom"
+                style={{ maxWidth: maxW }}
+                dangerouslySetInnerHTML={{ __html: item.content || "" }}
+              />
+            </ScrollReveal>
 
             {/* Related case studies (3-card grid) */}
             <RelatedCaseStudies currentId={item.id} />
