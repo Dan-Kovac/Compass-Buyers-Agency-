@@ -50,15 +50,9 @@ export default function SegmentSection({
               style={{ color: "var(--ink)", opacity: 0.85 }}
             >
               <span
-                className="shrink-0 mt-1"
-                style={{
-                  color: "var(--hills)",
-                  fontWeight: "var(--font-body-medium)",
-                  fontSize: "0.875rem",
-                }}
-              >
-                —
-              </span>
+                className="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--hills)]"
+                aria-hidden="true"
+              />
               <span style={{ fontWeight: "var(--font-body-light)" }}>{n}</span>
             </li>
           ))}

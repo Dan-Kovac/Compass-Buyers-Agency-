@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 /**
- * Asymmetric 60/40 feature split with editorial typography.
+ * 50/50 feature split with editorial typography.
  *
  * @param {string} eyebrow - Small uppercase label above heading
  * @param {boolean} imageLeft - Whether image appears on left (default: false = image right)
@@ -35,12 +35,14 @@ export default function FeatureSplit({
   return (
     <section className={bg} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
-        {/* Asymmetric grid: 3/5 image, 2/5 text (60/40) */}
-        <div className={`grid lg:grid-cols-5 gap-10 lg:gap-14 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}>
-          {/* Image — 3 of 5 columns */}
+        <div
+          className={`grid lg:grid-cols-2 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}
+          style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
+        >
+          {/* Image */}
           <ScrollReveal
             animation={imgAnim}
-            className={`lg:col-span-3 ${imageLeft ? "lg:col-start-1" : "lg:col-start-3"} ${mobileImageFirst ? "order-first lg:order-none" : ""}`}
+            className={`${imageLeft ? "lg:col-start-1" : "lg:col-start-2"} ${mobileImageFirst ? "order-first lg:order-none" : ""}`}
           >
             <div
               className="aspect-[4/3] overflow-hidden"
@@ -54,38 +56,43 @@ export default function FeatureSplit({
                 alt={imageAlt || title}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                style={{ transition: "transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.015)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
               />
             </div>
           </ScrollReveal>
 
-          {/* Text — 2 of 5 columns */}
+          {/* Text */}
           <ScrollReveal
             animation={textAnim}
             delay={120}
-            className={`lg:col-span-2 ${imageLeft ? "lg:col-start-4" : "lg:col-start-1 lg:row-start-1"}`}
+            className={`${imageLeft ? "lg:col-start-2" : "lg:col-start-1 lg:row-start-1"} flex items-center`}
           >
-            {eyebrow && <p className="eyebrow-label">{eyebrow}</p>}
-            <h2 className="mb-4">{title}</h2>
-            <div
-              className="whitespace-pre-line leading-relaxed"
-              style={{
-                fontWeight: "var(--font-body-light)",
-                fontSize: "1.0625rem",
-                color: "var(--stone)",
-                lineHeight: "1.7",
-              }}
-            >
-              {description}
-            </div>
-            {ctaLabel && ctaHref && (
-              <div className="mt-6">
-                <a href={ctaHref}>
-                  <Button className="btn-cta bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
-                    {ctaLabel}
-                  </Button>
-                </a>
+            <div>
+              {eyebrow && <p className="eyebrow-label">{eyebrow}</p>}
+              <h2 className="mb-4">{title}</h2>
+              <div
+                className="whitespace-pre-line leading-relaxed"
+                style={{
+                  fontWeight: "var(--font-body-light)",
+                  fontSize: "1.0625rem",
+                  color: "var(--stone)",
+                  lineHeight: "1.7",
+                }}
+              >
+                {description}
               </div>
-            )}
+              {ctaLabel && ctaHref && (
+                <div className="mt-6">
+                  <a href={ctaHref}>
+                    <Button className="btn-cta bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
+                      {ctaLabel}
+                    </Button>
+                  </a>
+                </div>
+              )}
+            </div>
           </ScrollReveal>
         </div>
       </div>

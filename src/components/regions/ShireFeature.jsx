@@ -38,9 +38,8 @@ function ArrowIcon({ className = "" }) {
   );
 }
 /**
- * ShireFeature -- Asymmetric 3/5 + 2/5 shire destination showcase.
- * Replaces ShireOverview cards with a full-width alternating layout
- * inspired by FeatureSplit but adapted for suburb directory data.
+ * ShireFeature -- 50/50 shire destination showcase.
+ * Full-width alternating layout adapted for suburb directory data.
  *
  * @param {string} title - Shire name (e.g. "Byron Shire")
  * @param {string} description - Editorial paragraph (from Sanity or fallback)
@@ -72,15 +71,16 @@ export default function ShireFeature({
     >
       <div className="site-container">
         <div
-          className={`grid lg:grid-cols-5 gap-10 lg:gap-14 items-start ${
+          className={`grid lg:grid-cols-2 items-start ${
             imageLeft ? "lg:grid-flow-dense" : ""
           }`}
+          style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
         >
-          {/* Image column -- 3 of 5 columns */}
+          {/* Image column */}
           <ScrollReveal
             animation={imgAnim}
-            className={`lg:col-span-3 ${
-              imageLeft ? "lg:col-start-1" : "lg:col-start-3"
+            className={`${
+              imageLeft ? "lg:col-start-1" : "lg:col-start-2"
             }`}
           >
             <div
@@ -88,8 +88,7 @@ export default function ShireFeature({
               style={{
                 aspectRatio: "4 / 3",
                 borderRadius: "var(--radius-card)",
-                boxShadow:
-                  "0 8px 32px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
               }}
             >
               <img
@@ -98,10 +97,10 @@ export default function ShireFeature({
                 className="w-full h-full object-cover"
                 loading="lazy"
                 style={{
-                  transition: "transform 0.8s var(--ease-out)",
+                  transition: "transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.02)";
+                  e.currentTarget.style.transform = "scale(1.015)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "scale(1)";
@@ -110,13 +109,13 @@ export default function ShireFeature({
             </div>
           </ScrollReveal>
 
-          {/* Text column -- 2 of 5 columns */}
+          {/* Text column */}
           <ScrollReveal
             animation={textAnim}
             delay={120}
-            className={`lg:col-span-2 ${
+            className={`${
               imageLeft
-                ? "lg:col-start-4"
+                ? "lg:col-start-2"
                 : "lg:col-start-1 lg:row-start-1"
             }`}
           >

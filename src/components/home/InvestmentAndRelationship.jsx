@@ -19,15 +19,27 @@ export default function InvestmentAndRelationship({
   return (
     <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Image — clean, generous */}
+        <div
+          className="grid lg:grid-cols-2 items-center"
+          style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
+        >
+          {/* Image */}
           <ScrollReveal animation="fade-right">
-            <div className="aspect-[4/3] overflow-hidden rounded-xl">
+            <div
+              className="aspect-[4/3] overflow-hidden"
+              style={{
+                borderRadius: "12px",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+              }}
+            >
               <img
                 src={imageUrl}
                 alt={imageAlt}
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
+                style={{ transition: "transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.015)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
               />
             </div>
           </ScrollReveal>
