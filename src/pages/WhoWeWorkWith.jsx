@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SegmentCardGrid from "@/components/who/SegmentCardGrid";
 import CTASection from "@/components/shared/CTASection";
-import PullQuoteBreak from "@/components/shared/PullQuoteBreak";
+
 import TestimonialSection from "@/components/shared/TestimonialSection";
 import RecentAcquisitionsStrip from "@/components/home/RecentAcquisitionsStrip";
 import { createPageUrl } from "@/utils";
@@ -235,14 +235,7 @@ export default function WhoWeWorkWith() {
       {/* 2. Compact segment grid with inline expand */}
       <SegmentCardGrid segments={allSegments} />
 
-      {/* 3. Pull quote */}
-      <PullQuoteBreak
-        quote={page?.pullQuote?.quote || "No two buyers are the same. We listen first, then build a plan that fits your life, not the other way around."}
-        attribution={page?.pullQuote?.attribution || "Compass Buyers Agency"}
-        bg="cream"
-      />
-
-      {/* 4. Testimonials */}
+      {/* 3. Testimonials */}
       <TestimonialSection
         heading="Trusted by Buyers Across the Region"
         subtitle="Hear from real buyers about their experience working with Compass."

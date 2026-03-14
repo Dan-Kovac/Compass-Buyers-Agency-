@@ -4,7 +4,7 @@ import { fetchTeamMembers, fetchPage, urlFor } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import FeatureSplit from "../components/about/FeatureSplit";
-import PullQuoteBreak from "@/components/shared/PullQuoteBreak";
+
 import SEOHead from "../components/shared/SEOHead";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
@@ -101,14 +101,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Section 1: Philosophy Quote ── bg-white ───────────────────────── */}
-      <PullQuoteBreak
-        quote={page?.philosophyQuote || "You deserve the same advice I'd give a close friend. That's the standard, every time."}
-        attribution={page?.philosophyAttribution || "Compass Buyers Agency"}
-        bg="white"
-      />
-
-      {/* ── Section 2: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
+      {/* ── Section 1: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
       <FeatureSplit
         eyebrow="Local Knowledge"
         title={page?.featureSplit1?.title || "What Local Actually Means"}
