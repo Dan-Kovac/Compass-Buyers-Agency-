@@ -32,14 +32,19 @@ export default function TeamMemberDetail() {
         if (memberData) {
           document.title = `${memberData.name} | Compass Buyers Agency`;
 
-          // Load acquisitions by this agent
+          // Load acquisitions by this agent (match reference, full name, or first name)
+          const firstName = memberData.name.split(" ")[0];
           const acqList = await client.fetch(
-            `*[_type=="acquisition" && status=="published" && agent==$name] | order(purchase_date desc) [0..11] {
+            `*[_type=="acquisition" && status=="published" && (
+              team_member._ref == $memberId ||
+              agent == $name ||
+              agent == $firstName
+            )] | order(purchase_date desc) [0..11] {
               "id":_id, title, "slug":slug.current, suburb, state, lga, property_type,
               beds, baths, cars, land_size, purchase_price, price_display, purchase_date,
               agent, market_visibility, timeframe, excerpt, main_image, main_image_url, tags, featured
             }`,
-            { name: memberData.name }
+            { memberId: memberData.id, name: memberData.name, firstName }
           );
           setAcquisitions(acqList || []);
 

@@ -329,6 +329,21 @@ export default function About() {
                                 ))}
                               </div>
                             )}
+
+                            {/* View Full Profile link */}
+                            <span
+                              className="segment-card-link"
+                              style={{
+                                fontFamily: "var(--font-body)",
+                                fontWeight: 500,
+                                fontSize: "0.8125rem",
+                                color: "var(--hills)",
+                                marginTop: "0.875rem",
+                                display: "inline-block",
+                              }}
+                            >
+                              View Full Profile &rarr;
+                            </span>
                           </div>
                         </article>
                       </Link>
