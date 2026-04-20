@@ -37,7 +37,17 @@ export default function Home() {
         backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
       />
 
-      {/* 2. Atmospheric parallax band — hinterland landscape */}
+      {/* 2. Trust stats bar — social proof */}
+      <TrustBar />
+
+      {/* 3. Services accordion — dark editorial */}
+      <ServicesAccordionShowcase
+        heading={page?.servicesAccordion?.heading}
+        teamImageUrl={page?.servicesAccordion?.teamImage ? urlFor(page.servicesAccordion.teamImage).width(800).url() : undefined}
+        items={page?.servicesAccordion?.items}
+      />
+
+      {/* 4. Atmospheric parallax band — hinterland landscape */}
       <ImageBand
         src="/images/home/hinterland-morning.jpg"
         alt="Northern Rivers hinterland at dawn"
@@ -45,16 +55,6 @@ export default function Home() {
         mobileHeight="240px"
         parallax={true}
         overlay
-      />
-
-      {/* 3. Trust stats bar — social proof */}
-      <TrustBar />
-
-      {/* 4. Services accordion — dark editorial */}
-      <ServicesAccordionShowcase
-        heading={page?.servicesAccordion?.heading}
-        teamImageUrl={page?.servicesAccordion?.teamImage ? urlFor(page.servicesAccordion.teamImage).width(800).url() : undefined}
-        items={page?.servicesAccordion?.items}
       />
 
       {/* 5. Featured acquisitions — bright grey bg */}
