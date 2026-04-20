@@ -312,10 +312,11 @@ export default function Contact() {
       </section>
 
       <ImageBand
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
-        alt="Northern Rivers coastline"
-        height="280px"
-        mobileHeight="180px"
+        src="/images/contact/july-02.jpg"
+        alt="Aerial view of Northern Rivers coastline"
+        height="340px"
+        mobileHeight="220px"
+        parallax={true}
       />
     </div>
   );

@@ -21,7 +21,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="overflow-hidden">
+    <div>
       <SEOHead
         title={page?.seo?.metaTitle || "Buyers Agent Byron Bay to Gold Coast | Compass"}
         description={page?.seo?.metaDescription || "Byron Bay to Gold Coast buyers agent. $2.45M median Byron, $1.65M Tweed. 42% of our deals are off-market. We find, assess, negotiate."}
@@ -37,22 +37,24 @@ export default function Home() {
         backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
       />
 
-      {/* 2. Trust stats bar — social proof */}
+      {/* 2. Atmospheric parallax band — hinterland landscape */}
+      <ImageBand
+        src="/images/home/hinterland-morning.jpg"
+        alt="Northern Rivers hinterland at dawn"
+        height="380px"
+        mobileHeight="240px"
+        parallax={true}
+        overlay
+      />
+
+      {/* 3. Trust stats bar — social proof */}
       <TrustBar />
 
-      {/* 3. Services accordion — dark editorial */}
+      {/* 4. Services accordion — dark editorial */}
       <ServicesAccordionShowcase
         heading={page?.servicesAccordion?.heading}
         teamImageUrl={page?.servicesAccordion?.teamImage ? urlFor(page.servicesAccordion.teamImage).width(800).url() : undefined}
         items={page?.servicesAccordion?.items}
-      />
-
-      {/* 4. Atmospheric image band — coastal lifestyle */}
-      <ImageBand
-        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
-        alt="Aerial view of Northern Rivers coastline"
-        height="280px"
-        overlay
       />
 
       {/* 5. Featured acquisitions — bright grey bg */}
