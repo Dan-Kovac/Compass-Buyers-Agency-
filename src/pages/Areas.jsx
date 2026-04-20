@@ -14,8 +14,7 @@ import SEOHead from "../components/shared/SEOHead";
 const fallbackShires = [
   {
     title: "Byron Shire",
-    image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/areas/byron-shire.jpg",
     description:
       "Byron Bay medians sit above $2.4M and 40% of stock moves off-market. Bangalow, Suffolk Park and the hinterland each have distinct pricing and character. We know which streets hold value and which carry risk.",
     suburbs: [
@@ -28,8 +27,7 @@ const fallbackShires = [
     ],
   },  {
     title: "Tweed Shire",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1974&auto=format&fit=crop",
+    image: "/images/areas/tweed-shire.jpg",
     description:
       "Kingscliff to Pottsville along the Tweed Coast, then inland through Murwillumbah to the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
     suburbs: [
@@ -43,8 +41,7 @@ const fallbackShires = [
   },
   {
     title: "Ballina Shire",
-    image:
-      "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/areas/ballina-shire.jpg",
     description:
       "Lennox Head draws Byron-priced-out families, while Ballina and Cumbalum offer entry points from $850K. Richmond River frontage, strong school catchments and 15 minutes to Byron make this the shire most buyers underestimate.",
     suburbs: [
@@ -57,8 +54,7 @@ const fallbackShires = [
     ],
   },  {
     title: "City of Gold Coast",
-    image:
-      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=1974&auto=format&fit=crop",
+    image: "/images/areas/gold-coast.jpg",
     description:
       "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
     suburbs: [
@@ -174,13 +170,13 @@ export default function Areas() {
         src={
           page?.midBandImage
             ? urlFor(page.midBandImage).width(2000).url()
-            : "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
+            : "/images/areas/mid-band.jpg"
         }
-        alt="Northern Rivers hinterland landscape"
+        alt="Northern Rivers coastline"
         height="340px"
         mobileHeight="200px"
         overlay
-        parallax
+        parallax={true}
       />
 
       {/* Sections 6-7: Second pair of shires (Ballina + Gold Coast) */}
