@@ -67,6 +67,20 @@ export default function AcquisitionCard({ item }) {
         >
           {item.title}
         </h3>
+        {item.excerpt && (
+          <p
+            className="text-[13px] text-[var(--stone)] leading-relaxed mb-3"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              fontWeight: 300,
+            }}
+          >
+            {item.excerpt}
+          </p>
+        )}
         {(item.beds > 0 || item.baths > 0 || item.cars > 0) && (
           <div className="text-[13px] text-[var(--stone)] mt-auto">
             {[
