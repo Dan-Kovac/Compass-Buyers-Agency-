@@ -9,6 +9,7 @@ import ImageBand from "../components/shared/ImageBand";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import SEOHead from "../components/shared/SEOHead";
 import ScrollReveal from "@/components/shared/ScrollReveal";
+import PageHero from "@/components/shared/PageHero";
 
 export default function Services() {
   const [page, setPage] = React.useState(null);
@@ -48,22 +49,13 @@ export default function Services() {
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/services"
       />
-      {/* Page header */}
-      <section className="bg-warm-gradient page-header">
-        <div className="site-container">
-          <ScrollReveal>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="eyebrow-label">Our Services</p>
-              <h1>
-                {page?.heading || "How We Help You Buy"}
-              </h1>
-              <p>
-                {page?.subtitle || "From finding the right property to handing you the keys. We search, assess, negotiate and manage the process so you don't have to."}
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Our Services"
+        title={page?.heading || "How We Help You Buy"}
+        subtitle={page?.subtitle || "From finding the right property to handing you the keys. We search, assess, negotiate and manage the process so you don't have to."}
+        backgroundImage="/images/pages/services.jpg"
+        objectPosition="center 40%"
+      />
 
       <div style={{ paddingBottom: "var(--section-padding-compact)" }}>
         <SegmentsNav segments={segments} />

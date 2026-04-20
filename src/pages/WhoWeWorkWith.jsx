@@ -7,6 +7,7 @@ import RecentAcquisitionsStrip from "@/components/home/RecentAcquisitionsStrip";
 import { createPageUrl } from "@/utils";
 import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
+import PageHero from "@/components/shared/PageHero";
 import SEOHead from "../components/shared/SEOHead";
 
 const fallbackSegments = [
@@ -215,22 +216,13 @@ export default function WhoWeWorkWith() {
         canonicalPath="/who-we-work-with"
       />
 
-      {/* 1. Hero */}
-      <section className="bg-warm-gradient page-header">
-        <div className="site-container">
-          <ScrollReveal>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="eyebrow-label">Our Clients</p>
-              <h1>
-                {page?.heading || "Who We Work With"}
-              </h1>
-              <p className="intro-text" style={{ maxWidth: "48ch", margin: "1.25rem auto 0" }}>
-                {page?.subtitle || "Every buyer is different. Whether you're chasing a sea change, growing a portfolio or buying from interstate, we shape our approach around you."}
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Our Clients"
+        title={page?.heading || "Who We Work With"}
+        subtitle={page?.subtitle || "Every buyer is different. Whether you're chasing a sea change, growing a portfolio or buying from interstate, we shape our approach around you."}
+        backgroundImage="/images/pages/who-we-work-with.jpg"
+        objectPosition="center 55%"
+      />
 
       {/* 2. Compact segment grid with inline expand */}
       <SegmentCardGrid segments={allSegments} />

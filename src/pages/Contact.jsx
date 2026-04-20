@@ -4,6 +4,7 @@ import ContactFormCompact from "../components/shared/ContactFormCompact";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import ImageBand from "@/components/shared/ImageBand";
 import ReviewsBadge from "@/components/shared/ReviewsBadge";
+import PageHero from "@/components/shared/PageHero";
 import SEOHead from "../components/shared/SEOHead";
 import { fetchPage } from "@/lib/sanityClient";
 
@@ -234,20 +235,15 @@ export default function Contact() {
 
       <style>{contactStyles}</style>
 
-      {/* Compact header */}
-      <section className="contact-header">
-        <div className="site-container">
-          <ScrollReveal>
-            <p className="eyebrow-label">Get in Touch</p>
-            <h1>{page?.heading || "Talk to a Buyers Agent"}</h1>
-            <p className="contact-header__lead">
-              {page?.subtitle ||
-                "Free consultation. No obligation. We'll answer your questions and outline how we can help."}
-            </p>
-            <ReviewsBadge variant="light" />
-          </ScrollReveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Get in Touch"
+        title={page?.heading || "Talk to a Buyers Agent"}
+        subtitle={page?.subtitle || "Free consultation. No obligation. We'll answer your questions and outline how we can help."}
+        backgroundImage="/images/pages/contact.jpg"
+        height="52vh"
+        minHeight="380px"
+        objectPosition="center 25%"
+      />
 
       {/* Form + contact details */}
       <section className="contact-body">

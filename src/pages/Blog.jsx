@@ -4,6 +4,7 @@ import BlogCard from "@/components/blog/BlogCard";
 import FeaturedPost from "@/components/blog/FeaturedPost";
 import CTASection from "@/components/shared/CTASection.jsx";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
+import PageHero from "@/components/shared/PageHero";
 import { createPageUrl } from "@/utils";
 import SEOHead from "../components/shared/SEOHead";
 
@@ -137,22 +138,13 @@ export default function Blog() {
         }}
       />
 
-      {/* Page header */}
-      <section className="bg-warm-gradient page-header">
-        <div className="site-container">
-          <ScrollReveal>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="eyebrow-label">Insights</p>
-              <h1>Blog</h1>
-              <p>
-                Market insights, buying tips, suburb profiles and local
-                knowledge to help you make informed property decisions in the
-                Northern Rivers and Southern Gold Coast.
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Insights"
+        title="Local Knowledge, Written Down"
+        subtitle="Market insights, buying tips, suburb profiles and local knowledge to help you make informed property decisions in the Northern Rivers and Southern Gold Coast."
+        backgroundImage="/images/pages/blog.jpg"
+        objectPosition="center 60%"
+      />
 
       {/* Filters */}
       <section
