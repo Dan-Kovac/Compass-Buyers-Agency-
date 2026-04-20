@@ -238,8 +238,10 @@ export default function AdLandingTemplate({
       <ImageBand
         src={imageBandSrc || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"}
         alt={imageBandAlt || "Aerial view of Northern Rivers coastline"}
-        height="280px"
+        height="340px"
+        mobileHeight="220px"
         overlay
+        parallax={true}
       />
 
       {/* 11. CTA — dark variant, localised heading */}

@@ -108,7 +108,7 @@ export default function GoldCoastBuyersAgent() {
           eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
         }}
         faqItems={faq}
-        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/areas/gold-coast.jpg"}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/landing/gold-coast.jpg"}
         imageBandAlt={page?.imageBandAlt || "Gold Coast southern coastline"}
         cta={{
           heading: page?.ctaHeading ?? FALLBACK.cta.heading,

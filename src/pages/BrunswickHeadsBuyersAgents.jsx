@@ -108,7 +108,7 @@ export default function BrunswickHeadsBuyersAgents() {
           eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
         }}
         faqItems={faq}
-        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/areas/mid-band.jpg"}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/landing/brunswick-heads.jpg"}
         imageBandAlt={page?.imageBandAlt || "Brunswick Heads coastline"}
         cta={{
           heading: page?.ctaHeading ?? FALLBACK.cta.heading,

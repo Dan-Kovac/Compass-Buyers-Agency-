@@ -44,7 +44,7 @@ export default function ImageBand({
         loading="lazy"
         style={{
           position: "absolute",
-          top: "-15%",
+          top: parallax ? "-15%" : "0",
           left: 0,
           width: "100%",
           height: parallax ? "130%" : "100%",

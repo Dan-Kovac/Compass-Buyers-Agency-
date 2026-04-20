@@ -108,7 +108,7 @@ export default function TweedHeadsBuyersAgent() {
           eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
         }}
         faqItems={faq}
-        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/areas/tweed-shire.jpg"}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/landing/tweed-heads.jpg"}
         imageBandAlt={page?.imageBandAlt || "Tweed Coast waterway aerial"}
         cta={{
           heading: page?.ctaHeading ?? FALLBACK.cta.heading,

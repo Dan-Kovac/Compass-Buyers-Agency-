@@ -108,7 +108,7 @@ export default function ByronBayBuyersAgent() {
           eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
         }}
         faqItems={faq}
-        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/areas/hero.jpg"}
+        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/landing/byron-bay.jpg"}
         imageBandAlt={page?.imageBandAlt || "Byron Bay coastline at golden hour"}
         cta={{
           heading: page?.ctaHeading ?? FALLBACK.cta.heading,
