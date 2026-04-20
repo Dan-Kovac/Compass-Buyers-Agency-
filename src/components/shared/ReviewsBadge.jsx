@@ -18,13 +18,13 @@ const GOOGLE_G = (
   </svg>
 );
 
-function Star({ filled = true }) {
+function Star({ filled = true, emptyColor = "rgba(255,255,255,0.25)" }) {
   return (
     <svg
       width="14"
       height="14"
       viewBox="0 0 20 20"
-      fill={filled ? "#FBBC05" : "rgba(255,255,255,0.25)"}
+      fill={filled ? "#FBBC05" : emptyColor}
       aria-hidden="true"
     >
       <path d="M10 1.12l2.39 5.73 6.18.57c.48.04.67.64.32.99l-4.68 4.2 1.4 6.05c.1.46-.4.82-.8.58L10 15.89l-5.41 3.35c-.42.24-.92-.12-.82-.58l1.4-6.05-4.68-4.2c-.35-.35-.16-.95.32-.99l6.18-.57L10 1.12z" />
@@ -32,11 +32,38 @@ function Star({ filled = true }) {
   );
 }
 
+const VARIANTS = {
+  dark: {
+    bg: "rgba(255,255,255,0.1)",
+    bgHover: "rgba(255,255,255,0.16)",
+    border: "1px solid rgba(255,255,255,0.15)",
+    borderHover: "rgba(255,255,255,0.25)",
+    color: "#fff",
+    divider: "rgba(255,255,255,0.25)",
+    count: "rgba(255,255,255,0.7)",
+    starEmpty: "rgba(255,255,255,0.25)",
+    blur: true,
+  },
+  light: {
+    bg: "rgba(255,255,255,0.9)",
+    bgHover: "#ffffff",
+    border: "1px solid rgba(26,26,26,0.08)",
+    borderHover: "rgba(26,26,26,0.16)",
+    color: "var(--ink)",
+    divider: "rgba(26,26,26,0.12)",
+    count: "var(--stone)",
+    starEmpty: "rgba(26,26,26,0.12)",
+    blur: false,
+  },
+};
+
 export default function ReviewsBadge({
   rating = 5.0,
   reviewCount = 84,
   href = "https://www.google.com/maps/place/Compass+Buyers+Agency",
+  variant = "dark",
 }) {
+  const v = VARIANTS[variant] || VARIANTS.dark;
   return (
     <a
       href={href}
@@ -47,30 +74,29 @@ export default function ReviewsBadge({
         alignItems: "center",
         gap: "0.625rem",
         padding: "0.5rem 0.875rem",
-        background: "rgba(255,255,255,0.1)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        background: v.bg,
+        backdropFilter: v.blur ? "blur(12px)" : undefined,
+        WebkitBackdropFilter: v.blur ? "blur(12px)" : undefined,
         borderRadius: "999px",
-        border: "1px solid rgba(255,255,255,0.15)",
+        border: v.border,
         textDecoration: "none",
-        color: "#fff",
-        transition: "background 0.3s ease, border-color 0.3s ease",
+        color: v.color,
+        transition: "background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
         cursor: "pointer",
+        boxShadow: variant === "light" ? "0 1px 3px rgba(0,0,0,0.04)" : undefined,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = "rgba(255,255,255,0.16)";
-        e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+        e.currentTarget.style.background = v.bgHover;
+        e.currentTarget.style.borderColor = v.borderHover;
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-        e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)";
+        e.currentTarget.style.background = v.bg;
+        e.currentTarget.style.borderColor = v.border.split(" ").slice(-1)[0];
       }}
       aria-label={`Rated ${rating} out of 5 from ${reviewCount} Google reviews`}
     >
-      {/* Google logo */}
       {GOOGLE_G}
 
-      {/* Rating number */}
       <span
         style={{
           fontSize: "0.9375rem",
@@ -82,29 +108,26 @@ export default function ReviewsBadge({
         {rating.toFixed(1)}
       </span>
 
-      {/* Stars */}
       <span style={{ display: "inline-flex", gap: "1px", lineHeight: 0 }}>
         {Array.from({ length: 5 }, (_, i) => (
-          <Star key={i} filled={i < Math.round(rating)} />
+          <Star key={i} filled={i < Math.round(rating)} emptyColor={v.starEmpty} />
         ))}
       </span>
 
-      {/* Divider */}
       <span
         style={{
           width: "1px",
           height: "14px",
-          background: "rgba(255,255,255,0.25)",
+          background: v.divider,
           flexShrink: 0,
         }}
       />
 
-      {/* Review count */}
       <span
         style={{
           fontSize: "0.8125rem",
           fontWeight: 400,
-          color: "rgba(255,255,255,0.7)",
+          color: v.count,
           lineHeight: 1,
           whiteSpace: "nowrap",
         }}

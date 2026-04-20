@@ -3,154 +3,170 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import ContactFormCompact from "../components/shared/ContactFormCompact";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import ImageBand from "@/components/shared/ImageBand";
+import ReviewsBadge from "@/components/shared/ReviewsBadge";
 import SEOHead from "../components/shared/SEOHead";
 import { fetchPage } from "@/lib/sanityClient";
 
-/* ─── Scoped styles for Contact page ─────────────────────────────────────── */
 const contactStyles = `
+  .contact-header {
+    padding-top: clamp(6rem, 10vw, 8rem);
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    text-align: center;
+    background: linear-gradient(165deg, #ffffff 0%, rgba(242,236,206,0.12) 50%, rgba(214,239,251,0.06) 100%);
+  }
+
+  .contact-header h1 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0.5rem 0 1rem;
+  }
+
+  .contact-header__lead {
+    font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+    font-weight: 300;
+    color: #6b6965;
+    line-height: 1.6;
+    max-width: 38rem;
+    margin: 0 auto clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  .contact-body {
+    padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 6vw, 5rem);
+    background: #fff;
+  }
+
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 5vw, 4rem);
+    gap: clamp(2rem, 4vw, 3rem);
     align-items: start;
+    max-width: 64rem;
+    margin: 0 auto;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 900px) {
     .contact-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 5fr);
+      gap: clamp(2.5rem, 5vw, 4rem);
     }
   }
 
-  /* Mobile: form first, contact details second */
-  @media (max-width: 1023px) {
-    .contact-grid .contact-details { order: 2; }
-    .contact-grid .contact-form   { order: 1; }
+  @media (max-width: 899px) {
+    .contact-grid .contact-aside { order: 2; }
+    .contact-grid .contact-form  { order: 1; }
   }
 
-  /* Icon container with subtle hills-tinted background */
-  .contact-icon-wrap {
-    width: clamp(2.5rem, 4vw, 3rem);
-    height: clamp(2.5rem, 4vw, 3rem);
-    border-radius: var(--radius-button);
-    background: linear-gradient(135deg, rgba(75,115,113,0.08), rgba(75,115,113,0.04));
+  /* Aside - compact contact details */
+  .contact-aside__block {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(26,26,26,0.06);
+  }
+
+  .contact-aside__block:first-of-type { padding-top: 0; }
+  .contact-aside__block:last-of-type  { border-bottom: none; }
+
+  .contact-aside__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: rgba(75,115,113,0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
 
-  .contact-icon-wrap svg {
-    width: clamp(1.125rem, 1.5vw, 1.25rem);
-    height: clamp(1.125rem, 1.5vw, 1.25rem);
+  .contact-aside__icon svg {
+    width: 1rem;
+    height: 1rem;
     color: var(--hills);
-    stroke-width: 1.5;
+    stroke-width: 1.6;
   }
 
-  /* Contact detail values */
-  .contact-value {
+  .contact-aside__label {
     font-family: var(--font-body);
-    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-aside__value {
+    font-family: var(--font-body);
+    font-size: clamp(0.9375rem, 1.1vw, 1rem);
     font-weight: var(--font-body-medium);
     color: var(--ink);
     line-height: 1.4;
+    text-decoration: none;
+    transition: color 200ms var(--ease-out);
   }
 
-  /* Elevated phone value */
-  .contact-value--phone {
-    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-    font-weight: var(--font-body-medium);
+  a.contact-aside__value:hover { color: var(--hills); }
+
+  .contact-aside__value--phone {
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
     color: var(--hills);
-    transition: opacity 300ms var(--ease-out);
+    letter-spacing: -0.01em;
   }
 
-  .contact-value--phone:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-color: rgba(75,115,113,0.4);
-  }
-
-  /* Email hover */
-  .contact-value--email {
-    transition: color 300ms var(--ease-out);
-    word-break: break-all;
-  }
-
-  .contact-value--email:hover {
-    color: var(--hills);
-  }
-
-  /* Availability note with sea-breeze wash */
-  .contact-availability {
-    background: linear-gradient(135deg, rgba(214,239,251,0.12), rgba(214,239,251,0.06));
-    border-left: 3px solid var(--sea-breeze);
-    padding: clamp(1rem, 2vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
-    border-radius: 0 var(--radius-button) var(--radius-button) 0;
-  }
-
-  .contact-availability p {
-    font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+  .contact-aside__hours {
+    font-size: 0.8125rem;
     font-weight: 300;
-    color: #6b6965;
-    line-height: 1.6;
-    margin-bottom: 0;
-  }
-
-  /* Social icon squares */
-  .contact-social-link {
-    width: clamp(2.5rem, 4vw, 2.75rem);
-    height: clamp(2.5rem, 4vw, 2.75rem);
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    border-radius: var(--radius-button);
-    border: 1px solid var(--bright-grey);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--stone);
-    transition: all 300ms var(--ease-out);
+    margin-top: 0.25rem;
+    line-height: 1.5;
   }
 
-  .contact-social-link svg {
-    width: clamp(1rem, 1.2vw, 1.125rem);
-    height: clamp(1rem, 1.2vw, 1.125rem);
-    fill: currentColor;
-  }
-
-  .contact-social-link:hover {
-    border-color: var(--hills);
-    background: var(--hills);
-    color: white;
-    transform: translateY(-1px);
-  }
-
-  /* Form card — warmer, more generous */
+  /* Form card - clean white with subtle hills accent on top */
   .contact-form-card {
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(242,236,206,0.15) 0%, transparent 70%),
-      linear-gradient(180deg, rgba(242,236,206,0.08) 0%, rgba(242,236,206,0.18) 100%);
+    background: #fff;
+    border: 1px solid rgba(26,26,26,0.06);
+    border-top: 3px solid var(--hills);
     border-radius: clamp(0.75rem, 1.5vw, 1rem);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(242,236,206,0.3);
+    box-shadow: 0 4px 24px rgba(26,26,26,0.04);
+    overflow: hidden;
   }
 
-  /* Section heading in left column */
-  .contact-section-heading {
+  .contact-form-card__header {
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2rem) 0;
+  }
+
+  .contact-form-card__title {
     font-family: var(--font-heading);
     font-weight: 400;
-    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-    line-height: 1.15;
+    font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
     color: var(--ink);
-    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    margin: 0 0 0.5rem;
   }
 
-  .contact-section-intro {
-    font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  .contact-form-card__sub {
+    font-size: clamp(0.8125rem, 1vw, 0.9375rem);
     font-weight: 300;
-    color: #6b6965;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-    line-height: 1.65;
+    color: var(--stone);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Strip the surface rounding inside the card since card already provides it */
+  .contact-form-card .surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  .contact-form-card .surface > div[class*="p-"] {
+    padding-top: clamp(1rem, 2vw, 1.25rem) !important;
   }
 `;
 
@@ -173,7 +189,6 @@ export default function Contact() {
         description={page?.seo?.metaDescription || "Talk to a buyers agent today. Call 0403 536 390 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation."}
         canonicalPath="/contact"
       />
-      {/* ContactPage JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -217,133 +232,78 @@ export default function Contact() {
         }}
       />
 
-      {/* Scoped styles */}
       <style>{contactStyles}</style>
 
-      {/* Page header */}
-      <section className="bg-warm-gradient page-header">
+      {/* Compact header */}
+      <section className="contact-header">
         <div className="site-container">
           <ScrollReveal>
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="eyebrow-label">Get in Touch</p>
-              <h1>
-                {page?.heading || "Let\u2019s Talk"}
-              </h1>
-              <p>
-                {page?.subtitle ||
-                  "Whether you\u2019re ready to start searching or just exploring your options, we\u2019d love to hear from you."}
-              </p>
-            </div>
+            <p className="eyebrow-label">Get in Touch</p>
+            <h1>{page?.heading || "Talk to a Buyers Agent"}</h1>
+            <p className="contact-header__lead">
+              {page?.subtitle ||
+                "Free consultation. No obligation. We'll answer your questions and outline how we can help."}
+            </p>
+            <ReviewsBadge variant="light" />
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Contact details + enquiry form */}
-      <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
+      {/* Form + contact details */}
+      <section className="contact-body">
         <div className="site-container">
-          <div className="contact-grid max-w-5xl mx-auto">
-            {/* Left column: contact info */}
-            <ScrollReveal animation="fade-right" className="contact-details">
+          <div className="contact-grid">
+            {/* Left: compact contact details */}
+            <ScrollReveal animation="fade-right" className="contact-aside">
               <div>
-                {/* Section heading */}
-                <h2 className="contact-section-heading">Prefer to talk?</h2>
-                <p className="contact-section-intro">
-                  We're always happy to chat. No obligation, no pressure.
-                </p>
-
-                {/* Contact items */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "clamp(1.5rem, 3vw, 2rem)" }}>
-                  {/* Phone */}
-                  <a href={`tel:${phoneRaw}`} className="flex items-start group" style={{ gap: "clamp(0.75rem, 2vw, 1rem)" }}>
-                    <div className="contact-icon-wrap">
-                      <Phone />
-                    </div>
-                    <div>
-                      <div className="eyebrow-label" style={{ marginBottom: "0.25rem" }}>Mobile</div>
-                      <div className="contact-value contact-value--phone">
-                        {phone}
-                      </div>
-                    </div>
-                  </a>
-
-                  {/* Email */}
-                  <a href={`mailto:${email}`} className="flex items-start group" style={{ gap: "clamp(0.75rem, 2vw, 1rem)" }}>
-                    <div className="contact-icon-wrap">
-                      <Mail />
-                    </div>
-                    <div>
-                      <div className="eyebrow-label" style={{ marginBottom: "0.25rem" }}>Email</div>
-                      <div className="contact-value contact-value--email">
-                        {email}
-                      </div>
-                    </div>
-                  </a>
-
-                  {/* Address */}
-                  <div className="flex items-start" style={{ gap: "clamp(0.75rem, 2vw, 1rem)" }}>
-                    <div className="contact-icon-wrap">
-                      <MapPin />
-                    </div>
-                    <div>
-                      <div className="eyebrow-label" style={{ marginBottom: "0.25rem" }}>Office</div>
-                      <div className="contact-value">
-                        {address}
-                      </div>
-                    </div>
+                <div className="contact-aside__block">
+                  <div className="contact-aside__icon"><Phone /></div>
+                  <div>
+                    <div className="contact-aside__label">Call</div>
+                    <a href={`tel:${phoneRaw}`} className="contact-aside__value contact-aside__value--phone">
+                      {phone}
+                    </a>
+                    <div className="contact-aside__hours">Monday to Saturday, 8am–5pm</div>
                   </div>
                 </div>
 
-                {/* Divider */}
-                <hr style={{ borderColor: "var(--bright-grey)", margin: "clamp(1.5rem, 3vw, 2rem) 0" }} />
-
-                {/* Availability note */}
-                <div className="contact-availability">
-                  <p>
-                    We're available Monday to Saturday. For urgent enquiries, give
-                    us a call. Otherwise, fill out the form and we'll be in touch
-                    within 24 hours.
-                  </p>
+                <div className="contact-aside__block">
+                  <div className="contact-aside__icon"><Mail /></div>
+                  <div>
+                    <div className="contact-aside__label">Email</div>
+                    <a href={`mailto:${email}`} className="contact-aside__value" style={{ wordBreak: "break-all" }}>
+                      {email}
+                    </a>
+                  </div>
                 </div>
 
-                {/* Social */}
-                <div style={{ marginTop: "clamp(1.5rem, 3vw, 2rem)" }}>
-                  <div className="eyebrow-label" style={{ marginBottom: "0.75rem" }}>Follow Us</div>
-                  <div className="flex items-center" style={{ gap: "clamp(0.75rem, 1.5vw, 1rem)" }}>
-                    <a
-                      href="https://www.instagram.com/compassbuyersagency"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="contact-social-link"
-                      aria-label="Instagram"
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://www.facebook.com/compassbuyersagency"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="contact-social-link"
-                      aria-label="Facebook"
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                      </svg>
-                    </a>
+                <div className="contact-aside__block">
+                  <div className="contact-aside__icon"><MapPin /></div>
+                  <div>
+                    <div className="contact-aside__label">Visit</div>
+                    <div className="contact-aside__value">{address}</div>
                   </div>
                 </div>
               </div>
             </ScrollReveal>
 
-            {/* Right column: enquiry form in warm card */}
+            {/* Right: form */}
             <ScrollReveal animation="fade-left" delay={120} id="enquiry-form" className="contact-form">
               <div className="contact-form-card">
+                <div className="contact-form-card__header">
+                  <h2 className="contact-form-card__title">
+                    {page?.formTitle || "Book Your Free Consultation"}
+                  </h2>
+                  <p className="contact-form-card__sub">
+                    Share a few details and we'll be in touch within 24 hours.
+                  </p>
+                </div>
                 <ContactFormCompact
-                  title={page?.formTitle || "Send Us a Message"}
                   showHeaderImage={false}
+                  hideHeader={true}
                   defaultPreferencesOpen={false}
                   preferencesLabel="Property preferences (optional)"
+                  submitLabel="Book My Free Consult"
                 />
               </div>
             </ScrollReveal>
@@ -351,7 +311,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Atmospheric image divider */}
       <ImageBand
         src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop"
         alt="Northern Rivers coastline"
