@@ -41,8 +41,8 @@ const fallbackSegments = [
       "Thorough due diligence and building & pest coordination",
       "Negotiation of favourable terms and settlement flexibility",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Downsizers lifestyle",
+    imageUrl: "/images/who-we-work-with/downsizers.jpg",
+    imageAlt: "Modern low-maintenance townhouse development ideal for downsizers",
   },
   {
     id: "prestige",
