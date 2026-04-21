@@ -7,7 +7,6 @@ import FeatureSplit from "../components/about/FeatureSplit";
 
 import SEOHead from "../components/shared/SEOHead";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
-import PageHero from "@/components/shared/PageHero";
 
 /* ── Fallback stat data ────────────────────────────────────────────────────── */
 const DEFAULT_STATS = [
@@ -85,13 +84,22 @@ export default function About() {
         }}
       />
 
-      <PageHero
-        eyebrow="About Compass"
-        title={page?.heading || "Your Team on the Tweed Coast"}
-        subtitle={page?.subtitle || "Licensed buyers agents who live where you're looking. Local streets, local agents, local knowledge, all working for you."}
-        backgroundImage="/images/pages/about.jpg"
-        objectPosition="center 30%"
-      />
+      {/* ── Section 0: Page Header ── bg-warm-gradient ─────────────────────── */}
+      <section className="bg-warm-gradient page-header">
+        <div className="site-container">
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="eyebrow-label">About Compass</p>
+              <h1>
+                {page?.heading || "Your Team on the Tweed Coast"}
+              </h1>
+              <p className="text-balance">
+                {page?.subtitle || "Licensed buyers agents who live where you're looking. Local streets, local agents, local knowledge, all working for you."}
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* ── Section 1: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
       <FeatureSplit
