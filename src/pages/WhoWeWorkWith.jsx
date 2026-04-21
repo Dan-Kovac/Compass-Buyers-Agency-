@@ -109,8 +109,8 @@ const fallbackSegments = [
       "Video inspections, detailed reports and local market context",
       "Full representation from search through to settlement",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "International property buying",
+    imageUrl: "/images/who-we-work-with/international-buyers.jpg",
+    imageAlt: "Compass agent beside a Just Bought sign in Kingscliff",
   },
   {
     id: "rural-acreage",
