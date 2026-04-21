@@ -160,8 +160,8 @@ const fallbackSegments = [
       "Lease analysis, tenant assessment and yield modelling",
       "Negotiation with commercial-specific terms and conditions",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Commercial property",
+    imageUrl: "/images/who-we-work-with/commercial-property-buyers.jpg",
+    imageAlt: "Compass agent at a property inspection",
   },
 ];
 
