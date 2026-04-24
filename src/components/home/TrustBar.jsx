@@ -1,17 +1,13 @@
 import React from "react";
 
 const STATS = [
-  { end: 70, suffix: "+", label: "Properties Secured" },
-  { end: 150, prefix: "$", suffix: "M+", label: "In Property Value" },
-  { end: 15, suffix: "+", label: "Years Local Experience" },
-  { end: 100, suffix: "%", label: "Buyer Focused" },
+  { end: 80, suffix: "+", label: "Years Combined Experience" },
+  { end: 3.6, prefix: "$", suffix: "B", label: "Transacted", decimals: 1 },
+  { end: 74, suffix: "%", label: "Off Market Transactions" },
+  { static: true, value: "#1 in 2025", label: "Agency in Northern NSW & Gold Coast" },
 ];
 
-/**
- * useCountUp — animates a number from 0 to `end` when visible.
- * Starts counting once the element enters the viewport.
- */
-function useCountUp(end, duration = 2000) {
+function useCountUp(end, duration = 2000, decimals = 0) {
   const [count, setCount] = React.useState(0);
   const ref = React.useRef(null);
   const hasAnimated = React.useRef(false);
@@ -28,9 +24,9 @@ function useCountUp(end, duration = 2000) {
           function tick(now) {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
-            // Ease-out cubic for a smooth deceleration
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.round(eased * end));
+            const raw = eased * end;
+            setCount(decimals > 0 ? parseFloat(raw.toFixed(decimals)) : Math.round(raw));
             if (progress < 1) requestAnimationFrame(tick);
           }
 
@@ -43,13 +39,17 @@ function useCountUp(end, duration = 2000) {
 
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [end, duration]);
+  }, [end, duration, decimals]);
 
   return { count, ref };
 }
 
 function StatItem({ stat, isLast }) {
-  const { count, ref } = useCountUp(stat.end);
+  const { count, ref } = useCountUp(stat.end || 0, 2000, stat.decimals || 0);
+
+  const displayValue = stat.static
+    ? stat.value
+    : `${stat.prefix || ""}${stat.decimals ? count.toFixed(stat.decimals) : count}${stat.suffix || ""}`;
 
   return (
     <div
@@ -69,10 +69,10 @@ function StatItem({ stat, isLast }) {
           lineHeight: 1,
         }}
       >
-        {stat.prefix || ""}{count}{stat.suffix || ""}
+        {displayValue}
       </span>
       <span
-        className="block"
+        className="block text-center"
         style={{
           fontFamily: "var(--font-body)",
           fontWeight: 300,
@@ -80,6 +80,7 @@ function StatItem({ stat, isLast }) {
           letterSpacing: "0.08em",
           textTransform: "uppercase",
           color: "rgba(255, 255, 255, 0.55)",
+          maxWidth: "14ch",
         }}
       >
         {stat.label}
@@ -88,10 +89,6 @@ function StatItem({ stat, isLast }) {
   );
 }
 
-/**
- * TrustBar — dark stats bar with count-up animation.
- * Sits between the hero and the editorial content.
- */
 export default function TrustBar({ stats }) {
   const data = stats || STATS;
   return (
