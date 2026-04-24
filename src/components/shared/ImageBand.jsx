@@ -1,15 +1,5 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
-/**
- * Full-width atmospheric image divider.
- * Pure visual — no text, no CTA. Creates breathing room between sections.
- *
- * @param {string} src - Image URL
- * @param {string} alt - Alt text
- * @param {string} height - CSS height (default "280px")
- * @param {boolean} overlay - Adds warm tint overlay
- * @param {boolean} parallax - CSS parallax on desktop (background-attachment: fixed)
- */
 export default function ImageBand({
   src,
   alt = "",
@@ -18,50 +8,56 @@ export default function ImageBand({
   overlay = true,
   parallax = false,
 }) {
-  // Use window width to determine if mobile — but CSS handles the actual sizing
   const responsiveHeight = `clamp(${mobileHeight}, 20vw, ${height})`;
+  const containerRef = useRef(null);
+  const imgRef = useRef(null);
 
-  if (parallax) {
-    return (
-      <div
-        className="w-full relative"
-        style={{
-          height: responsiveHeight,
-          backgroundImage: `url(${src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-        role="img"
-        aria-label={alt}
-      >
-        {overlay && (
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(rgba(242,236,206,0.08), rgba(75,115,113,0.05))",
-            }}
-          />
-        )}
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!parallax || !containerRef.current || !imgRef.current) return;
+    const container = containerRef.current;
+    const img = imgRef.current;
+
+    const update = () => {
+      const rect = container.getBoundingClientRect();
+      const winH = window.innerHeight;
+      const progress = (winH - rect.top) / (winH + rect.height);
+      // Shift the image ±15% of container height as it scrolls through viewport
+      const offset = (progress - 0.5) * rect.height * 0.3;
+      img.style.transform = `translateY(${offset.toFixed(1)}px)`;
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, [parallax]);
 
   return (
-    <div className="w-full relative overflow-hidden" style={{ height: responsiveHeight }}>
+    <div
+      ref={containerRef}
+      className="w-full relative overflow-hidden"
+      style={{ height: responsiveHeight }}
+    >
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         loading="lazy"
-        className="w-full h-full object-cover"
+        style={{
+          position: "absolute",
+          top: parallax ? "-15%" : "0",
+          left: 0,
+          width: "100%",
+          height: parallax ? "130%" : "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+          willChange: parallax ? "transform" : undefined,
+        }}
       />
       {overlay && (
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(rgba(242,236,206,0.08), rgba(75,115,113,0.05))",
+            background: "linear-gradient(rgba(242,236,206,0.08), rgba(75,115,113,0.05))",
           }}
         />
       )}

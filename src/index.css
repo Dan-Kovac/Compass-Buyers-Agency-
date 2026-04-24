@@ -243,8 +243,8 @@ body {
 
   /* Page header section (used on all inner pages) */
   .page-header {
-    padding-top: clamp(8rem, 15vw, 12rem);
-    padding-bottom: var(--section-padding);
+    padding-top: clamp(5.5rem, 9vw, 7.5rem);
+    padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
     text-align: center;
   }
 

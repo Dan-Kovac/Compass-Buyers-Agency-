@@ -205,7 +205,10 @@ export default function ContactFormCompact({
   title = "Get In Touch",
   showHeaderImage = true,
   preferencesLabel = "Add preferences (optional)",
-  defaultPreferencesOpen = false
+  defaultPreferencesOpen = false,
+  hideHeader = false,
+  trustLine = "No obligation. We'll get back to you within 24 hours.",
+  submitLabel = "Send enquiry"
 }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -288,12 +291,12 @@ Sent from Compact Contact Form
       )}
 
       <div className="p-6 md:p-8">
-        <h3 className="cfc-heading">{title}</h3>
-
-        {/* Trust line */}
-        <p className="cfc-trust-line">
-          No obligation. We'll get back to you within 24 hours.
-        </p>
+        {!hideHeader && (
+          <>
+            <h3 className="cfc-heading">{title}</h3>
+            {trustLine && <p className="cfc-trust-line">{trustLine}</p>}
+          </>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <p id="required-note" className="sr-only">Fields marked with * are required</p>
@@ -443,7 +446,7 @@ Sent from Compact Contact Form
             disabled={isSubmitting}
             className="cfc-submit"
           >
-            {isSubmitting ? "Sending..." : "Send enquiry"}
+            {isSubmitting ? "Sending..." : submitLabel}
           </button>
 
           {/* Status messages */}

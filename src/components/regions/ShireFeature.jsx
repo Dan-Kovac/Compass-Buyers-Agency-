@@ -2,42 +2,6 @@ import React from "react";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 /**
- * Landing page slug map -- links suburbs to their dedicated landing pages.
- * As new landing pages are built, add entries here.
- */
-const LANDING_PAGE_MAP = {
-  "Byron Bay": "/byron-bay-buyers-agent",
-  "Tweed Heads": "/tweed-heads-buyers-agent",
-  "Brunswick Heads": "/brunswick-heads-buyers-agent",
-  "Currumbin": "/southern-gold-coast-buyers-agent",
-  "Palm Beach": "/southern-gold-coast-buyers-agent",
-};
-
-/**
- * Small inline arrow SVG for suburb links.
- */
-function ArrowIcon({ className = "" }) {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M2.5 6H9.5M9.5 6L6.5 3M9.5 6L6.5 9"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-/**
  * ShireFeature -- 50/50 shire destination showcase.
  * Full-width alternating layout adapted for suburb directory data.
  *
@@ -177,23 +141,18 @@ export default function ShireFeature({
             {/* Suburb list */}
             <div style={{ marginTop: "clamp(1rem, 2vw, 1.5rem)" }}>
               {suburbs.map((suburb, i) => {
-                const landingSlug =
-                  suburb.landingPageSlug || LANDING_PAGE_MAP[suburb.name];
                 const isLast = i === suburbs.length - 1;
-
                 return (
                   <div
                     key={suburb.name}
-                    className="flex items-center justify-between"
                     style={{
                       padding: `var(--suburb-row-py) 0`,
-                      borderBottom: isLast
-                        ? "none"
-                        : "1px solid var(--bright-grey)",
+                      borderBottom: isLast ? "none" : "1px solid var(--bright-grey)",
                       minHeight: "44px",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {/* Suburb name */}
                     <span
                       style={{
                         fontFamily: "var(--font-body)",
@@ -204,65 +163,6 @@ export default function ShireFeature({
                     >
                       {suburb.name}
                     </span>
-                    {/* Link states: landing page > blog profile > no link */}
-                    {landingSlug ? (
-                      <a
-                        href={landingSlug}
-                        className="shire-suburb-link"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "0.375rem",
-                          color: "var(--hills)",
-                          fontWeight: "var(--font-body-medium)",
-                          fontSize: "clamp(0.8125rem, 0.9vw, 0.875rem)",
-                          textDecoration: "none",
-                          transition: "color 0.3s",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.textDecoration = "underline";
-                          e.currentTarget.style.textUnderlineOffset = "4px";
-                          const arrow = e.currentTarget.querySelector(".suburb-arrow");
-                          if (arrow) arrow.style.transform = "translateX(3px)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.textDecoration = "none";
-                          const arrow = e.currentTarget.querySelector(".suburb-arrow");
-                          if (arrow) arrow.style.transform = "translateX(0)";
-                        }}
-                      >
-                        Explore area
-                        <span
-                          className="suburb-arrow"
-                          style={{ transition: "transform 0.3s", display: "inline-flex" }}
-                        >
-                          <ArrowIcon />
-                        </span>
-                      </a>
-                    ) : suburb.isLive && suburb.slug ? (
-                      <a
-                        href={`/blog-post-detail?slug=${encodeURIComponent(suburb.slug)}`}
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "0.375rem",
-                          color: "var(--stone)",
-                          fontWeight: "var(--font-body-medium)",
-                          fontSize: "clamp(0.8125rem, 0.9vw, 0.875rem)",
-                          textDecoration: "none",
-                          transition: "color 0.3s",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.textDecoration = "underline";
-                          e.currentTarget.style.textUnderlineOffset = "4px";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.textDecoration = "none";
-                        }}
-                      >
-                        View profile
-                      </a>
-                    ) : null}
                   </div>
                 );
               })}

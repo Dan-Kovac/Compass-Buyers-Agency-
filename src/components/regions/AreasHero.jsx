@@ -19,8 +19,7 @@ export default function AreasHero({
   image,
   imageAlt = "Aerial view of the Northern Rivers coastline",
 }) {
-  const fallbackImage =
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1920&auto=format&fit=crop";
+  const fallbackImage = "/images/areas/hero.jpg";
 
   return (
     <section

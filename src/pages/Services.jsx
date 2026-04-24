@@ -162,8 +162,8 @@ export default function Services() {
           "Modelled returns, rental demand and risk assessment",
           "Buy rules and review cadence to keep you on track",
         ]}
-        image={seg(3)?.image ? urlFor(seg(3).image).width(800).url() : "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1600&auto=format&fit=crop"}
-        imageAlt={seg(3)?.imageAlt || "Portfolio planning session"}
+        image={seg(3)?.image ? urlFor(seg(3).image).width(800).url() : "/images/services/portfolio-strategy.jpg"}
+        imageAlt={seg(3)?.imageAlt || "Compass buyers agent on a call reviewing a portfolio strategy"}
         imageLeft
         bg="bg-sand-wash"
         index={3}
