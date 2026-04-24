@@ -59,7 +59,6 @@ const VARIANTS = {
 
 export default function ReviewsBadge({
   rating = 5.0,
-  reviewCount = 84,
   href = "https://www.google.com/maps/place/Compass+Buyers+Agency",
   variant = "dark",
 }) {
@@ -93,7 +92,7 @@ export default function ReviewsBadge({
         e.currentTarget.style.background = v.bg;
         e.currentTarget.style.borderColor = v.border.split(" ").slice(-1)[0];
       }}
-      aria-label={`Rated ${rating} out of 5 from ${reviewCount} Google reviews`}
+      aria-label={`Rated ${rating} out of 5 on Google`}
     >
       {GOOGLE_G}
 
@@ -114,26 +113,6 @@ export default function ReviewsBadge({
         ))}
       </span>
 
-      <span
-        style={{
-          width: "1px",
-          height: "14px",
-          background: v.divider,
-          flexShrink: 0,
-        }}
-      />
-
-      <span
-        style={{
-          fontSize: "0.8125rem",
-          fontWeight: 400,
-          color: v.count,
-          lineHeight: 1,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {reviewCount} reviews
-      </span>
     </a>
   );
 }

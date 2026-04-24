@@ -7,11 +7,11 @@ import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 const DEFAULT_ITEMS = [
-  { id: "buying", title: "Property buying", desc: "We search, evaluate and negotiate to secure the right property, at the right price and terms. End-to-end and stress-free." },
-  { id: "auction", title: "Auction bidding", desc: "Professional strategy and on-the-day representation to keep emotion out and results in." },
-  { id: "due", title: "Due diligence", desc: "Independent research, valuations, building & pest, and legal review for informed decisions." },
-  { id: "negotiate", title: "Negotiation & settlement", desc: "We handle every step of the deal to protect your position and deliver better outcomes." },
-  { id: "invest", title: "Investment advisory", desc: "Data-led insights, suburb selection and portfolio strategy tailored to your goals." },
+  { id: "buying", title: "Property Buying", desc: "We search, evaluate and negotiate to secure the right property, at the right price and terms. End-to-end and stress-free." },
+  { id: "auction", title: "Auction Bidding", desc: "Professional strategy and on-the-day representation to keep emotion out and results in." },
+  { id: "due", title: "Due Diligence", desc: "Independent research, valuations, building & pest, and legal review for informed decisions." },
+  { id: "negotiate", title: "Negotiation & Settlement", desc: "We handle every step of the deal to protect your position and deliver better outcomes." },
+  { id: "invest", title: "Investment Advisory", desc: "Data-led insights, suburb selection and portfolio strategy tailored to your goals." },
 ];
 
 const DEFAULT_TEAM_IMAGE = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/0b49c2526_6.png";
