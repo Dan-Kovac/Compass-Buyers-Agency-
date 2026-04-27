@@ -31,7 +31,7 @@ export default {
       name: 'phone',
       title: 'Phone Number',
       type: 'string',
-      initialValue: '0403 536 390',
+      initialValue: '0467 634 565',
     },
     {
       name: 'email',

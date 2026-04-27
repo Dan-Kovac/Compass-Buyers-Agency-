@@ -103,7 +103,7 @@ export const STATIC_SEO = {
   },
   Contact: {
     metaTitle: 'Contact Us | Talk to a Buyers Agent | Compass',
-    metaDescription: 'Talk to a buyers agent today. Call 0403 536 390 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation.',
+    metaDescription: 'Talk to a buyers agent today. Call Chris on 0467 634 565 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation.',
   },
   WhoWeWorkWith: {
     metaTitle: 'Who We Work With | First Home to Prestige | Compass',

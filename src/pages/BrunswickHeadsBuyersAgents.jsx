@@ -127,7 +127,7 @@ export default function BrunswickHeadsBuyersAgents() {
             url: "https://compassagency.com.au/brunswick-heads-buyers-agent/",
             logo: "https://compassagency.com.au/logo.png",
             description: "Brunswick Heads buyers agent covering Brunswick Heads, Ocean Shores, New Brighton and South Golden Beach. Off-market access, flood analysis and Byron Shire expertise.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             areaServed: [
               { "@type": "City", name: "Brunswick Heads" },

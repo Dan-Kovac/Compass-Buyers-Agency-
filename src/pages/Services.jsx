@@ -199,7 +199,7 @@ export default function Services() {
             name: "Compass Buyers Agency",
             url: "https://compassagency.com.au/services",
             description: "Full-service buyer advocacy from search to settlement. Property sourcing, auction bidding, negotiation and portfolio strategy across Northern Rivers and Gold Coast.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             address: {
               "@type": "PostalAddress",

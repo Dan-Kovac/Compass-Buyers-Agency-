@@ -63,7 +63,7 @@ export default function About() {
               "@type": "RealEstateAgent",
               name: "Compass Buyers Agency",
               url: "https://compassagency.com.au",
-              telephone: "+61403536390",
+              telephone: "+61467634565",
               email: "hello@compassbuyersagency.com.au",
               address: {
                 "@type": "PostalAddress",

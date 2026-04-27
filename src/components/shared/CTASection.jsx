@@ -80,11 +80,11 @@ export default function CTASection({
               ) : null}
 
               <a
-                href="tel:0403536390"
+                href="tel:0467634565"
                 className="text-[15px] transition-colors"
                 style={{ color: isDark ? "rgba(255,255,255,0.5)" : "var(--stone)", fontWeight: 300 }}
               >
-                or call <span className="underline underline-offset-2" style={{ color: isDark ? "var(--sand)" : "var(--hills)", fontWeight: 400 }}>0403 536 390</span>
+                or call Chris on <span className="underline underline-offset-2" style={{ color: isDark ? "var(--sand)" : "var(--hills)", fontWeight: 400 }}>0467 634 565</span>
               </a>
             </div>
           </div>

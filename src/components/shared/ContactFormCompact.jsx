@@ -456,7 +456,7 @@ Sent from Compact Contact Form
               <p className="cfc-success__body">
                 We've received your message and will be in touch within 24 hours.
                 If it's urgent, call us on{" "}
-                <a href="tel:0403536390">0403 536 390</a>.
+                <a href="tel:0467634565">Chris on 0467 634 565</a>.
               </p>
             </div>
           )}
@@ -464,7 +464,7 @@ Sent from Compact Contact Form
             <div className="cfc-error">
               <p>
                 Something went wrong. Please try again or call us on{" "}
-                <a href="tel:0403536390">0403 536 390</a>.
+                <a href="tel:0467634565">Chris on 0467 634 565</a>.
               </p>
             </div>
           )}

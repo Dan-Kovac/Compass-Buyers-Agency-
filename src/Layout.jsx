@@ -683,7 +683,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                 /* Landing page: phone + hamburger — lets users navigate back to main site */
                 <div className="flex items-center gap-3">
                   <a
-                    href={`tel:${brand?.phoneRaw || "0403536390"}`}
+                    href={`tel:${brand?.phoneRaw || "0467634565"}`}
                     className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
                       !isScrolled
                         ? 'border-white/30 hover:bg-white/10'
@@ -725,7 +725,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                             <SheetClose asChild key={item.title}>
                               <Link
                                 to={item.url}
-                                className="text-lg font-medium transition-colors duration-200 capitalize text-[var(--ink)] hover:text-[var(--hills)]"
+                                className="text-sm font-medium tracking-[0.14em] uppercase transition-colors duration-200 text-[var(--ink)] hover:text-[var(--hills)]"
                               >
                                 {item.title}
                               </Link>
@@ -735,7 +735,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                         <div className="mt-auto py-6 border-t border-[var(--bright-grey)]">
                           <SheetClose asChild>
                             <Link to={createPageUrl("Contact")}>
-                              <Button className="btn-cta w-full bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
+                              <Button className="btn-cta w-full text-[12px] uppercase tracking-[0.14em] bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
                                 {brand?.navCtaLabel || "Speak to an Agent"}
                               </Button>
                             </Link>
@@ -755,7 +755,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                   key={item.title}
                   to={item.url}
                   aria-current={location.pathname === item.url ? "page" : undefined}
-                  className={`text-[16px] transition-colors duration-300 ${
+                  className={`text-[13px] uppercase tracking-[0.12em] transition-colors duration-300 ${
                     isHome && !isScrolled
                       ? location.pathname === item.url
                         ? 'text-white font-medium'
@@ -769,7 +769,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                 </Link>
                 )}
                 <Link to={createPageUrl("Contact")}>
-                  <Button className={`btn-cta text-[14px] ${
+                  <Button className={`btn-cta text-[12px] uppercase tracking-[0.14em] ${
                     isHome && !isScrolled
                       ? 'bg-white/10 backdrop-blur-sm text-white border border-white/25 hover:bg-white/20'
                       : 'bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white'
@@ -782,7 +782,7 @@ export default function Layout({ children, currentPageName, navMode }) {
               {/* Mobile/Tablet: Phone + Hamburger */}
               <div className="xl:hidden flex items-center gap-3">
                 <a
-                  href={`tel:${brand?.phoneRaw || "0403536390"}`}
+                  href={`tel:${brand?.phoneRaw || "0467634565"}`}
                   className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
                     isHome && !isScrolled
                       ? 'border-white/30 hover:bg-white/10'
@@ -827,7 +827,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                             <Link
                             to={item.url}
                             aria-current={location.pathname === item.url ? "page" : undefined}
-                            className={`text-lg font-medium transition-colors duration-200 capitalize ${
+                            className={`text-sm font-medium tracking-[0.14em] uppercase transition-colors duration-200 ${
                               location.pathname === item.url
                                 ? 'text-[var(--hills)]'
                                 : 'text-[var(--ink)] hover:text-[var(--hills)]'
@@ -876,7 +876,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                   className="h-6 w-auto"
                   style={{ filter: 'brightness(0) invert(1)' }}
                 />
-                <a href={`tel:${brand?.phoneRaw || "0403536390"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0403 536 390"}</a>
+                <a href={`tel:${brand?.phoneRaw || "0467634565"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0467 634 565"}</a>
                 <a href={`mailto:${brand?.email || "hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.email || "hello@compassbuyersagency.com.au"}</a>
               </div>
               <div className="flex items-center gap-4" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)" }}>
@@ -902,7 +902,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                   {brand?.footerTagline || "Northern Rivers and Gold Coast buyers agents. Local knowledge, honest advice."}
                 </p>
                 <div className="space-y-1.5" style={{ fontSize: "0.875rem" }}>
-                  <div><a href={`tel:${brand?.phoneRaw || "0403536390"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0403 536 390"}</a></div>
+                  <div><a href={`tel:${brand?.phoneRaw || "0467634565"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0467 634 565"}</a></div>
                   <div><a href={`mailto:${brand?.email || "hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.email || "hello@compassbuyersagency.com.au"}</a></div>
                 </div>
                 <div className="flex gap-5 mt-5">

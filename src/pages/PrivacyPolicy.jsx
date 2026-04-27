@@ -58,8 +58,8 @@ export default function PrivacyPolicy() {
                 hello@compassbuyersagency.com.au
               </a>{" "}
               or calling{" "}
-              <a href="tel:0403536390" className="text-[var(--hills)] underline">
-                0403 536 390
+              <a href="tel:0467634565" className="text-[var(--hills)] underline">
+                0467 634 565
               </a>.
             </p>
 
