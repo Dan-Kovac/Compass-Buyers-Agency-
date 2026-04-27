@@ -9,6 +9,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import PageNotFound from './lib/PageNotFound';
 import ErrorBoundary from '@/components/shared/ErrorBoundary';
 import { PAGE_SLUGS, LEGACY_REDIRECTS } from '@/utils';
+import AnalyticsTracker from '@/lib/analytics';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -42,6 +43,7 @@ function App() {
       <HelmetProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
+          <AnalyticsTracker />
           <Suspense fallback={fallback}>
             <Routes>
               <Route path="/" element={
