@@ -57,6 +57,24 @@ export default function CaseStudies() {
         description="Real results from buyers across Northern Rivers and the Southern Gold Coast. See how we've helped clients secure property."
         canonicalPath="/case-studies"
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Case Studies | Compass Buyers Agency",
+            url: "https://compassagency.com.au/case-studies",
+            description: "Buyer case studies from Compass Buyers Agency. Real briefs, real strategies, real outcomes from across Northern Rivers and the Southern Gold Coast.",
+            isPartOf: { "@type": "WebSite", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+            about: {
+              "@type": "RealEstateAgent",
+              name: "Compass Buyers Agency",
+              url: "https://compassagency.com.au",
+            },
+          }),
+        }}
+      />
       {/* Page header — standard pattern */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">

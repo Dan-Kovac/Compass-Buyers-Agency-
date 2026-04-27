@@ -128,6 +128,25 @@ export default function Areas() {
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/areas"
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Areas We Serve | Compass Buyers Agency",
+            url: "https://compassagency.com.au/areas",
+            description: "Buyers agent service areas across the Tweed Coast, Byron Shire, Ballina Shire and Gold Coast.",
+            isPartOf: { "@type": "WebSite", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+            about: [
+              { "@type": "Place", name: "Tweed Coast" },
+              { "@type": "Place", name: "Byron Shire" },
+              { "@type": "Place", name: "Ballina Shire" },
+              { "@type": "Place", name: "Gold Coast" },
+            ],
+          }),
+        }}
+      />
 
       {/* Section 1: Hero */}
       <AreasHero

@@ -75,7 +75,7 @@ const fallbackSegments = [
       "Modelled returns, rental demand and risk assessment",
       "Access to pre-market and off-market opportunities",
     ],
-    imageUrl: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/4f242bdaa_CompassServices1.jpg",
+    imageUrl: "/images/pages/who-we-work-with.jpg",
     imageAlt: "Investor review",
   },
   {
@@ -213,6 +213,24 @@ export default function WhoWeWorkWith() {
         description={page?.seo?.metaDescription || "Buyers agent for first home buyers, downsizers, investors, interstate movers and prestige buyers. Nine buyer segments, one process."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/who-we-work-with"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Who We Work With | Compass Buyers Agency",
+            url: "https://compassagency.com.au/who-we-work-with",
+            description: "Buyer segments served by Compass Buyers Agency, from first home buyers and downsizers through to investors, interstate movers and prestige buyers.",
+            isPartOf: { "@type": "WebSite", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+            about: {
+              "@type": "RealEstateAgent",
+              name: "Compass Buyers Agency",
+              url: "https://compassagency.com.au",
+            },
+          }),
+        }}
       />
 
       {/* 1. Hero */}

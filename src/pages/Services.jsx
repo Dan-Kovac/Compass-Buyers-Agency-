@@ -84,7 +84,7 @@ export default function Services() {
           "Private and off-market access via our local agent network",
           "Thorough due diligence and contract support to settlement",
         ]}
-        image={seg(0)?.image ? urlFor(seg(0).image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/7ee9b92c9_CONTENTSHOOTJULY-20.jpg"}
+        image={seg(0)?.image ? urlFor(seg(0).image).width(800).url() : "/images/pages/services.jpg"}
         imageAlt={seg(0)?.imageAlt || "Compass team members"}
         imageLeft={false}
         bg="bg-white"
@@ -106,7 +106,7 @@ export default function Services() {
           "Local insights and detailed property comparables",
           "Shortlists refined to your brief with clear trade-offs",
         ]}
-        image={seg(1)?.image ? urlFor(seg(1).image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/d62d38c74_CONTENTSHOOTJULY-16.jpg"}
+        image={seg(1)?.image ? urlFor(seg(1).image).width(800).url() : "/images/services/portfolio-strategy.jpg"}
         imageAlt={seg(1)?.imageAlt || "Aerial view of Northern Rivers waterfront properties"}
         imageLeft
         bg="bg-sand-wash"

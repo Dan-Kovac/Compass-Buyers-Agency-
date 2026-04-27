@@ -59,10 +59,11 @@ const formStyles = `
     font-weight: 300;
   }
 
-  .cfc-input:focus {
+  .cfc-input:focus-visible {
     border-color: var(--hills);
-    box-shadow: 0 0 0 3px rgba(75,115,113,0.1);
-    outline: none;
+    outline: 2px solid var(--hills);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(75,115,113,0.15);
   }
 
   .cfc-input--error {

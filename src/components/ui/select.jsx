@@ -16,7 +16,7 @@ const SelectTrigger = React.forwardRef(({ className, children, ...props }, ref) 
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border bg-white px-3 py-2 text-sm shadow-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hills)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
     style={{ borderColor: "var(--bright-grey)", color: "var(--ink)" }}
@@ -92,7 +92,7 @@ const SelectItem = React.forwardRef(({ className, children, ...props }, ref) => 
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-2 pl-2 pr-8 text-sm outline-none data-[highlighted]:bg-[rgba(75,115,113,0.08)] data-[highlighted]:text-[var(--hills)] data-[state=checked]:bg-[rgba(75,115,113,0.12)] data-[state=checked]:text-[var(--hills)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-2 pl-2 pr-8 text-sm outline-none focus-visible:ring-2 focus-visible:ring-[var(--hills)] data-[highlighted]:bg-[rgba(75,115,113,0.08)] data-[highlighted]:text-[var(--hills)] data-[state=checked]:bg-[rgba(75,115,113,0.12)] data-[state=checked]:text-[var(--hills)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     style={{ color: "var(--ink)" }}
