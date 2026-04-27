@@ -36,19 +36,20 @@ export default function FeatureSplit({
     <section className={bg} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <div
-          className={`grid lg:grid-cols-2 items-center ${imageLeft ? "lg:grid-flow-dense" : ""}`}
+          className={`grid lg:grid-cols-2 items-stretch ${imageLeft ? "lg:grid-flow-dense" : ""}`}
           style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
         >
           {/* Image */}
           <ScrollReveal
             animation={imgAnim}
-            className={`${imageLeft ? "lg:col-start-1" : "lg:col-start-2"} ${mobileImageFirst ? "order-first lg:order-none" : ""}`}
+            className={`${imageLeft ? "lg:col-start-1" : "lg:col-start-2"} ${mobileImageFirst ? "order-first lg:order-none" : ""} h-full`}
           >
             <div
-              className="aspect-[4/3] overflow-hidden"
+              className="aspect-[4/3] lg:aspect-auto lg:h-full overflow-hidden"
               style={{
                 borderRadius: "12px",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                minHeight: "clamp(280px, 40vw, 460px)",
               }}
             >
               <img

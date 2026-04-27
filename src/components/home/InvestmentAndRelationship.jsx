@@ -20,16 +20,17 @@ export default function InvestmentAndRelationship({
     <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <div
-          className="grid lg:grid-cols-2 items-center"
+          className="grid lg:grid-cols-2 items-stretch"
           style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
         >
           {/* Image */}
-          <ScrollReveal animation="fade-right">
+          <ScrollReveal animation="fade-right" className="h-full">
             <div
-              className="aspect-[4/3] overflow-hidden"
+              className="aspect-[4/3] lg:aspect-auto lg:h-full overflow-hidden"
               style={{
                 borderRadius: "12px",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                minHeight: "clamp(280px, 40vw, 460px)",
               }}
             >
               <img

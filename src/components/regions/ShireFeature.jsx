@@ -36,7 +36,7 @@ export default function ShireFeature({
     >
       <div className="site-container">
         <div
-          className={`grid lg:grid-cols-2 items-start ${
+          className={`grid lg:grid-cols-2 items-stretch ${
             imageLeft ? "lg:grid-flow-dense" : ""
           }`}
           style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
@@ -46,14 +46,14 @@ export default function ShireFeature({
             animation={imgAnim}
             className={`${
               imageLeft ? "lg:col-start-1" : "lg:col-start-2"
-            }`}
+            } h-full`}
           >
             <div
-              className="overflow-hidden shire-feature-image-wrap"
+              className="overflow-hidden shire-feature-image-wrap aspect-[4/3] lg:aspect-auto lg:h-full"
               style={{
-                aspectRatio: "4 / 3",
                 borderRadius: "var(--radius-card)",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                minHeight: "clamp(280px, 40vw, 460px)",
               }}
             >
               <img
