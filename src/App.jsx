@@ -5,7 +5,6 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { pagesConfig } from './pages.config'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import PageNotFound from './lib/PageNotFound';
 import ErrorBoundary from '@/components/shared/ErrorBoundary';
 import { PAGE_SLUGS, LEGACY_REDIRECTS } from '@/utils';
@@ -40,7 +39,6 @@ const fallback = (
 function App() {
   return (
     <ErrorBoundary>
-      <HelmetProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <AnalyticsTracker />
@@ -84,7 +82,6 @@ function App() {
         </Router>
         <Toaster />
       </QueryClientProvider>
-      </HelmetProvider>
     </ErrorBoundary>
   )
 }
