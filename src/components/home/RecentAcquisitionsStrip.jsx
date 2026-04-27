@@ -59,7 +59,9 @@ export default function RecentAcquisitionsStrip({
       try {
         const all = await fetchAcquisitions({ status: "published" });
         let pool = (all || []).filter(
-          (i) => (i.main_image?.asset || i.main_image_url) && (i.purchase_price || 0) > 0
+          (i) =>
+            (i.main_image?.asset || i.main_image_url) &&
+            ((i.purchase_price || 0) > 0 || i.price_confidential || i.price_display)
         );
 
         // Location prioritisation when called from a landing page
@@ -99,9 +101,8 @@ export default function RecentAcquisitionsStrip({
 
   /* Split by price — premium = top half, entry = bottom half.
      Keep at least 3 in each row when possible. */
-  const sortedDesc = [...items].sort(
-    (a, b) => (b.purchase_price || 0) - (a.purchase_price || 0)
-  );
+  const sortKey = (i) => (i.price_confidential ? Number.MAX_SAFE_INTEGER : i.purchase_price || 0);
+  const sortedDesc = [...items].sort((a, b) => sortKey(b) - sortKey(a));
   const splitPoint = Math.max(3, Math.ceil(sortedDesc.length / 2));
   const premium = sortedDesc.slice(0, Math.min(splitPoint, sortedDesc.length));
   const entryLevel = sortedDesc

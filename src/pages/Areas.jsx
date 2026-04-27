@@ -15,14 +15,18 @@ const fallbackShires = [
   {
     title: "Tweed Coast",
     image: "/images/areas/tweed-shire.jpg",
+    stat: "100+ properties acquired",
     description:
-      "Kingscliff to Pottsville along the Tweed Coast, then inland through Murwillumbah to the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
+      "Our number one focus. Kingscliff to Pottsville along the coast, through Banora Point, Terranora and Bilambil in the hinterland, then inland to Murwillumbah and the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
     suburbs: [
       { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
       { name: "Cabarita Beach", isLive: false },
       { name: "Casuarina", isLive: false },
       { name: "Pottsville", isLive: false },
       { name: "Tweed Heads", isLive: false },
+      { name: "Banora Point", isLive: false },
+      { name: "Terranora", isLive: false },
+      { name: "Bilambil", isLive: false },
       { name: "Murwillumbah", isLive: false },
     ],
   },
@@ -91,12 +95,16 @@ export default function Areas() {
   const fallbackDescriptionMap = Object.fromEntries(
     fallbackShires.map((s) => [s.title, s.description])
   );
+  const fallbackStatMap = Object.fromEntries(
+    fallbackShires.map((s) => [s.title, s.stat])
+  );
 
   /* Map Sanity data into component-ready shape, with fallbacks */
   const shires = page?.shires?.length
     ? page.shires.map((s) => ({
         title: s.title,
         description: s.description || fallbackDescriptionMap[s.title] || undefined,
+        stat: s.stat || fallbackStatMap[s.title] || undefined,
         image: s.image
           ? urlFor(s.image).width(1200).url()
           : fallbackImageMap[s.title] || undefined,
@@ -158,6 +166,7 @@ export default function Areas() {
           key={shire.title}
           title={shire.title}
           description={shire.description}
+          stat={shire.stat}
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}
@@ -187,6 +196,7 @@ export default function Areas() {
           key={shire.title}
           title={shire.title}
           description={shire.description}
+          stat={shire.stat}
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}

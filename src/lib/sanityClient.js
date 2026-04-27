@@ -242,6 +242,7 @@ const ACQUISITION_FIELDS = `
   land_size_unit,
   purchase_price,
   price_display,
+  price_confidential,
   purchase_date,
   agent,
   market_visibility,

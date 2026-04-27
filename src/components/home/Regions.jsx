@@ -8,19 +8,20 @@ const DEFAULT_ITEMS = [
   { label: "Tweed Coast", image: "/images/areas/tweed-shire.jpg" },
   { label: "Gold Coast", image: "/images/areas/gold-coast.jpg" },
   { label: "Byron Shire", image: "/images/areas/byron-shire.jpg" },
+  { label: "Ballina Shire", image: "/images/areas/ballina-shire.jpg" },
 ];
 
 export default function Regions({
   heading = "Where We Buy",
   eyebrow = "Our Regions",
-  subtitle = "The Tweed Coast, the Gold Coast and the Byron Shire. Three distinct markets, each with its own pricing, council rules and opportunities. Here's how we navigate them.",
+  subtitle = "The Tweed Coast, the Gold Coast, the Byron Shire and the Ballina Shire. Four distinct markets, each with its own pricing, council rules and opportunities. Here's how we navigate them.",
   ctaText = "Explore Areas & Suburbs",
   bg = "bg-warm-gradient",
   items,
 } = {}) {
   const lgaItems = (items && items.length > 0)
     ? [...items].sort((a, b) => {
-        const order = ["Tweed Coast", "Gold Coast", "Byron Shire"];
+        const order = ["Tweed Coast", "Gold Coast", "Byron Shire", "Ballina Shire"];
         const ai = order.indexOf(a.label);
         const bi = order.indexOf(b.label);
         if (ai === -1 && bi === -1) return 0;
@@ -43,7 +44,7 @@ export default function Regions({
         />
 
         {/* Tall destination cards */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mb-12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
           <StaggerGroup stagger={120}>
             {lgaItems.map((it) => (
               <ScrollReveal key={it.label}>

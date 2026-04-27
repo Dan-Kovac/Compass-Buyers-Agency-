@@ -17,6 +17,7 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 export default function ShireFeature({
   title,
   description,
+  stat,
   image,
   imageAlt,
   suburbs = [],
@@ -108,21 +109,44 @@ export default function ShireFeature({
                 margin: "clamp(0.75rem, 1.5vw, 1.25rem) 0",
               }}
             />
-            {/* Suburb count badge */}
-            <span
+            {/* Badges row */}
+            <div
               style={{
-                display: "inline-block",
-                fontSize: "0.75rem",
-                fontWeight: "var(--font-body-medium)",
-                color: "var(--hills)",
-                background: "rgba(75,113,113,0.08)",
-                padding: "0.25rem 0.75rem",
-                borderRadius: "var(--radius-badge)",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "0.5rem",
                 marginBottom: "clamp(0.75rem, 1.5vw, 1rem)",
               }}
             >
-              {suburbs.length} suburbs
-            </span>
+              <span
+                style={{
+                  display: "inline-block",
+                  fontSize: "0.75rem",
+                  fontWeight: "var(--font-body-medium)",
+                  color: "var(--hills)",
+                  background: "rgba(75,113,113,0.08)",
+                  padding: "0.25rem 0.75rem",
+                  borderRadius: "var(--radius-badge)",
+                }}
+              >
+                {suburbs.length} suburbs
+              </span>
+              {stat && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontSize: "0.75rem",
+                    fontWeight: "var(--font-body-medium)",
+                    color: "var(--white)",
+                    background: "var(--hills)",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "var(--radius-badge)",
+                  }}
+                >
+                  {stat}
+                </span>
+              )}
+            </div>
 
             {/* Description */}
             <p

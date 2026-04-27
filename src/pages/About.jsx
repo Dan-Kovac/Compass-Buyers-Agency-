@@ -105,7 +105,7 @@ export default function About() {
       <FeatureSplit
         eyebrow="Local Knowledge"
         title={page?.featureSplit1?.title || "What Local Actually Means"}
-        description={page?.featureSplit1?.description || "Your buying team is based in Cabarita Beach. Every property is inspected in person, selling agents are consulted weekly, and you get street-level insight most buyers never see.\n\n\u2022 42% of deals come from off-market or pre-market channels\n\u2022 Coverage across Byron, Ballina, Tweed and the southern Gold Coast\n\u2022 Trusted relationships with local agents, solicitors and building inspectors"}
+        description={page?.featureSplit1?.description || "Your expert buying team with over 80 years combined experience. Every property is inspected in person, selling agents are consulted daily and weekly, and you get the micro-pocket, street-level insights most buyers never see.\n\n\u2022 74% of deals come from off-market or pre-market channels\n\u2022 Coverage across Tweed Shire, Gold Coast, Byron and Ballina\n\u2022 Deep relationships with hundreds of local agents, with access to top tier local professional services"}
         image={page?.featureSplit1?.image ? urlFor(page.featureSplit1.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/1a4591edc_CONTENTSHOOTJULY-31.jpg"}
         imageAlt={page?.featureSplit1?.imageAlt || "Compass team meeting clients"}
         imageLeft={false}
