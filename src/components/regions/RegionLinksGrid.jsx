@@ -8,9 +8,9 @@ import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
  */
 const regionLinks = [
   {
-    name: "Byron Bay",
-    slug: "/byron-bay-buyers-agent",
-    subtitle: "Buyers agent services in Byron Bay",
+    name: "Tweed Coast",
+    slug: "/tweed-heads-buyers-agent",
+    subtitle: "Buyers agent services on the Tweed Coast",
   },
   {
     name: "Gold Coast",
@@ -18,9 +18,9 @@ const regionLinks = [
     subtitle: "Buyers agent services on the Gold Coast",
   },
   {
-    name: "Tweed Heads",
-    slug: "/tweed-heads-buyers-agent",
-    subtitle: "Buyers agent services in Tweed Heads",
+    name: "Byron Bay",
+    slug: "/byron-bay-buyers-agent",
+    subtitle: "Buyers agent services in Byron Bay",
   },
   {
     name: "Northern Rivers",

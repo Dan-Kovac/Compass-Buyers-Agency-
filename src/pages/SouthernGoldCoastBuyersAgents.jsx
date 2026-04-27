@@ -127,7 +127,7 @@ export default function SouthernGoldCoastBuyersAgents() {
             url: "https://compassagency.com.au/southern-gold-coast-buyers-agent/",
             logo: "https://compassagency.com.au/logo.png",
             description: "Southern Gold Coast buyers agent covering Burleigh Heads, Currumbin, Palm Beach and Elanora. Off-market access, strata due diligence and buyer-only representation.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             areaServed: [
               { "@type": "City", name: "Burleigh Heads" },

@@ -59,10 +59,11 @@ const formStyles = `
     font-weight: 300;
   }
 
-  .cfc-input:focus {
+  .cfc-input:focus-visible {
     border-color: var(--hills);
-    box-shadow: 0 0 0 3px rgba(75,115,113,0.1);
-    outline: none;
+    outline: 2px solid var(--hills);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(75,115,113,0.15);
   }
 
   .cfc-input--error {
@@ -456,7 +457,7 @@ Sent from Compact Contact Form
               <p className="cfc-success__body">
                 We've received your message and will be in touch within 24 hours.
                 If it's urgent, call us on{" "}
-                <a href="tel:0403536390">0403 536 390</a>.
+                <a href="tel:0467634565">Chris on 0467 634 565</a>.
               </p>
             </div>
           )}
@@ -464,7 +465,7 @@ Sent from Compact Contact Form
             <div className="cfc-error">
               <p>
                 Something went wrong. Please try again or call us on{" "}
-                <a href="tel:0403536390">0403 536 390</a>.
+                <a href="tel:0467634565">Chris on 0467 634 565</a>.
               </p>
             </div>
           )}

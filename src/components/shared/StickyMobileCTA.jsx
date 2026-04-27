@@ -2,8 +2,8 @@ import React from "react";
 import { Phone, MessageCircle } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
-const PHONE = "0403536390";
-const PHONE_DISPLAY = "0403 536 390";
+const PHONE = "0467634565";
+const PHONE_DISPLAY = "0467 634 565";
 
 export default function StickyMobileCTA() {
   const location = useLocation();
@@ -52,10 +52,10 @@ export default function StickyMobileCTA() {
             fontWeight: 500,
             letterSpacing: "0.01em",
           }}
-          aria-label={`Call Compass on ${PHONE_DISPLAY}`}
+          aria-label={`Call Chris on ${PHONE_DISPLAY}`}
         >
           <Phone className="w-4 h-4" />
-          Call
+          Call Chris
         </a>
         <a
           href="/contact"

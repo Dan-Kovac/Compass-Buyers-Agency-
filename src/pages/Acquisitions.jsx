@@ -46,6 +46,24 @@ export default function Acquisitions() {
         description="Browse properties we've secured for clients across Northern Rivers and the Southern Gold Coast. Filter by region or suburb."
         canonicalPath="/acquisitions"
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Acquisitions | Compass Buyers Agency",
+            url: "https://compassagency.com.au/acquisitions",
+            description: "Properties secured by Compass Buyers Agency for clients across the Tweed Coast, Byron Shire and Gold Coast.",
+            isPartOf: { "@type": "WebSite", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+            about: {
+              "@type": "RealEstateAgent",
+              name: "Compass Buyers Agency",
+              url: "https://compassagency.com.au",
+            },
+          }),
+        }}
+      />
       {/* Page header — standard pattern */}
       <section className="bg-warm-gradient page-header">
         <div className="site-container">

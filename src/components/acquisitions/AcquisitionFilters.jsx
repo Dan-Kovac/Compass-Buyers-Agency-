@@ -1,7 +1,7 @@
 import React from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const REGION_OPTIONS = ["All Regions", "Byron Shire", "Tweed Shire", "Ballina Shire", "City of Gold Coast", "Other"];
+const REGION_OPTIONS = ["All Regions", "Tweed Shire", "City of Gold Coast", "Byron Shire", "Ballina Shire", "Other"];
 
 export default function AcquisitionFilters({ suburbs = [], filters, onChange }) {
   const [region, setRegion] = React.useState(filters.region || "All Regions");

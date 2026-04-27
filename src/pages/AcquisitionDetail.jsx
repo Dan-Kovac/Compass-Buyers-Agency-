@@ -85,10 +85,13 @@ export default function AcquisitionDetail() {
   }
 
   const priceDisplay = item.price_display || (
-    typeof item.purchase_price === "number" 
-      ? `$${item.purchase_price.toLocaleString()}` 
-      : "Contact for price"
+    item.price_confidential
+      ? "Price on request"
+      : typeof item.purchase_price === "number"
+        ? `$${item.purchase_price.toLocaleString()}`
+        : "Contact for price"
   );
+  const isConfidential = !!item.price_confidential && !item.price_display;
 
   return (
     <div className="bg-white min-h-screen">
@@ -125,8 +128,18 @@ export default function AcquisitionDetail() {
                 <h1 className="mb-0">{item.title}</h1>
 
                 {/* Price */}
-                <div className="text-3xl font-medium text-[var(--ink)]">
-                  {priceDisplay}
+                <div>
+                  <div className="text-3xl font-medium text-[var(--ink)]">
+                    {priceDisplay}
+                  </div>
+                  {isConfidential && (
+                    <div className="mt-2 text-sm text-[var(--stone)]">
+                      Price withheld at the buyer's request.{" "}
+                      <a href={createPageUrl("Contact")} className="text-[var(--hills)] underline underline-offset-4 hover:no-underline">
+                        Contact Compass for details
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 {/* Property specs with icons */}
@@ -290,7 +303,7 @@ export default function AcquisitionDetail() {
           description: item.excerpt || `${item.beds || ''}BR ${item.property_type || 'property'} in ${item.suburb || 'Northern Rivers'}`,
           image: resolveImageUrl(item.main_image, item.main_image_url) || undefined,
           brand: { "@type": "Organization", name: "Compass Buyers Agency" },
-          offers: item.purchase_price ? {
+          offers: item.purchase_price && !item.price_confidential ? {
             "@type": "Offer",
             price: item.purchase_price,
             priceCurrency: "AUD",

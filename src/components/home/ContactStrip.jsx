@@ -34,12 +34,12 @@ export default function ContactStrip() {
           >
             Contact Our Team
           </Button>
-          <a href="tel:0403536390">
+          <a href="tel:0467634565">
             <Button
               className="btn-cta w-full sm:w-auto btn-secondary-invert"
               style={{ fontFamily: 'var(--font-body)' }}
             >
-              Call 0403 536 390
+              Call Chris on 0467 634 565
             </Button>
           </a>
         </div>

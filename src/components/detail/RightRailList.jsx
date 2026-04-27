@@ -51,7 +51,7 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
                 </div>
                 <CardContent className="p-0">
                   <div className="text-sm text-[var(--ink)]/50">
-                    {type === "case_study" ? (it.location || "—") : (it.category || "Blog")}
+                    {type === "case_study" ? (it.location || "Case study") : (it.category || "Blog")}
                   </div>
                   <div className="text-sm font-medium leading-snug line-clamp-2">
                     {it.title || "Untitled"}

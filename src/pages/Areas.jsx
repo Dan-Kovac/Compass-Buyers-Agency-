@@ -13,6 +13,38 @@ import SEOHead from "../components/shared/SEOHead";
 /* ── Fallback shire data ──────────────────────────────────────────────── */
 const fallbackShires = [
   {
+    title: "Tweed Coast",
+    image: "/images/areas/tweed-shire.jpg",
+    stat: "100+ properties acquired",
+    description:
+      "Our number one focus. Kingscliff to Pottsville along the coast, through Banora Point, Terranora and Bilambil in the hinterland, then inland to Murwillumbah and the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
+    suburbs: [
+      { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
+      { name: "Cabarita Beach", isLive: false },
+      { name: "Casuarina", isLive: false },
+      { name: "Pottsville", isLive: false },
+      { name: "Tweed Heads", isLive: false },
+      { name: "Banora Point", isLive: false },
+      { name: "Terranora", isLive: false },
+      { name: "Bilambil", isLive: false },
+      { name: "Murwillumbah", isLive: false },
+    ],
+  },
+  {
+    title: "Gold Coast",
+    image: "/images/areas/gold-coast.jpg",
+    description:
+      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
+    suburbs: [
+      { name: "Currumbin", isLive: false },
+      { name: "Palm Beach", isLive: false },
+      { name: "Tallebudgera", isLive: false },
+      { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
+      { name: "Miami", isLive: false },
+      { name: "Mermaid Beach", isLive: false },
+    ],
+  },
+  {
     title: "Byron Shire",
     image: "/images/areas/byron-shire.jpg",
     description:
@@ -24,19 +56,6 @@ const fallbackShires = [
       { name: "Mullumbimby", isLive: false },
       { name: "Suffolk Park", isLive: false },
       { name: "Ocean Shores", isLive: false },
-    ],
-  },  {
-    title: "Tweed Shire",
-    image: "/images/areas/tweed-shire.jpg",
-    description:
-      "Kingscliff to Pottsville along the Tweed Coast, then inland through Murwillumbah to the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
-    suburbs: [
-      { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
-      { name: "Cabarita Beach", isLive: false },
-      { name: "Casuarina", isLive: false },
-      { name: "Pottsville", isLive: false },
-      { name: "Tweed Heads", isLive: false },
-      { name: "Murwillumbah", isLive: false },
     ],
   },
   {
@@ -52,28 +71,15 @@ const fallbackShires = [
       { name: "Cumbalum", isLive: false },
       { name: "Skennars Head", isLive: false },
     ],
-  },  {
-    title: "City of Gold Coast",
-    image: "/images/areas/gold-coast.jpg",
-    description:
-      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
-    suburbs: [
-      { name: "Currumbin", isLive: false },
-      { name: "Palm Beach", isLive: false },
-      { name: "Tallebudgera", isLive: false },
-      { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
-      { name: "Miami", isLive: false },
-      { name: "Mermaid Beach", isLive: false },
-    ],
   },
 ];
 
 /* ── Shire layout config ──────────────────────────────────────────────── */
 const shireLayout = [
-  { imageLeft: false, bg: "bg-white" },   // Byron
-  { imageLeft: true, bg: "bg-sand-wash" }, // Tweed
-  { imageLeft: false, bg: "bg-white" },   // Ballina
+  { imageLeft: false, bg: "bg-white" },    // Tweed Coast
   { imageLeft: true, bg: "bg-sand-wash" }, // Gold Coast
+  { imageLeft: false, bg: "bg-white" },    // Byron Shire
+  { imageLeft: true, bg: "bg-sand-wash" }, // Ballina Shire
 ];
 export default function Areas() {
   const [page, setPage] = React.useState(null);
@@ -89,12 +95,16 @@ export default function Areas() {
   const fallbackDescriptionMap = Object.fromEntries(
     fallbackShires.map((s) => [s.title, s.description])
   );
+  const fallbackStatMap = Object.fromEntries(
+    fallbackShires.map((s) => [s.title, s.stat])
+  );
 
   /* Map Sanity data into component-ready shape, with fallbacks */
   const shires = page?.shires?.length
     ? page.shires.map((s) => ({
         title: s.title,
         description: s.description || fallbackDescriptionMap[s.title] || undefined,
+        stat: s.stat || fallbackStatMap[s.title] || undefined,
         image: s.image
           ? urlFor(s.image).width(1200).url()
           : fallbackImageMap[s.title] || undefined,
@@ -117,6 +127,25 @@ export default function Areas() {
         description={page?.seo?.metaDescription || "Buyers agent covering Byron, Ballina, Tweed and Gold Coast shires. 24 suburbs from $850k to $2.95M. Local street-level knowledge."}
         ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
         canonicalPath="/areas"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Areas We Serve | Compass Buyers Agency",
+            url: "https://compassagency.com.au/areas",
+            description: "Buyers agent service areas across the Tweed Coast, Byron Shire, Ballina Shire and Gold Coast.",
+            isPartOf: { "@type": "WebSite", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+            about: [
+              { "@type": "Place", name: "Tweed Coast" },
+              { "@type": "Place", name: "Byron Shire" },
+              { "@type": "Place", name: "Ballina Shire" },
+              { "@type": "Place", name: "Gold Coast" },
+            ],
+          }),
+        }}
       />
 
       {/* Section 1: Hero */}
@@ -156,6 +185,7 @@ export default function Areas() {
           key={shire.title}
           title={shire.title}
           description={shire.description}
+          stat={shire.stat}
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}
@@ -185,6 +215,7 @@ export default function Areas() {
           key={shire.title}
           title={shire.title}
           description={shire.description}
+          stat={shire.stat}
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}

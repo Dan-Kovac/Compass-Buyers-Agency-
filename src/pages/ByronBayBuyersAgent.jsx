@@ -127,7 +127,7 @@ export default function ByronBayBuyersAgent() {
             url: "https://compassagency.com.au/byron-bay-buyers-agent/",
             logo: "https://compassagency.com.au/logo.png",
             description: "Byron Bay buyers agent. Off-market access, local due diligence and buyer-only representation across Byron Shire.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             areaServed: [
               { "@type": "City", name: "Byron Bay" },

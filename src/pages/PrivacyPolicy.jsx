@@ -9,6 +9,19 @@ export default function PrivacyPolicy() {
         description="How Compass Buyers Agency collects, uses and protects your personal information in accordance with the Australian Privacy Principles."
         canonicalPath="/privacy-policy"
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Privacy Policy | Compass Buyers Agency",
+            url: "https://compassagency.com.au/privacy-policy",
+            description: "How Compass Buyers Agency collects, uses and protects your personal information in accordance with the Australian Privacy Principles.",
+            isPartOf: { "@type": "WebSite", name: "Compass Buyers Agency", url: "https://compassagency.com.au" },
+          }),
+        }}
+      />
       <section className="section-padding">
         <div className="site-container">
           <div className="max-w-3xl mx-auto">
@@ -58,8 +71,8 @@ export default function PrivacyPolicy() {
                 hello@compassbuyersagency.com.au
               </a>{" "}
               or calling{" "}
-              <a href="tel:0403536390" className="text-[var(--hills)] underline">
-                0403 536 390
+              <a href="tel:0467634565" className="text-[var(--hills)] underline">
+                0467 634 565
               </a>.
             </p>
 

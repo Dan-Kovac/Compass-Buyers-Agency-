@@ -63,7 +63,7 @@ export default function About() {
               "@type": "RealEstateAgent",
               name: "Compass Buyers Agency",
               url: "https://compassagency.com.au",
-              telephone: "+61403536390",
+              telephone: "+61467634565",
               email: "hello@compassbuyersagency.com.au",
               address: {
                 "@type": "PostalAddress",
@@ -105,8 +105,8 @@ export default function About() {
       <FeatureSplit
         eyebrow="Local Knowledge"
         title={page?.featureSplit1?.title || "What Local Actually Means"}
-        description={page?.featureSplit1?.description || "Your buying team is based in Cabarita Beach. Every property is inspected in person, selling agents are consulted weekly, and you get street-level insight most buyers never see.\n\n\u2022 42% of deals come from off-market or pre-market channels\n\u2022 Coverage across Byron, Ballina, Tweed and the southern Gold Coast\n\u2022 Trusted relationships with local agents, solicitors and building inspectors"}
-        image={page?.featureSplit1?.image ? urlFor(page.featureSplit1.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/1a4591edc_CONTENTSHOOTJULY-31.jpg"}
+        description={page?.featureSplit1?.description || "Your expert buying team with over 80 years combined experience. Every property is inspected in person, selling agents are consulted daily and weekly, and you get the micro-pocket, street-level insights most buyers never see.\n\n\u2022 74% of deals come from off-market or pre-market channels\n\u2022 Coverage across Tweed Shire, Gold Coast, Byron and Ballina\n\u2022 Deep relationships with hundreds of local agents, with access to top tier local professional services"}
+        image={page?.featureSplit1?.image ? urlFor(page.featureSplit1.image).width(800).url() : "/images/pages/about.jpg"}
         imageAlt={page?.featureSplit1?.imageAlt || "Compass team meeting clients"}
         imageLeft={false}
         mobileImageFirst={true}
@@ -118,7 +118,7 @@ export default function About() {
         eyebrow="Your Advantage"
         title={page?.featureSplit2?.title || "Buyers Only. No Exceptions."}
         description={page?.featureSplit2?.description || "You get a team that only represents buyers. No selling. No conflicts. That changes the advice you receive and the outcomes you achieve.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, no hand-offs between departments\n\u2022 You always know where things stand, no chasing for updates"}
-        image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/6c2c9c4ac_CONTENTSHOOTJULY-30.jpg"}
+        image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "/images/pages/about.jpg"}
         imageAlt={page?.featureSplit2?.imageAlt || "Compass team at office"}
         imageLeft={true}
         variant="white"

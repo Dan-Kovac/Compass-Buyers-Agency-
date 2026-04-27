@@ -114,7 +114,7 @@ public/
 - No em dashes anywhere
 - Never use "purchase" (use "buy" or "secure")
 - Buyer-framed copy (focus on the buyer's journey, not the agency)
-- Phone: 0403 536 390
+- Phone: 0467 634 565 (Chris)
 - Email: hello@compassbuyersagency.com.au
 
 ## Build & Dev

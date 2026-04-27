@@ -125,7 +125,7 @@ export default function NorthernRiversBuyersAgent() {
             url: "https://compassagency.com.au/northern-rivers-buyers-agent/",
             logo: "https://compassagency.com.au/logo.png",
             description: "Northern Rivers buyers agent covering Byron Bay to the Tweed Coast. Off-market access, multi-shire due diligence and buyer-only representation across 15+ suburbs.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             areaServed: [
               { "@type": "AdministrativeArea", name: "Northern Rivers" },

@@ -6,6 +6,7 @@ import { Mail, Phone, ArrowLeft, ArrowRight, Linkedin, MapPin, Calendar, Home as
 import AcquisitionCard from "@/components/acquisitions/AcquisitionCard";
 import BlogCard from "@/components/blog/BlogCard";
 import CTASection from "@/components/shared/CTASection.jsx";
+import SEOHead from "@/components/shared/SEOHead";
 import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
 export default function TeamMemberDetail() {
@@ -123,8 +124,44 @@ export default function TeamMemberDetail() {
 
   const firstName = member.name.split(" ")[0];
 
+  const memberSlug = member.slug || lookupKey;
+  const memberDescription = member.bio
+    ? String(member.bio).replace(/\s+/g, " ").trim().slice(0, 160)
+    : `${member.name} is a licensed buyers agent at Compass Buyers Agency, working across the Tweed Coast, Byron Bay and Gold Coast.`;
+  const memberPhotoAbs = photoSrc
+    ? (photoSrc.startsWith("http") ? photoSrc : `https://compassagency.com.au${photoSrc}`)
+    : undefined;
+
   return (
     <div className="bg-white">
+      <SEOHead
+        title={`${member.name} | Compass Buyers Agency`}
+        description={memberDescription}
+        ogImage={memberPhotoAbs}
+        ogType="profile"
+        canonicalPath={`/team/${memberSlug}`}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: member.name,
+            jobTitle: member.role || "Buyers Agent",
+            description: memberDescription,
+            image: memberPhotoAbs,
+            url: `https://compassagency.com.au/team/${memberSlug}`,
+            email: member.email || "hello@compassbuyersagency.com.au",
+            telephone: member.phone || "+61467634565",
+            worksFor: {
+              "@type": "RealEstateAgent",
+              name: "Compass Buyers Agency",
+              url: "https://compassagency.com.au",
+            },
+          }),
+        }}
+      />
       {/* ── Hero: Portrait + Info ────────────────────────────────────────── */}
       <section className="bg-warm-gradient" style={{ padding: "var(--section-padding) 0" }}>
         <div className="site-container">

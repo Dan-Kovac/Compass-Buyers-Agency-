@@ -1,6 +1,12 @@
 {
   "name": "Compass Buyers Agency",
   "short_name": "Compass",
+  "description": "Licensed buyers agents on the Tweed Coast, Byron Bay and Gold Coast. Buyer-only representation from search to settlement.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#4B7371",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "/favicon.svg",
@@ -8,12 +14,20 @@
       "sizes": "any"
     },
     {
-      "src": "/images/compass-logo.png",
+      "src": "/images/icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/icon-maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
-  ],
-  "theme_color": "#4B7371",
-  "background_color": "#ffffff",
-  "display": "browser"
+  ]
 }

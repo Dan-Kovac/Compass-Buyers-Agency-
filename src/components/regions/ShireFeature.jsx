@@ -17,6 +17,7 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 export default function ShireFeature({
   title,
   description,
+  stat,
   image,
   imageAlt,
   suburbs = [],
@@ -35,7 +36,7 @@ export default function ShireFeature({
     >
       <div className="site-container">
         <div
-          className={`grid lg:grid-cols-2 items-start ${
+          className={`grid lg:grid-cols-2 items-stretch ${
             imageLeft ? "lg:grid-flow-dense" : ""
           }`}
           style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
@@ -45,14 +46,14 @@ export default function ShireFeature({
             animation={imgAnim}
             className={`${
               imageLeft ? "lg:col-start-1" : "lg:col-start-2"
-            }`}
+            } h-full`}
           >
             <div
-              className="overflow-hidden shire-feature-image-wrap"
+              className="overflow-hidden shire-feature-image-wrap aspect-[4/3] lg:aspect-auto lg:h-full"
               style={{
-                aspectRatio: "4 / 3",
                 borderRadius: "var(--radius-card)",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                minHeight: "clamp(280px, 40vw, 460px)",
               }}
             >
               <img
@@ -108,21 +109,44 @@ export default function ShireFeature({
                 margin: "clamp(0.75rem, 1.5vw, 1.25rem) 0",
               }}
             />
-            {/* Suburb count badge */}
-            <span
+            {/* Badges row */}
+            <div
               style={{
-                display: "inline-block",
-                fontSize: "0.75rem",
-                fontWeight: "var(--font-body-medium)",
-                color: "var(--hills)",
-                background: "rgba(75,113,113,0.08)",
-                padding: "0.25rem 0.75rem",
-                borderRadius: "var(--radius-badge)",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "0.5rem",
                 marginBottom: "clamp(0.75rem, 1.5vw, 1rem)",
               }}
             >
-              {suburbs.length} suburbs
-            </span>
+              <span
+                style={{
+                  display: "inline-block",
+                  fontSize: "0.75rem",
+                  fontWeight: "var(--font-body-medium)",
+                  color: "var(--hills)",
+                  background: "rgba(75,113,113,0.08)",
+                  padding: "0.25rem 0.75rem",
+                  borderRadius: "var(--radius-badge)",
+                }}
+              >
+                {suburbs.length} suburbs
+              </span>
+              {stat && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontSize: "0.75rem",
+                    fontWeight: "var(--font-body-medium)",
+                    color: "var(--white)",
+                    background: "var(--hills)",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "var(--radius-badge)",
+                  }}
+                >
+                  {stat}
+                </span>
+              )}
+            </div>
 
             {/* Description */}
             <p

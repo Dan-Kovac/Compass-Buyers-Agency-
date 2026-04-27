@@ -177,7 +177,7 @@ export default function Contact() {
     fetchPage("contactPage").then(setPage).catch(() => {});
   }, []);
 
-  const phone = page?.phone || "0403 536 390";
+  const phone = page?.phone || "0467 634 565";
   const phoneRaw = phone.replace(/\s/g, "");
   const email = page?.email || "hello@compassbuyersagency.com.au";
   const address = page?.address || "32a Tweed Coast Road, Cabarita Beach NSW 2487";
@@ -186,7 +186,7 @@ export default function Contact() {
     <div className="bg-white">
       <SEOHead
         title={page?.seo?.metaTitle || "Contact Us | Talk to a Buyers Agent | Compass"}
-        description={page?.seo?.metaDescription || "Talk to a buyers agent today. Call 0403 536 390 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation."}
+        description={page?.seo?.metaDescription || "Talk to a buyers agent today. Call Chris on 0467 634 565 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation."}
         canonicalPath="/contact"
       />
       <script
@@ -202,7 +202,7 @@ export default function Contact() {
               "@type": "RealEstateAgent",
               name: "Compass Buyers Agency",
               url: "https://compassagency.com.au",
-              telephone: "+61403536390",
+              telephone: "+61467634565",
               email: "hello@compassbuyersagency.com.au",
               address: {
                 "@type": "PostalAddress",
@@ -259,7 +259,7 @@ export default function Contact() {
                 <div className="contact-aside__block">
                   <div className="contact-aside__icon"><Phone /></div>
                   <div>
-                    <div className="contact-aside__label">Call</div>
+                    <div className="contact-aside__label">Call Chris</div>
                     <a href={`tel:${phoneRaw}`} className="contact-aside__value contact-aside__value--phone">
                       {phone}
                     </a>

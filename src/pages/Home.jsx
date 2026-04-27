@@ -110,7 +110,7 @@ export default function Home() {
         logo: "https://compassagency.com.au/logo.png",
         image: "https://compassagency.com.au/og-image.png",
         description: "Independent buyers agent for Northern Rivers and Southern Gold Coast. Off-market access, local expertise, sharp negotiation.",
-        telephone: "+61403536390",
+        telephone: "+61467634565",
         email: "hello@compassbuyersagency.com.au",
         areaServed: [
           { "@type": "City", name: "Byron Bay" },

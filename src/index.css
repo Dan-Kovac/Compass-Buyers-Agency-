@@ -108,6 +108,10 @@
   --suburb-row-py: clamp(0.625rem, 1vw, 0.875rem);
 }
 
+html, body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-body);
   font-weight: 300;

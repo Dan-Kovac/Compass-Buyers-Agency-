@@ -127,7 +127,7 @@ export default function GoldCoastBuyersAgent() {
             url: "https://compassagency.com.au/gold-coast-buyers-agent/",
             logo: "https://compassagency.com.au/logo.png",
             description: "Gold Coast buyers agent covering Coolangatta, Kirra and Rainbow Bay. Off-market access, strata due diligence and buyer-only representation.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             areaServed: [
               { "@type": "City", name: "Coolangatta" },

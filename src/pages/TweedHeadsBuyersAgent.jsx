@@ -127,7 +127,7 @@ export default function TweedHeadsBuyersAgent() {
             url: "https://compassagency.com.au/tweed-heads-buyers-agent/",
             logo: "https://compassagency.com.au/logo.png",
             description: "Tweed Heads buyers agent covering Kingscliff, Cabarita Beach and Pottsville. Off-market access, flood analysis and buyer-only representation.",
-            telephone: "+61403536390",
+            telephone: "+61467634565",
             email: "hello@compassbuyersagency.com.au",
             areaServed: [
               { "@type": "City", name: "Kingscliff" },
