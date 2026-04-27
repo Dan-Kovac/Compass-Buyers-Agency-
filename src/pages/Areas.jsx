@@ -13,6 +13,34 @@ import SEOHead from "../components/shared/SEOHead";
 /* ── Fallback shire data ──────────────────────────────────────────────── */
 const fallbackShires = [
   {
+    title: "Tweed Coast",
+    image: "/images/areas/tweed-shire.jpg",
+    description:
+      "Kingscliff to Pottsville along the Tweed Coast, then inland through Murwillumbah to the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
+    suburbs: [
+      { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
+      { name: "Cabarita Beach", isLive: false },
+      { name: "Casuarina", isLive: false },
+      { name: "Pottsville", isLive: false },
+      { name: "Tweed Heads", isLive: false },
+      { name: "Murwillumbah", isLive: false },
+    ],
+  },
+  {
+    title: "Gold Coast",
+    image: "/images/areas/gold-coast.jpg",
+    description:
+      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
+    suburbs: [
+      { name: "Currumbin", isLive: false },
+      { name: "Palm Beach", isLive: false },
+      { name: "Tallebudgera", isLive: false },
+      { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
+      { name: "Miami", isLive: false },
+      { name: "Mermaid Beach", isLive: false },
+    ],
+  },
+  {
     title: "Byron Shire",
     image: "/images/areas/byron-shire.jpg",
     description:
@@ -24,19 +52,6 @@ const fallbackShires = [
       { name: "Mullumbimby", isLive: false },
       { name: "Suffolk Park", isLive: false },
       { name: "Ocean Shores", isLive: false },
-    ],
-  },  {
-    title: "Tweed Shire",
-    image: "/images/areas/tweed-shire.jpg",
-    description:
-      "Kingscliff to Pottsville along the Tweed Coast, then inland through Murwillumbah to the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
-    suburbs: [
-      { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
-      { name: "Cabarita Beach", isLive: false },
-      { name: "Casuarina", isLive: false },
-      { name: "Pottsville", isLive: false },
-      { name: "Tweed Heads", isLive: false },
-      { name: "Murwillumbah", isLive: false },
     ],
   },
   {
@@ -52,28 +67,15 @@ const fallbackShires = [
       { name: "Cumbalum", isLive: false },
       { name: "Skennars Head", isLive: false },
     ],
-  },  {
-    title: "City of Gold Coast",
-    image: "/images/areas/gold-coast.jpg",
-    description:
-      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
-    suburbs: [
-      { name: "Currumbin", isLive: false },
-      { name: "Palm Beach", isLive: false },
-      { name: "Tallebudgera", isLive: false },
-      { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
-      { name: "Miami", isLive: false },
-      { name: "Mermaid Beach", isLive: false },
-    ],
   },
 ];
 
 /* ── Shire layout config ──────────────────────────────────────────────── */
 const shireLayout = [
-  { imageLeft: false, bg: "bg-white" },   // Byron
-  { imageLeft: true, bg: "bg-sand-wash" }, // Tweed
-  { imageLeft: false, bg: "bg-white" },   // Ballina
+  { imageLeft: false, bg: "bg-white" },    // Tweed Coast
   { imageLeft: true, bg: "bg-sand-wash" }, // Gold Coast
+  { imageLeft: false, bg: "bg-white" },    // Byron Shire
+  { imageLeft: true, bg: "bg-sand-wash" }, // Ballina Shire
 ];
 export default function Areas() {
   const [page, setPage] = React.useState(null);

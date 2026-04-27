@@ -928,9 +928,9 @@ export default function Layout({ children, currentPageName, navMode }) {
               <div>
                 <div style={{ color: "rgba(255,255,255,0.35)", fontWeight: 500, fontSize: "0.6875rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.875rem" }}>Service Areas</div>
                 <ul className="space-y-2" style={{ fontSize: "0.875rem" }}>
-                  <li><Link to={createPageUrl("ByronBayBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Byron Bay</Link></li>
+                  <li><Link to={createPageUrl("TweedHeadsBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Tweed Coast</Link></li>
                   <li><Link to={createPageUrl("GoldCoastBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Gold Coast</Link></li>
-                  <li><Link to={createPageUrl("TweedHeadsBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Tweed Heads</Link></li>
+                  <li><Link to={createPageUrl("ByronBayBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Byron Bay</Link></li>
                   <li><Link to={createPageUrl("NorthernRiversBuyersAgent")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Northern Rivers</Link></li>
                   <li><Link to={createPageUrl("BrunswickHeadsBuyersAgents")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Brunswick Heads</Link></li>
                   <li><Link to={createPageUrl("SouthernGoldCoastBuyersAgents")} className="hover:text-white/90 transition-colors" style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}>Southern Gold Coast</Link></li>
