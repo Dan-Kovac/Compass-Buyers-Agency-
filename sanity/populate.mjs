@@ -123,7 +123,7 @@ await upsert({
 
   hero: {
     title: 'Property Acquisition Experts',
-    subtitle: 'Leading Northern NSW & Gold Coast Buyer Advocates. 70% Off Market Acquisitions with hundreds of happy clients. Buy smarter with Compass.',
+    subtitle: 'Leading Northern NSW & Gold Coast Buyer Advocates. 70% Off Market Acquisitions with hundreds of happy clients.',
     ctaText: 'Start Your Search',
   },
 
