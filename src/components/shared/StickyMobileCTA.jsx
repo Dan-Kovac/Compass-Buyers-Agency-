@@ -38,8 +38,8 @@ export default function StickyMobileCTA() {
       <div
         className="flex gap-2 px-4 py-3"
         style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 15%, #fff 100%)",
-          paddingTop: "1.5rem",
+          background: "#fff",
+          borderTop: "1px solid rgba(26,26,26,0.08)",
         }}
       >
         <a
