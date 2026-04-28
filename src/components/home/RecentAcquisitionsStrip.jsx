@@ -150,6 +150,25 @@ export default function RecentAcquisitionsStrip({
             overflow-x: auto;
           }
         }
+        @media (max-width: 767px) {
+          .acq-marquee {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            mask-image: none;
+            -webkit-mask-image: none;
+            padding: 0 1rem;
+          }
+          .acq-marquee__track {
+            animation: none !important;
+            transform: none !important;
+            width: max-content;
+          }
+          .acq-marquee__item {
+            scroll-snap-align: start;
+          }
+        }
       `}</style>
 
       <div className="site-container">
