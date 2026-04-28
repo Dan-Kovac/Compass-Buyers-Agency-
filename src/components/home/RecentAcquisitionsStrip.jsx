@@ -124,8 +124,6 @@ export default function RecentAcquisitionsStrip({
         .acq-marquee {
           position: relative;
           overflow: hidden;
-          mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-          -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
         }
         .acq-marquee__track {
           display: flex;
@@ -156,8 +154,6 @@ export default function RecentAcquisitionsStrip({
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
-            mask-image: none;
-            -webkit-mask-image: none;
             padding: 0 1rem;
           }
           .acq-marquee__track {
