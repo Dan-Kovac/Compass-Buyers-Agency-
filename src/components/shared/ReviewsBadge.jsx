@@ -113,27 +113,6 @@ export default function ReviewsBadge({
           <Star key={i} filled={i < Math.round(rating)} emptyColor={v.starEmpty} />
         ))}
       </span>
-
-      <span
-        style={{
-          width: "1px",
-          height: "14px",
-          background: v.divider,
-          flexShrink: 0,
-        }}
-      />
-
-      <span
-        style={{
-          fontSize: "0.8125rem",
-          fontWeight: 400,
-          color: v.count,
-          lineHeight: 1,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {reviewCount} reviews
-      </span>
     </a>
   );
 }

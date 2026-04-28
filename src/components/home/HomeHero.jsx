@@ -1,7 +1,6 @@
 import React from "react";
 import { fetchSiteSettings } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
-import { splitSentences } from "@/lib/utils";
 import ReviewsBadge from "../shared/ReviewsBadge";
 
 export default function HomeHero({ title, subtitle, backgroundImageUrl, backgroundVideoUrl, ctaHref, ctaText } = {}) {
@@ -114,17 +113,14 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
 
             <div style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 500ms forwards' }}>
               <p
-                className="text-white/80 mb-0 text-balance"
+                className="text-white/80 mb-0"
                 style={{
                   fontWeight: 300,
                   fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
                   lineHeight: 1.65,
-                  maxWidth: "48ch",
                 }}
               >
-                {splitSentences(subtitle || "62+ properties secured across the Northern Rivers and Gold Coast. Most off-market. Local agents, honest advice, sharper deals.").map((s, i, arr) => (
-                  <span key={i} className="md:block">{s}{i < arr.length - 1 ? " " : ""}</span>
-                ))}
+                {subtitle || "62+ properties secured across the Northern Rivers and Gold Coast. Most off-market. Local agents, honest advice, sharper deals."}
               </p>
             </div>
 

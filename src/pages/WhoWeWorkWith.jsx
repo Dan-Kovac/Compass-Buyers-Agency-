@@ -242,7 +242,7 @@ export default function WhoWeWorkWith() {
               <h1>
                 {page?.heading || "Who We Work With"}
               </h1>
-              <p className="intro-text" style={{ maxWidth: "48ch", margin: "1.25rem auto 0" }}>
+              <p className="intro-text" style={{ margin: "1.25rem auto 0" }}>
                 {page?.subtitle || "Every buyer is different. Whether you're chasing a sea change, growing a portfolio or buying from interstate, we shape our approach around you."}
               </p>
             </div>

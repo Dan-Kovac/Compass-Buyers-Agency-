@@ -140,7 +140,6 @@ export default function AreasHero({
                     fontWeight: "var(--font-body-light)",
                     fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
                     lineHeight: 1.6,
-                    maxWidth: "48ch",
                     marginBottom: 0,
                   }}
                 >
