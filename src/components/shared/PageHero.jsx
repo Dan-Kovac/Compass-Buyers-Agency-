@@ -1,5 +1,4 @@
 import React from "react";
-import { splitSentences } from "@/lib/utils";
 
 export default function PageHero({
   eyebrow,
@@ -69,15 +68,12 @@ export default function PageHero({
                   fontWeight: 300,
                   fontSize: "clamp(1rem, 1.4vw, 1.1875rem)",
                   lineHeight: 1.65,
-                  maxWidth: "46ch",
                   margin: 0,
                   opacity: 0,
                   animation: "pageHeroReveal 800ms cubic-bezier(0.25,0.46,0.45,0.94) 420ms forwards",
                 }}
               >
-                {splitSentences(subtitle).map((s, i) => (
-                  <span key={i} style={{ display: "block" }}>{s}</span>
-                ))}
+                {subtitle}
               </p>
             )}
           </div>
