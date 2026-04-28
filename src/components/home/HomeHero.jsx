@@ -122,8 +122,8 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
                   maxWidth: "48ch",
                 }}
               >
-                {splitSentences(subtitle || "62+ properties secured across the Northern Rivers and Gold Coast. Most off-market. Local agents, honest advice, sharper deals.").map((s, i) => (
-                  <span key={i} style={{ display: "block" }}>{s}</span>
+                {splitSentences(subtitle || "62+ properties secured across the Northern Rivers and Gold Coast. Most off-market. Local agents, honest advice, sharper deals.").map((s, i, arr) => (
+                  <span key={i} className="md:block">{s}{i < arr.length - 1 ? " " : ""}</span>
                 ))}
               </p>
             </div>

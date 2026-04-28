@@ -131,8 +131,12 @@ const contactStyles = `
     border: 1px solid rgba(26,26,26,0.06);
     border-top: 3px solid var(--hills);
     border-radius: clamp(0.75rem, 1.5vw, 1rem);
-    box-shadow: 0 4px 24px rgba(26,26,26,0.04);
     overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .contact-form-card {
+      box-shadow: 0 4px 24px rgba(26,26,26,0.04);
+    }
   }
 
   .contact-form-card__header {
