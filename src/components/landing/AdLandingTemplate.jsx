@@ -81,7 +81,7 @@ export default function AdLandingTemplate({
         subtitle={hero.subtitle}
         ctaText={hero.ctaText || "Speak to an Agent"}
         ctaHref={hero.ctaHref}
-        backgroundVideoUrl={hero.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-CLEAN.mp4"}
+        backgroundVideoUrl={hero.backgroundVideoUrl || "/videos/compass-hero.mp4"}
         backgroundImageUrl={hero.backgroundImageUrl}
       />
 
