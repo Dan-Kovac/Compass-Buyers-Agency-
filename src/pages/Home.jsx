@@ -27,7 +27,7 @@ export default function Home() {
       <ServicesAccordionShowcase />
 
       <ImageBand
-        src="/images/home/hinterland-morning.jpg"
+        src="/images/home/hinterland-morning.webp"
         alt="Northern Rivers hinterland at dawn"
         height="380px"
         mobileHeight="240px"

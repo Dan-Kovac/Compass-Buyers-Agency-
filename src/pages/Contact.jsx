@@ -308,7 +308,7 @@ export default function Contact() {
       </section>
 
       <ImageBand
-        src="/images/contact/july-02.jpg"
+        src="/images/contact/july-02.webp"
         alt="Aerial view of Northern Rivers coastline"
         height="340px"
         mobileHeight="220px"

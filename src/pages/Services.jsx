@@ -94,7 +94,7 @@ export default function Services() {
           "Local insights and detailed property comparables",
           "Shortlists refined to your brief with clear trade-offs",
         ]}
-        image="/images/services/portfolio-strategy.jpg"
+        image="/images/services/portfolio-strategy.webp"
         imageAlt="Aerial view of Northern Rivers waterfront properties"
         imageLeft
         bg="bg-sand-wash"
@@ -150,7 +150,7 @@ export default function Services() {
           "Modelled returns, rental demand and risk assessment",
           "Buy rules and review cadence to keep you on track",
         ]}
-        image="/images/services/portfolio-strategy.jpg"
+        image="/images/services/portfolio-strategy.webp"
         imageAlt="Compass buyers agent on a call reviewing a portfolio strategy"
         imageLeft
         bg="bg-sand-wash"

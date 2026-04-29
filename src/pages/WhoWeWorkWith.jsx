@@ -40,7 +40,7 @@ const fallbackSegments = [
       "Thorough due diligence and building & pest coordination",
       "Negotiation of favourable terms and settlement flexibility",
     ],
-    imageUrl: "/images/who-we-work-with/downsizers.jpg",
+    imageUrl: "/images/who-we-work-with/downsizers.webp",
     imageAlt: "Modern low-maintenance townhouse development ideal for downsizers",
   },
   {
@@ -108,7 +108,7 @@ const fallbackSegments = [
       "Video inspections, detailed reports and local market context",
       "Full representation from search through to settlement",
     ],
-    imageUrl: "/images/who-we-work-with/international-buyers.jpg",
+    imageUrl: "/images/who-we-work-with/international-buyers.webp",
     imageAlt: "Compass agent beside a Just Bought sign in Kingscliff",
   },
   {
@@ -159,7 +159,7 @@ const fallbackSegments = [
       "Lease analysis, tenant assessment and yield modelling",
       "Negotiation with commercial-specific terms and conditions",
     ],
-    imageUrl: "/images/who-we-work-with/commercial-property-buyers.jpg",
+    imageUrl: "/images/who-we-work-with/commercial-property-buyers.webp",
     imageAlt: "Compass agent at a property inspection",
   },
 ];
