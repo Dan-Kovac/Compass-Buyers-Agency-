@@ -78,7 +78,7 @@ export default defineType({
       name: 'heroBackgroundVideoUrl',
       title: 'Hero Background Video URL',
       type: 'url',
-      description: 'e.g. /videos/COMPASS-WEBSITE-BANNER-CLEAN.mp4 — leave blank for default video.',
+      description: 'e.g. /videos/compass-hero.mp4 — leave blank for default video.',
     }),
 
     // ─── MARKET STATS BAR (animated counters) ────────────────────────────────

@@ -50,6 +50,10 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
   }, [loading]);
 
   const hasVideo = backgroundVideoUrl || brand?.hero_background_video_url;
+  const posterUrl =
+    backgroundImageUrl ||
+    brand?.hero_background_image_url ||
+    "/videos/compass-hero-poster.jpg";
 
   return (
     <section className="relative min-h-screen flex items-end overflow-hidden">
@@ -59,6 +63,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
           src={backgroundVideoUrl || brand.hero_background_video_url}
+          poster={posterUrl}
           autoPlay
           muted
           loop
@@ -69,13 +74,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
       ) : (
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('${
-              backgroundImageUrl ||
-              brand?.hero_background_image_url ||
-              "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop"
-            }')`
-          }}
+          style={{ backgroundImage: `url('${posterUrl}')` }}
           aria-hidden="true"
         />
       )}

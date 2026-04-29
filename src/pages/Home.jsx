@@ -33,7 +33,7 @@ export default function Home() {
         title={page?.hero?.title}
         subtitle={page?.hero?.subtitle}
         ctaText={page?.hero?.ctaText}
-        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/COMPASS-WEBSITE-BANNER-CLEAN.mp4"}
+        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/compass-hero.mp4"}
         backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
       />
 
