@@ -38,6 +38,7 @@ export default function InvestmentAndRelationship({
                 alt={imageAlt}
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
+                decoding="async"
                 style={{ transition: "transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1)" }}
                 onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.015)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}

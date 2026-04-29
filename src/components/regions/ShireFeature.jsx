@@ -61,6 +61,7 @@ export default function ShireFeature({
                 alt={imageAlt || title}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
                 style={{
                   transition: "transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1)",
                 }}

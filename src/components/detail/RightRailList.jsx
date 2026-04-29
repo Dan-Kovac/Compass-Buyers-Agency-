@@ -42,6 +42,7 @@ export default function RightRailList({ type, currentId, title = "Most viewed" }
                     alt={it.title || it.name || "Preview"}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                     onError={(e) => {
                       if (e.currentTarget.src !== PLACEHOLDER_IMG) {
                         e.currentTarget.src = PLACEHOLDER_IMG;

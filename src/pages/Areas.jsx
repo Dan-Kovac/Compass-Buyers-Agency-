@@ -7,7 +7,6 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import ImageBand from "@/components/shared/ImageBand";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
-import { fetchPage, urlFor } from "@/lib/sanityClient";
 import SEOHead from "../components/shared/SEOHead";
 
 /* ── Fallback shire data ──────────────────────────────────────────────── */
@@ -82,40 +81,7 @@ const shireLayout = [
   { imageLeft: true, bg: "bg-sand-wash" }, // Ballina Shire
 ];
 export default function Areas() {
-  const [page, setPage] = React.useState(null);
-
-  React.useEffect(() => {
-    fetchPage("areasPage").then(setPage).catch(() => {});
-  }, []);
-
-  /* Build image fallback map from hardcoded data */
-  const fallbackImageMap = Object.fromEntries(
-    fallbackShires.map((s) => [s.title, s.image])
-  );
-  const fallbackDescriptionMap = Object.fromEntries(
-    fallbackShires.map((s) => [s.title, s.description])
-  );
-  const fallbackStatMap = Object.fromEntries(
-    fallbackShires.map((s) => [s.title, s.stat])
-  );
-
-  /* Map Sanity data into component-ready shape, with fallbacks */
-  const shires = page?.shires?.length
-    ? page.shires.map((s) => ({
-        title: s.title,
-        description: s.description || fallbackDescriptionMap[s.title] || undefined,
-        stat: s.stat || fallbackStatMap[s.title] || undefined,
-        image: s.image
-          ? urlFor(s.image).width(1200).url()
-          : fallbackImageMap[s.title] || undefined,
-        suburbs: (s.suburbs || []).map((sub) => ({
-          name: sub.name,
-          isLive: sub.isLive || false,
-          slug: sub.slug || undefined,
-          landingPageSlug: sub.landingPageSlug || undefined,
-        })),
-      }))
-    : fallbackShires;
+  const shires = fallbackShires;
   /* Split shires into first pair and second pair for image band placement */
   const firstPair = shires.slice(0, 2);
   const secondPair = shires.slice(2, 4);
@@ -123,9 +89,8 @@ export default function Areas() {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Areas We Serve | Byron to Gold Coast | Compass"}
-        description={page?.seo?.metaDescription || "Buyers agent covering Byron, Ballina, Tweed and Gold Coast shires. 24 suburbs from $850k to $2.95M. Local street-level knowledge."}
-        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        title="Areas We Serve | Byron to Gold Coast | Compass"
+        description="Buyers agent covering Byron, Ballina, Tweed and Gold Coast shires. 24 suburbs from $850k to $2.95M. Local street-level knowledge."
         canonicalPath="/areas"
       />
       <script
@@ -150,16 +115,8 @@ export default function Areas() {
 
       {/* Section 1: Hero */}
       <AreasHero
-        heading={page?.heading || "The Northern Rivers and Beyond"}
-        subtitle={
-          page?.subtitle ||
-          "Four shires, dozens of suburbs, one focus: finding you the right property at the right price."
-        }
-        image={
-          page?.heroImage
-            ? urlFor(page.heroImage).width(1920).url()
-            : undefined
-        }
+        heading="The Northern Rivers and Beyond"
+        subtitle="Four shires, dozens of suburbs, one focus: finding you the right property at the right price."
       />
 
       {/* Section 2: Region intro */}
@@ -197,11 +154,7 @@ export default function Areas() {
 
       {/* Section 5: Image band -- atmospheric breathing room */}
       <ImageBand
-        src={
-          page?.midBandImage
-            ? urlFor(page.midBandImage).width(2000).url()
-            : "/images/areas/mid-band.jpg"
-        }
+        src="/images/areas/mid-band.jpg"
         alt="Northern Rivers coastline"
         height="340px"
         mobileHeight="200px"
@@ -229,11 +182,8 @@ export default function Areas() {
 
       {/* Section 9: CTA */}
       <CTASection
-        heading={
-          page?.cta?.heading ||
-          "Looking to buy in the Northern Rivers or Gold Coast?"
-        }
-        buttonText={page?.cta?.buttonText || "Start a Conversation"}
+        heading="Looking to buy in the Northern Rivers or Gold Coast?"
+        buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Free consultation. No obligation. Honest advice on your situation."
         variant="dark"

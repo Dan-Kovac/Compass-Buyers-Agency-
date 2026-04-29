@@ -9,7 +9,6 @@ import {
   SheetTrigger,
   SheetClose } from
 "@/components/ui/sheet";
-import { fetchSiteSettings, urlFor } from "@/lib/sanityClient";
 import StickyMobileCTA from "@/components/shared/StickyMobileCTA";
 
 const navigationItems = [
@@ -26,8 +25,6 @@ const navigationItems = [
 export default function Layout({ children, currentPageName, navMode }) {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = React.useState(false);
-  const [brand, setBrand] = React.useState(null);
-  const [brandLoaded, setBrandLoaded] = React.useState(false);
   const isHome = currentPageName === "Home";
   const isLanding = navMode === "landing";
 
@@ -38,21 +35,6 @@ export default function Layout({ children, currentPageName, navMode }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const settings = await fetchSiteSettings();
-        setBrand(settings || null);
-      } catch (err) {
-        console.warn("Could not load site settings, using defaults");
-        setBrand(null);
-      } finally {
-        setBrandLoaded(true);
-      }
-    })();
-  }, []);
-
 
   /* SEO meta tags are handled per-page by SEOHead (react-helmet-async).
      Layout no longer manipulates meta tags to avoid overriding Helmet. */
@@ -69,7 +51,7 @@ export default function Layout({ children, currentPageName, navMode }) {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-white transition-opacity duration-200 ${brandLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="min-h-screen bg-white">
       <style>{`
         :root {
           --hills: #4B7371;
@@ -115,8 +97,8 @@ export default function Layout({ children, currentPageName, navMode }) {
           --font-body-bold: 700;
 
           /* Section spacing — two tiers only */
-          --section-padding: clamp(4rem, 8vw, 7rem);
-          --section-padding-compact: clamp(2rem, 5vw, 3rem);
+          --section-padding: clamp(2.5rem, 8vw, 7rem);
+          --section-padding-compact: clamp(1.75rem, 5vw, 3rem);
         }
         html { scroll-behavior: smooth; }
         @media (max-width: 768px) {
@@ -300,19 +282,20 @@ export default function Layout({ children, currentPageName, navMode }) {
             min-width: 0;
           }
         }
-        /* Image hover zoom on cards */
-        .surface img {
-          transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-        .surface:hover img {
-          transform: scale(1.012);
-        }
-        /* Subtle icon shift on feature cards */
-        .surface .lucide {
-          transition: opacity .5s ease;
-        }
-        .surface:hover .lucide {
-          opacity: 0.7;
+        /* Image hover zoom on cards — pointer devices only */
+        @media (hover: hover) {
+          .surface img {
+            transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+          }
+          .surface:hover img {
+            transform: scale(1.012);
+          }
+          .surface .lucide {
+            transition: opacity .5s ease;
+          }
+          .surface:hover .lucide {
+            opacity: 0.7;
+          }
         }
         /* ── Background wash utilities (layered, atmospheric) ──── */
         .bg-sand-wash {
@@ -472,11 +455,13 @@ export default function Layout({ children, currentPageName, navMode }) {
           outline: 2px solid var(--hills);
           outline-offset: 2px;
         }
-        .segment-card img {
-          transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-        .segment-card:hover img {
-          transform: scale(1.03);
+        @media (hover: hover) {
+          .segment-card img {
+            transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+          }
+          .segment-card:hover img {
+            transform: scale(1.03);
+          }
         }
         .segment-card-link {
           transition: text-decoration 0.3s var(--ease-out);
@@ -529,12 +514,14 @@ export default function Layout({ children, currentPageName, navMode }) {
           }
         }
 
-        /* ── InfoSplit image hover zoom ─────────────────── */
-        .info-split-image img {
-          transition: transform 1.8s cubic-bezier(0.22, 0.61, 0.36, 1);
-        }
-        .info-split:hover .info-split-image img {
-          transform: scale(1.015);
+        /* ── InfoSplit image hover zoom — pointer devices only ─── */
+        @media (hover: hover) {
+          .info-split-image img {
+            transition: transform 1.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+          }
+          .info-split:hover .info-split-image img {
+            transform: scale(1.015);
+          }
         }
 
         /* ── Segment card grid responsive columns ───────── */
@@ -671,19 +658,22 @@ export default function Layout({ children, currentPageName, navMode }) {
             <div className="flex justify-between items-center">
               <Link to={createPageUrl("Home")} className="flex items-center">
                 <img
-                  src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
-                  alt={brand?.siteName || "Compass Buyers Agency"}
+                  src="/images/compass-logo.png"
+                  alt=""
+                  decoding="async"
+                  width="136"
+                  height="32"
                   className="h-7 md:h-8 w-auto transition-all duration-300"
                   style={(isHome || isLanding) && !isScrolled ? { filter: 'brightness(0) invert(1)' } : undefined} />
 
-                <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
+                <span className="sr-only">{"Compass Buyers Agency"}</span>
               </Link>
 
               {isLanding ? (
                 /* Landing page: phone + hamburger — lets users navigate back to main site */
                 <div className="flex items-center gap-3">
                   <a
-                    href={`tel:${brand?.phoneRaw || "0467634565"}`}
+                    href={`tel:${"0467634565"}`}
                     className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
                       !isScrolled
                         ? 'border-white/30 hover:bg-white/10'
@@ -711,10 +701,13 @@ export default function Layout({ children, currentPageName, navMode }) {
                         <div className="flex justify-between items-center py-6 border-b border-[var(--bright-grey)]">
                           <div className="flex items-center">
                             <img
-                              src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
-                              alt={brand?.siteName || "Compass Buyers Agency"}
+                              src={"/images/compass-logo.png"}
+                              alt=""
+                              decoding="async"
+                              width="119"
+                              height="28"
                               className="h-7 w-auto" />
-                            <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
+                            <span className="sr-only">{"Compass Buyers Agency"}</span>
                           </div>
                           <SheetClose />
                         </div>
@@ -736,7 +729,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                           <SheetClose asChild>
                             <Link to={createPageUrl("Contact")}>
                               <Button className="btn-cta w-full text-[12px] uppercase tracking-[0.14em] bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
-                                {brand?.navCtaLabel || "Speak to an Agent"}
+                                {"Speak to an Agent"}
                               </Button>
                             </Link>
                           </SheetClose>
@@ -774,7 +767,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                       ? 'bg-white/10 backdrop-blur-sm text-white border border-white/25 hover:bg-white/20'
                       : 'bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white'
                   }`}>
-                    {brand?.navCtaLabel || "Speak to an Agent"}
+                    {"Speak to an Agent"}
                   </Button>
                 </Link>
               </nav>
@@ -782,7 +775,7 @@ export default function Layout({ children, currentPageName, navMode }) {
               {/* Mobile/Tablet: Phone + Hamburger */}
               <div className="xl:hidden flex items-center gap-3">
                 <a
-                  href={`tel:${brand?.phoneRaw || "0467634565"}`}
+                  href={`tel:${"0467634565"}`}
                   className={`flex items-center justify-center w-10 h-10 rounded-full border transition-colors ${
                     isHome && !isScrolled
                       ? 'border-white/30 hover:bg-white/10'
@@ -810,11 +803,12 @@ export default function Layout({ children, currentPageName, navMode }) {
                       <div className="flex justify-between items-center py-6 border-b border-[var(--bright-grey)]">
                         <div className="flex items-center">
                           <img
-                            src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
-                            alt={brand?.siteName || "Compass Buyers Agency"}
+                            src={"/images/compass-logo.png"}
+                            alt={"Compass Buyers Agency"}
+                            decoding="async"
                             className="h-7 w-auto" />
 
-                          <span className="sr-only">{brand?.siteName || "Compass Buyers Agency"}</span>
+                          <span className="sr-only">{"Compass Buyers Agency"}</span>
                         </div>
                         <SheetClose />
                       </div>
@@ -843,7 +837,7 @@ export default function Layout({ children, currentPageName, navMode }) {
                         <SheetClose asChild>
                           <Link to={createPageUrl("Contact")}>
                             <Button className="btn-cta w-full bg-[var(--hills)] hover:bg-[var(--hills)]/90 text-white">
-                              {brand?.navCtaLabel || "Speak to an Agent"}
+                              {"Speak to an Agent"}
                             </Button>
                           </Link>
                         </SheetClose>
@@ -871,17 +865,20 @@ export default function Layout({ children, currentPageName, navMode }) {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6" style={{ fontSize: "0.875rem" }}>
                 <img
-                  src={brand?.logo ? urlFor(brand.logo).height(80).url() : "/images/compass-logo.png"}
-                  alt={brand?.siteName || "Compass Buyers Agency"}
+                  src="/images/compass-logo.png"
+                  alt="Compass Buyers Agency"
+                  decoding="async"
+                  width="102"
+                  height="24"
                   className="h-6 w-auto"
                   style={{ filter: 'brightness(0) invert(1)' }}
                 />
-                <a href={`tel:${brand?.phoneRaw || "0467634565"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0467 634 565"}</a>
-                <a href={`mailto:${brand?.email || "hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.email || "hello@compassbuyersagency.com.au"}</a>
+                <a href={`tel:${"0467634565"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{"0467 634 565"}</a>
+                <a href={`mailto:${"hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{"hello@compassbuyersagency.com.au"}</a>
               </div>
               <div className="flex items-center gap-4" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.4)" }}>
                 <Link to={createPageUrl("PrivacyPolicy")} className="hover:text-white/70 transition-colors">Privacy Policy</Link>
-                <span>&copy; {new Date().getFullYear()} {brand?.siteName || "Compass Buyers Agency"}</span>
+                <span>&copy; {new Date().getFullYear()} {"Compass Buyers Agency"}</span>
               </div>
             </div>
           </div>
@@ -896,18 +893,18 @@ export default function Layout({ children, currentPageName, navMode }) {
                 <div
                   className="text-lg mb-3"
                   style={{ color: "#fff", fontFamily: "var(--font-heading)", fontWeight: 400, letterSpacing: "-0.01em" }}>
-                  {brand?.siteName || "Compass Buyers Agency"}
+                  {"Compass Buyers Agency"}
                 </div>
                 <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", fontWeight: 300, lineHeight: 1.65, maxWidth: "28ch", marginBottom: "1.25rem" }}>
-                  {brand?.footerTagline || "Northern Rivers and Gold Coast buyers agents. Local knowledge, honest advice."}
+                  {"Northern Rivers and Gold Coast buyers agents. Local knowledge, honest advice."}
                 </p>
                 <div className="space-y-1.5" style={{ fontSize: "0.875rem" }}>
-                  <div><a href={`tel:${brand?.phoneRaw || "0467634565"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.phone || "0467 634 565"}</a></div>
-                  <div><a href={`mailto:${brand?.email || "hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{brand?.email || "hello@compassbuyersagency.com.au"}</a></div>
+                  <div><a href={`tel:${"0467634565"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{"0467 634 565"}</a></div>
+                  <div><a href={`mailto:${"hello@compassbuyersagency.com.au"}`} className="hover:text-white transition-colors" style={{ color: "rgba(255,255,255,0.6)" }}>{"hello@compassbuyersagency.com.au"}</a></div>
                 </div>
                 <div className="flex gap-5 mt-5">
-                  <a href={brand?.instagramUrl || "https://www.instagram.com/compassbuyersagency/"} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Instagram</a>
-                  <a href={brand?.facebookUrl || "https://www.facebook.com/compassbuyersagency/"} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Facebook</a>
+                  <a href={"https://www.instagram.com/compassbuyersagency/"} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Instagram</a>
+                  <a href={"https://www.facebook.com/compassbuyersagency/"} target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }} className="hover:text-white/90 transition-colors">Facebook</a>
                 </div>
               </div>
 
@@ -939,12 +936,12 @@ export default function Layout({ children, currentPageName, navMode }) {
             </div>
 
             <div className="mt-8" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", lineHeight: 1.6 }}>
-              {brand?.acknowledgement || "We acknowledge the Bundjalung, Gumbaynggirr and Yaegl people as the Traditional Owners of the land on which we live and work. We pay our respects to their Elders past, present and emerging."}
+              {"We acknowledge the Bundjalung, Gumbaynggirr and Yaegl people as the Traditional Owners of the land on which we live and work. We pay our respects to their Elders past, present and emerging."}
             </div>
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-2 mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
-                &copy; {new Date().getFullYear()} {brand?.siteName || "Compass Buyers Agency"}
+                &copy; {new Date().getFullYear()} {"Compass Buyers Agency"}
               </div>
               <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
                 Built by Roadmap Labs

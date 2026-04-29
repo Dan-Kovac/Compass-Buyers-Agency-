@@ -42,6 +42,7 @@ export default function ImageBand({
         src={src}
         alt={alt}
         loading="lazy"
+        decoding="async"
         style={{
           position: "absolute",
           top: parallax ? "-15%" : "0",

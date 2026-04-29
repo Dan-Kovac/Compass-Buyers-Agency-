@@ -36,6 +36,7 @@ export default function AcquisitionCard({ item }) {
             alt={item.title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
+            decoding="async"
             onError={(e) => { e.target.style.display = "none"; }}
           />
         ) : null}

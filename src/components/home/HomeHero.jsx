@@ -1,44 +1,10 @@
 import React from "react";
-import { fetchSiteSettings } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
 import ReviewsBadge from "../shared/ReviewsBadge";
 
 export default function HomeHero({ title, subtitle, backgroundImageUrl, backgroundVideoUrl, ctaHref, ctaText } = {}) {
-  const [brand, setBrand] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
   const videoRef = React.useRef(null);
 
-  React.useEffect(() => {
-    let mounted = true;
-    const timeout = setTimeout(() => {
-      if (mounted) setLoading(false);
-    }, 3000);
-
-    (async () => {
-      try {
-        const settings = await fetchSiteSettings();
-        if (mounted) {
-          setBrand(settings || null);
-          setLoading(false);
-          clearTimeout(timeout);
-        }
-      } catch (err) {
-        console.warn("Could not load site settings for hero");
-        if (mounted) {
-          setBrand(null);
-          setLoading(false);
-          clearTimeout(timeout);
-        }
-      }
-    })();
-
-    return () => {
-      mounted = false;
-      clearTimeout(timeout);
-    };
-  }, []);
-
-  // Slow-motion playback for dreamy coastal feel; pause for reduced-motion users
   React.useEffect(() => {
     if (!videoRef.current) return;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -47,22 +13,19 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
     } else {
       videoRef.current.playbackRate = 0.85;
     }
-  }, [loading]);
+  }, []);
 
-  const hasVideo = backgroundVideoUrl || brand?.hero_background_video_url;
-  const posterUrl =
-    backgroundImageUrl ||
-    brand?.hero_background_image_url ||
-    "/videos/compass-hero-poster.jpg";
+  const hasVideo = Boolean(backgroundVideoUrl);
+  const posterUrl = backgroundImageUrl || "/videos/compass-hero-poster.jpg";
 
   return (
-    <section className="relative min-h-screen flex items-end overflow-hidden">
+    <section className="relative flex items-end overflow-hidden hero-shell">
       {/* Background */}
       {hasVideo ? (
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
-          src={backgroundVideoUrl || brand.hero_background_video_url}
+          src={backgroundVideoUrl}
           poster={posterUrl}
           autoPlay
           muted
@@ -144,6 +107,10 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
 
       {/* Hero entrance keyframes */}
       <style>{`
+        .hero-shell { min-height: 100vh; min-height: 100svh; }
+        @media (max-width: 767px) {
+          .hero-shell { min-height: 85vh; min-height: 85svh; }
+        }
         @keyframes heroReveal {
           from { opacity: 0; transform: translateY(12px) scale(0.96); }
           to   { opacity: 1; transform: translateY(0) scale(1); }

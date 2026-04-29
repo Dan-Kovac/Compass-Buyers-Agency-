@@ -202,6 +202,7 @@ export default function AcquisitionDetail() {
                             alt={agent.name}
                             className="w-16 h-16 rounded-full object-cover"
                             loading="lazy"
+                            decoding="async"
                           />
                         )}
                         <div>
@@ -277,6 +278,7 @@ export default function AcquisitionDetail() {
                           alt={acq.title}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           loading="lazy"
+                          decoding="async"
                         />
                       )}
                     </div>

@@ -93,7 +93,7 @@ export default function ReviewsBadge({
         e.currentTarget.style.background = v.bg;
         e.currentTarget.style.borderColor = v.border.split(" ").slice(-1)[0];
       }}
-      aria-label={`Rated ${rating} out of 5 from ${reviewCount} Google reviews`}
+      aria-label={`${rating.toFixed(1)} out of 5, rated by ${reviewCount} Google reviewers`}
     >
       {GOOGLE_G}
 

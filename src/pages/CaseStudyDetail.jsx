@@ -107,6 +107,8 @@ export default function CaseStudyDetail() {
                 <img
                   src={resolveImageUrl(item.image, item.featured_image, { width: 1200 }) || PLACEHOLDER_IMG}
                   alt={item.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-cover"
                   onError={(e) => {
                     // Fixed typo: changed PLACEHELDER_IMG to PLACEHOLDER_IMG

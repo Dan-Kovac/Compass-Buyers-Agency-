@@ -55,6 +55,7 @@ export default function Regions({
                     alt={it.label}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
+                    decoding="async"
                   />
 
                   {/* Gradient fade at bottom */}

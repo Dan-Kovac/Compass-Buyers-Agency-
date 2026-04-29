@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchTeamMembers, fetchPage, urlFor } from "@/lib/sanityClient";
+import { fetchTeamMembers, urlFor } from "@/lib/sanityClient";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import FeatureSplit from "../components/about/FeatureSplit";
@@ -19,11 +19,6 @@ const DEFAULT_STATS = [
 export default function About() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(null);
-
-  useEffect(() => {
-    fetchPage("aboutPage").then(setPage).catch(() => {});
-  }, []);
 
   useEffect(() => {
     loadTeamMembers();
@@ -39,14 +34,13 @@ export default function About() {
     setIsLoading(false);
   };
 
-  const stats = page?.stats?.length ? page.stats : DEFAULT_STATS;
+  const stats = DEFAULT_STATS;
 
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Our Team | Compass Buyers Agency"}
-        description={page?.seo?.metaDescription || "Meet the Compass team. Licensed buyers agents with street-level knowledge across Byron Bay, the Tweed Coast and Southern Gold Coast."}
-        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        title="Our Team | Compass Buyers Agency"
+        description="Meet the Compass team. Licensed buyers agents with street-level knowledge across Byron Bay, the Tweed Coast and Southern Gold Coast."
         canonicalPath="/about"
       />
       {/* AboutPage JSON-LD */}
@@ -91,10 +85,10 @@ export default function About() {
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">About Compass</p>
               <h1>
-                {page?.heading || "Your Team on the Tweed Coast"}
+                Your Team on the Tweed Coast
               </h1>
               <p className="text-balance">
-                {page?.subtitle || "Licensed buyers agents who live where you're looking. Local streets, local agents, local knowledge, all working for you."}
+                Licensed buyers agents who live where you're looking. Local streets, local agents, local knowledge, all working for you.
               </p>
             </div>
           </ScrollReveal>
@@ -104,10 +98,10 @@ export default function About() {
       {/* ── Section 1: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
       <FeatureSplit
         eyebrow="Local Knowledge"
-        title={page?.featureSplit1?.title || "What Local Actually Means"}
-        description={page?.featureSplit1?.description || "Your expert buying team with over 80 years combined experience. Every property is inspected in person, selling agents are consulted daily and weekly, and you get the micro-pocket, street-level insights most buyers never see.\n\n\u2022 74% of deals come from off-market or pre-market channels\n\u2022 Coverage across Tweed Shire, Gold Coast, Byron and Ballina\n\u2022 Deep relationships with hundreds of local agents, with access to top tier local professional services"}
-        image={page?.featureSplit1?.image ? urlFor(page.featureSplit1.image).width(800).url() : "/images/pages/about.jpg"}
-        imageAlt={page?.featureSplit1?.imageAlt || "Compass team meeting clients"}
+        title="What Local Actually Means"
+        description={"Your expert buying team with over 80 years combined experience. Every property is inspected in person, selling agents are consulted daily and weekly, and you get the micro-pocket, street-level insights most buyers never see.\n\n\u2022 74% of deals come from off-market or pre-market channels\n\u2022 Coverage across Tweed Shire, Gold Coast, Byron and Ballina\n\u2022 Deep relationships with hundreds of local agents, with access to top tier local professional services"}
+        image="/images/pages/about.jpg"
+        imageAlt="Compass team meeting clients"
         imageLeft={false}
         mobileImageFirst={true}
         variant="sand"
@@ -116,10 +110,10 @@ export default function About() {
       {/* ── Section 3: FeatureSplit 2 ── bg-white (image left) ────────────── */}
       <FeatureSplit
         eyebrow="Your Advantage"
-        title={page?.featureSplit2?.title || "Buyers Only. No Exceptions."}
-        description={page?.featureSplit2?.description || "You get a team that only represents buyers. No selling. No conflicts. That changes the advice you receive and the outcomes you achieve.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, no hand-offs between departments\n\u2022 You always know where things stand, no chasing for updates"}
-        image={page?.featureSplit2?.image ? urlFor(page.featureSplit2.image).width(800).url() : "/images/pages/about.jpg"}
-        imageAlt={page?.featureSplit2?.imageAlt || "Compass team at office"}
+        title="Buyers Only. No Exceptions."
+        description={"You get a team that only represents buyers. No selling. No conflicts. That changes the advice you receive and the outcomes you achieve.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, no hand-offs between departments\n\u2022 You always know where things stand, no chasing for updates"}
+        image="/images/pages/about.jpg"
+        imageAlt="Compass team at office"
         imageLeft={true}
         variant="white"
         ctaLabel="Start a Conversation"
@@ -180,7 +174,7 @@ export default function About() {
             <div className="text-center" style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
               <p className="eyebrow-label">The Team</p>
               <h2>
-                {page?.teamSectionHeading || "Who you'll work with"}
+                Who you'll work with
               </h2>
               <p className="text-balance" style={{ maxWidth: "36rem", margin: "0 auto" }}>
                 Every conversation, inspection and negotiation is handled by the people you see here. No hand-offs, no call centres.
@@ -232,6 +226,7 @@ export default function About() {
                               }
                               alt={m.name}
                               loading="lazy"
+                              decoding="async"
                             />
                           </div>
 
@@ -354,8 +349,8 @@ export default function About() {
 
       {/* ── Section 6: CTA ── bg-editorial-dark ───────────────────────────── */}
       <CTASection
-        heading={page?.cta?.heading || "Have questions? Start a conversation."}
-        buttonText={page?.cta?.buttonText || "Start a Conversation"}
+        heading="Have questions? Start a conversation."
+        buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="No sales pitch. Just honest advice from people who know these markets inside out."
         variant="dark"

@@ -17,6 +17,7 @@ export default function ShireOverview({ shires = [] }) {
                     alt={shire.title}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               )}

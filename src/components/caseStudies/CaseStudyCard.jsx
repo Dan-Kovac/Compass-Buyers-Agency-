@@ -59,6 +59,7 @@ export default function CaseStudyCard({ item }) {
             className="block w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             style={{ objectPosition: "center" }}
             loading="lazy"
+            decoding="async"
             onError={(e) => {
               if (e.currentTarget.src !== PLACEHOLDER_IMG) e.currentTarget.src = PLACEHOLDER_IMG;
             }}

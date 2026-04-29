@@ -50,6 +50,7 @@ export default function KeyStatsTable(props) {
                   alt={title || propertyType || "Property"}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             )}
