@@ -5,7 +5,6 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 import ImageBand from "@/components/shared/ImageBand";
 import ReviewsBadge from "@/components/shared/ReviewsBadge";
 import SEOHead from "../components/shared/SEOHead";
-import { fetchPage } from "@/lib/sanityClient";
 
 const contactStyles = `
   .contact-header {
@@ -175,22 +174,16 @@ const contactStyles = `
 `;
 
 export default function Contact() {
-  const [page, setPage] = React.useState(null);
-
-  React.useEffect(() => {
-    fetchPage("contactPage").then(setPage).catch(() => {});
-  }, []);
-
-  const phone = page?.phone || "0467 634 565";
+  const phone = "0467 634 565";
   const phoneRaw = phone.replace(/\s/g, "");
-  const email = page?.email || "hello@compassbuyersagency.com.au";
-  const address = page?.address || "32a Tweed Coast Road, Cabarita Beach NSW 2487";
+  const email = "hello@compassbuyersagency.com.au";
+  const address = "32a Tweed Coast Road, Cabarita Beach NSW 2487";
 
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Contact Us | Talk to a Buyers Agent | Compass"}
-        description={page?.seo?.metaDescription || "Talk to a buyers agent today. Call Chris on 0467 634 565 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation."}
+        title="Contact Us | Talk to a Buyers Agent | Compass"
+        description="Talk to a buyers agent today. Call Chris on 0467 634 565 or visit us at 32a Tweed Coast Road, Cabarita Beach. Free initial consultation."
         canonicalPath="/contact"
       />
       <script
@@ -243,10 +236,9 @@ export default function Contact() {
         <div className="site-container">
           <ScrollReveal>
             <p className="eyebrow-label">Get in Touch</p>
-            <h1>{page?.heading || "Talk to a Buyers Agent"}</h1>
+            <h1>Talk to a Buyers Agent</h1>
             <p className="contact-header__lead">
-              {page?.subtitle ||
-                "Free consultation. No obligation. We'll answer your questions and outline how we can help."}
+              Free consultation. No obligation. We'll answer your questions and outline how we can help.
             </p>
             <ReviewsBadge variant="light" />
           </ScrollReveal>
@@ -296,7 +288,7 @@ export default function Contact() {
               <div className="contact-form-card">
                 <div className="contact-form-card__header">
                   <h2 className="contact-form-card__title">
-                    {page?.formTitle || "Book Your Free Consultation"}
+                    Book Your Free Consultation
                   </h2>
                   <p className="contact-form-card__sub">
                     Share a few details and we'll be in touch within 24 hours.
@@ -316,7 +308,7 @@ export default function Contact() {
       </section>
 
       <ImageBand
-        src="/images/contact/july-02.jpg"
+        src="/images/contact/july-02.webp"
         alt="Aerial view of Northern Rivers coastline"
         height="340px"
         mobileHeight="220px"

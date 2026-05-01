@@ -57,6 +57,7 @@ export default function VideoTestimonialCard({ videoSrc, posterSrc, clientName, 
                 alt={`${clientName} testimonial`}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--hills)] to-[var(--ink)]" />

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AdLandingTemplate from "../components/landing/AdLandingTemplate";
 import SEOHead from "../components/shared/SEOHead";
 import { createPageUrl } from "@/utils";
-import { fetchLandingPage, resolveImageUrl } from "@/lib/sanityClient";
 
 /* ── Hardcoded fallbacks ── */
 const FALLBACK = {
@@ -75,49 +74,41 @@ const FALLBACK = {
 };
 
 export default function GoldCoastBuyersAgent() {
-  const [page, setPage] = useState(null);
-  useEffect(() => {
-    fetchLandingPage("gold-coast-buyers-agent").then(setPage).catch(() => {});
-  }, []);
-
-  const seo = page?.seo || FALLBACK.seo;
-  const faq = page?.faqItems?.length ? page.faqItems : FALLBACK.faqItems;
-  const stats = page?.marketStats?.length ? page.marketStats : FALLBACK.stats;
-  const acq = page?.acquisitionFilter || FALLBACK.acquisitions;
+  const seo = FALLBACK.seo;
+  const faq = FALLBACK.faqItems;
+  const stats = FALLBACK.stats;
+  const acq = FALLBACK.acquisitions;
 
   return (
     <>
       <SEOHead
-        title={seo.metaTitle ?? FALLBACK.seo.metaTitle}
-        description={seo.metaDescription ?? FALLBACK.seo.metaDescription}
+        title={seo.metaTitle}
+        description={seo.metaDescription}
         canonicalPath="/gold-coast-buyers-agent"
       />
       <AdLandingTemplate
         hero={{
-          title: page?.heroTitle ?? FALLBACK.hero.title,
-          subtitle: page?.heroSubtitle ?? FALLBACK.hero.subtitle,
-          ctaText: page?.heroCtaText ?? FALLBACK.hero.ctaText,
-          ctaHref: page?.heroCtaHref || createPageUrl("Contact"),
-          backgroundVideoUrl: page?.heroBackgroundVideoUrl || undefined,
-          backgroundImageUrl: page?.heroImage ? resolveImageUrl(page.heroImage, null, { width: 1920 }) : undefined,
+          title: FALLBACK.hero.title,
+          subtitle: FALLBACK.hero.subtitle,
+          ctaText: FALLBACK.hero.ctaText,
+          ctaHref: createPageUrl("Contact"),
         }}
         stats={stats}
         acquisitions={{
-          suburb: acq.suburb ?? FALLBACK.acquisitions.suburb,
-          lga: acq.lga ?? FALLBACK.acquisitions.lga,
-          eyebrow: acq.eyebrow ?? FALLBACK.acquisitions.eyebrow,
+          suburb: acq.suburb,
+          lga: acq.lga,
+          eyebrow: acq.eyebrow,
         }}
         faqItems={faq}
-        imageBandSrc={page?.imageBandImage ? resolveImageUrl(page.imageBandImage, null, { width: 2000 }) : "/images/landing/gold-coast.jpg"}
-        imageBandAlt={page?.imageBandAlt || "Gold Coast southern coastline"}
+        imageBandSrc="/images/landing/gold-coast.jpg"
+        imageBandAlt="Gold Coast southern coastline"
         cta={{
-          heading: page?.ctaHeading ?? FALLBACK.cta.heading,
-          buttonText: page?.ctaButtonText ?? FALLBACK.cta.buttonText,
-          buttonHref: page?.ctaButtonHref || createPageUrl("Contact"),
+          heading: FALLBACK.cta.heading,
+          buttonText: FALLBACK.cta.buttonText,
+          buttonHref: createPageUrl("Contact"),
         }}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
-        page?.jsonLd ? JSON.parse(page.jsonLd) : {
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
           {

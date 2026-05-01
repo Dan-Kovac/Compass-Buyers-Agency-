@@ -78,8 +78,8 @@
   --stone: #767470;
 
   /* Section spacing — two tiers only */
-  --section-padding: clamp(4rem, 8vw, 7rem);
-  --section-padding-compact: clamp(2rem, 5vw, 3rem);
+  --section-padding: clamp(2.5rem, 8vw, 7rem);
+  --section-padding-compact: clamp(1.75rem, 5vw, 3rem);
 
   /* Container */
   --container-max: 1200px;

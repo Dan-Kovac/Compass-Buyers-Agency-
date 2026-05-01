@@ -42,6 +42,7 @@ export default function CTASection({
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)]/70 to-[var(--ink)]/40" />
         </>

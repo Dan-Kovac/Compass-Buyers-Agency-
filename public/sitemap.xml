@@ -95,7 +95,21 @@
 
   <url>
     <loc>https://compassagency.com.au/northern-rivers-buyers-agent</loc>
-    <lastmod>2026-03-10</lastmod>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://compassagency.com.au/brunswick-heads-buyers-agent</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://compassagency.com.au/southern-gold-coast-buyers-agent</loc>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

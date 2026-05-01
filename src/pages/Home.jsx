@@ -11,45 +11,23 @@ import TestimonialSection from "../components/shared/TestimonialSection";
 import ImageBand from "../components/shared/ImageBand";
 import SEOHead from "../components/shared/SEOHead";
 import { createPageUrl } from "@/utils";
-import { fetchPage, urlFor } from "@/lib/sanityClient";
 
 export default function Home() {
-  const [page, setPage] = React.useState(null);
-
-  React.useEffect(() => {
-    fetchPage("homePage").then(setPage).catch(() => {});
-  }, []);
-
   return (
     <div>
       <SEOHead
-        title={page?.seo?.metaTitle || "Buyers Agent Byron Bay to Gold Coast | Compass"}
-        description={page?.seo?.metaDescription || "Byron Bay to Gold Coast buyers agent. $2.45M median Byron, $1.65M Tweed. 42% of our deals are off-market. We find, assess, negotiate."}
-        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        title="Buyers Agent Byron Bay to Gold Coast | Compass"
+        description="Byron Bay to Gold Coast buyers agent. $2.45M median Byron, $1.65M Tweed. 42% of our deals are off-market. We find, assess, negotiate."
         canonicalPath="/"
       />
-      {/* 1. Hero — dark video overlay, full bleed */}
-      <HomeHero
-        title={page?.hero?.title}
-        subtitle={page?.hero?.subtitle}
-        ctaText={page?.hero?.ctaText}
-        backgroundVideoUrl={page?.hero?.backgroundVideoUrl || "/videos/compass-hero.mp4"}
-        backgroundImageUrl={page?.hero?.backgroundImage ? urlFor(page.hero.backgroundImage).width(1920).url() : undefined}
-      />
+      <HomeHero backgroundVideoUrl="/videos/compass-hero.mp4" />
 
-      {/* 2. Trust stats bar — social proof */}
       <TrustBar />
 
-      {/* 3. Services accordion — dark editorial */}
-      <ServicesAccordionShowcase
-        heading={page?.servicesAccordion?.heading}
-        teamImageUrl={page?.servicesAccordion?.teamImage ? urlFor(page.servicesAccordion.teamImage).width(800).url() : undefined}
-        items={page?.servicesAccordion?.items}
-      />
+      <ServicesAccordionShowcase />
 
-      {/* 4. Atmospheric parallax band — hinterland landscape */}
       <ImageBand
-        src="/images/home/hinterland-morning.jpg"
+        src="/images/home/hinterland-morning.webp"
         alt="Northern Rivers hinterland at dawn"
         height="380px"
         mobileHeight="240px"
@@ -57,50 +35,23 @@ export default function Home() {
         overlay
       />
 
-      {/* 5. Featured acquisitions — bright grey bg */}
-      <RecentAcquisitionsStrip
-        eyebrow={page?.acquisitionsStrip?.eyebrow}
-        title={page?.acquisitionsStrip?.heading}
-        description={page?.acquisitionsStrip?.subheading}
-      />
+      <RecentAcquisitionsStrip />
 
-      {/* 6. Video Testimonials — social proof */}
       <TestimonialSection />
 
-      {/* 7. Working with us — sand-wash bg, asymmetric split */}
-      <InvestmentAndRelationship
-        heading={page?.relationship?.heading}
-        body={page?.relationship?.body}
-        imageUrl={page?.relationship?.image ? urlFor(page.relationship.image).width(800).url() : undefined}
-        checklist={page?.relationship?.checklistItems}
-      />
+      <InvestmentAndRelationship />
 
-      {/* 8. Regions — white bg with destination cards */}
-      <Regions
-        heading={page?.regions?.heading}
-        subtitle={page?.regions?.subtitle}
-        ctaText={page?.regions?.ctaText}
-        items={page?.regions?.items?.map(it => ({
-          label: it.label,
-          imageUrl: it.image ? urlFor(it.image).width(1200).url() : undefined,
-        }))}
-      />
+      <Regions />
 
-      {/* 9. FAQ — bright grey bg */}
-      <HomeFAQ
-        heading={page?.faq?.heading}
-        faqItems={page?.faq?.items}
-      />
+      <HomeFAQ />
 
-      {/* 10. CTA — compact dark close */}
       <CTASection
-        heading={page?.contactStrip?.heading || "Let's find your property"}
-        buttonText={page?.contactStrip?.primaryButtonLabel || "Start a Conversation"}
+        heading="Let's find your property"
+        buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         variant="dark"
       />
 
-      {/* Organization + LocalBusiness JSON-LD */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "LocalBusiness",

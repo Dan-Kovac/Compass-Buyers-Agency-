@@ -229,37 +229,33 @@ export default function ContactFormCompact({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData._gotcha) return;
+
     setIsSubmitting(true);
 
-    const emailBody = `
-New enquiry from Compass Buyers Agency website:
-
-Name: ${formData.name}
-Email: ${formData.email}
-Mobile: ${formData.phone}
-
-Preferences:
-- Property Type: ${formData.propertyType || "-"}
-- Preferred Location: ${formData.location || "-"}
-- Budget Range: ${formData.budget || "-"}
-- Timeframe: ${formData.timeframe || "-"}
-
-Message:
-${formData.message || "-"}
-
----
-Sent from Compact Contact Form
-    `;
+    const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+    if (!endpoint) {
+      console.error("VITE_FORMSPREE_ENDPOINT is not set");
+      setIsSubmitting(false);
+      setSubmitStatus("error");
+      return;
+    }
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          to: "hello@compassbuyersagency.com.au",
-          subject: `New Website Enquiry from ${formData.name || "Unknown"}`,
-          body: emailBody,
-          from_name: "Compass Buyers Agency Website"
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          propertyType: formData.propertyType || "-",
+          location: formData.location || "-",
+          budget: formData.budget || "-",
+          timeframe: formData.timeframe || "-",
+          message: formData.message || "-",
+          _subject: `New Website Enquiry from ${formData.name || "Unknown"}`,
         }),
       });
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
@@ -268,7 +264,7 @@ Sent from Compact Contact Form
       setIsSubmitting(false);
       setSubmitStatus("success");
     } catch (err) {
-      console.error("Email send failed:", err);
+      console.error("Form submission failed:", err);
       setIsSubmitting(false);
       setSubmitStatus("error");
     }
@@ -286,6 +282,7 @@ Sent from Compact Contact Form
             alt="Compass team"
             className="w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
         </div>
@@ -301,6 +298,18 @@ Sent from Compact Contact Form
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <p id="required-note" className="sr-only">Fields marked with * are required</p>
+
+          {/* Honeypot — hidden from humans, bots fill it and we drop the submission */}
+          <input
+            type="text"
+            name="_gotcha"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData._gotcha || ""}
+            onChange={(e) => handleChange("_gotcha", e.target.value)}
+            style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+            aria-hidden="true"
+          />
 
           {/* Name + Mobile side by side */}
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "clamp(0.75rem, 1.5vw, 1rem)" }}>

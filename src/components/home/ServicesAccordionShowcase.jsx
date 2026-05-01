@@ -102,6 +102,7 @@ export default function ServicesAccordionShowcase({
               alt={teamImageAlt}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
           </ScrollReveal>
         </div>

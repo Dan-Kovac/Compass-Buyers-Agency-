@@ -50,6 +50,7 @@ export default function FeaturedPost({ posts = [], filteredPosts = [] }) {
                     className="block w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-[1.02]"
                     style={{ objectPosition: "center" }}
                     loading="lazy"
+                    decoding="async"
                   />
                 ) : (
                   <ImagePlaceholder title={title} className="w-full h-full" />

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SegmentCardGrid from "@/components/who/SegmentCardGrid";
 import CTASection from "@/components/shared/CTASection";
 
 import TestimonialSection from "@/components/shared/TestimonialSection";
 import RecentAcquisitionsStrip from "@/components/home/RecentAcquisitionsStrip";
 import { createPageUrl } from "@/utils";
-import { fetchPage, urlFor } from "@/lib/sanityClient";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import SEOHead from "../components/shared/SEOHead";
 
@@ -41,7 +40,7 @@ const fallbackSegments = [
       "Thorough due diligence and building & pest coordination",
       "Negotiation of favourable terms and settlement flexibility",
     ],
-    imageUrl: "/images/who-we-work-with/downsizers.jpg",
+    imageUrl: "/images/who-we-work-with/downsizers.webp",
     imageAlt: "Modern low-maintenance townhouse development ideal for downsizers",
   },
   {
@@ -109,7 +108,7 @@ const fallbackSegments = [
       "Video inspections, detailed reports and local market context",
       "Full representation from search through to settlement",
     ],
-    imageUrl: "/images/who-we-work-with/international-buyers.jpg",
+    imageUrl: "/images/who-we-work-with/international-buyers.webp",
     imageAlt: "Compass agent beside a Just Bought sign in Kingscliff",
   },
   {
@@ -160,7 +159,7 @@ const fallbackSegments = [
       "Lease analysis, tenant assessment and yield modelling",
       "Negotiation with commercial-specific terms and conditions",
     ],
-    imageUrl: "/images/who-we-work-with/commercial-property-buyers.jpg",
+    imageUrl: "/images/who-we-work-with/commercial-property-buyers.webp",
     imageAlt: "Compass agent at a property inspection",
   },
 ];
@@ -178,24 +177,7 @@ const segmentOrder = [
 ];
 
 export default function WhoWeWorkWith() {
-  const [page, setPage] = useState(null);
-  const [segments, setSegments] = useState(fallbackSegments);
-
-  useEffect(() => {
-    fetchPage("whoWeWorkWithPage")
-      .then((data) => {
-        setPage(data);
-        if (data?.segments && data.segments.length > 0) {
-          setSegments(
-            data.segments.map((s) => ({
-              ...s,
-              imageUrl: s.image ? urlFor(s.image).width(1600).url() : s.imageUrl,
-            }))
-          );
-        }
-      })
-      .catch(() => {});
-  }, []);
+  const segments = fallbackSegments;
 
   /* Sort segments into the defined order, falling back to original order */
   const renderSegments = segmentOrder
@@ -209,9 +191,8 @@ export default function WhoWeWorkWith() {
   return (
     <div className="bg-white">
       <SEOHead
-        title={page?.seo?.metaTitle || "Who We Work With | First Home to Prestige | Compass"}
-        description={page?.seo?.metaDescription || "Buyers agent for first home buyers, downsizers, investors, interstate movers and prestige buyers. Nine buyer segments, one process."}
-        ogImage={page?.seo?.ogImage ? urlFor(page.seo.ogImage).width(1200).url() : undefined}
+        title="Who We Work With | First Home to Prestige | Compass"
+        description="Buyers agent for first home buyers, downsizers, investors, interstate movers and prestige buyers. Nine buyer segments, one process."
         canonicalPath="/who-we-work-with"
       />
       <script
@@ -240,10 +221,10 @@ export default function WhoWeWorkWith() {
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">Our Clients</p>
               <h1>
-                {page?.heading || "Who We Work With"}
+                Who We Work With
               </h1>
               <p className="intro-text" style={{ margin: "1.25rem auto 0" }}>
-                {page?.subtitle || "Every buyer is different. Whether you're chasing a sea change, growing a portfolio or buying from interstate, we shape our approach around you."}
+                Every buyer is different. Whether you're chasing a sea change, growing a portfolio or buying from interstate, we shape our approach around you.
               </p>
             </div>
           </ScrollReveal>
@@ -268,9 +249,9 @@ export default function WhoWeWorkWith() {
 
       {/* 6. CTA */}
       <CTASection
-        heading={page?.cta?.heading || "Tell us what you're looking for"}
-        supportingText={page?.cta?.supportingText || "Every search starts with a conversation. We'll listen to your goals and explain how we can help."}
-        buttonText={page?.cta?.buttonText || "Start a Conversation"}
+        heading="Tell us what you're looking for"
+        supportingText="Every search starts with a conversation. We'll listen to your goals and explain how we can help."
+        buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         variant="dark"
       />

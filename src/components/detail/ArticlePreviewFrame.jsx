@@ -214,6 +214,7 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
               className="w-full h-full object-cover"
               style={{ objectPosition: "center" }}
               loading="lazy"
+              decoding="async"
             />
           </div>
         </ScrollReveal>
@@ -254,6 +255,7 @@ export default function ArticlePreviewFrame({ data = {}, settings = {}, type = "
                     alt={`Gallery ${i + 1}`}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               ))}
