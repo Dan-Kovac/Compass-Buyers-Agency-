@@ -29,7 +29,10 @@
     line-height: 1.6;
     font-weight: 300;
     font-size: 16px;
+    overflow-x: hidden;
   }
+
+  code { font-family: var(--sans); font-size: 0.95em; word-break: break-all; }
 
   h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; color: var(--hills); letter-spacing: -0.01em; }
   h1 { font-size: 4.25rem; line-height: 1.05; }
@@ -111,6 +114,8 @@
   .access-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--bright-grey); vertical-align: top; }
   .access-table tr:last-child td { border-bottom: none; }
   .access-table td:first-child { font-weight: 600; color: var(--hills); white-space: nowrap; }
+  .access-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 1.25rem; }
+  .access-table-wrap .access-table { margin-top: 0; }
   .access-table .access-tier { display: inline-block; padding: 0.15rem 0.55rem; background: var(--bright-grey); border-radius: 2px; font-size: 0.75rem; font-weight: 500; color: var(--hills); }
   .access-table .access-tier-ext { background: var(--sand); }
 
@@ -245,6 +250,27 @@
     .bruce-agents { grid-template-columns: repeat(2, 1fr); }
     section { padding: 3rem 0; }
     .hero { padding: 4.5rem 0 3rem; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 1.25rem; }
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 1.7rem; }
+    .hero .meta { gap: 1.25rem; }
+    .month-header { padding: 1.25rem 1.25rem; }
+    .month-header .num { padding-right: 1rem; font-size: 1.85rem; }
+    .month-body { padding: 1.5rem 1.25rem; }
+    .access-table { font-size: 0.88rem; }
+    .access-table thead { display: none; }
+    .access-table tr { display: block; padding: 1rem 1.1rem; border-bottom: 1px solid var(--bright-grey); }
+    .access-table tr:last-child { border-bottom: none; }
+    .access-table td { display: block; padding: 0.15rem 0; border: none; }
+    .access-table td:first-child { white-space: normal; font-size: 1rem; margin-bottom: 0.35rem; }
+    .access-table td:nth-child(2) { margin-bottom: 0.4rem; }
+    .cost-item { font-size: 0.88rem; padding: 0.75rem 0.9rem; gap: 0.5rem; }
+    .cost-item strong { white-space: normal; text-align: right; }
+    .arch { padding: 1.5rem 1rem; }
+    .arch-node-hero { font-size: 1.15rem; padding: 0.75rem 1.25rem; }
   }
 </style>
 </head>
