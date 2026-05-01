@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass OS — Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hills: #2C4A3E;
+    --ink: #1A1A1A;
+    --bright-grey: #F5F5F5;
+    --sea-breeze: #7BAE9E;
+    --sand: #F5E6D3;
+    --stone: #8B7E74;
+    --white: #FFFFFF;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.6;
+    font-weight: 300;
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; color: var(--hills); letter-spacing: -0.01em; }
+  h1 { font-size: 4.25rem; line-height: 1.05; }
+  h2 { font-size: 2.5rem; line-height: 1.15; margin-bottom: 0.5rem; }
+  h3 { font-size: 1.75rem; line-height: 1.2; margin-bottom: 0.4rem; }
+  h4 { font-size: 0.78rem; font-family: var(--sans); font-weight: 600; color: var(--sea-breeze); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; }
+
+  p { margin-bottom: 0.9rem; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+  .narrow { max-width: 720px; }
+
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sea-breeze); font-weight: 600; margin-bottom: 0.9rem; }
+
+  /* Hero */
+  .hero { background: var(--hills); color: var(--white); padding: 6rem 0 5rem; }
+  .hero h1 { color: var(--white); margin-bottom: 1.25rem; }
+  .hero .lede { font-size: 1.2rem; opacity: 0.88; max-width: 680px; }
+  .hero .eyebrow { color: var(--sand); opacity: 0.85; }
+  .hero .meta { margin-top: 2.75rem; display: flex; gap: 3rem; flex-wrap: wrap; font-size: 0.92rem; opacity: 0.9; }
+  .hero .meta strong { display: block; color: var(--sand); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.3rem; font-weight: 500; }
+
+  section { padding: 4.5rem 0; }
+  .alt { background: var(--bright-grey); }
+  .sand { background: var(--sand); }
+  .dark { background: var(--hills); color: var(--white); }
+  .dark h2, .dark h3 { color: var(--white); }
+  .dark .eyebrow { color: var(--sand); }
+
+  /* Outcomes */
+  .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .outcome { background: var(--white); padding: 2rem; border-left: 3px solid var(--sea-breeze); }
+  .outcome h3 { margin-bottom: 0.5rem; }
+  .outcome p { font-size: 0.95rem; margin-bottom: 0; }
+
+  /* Bruce callout */
+  .bruce { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .bruce-visual { background: var(--white); padding: 2rem; border-radius: 4px; }
+  .bruce-visual .center { text-align: center; padding: 1.5rem; background: var(--hills); color: var(--white); border-radius: 4px; margin-bottom: 1rem; }
+  .bruce-visual .center .name { font-family: var(--serif); font-size: 2rem; }
+  .bruce-visual .center .role { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
+  .bruce-agents { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .bruce-agent { background: var(--bright-grey); padding: 0.75rem 0.5rem; text-align: center; font-size: 0.78rem; color: var(--hills); font-weight: 500; border-radius: 3px; }
+
+  /* Surfaces */
+  .surfaces { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .surface { background: var(--white); padding: 1.75rem; border-top: 3px solid var(--hills); }
+  .surface .num { font-family: var(--serif); font-size: 1.6rem; color: var(--sea-breeze); margin-bottom: 0.4rem; }
+  .surface h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .surface p { font-size: 0.9rem; margin-bottom: 0; }
+
+  /* Architecture */
+  .arch { background: var(--white); padding: 2.25rem 1.5rem; border-radius: 4px; margin-top: 1.5rem; }
+  .arch-layer { margin-bottom: 0.4rem; }
+  .arch-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 600; margin-bottom: 0.55rem; text-align: center; }
+  .arch-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: nowrap; }
+  .arch-row-wrap { flex-wrap: wrap; }
+  .arch-node { background: var(--bright-grey); padding: 0.7rem 0.9rem; font-size: 0.8rem; color: var(--hills); font-weight: 500; border-radius: 3px; border: 1px solid transparent; flex: 1 1 0; text-align: center; min-width: 110px; }
+  .arch-node-hero { background: var(--hills); color: var(--white); font-family: var(--serif); font-size: 1.3rem; padding: 0.9rem 2.5rem; flex: 0 0 auto; }
+  .arch-node-ext { background: var(--sand); }
+  .arch-arrow { text-align: center; color: var(--sea-breeze); font-size: 1.3rem; padding: 0.35rem 0; line-height: 1; }
+  .arch-groups { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 0.75rem; }
+  .arch-group { background: var(--bright-grey); padding: 1rem 0.85rem; border-top: 3px solid var(--sea-breeze); border-radius: 3px; }
+  .arch-group h5 { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hills); font-weight: 600; margin-bottom: 0.65rem; text-align: center; }
+  .arch-group .arch-row { gap: 0.4rem; }
+  .arch-group .arch-node { background: var(--white); font-size: 0.78rem; padding: 0.55rem 0.6rem; min-width: 0; }
+  .arch-dash { background: var(--hills); color: var(--white); padding: 1.25rem; border-radius: 3px; }
+  .arch-dash .arch-label { color: var(--sand); }
+  .arch-dash .arch-node { background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid rgba(255,255,255,0.12); }
+  .arch-dash-note { text-align: center; font-size: 0.82rem; color: var(--sand); margin-top: 0.85rem; opacity: 0.9; }
+
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1.25rem; }
+  .cost-item { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.1rem; background: var(--white); border-left: 2px solid var(--sea-breeze); font-size: 0.92rem; gap: 1rem; }
+  .cost-item strong { color: var(--hills); font-weight: 600; white-space: nowrap; }
+  .cost-total { background: var(--hills); color: var(--white); border-left-color: var(--sand); }
+  .cost-total strong { color: var(--sand); }
+
+  .access-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; background: var(--white); font-size: 0.9rem; }
+  .access-table th { text-align: left; padding: 0.85rem 1rem; background: var(--hills); color: var(--white); font-family: var(--sans); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .access-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--bright-grey); vertical-align: top; }
+  .access-table tr:last-child td { border-bottom: none; }
+  .access-table td:first-child { font-weight: 600; color: var(--hills); white-space: nowrap; }
+  .access-table .access-tier { display: inline-block; padding: 0.15rem 0.55rem; background: var(--bright-grey); border-radius: 2px; font-size: 0.75rem; font-weight: 500; color: var(--hills); }
+  .access-table .access-tier-ext { background: var(--sand); }
+
+  /* Rollout */
+  .rollout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 1rem; }
+  .rollout-col { background: var(--white); padding: 1.5rem 1.25rem; border-top: 3px solid var(--sea-breeze); }
+  .rollout-col h4 { color: var(--hills); font-size: 0.78rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.9rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--bright-grey); }
+  .rollout-col ul { list-style: none; padding: 0; margin: 0; }
+  .rollout-col li { font-size: 0.88rem; padding: 0.55rem 0; border-bottom: 1px dotted var(--bright-grey); line-height: 1.45; }
+  .rollout-col li:last-child { border-bottom: none; }
+  .rollout-col li strong { color: var(--hills); display: block; font-weight: 600; margin-bottom: 0.15rem; }
+
+  /* Months */
+  .months-intro { margin-bottom: 2.5rem; }
+  .month {
+    background: var(--white);
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--bright-grey);
+    border-left: 4px solid var(--sea-breeze);
+    overflow: hidden;
+  }
+  .alt .month { border-color: var(--white); border-left-color: var(--sea-breeze); }
+  .month-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: var(--hills);
+    color: var(--white);
+  }
+  .month-header .label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.7; }
+  .month-header .num {
+    font-family: var(--serif);
+    font-size: 2.25rem;
+    line-height: 1;
+    color: var(--sand);
+    padding-right: 1.5rem;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .month-header h3 { color: var(--white); margin-bottom: 0.15rem; font-size: 1.6rem; }
+  .month-header .theme { font-size: 0.85rem; opacity: 0.85; }
+  .month-header .price { font-family: var(--serif); font-size: 1.4rem; color: var(--sand); }
+
+  .month-body { padding: 2rem; display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; }
+  .deliverables ul { list-style: none; padding: 0; }
+  .deliverables li {
+    padding: 0.55rem 0 0.55rem 1.75rem;
+    position: relative;
+    font-size: 0.94rem;
+    border-bottom: 1px dotted var(--bright-grey);
+  }
+  .alt .deliverables li { border-bottom-color: rgba(0,0,0,0.06); }
+  .deliverables li:last-child { border-bottom: none; }
+  .deliverables li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 1.5px solid var(--sea-breeze);
+    border-radius: 2px;
+  }
+  .deliverables li::after {
+    content: "✓";
+    position: absolute;
+    left: 0.08rem;
+    top: 0.55rem;
+    color: var(--sea-breeze);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .month-side { display: flex; flex-direction: column; gap: 1rem; }
+  .checkpoint, .outcome-stat {
+    padding: 1.1rem 1.25rem;
+    border-radius: 3px;
+  }
+  .checkpoint { background: var(--sand); }
+  .outcome-stat { background: var(--bright-grey); border-left: 3px solid var(--hills); }
+  .alt .outcome-stat { background: var(--white); }
+  .checkpoint h4 { color: var(--hills); margin-bottom: 0.5rem; }
+  .outcome-stat h4 { color: var(--hills); margin-bottom: 0.5rem; }
+  .checkpoint p, .outcome-stat p { margin-bottom: 0; font-size: 0.88rem; }
+  .checkpoint p { font-style: italic; }
+
+  .month-optional .month-header { background: var(--stone); }
+  .month-optional .month-header .num { color: var(--sand); }
+
+  /* Ownership */
+  .own-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 2rem; }
+  .own-item {
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border-left: 2px solid var(--sea-breeze);
+    font-size: 0.92rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .own-item::before {
+    content: "✓";
+    color: var(--sea-breeze);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Investment */
+  .invest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
+  .invest-stat { padding: 1.75rem; background: rgba(255,255,255,0.05); border-top: 2px solid var(--sand); }
+  .invest-stat .num { font-family: var(--serif); font-size: 2.75rem; color: var(--sand); line-height: 1; margin-bottom: 0.4rem; }
+  .invest-stat h4 { color: var(--white); }
+  .invest-stat p { font-size: 0.9rem; opacity: 0.85; margin-bottom: 0; }
+  .invest-note { margin-top: 2rem; opacity: 0.85; font-size: 0.92rem; max-width: 720px; }
+
+  footer { background: var(--ink); color: var(--white); padding: 2.5rem 0; font-size: 0.88rem; opacity: 0.85; }
+  footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+  @media (max-width: 900px) {
+    h1 { font-size: 2.75rem; }
+    h2 { font-size: 1.85rem; }
+    .outcomes, .bruce, .surfaces, .month-body, .own-grid, .invest-grid { grid-template-columns: 1fr; }
+    .rollout { grid-template-columns: 1fr; }
+    .arch-groups { grid-template-columns: 1fr; }
+    .cost-grid { grid-template-columns: 1fr; }
+    .month-header { grid-template-columns: auto 1fr; }
+    .month-header .price { grid-column: 2; }
+    .bruce-agents { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 3rem 0; }
+    .hero { padding: 4.5rem 0 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">Project Proposal · Compass Buyers Agency</div>
+    <h1>An operating system Compass owns.</h1>
+    <p class="lede">Built around how the team already works. Wins more deals, captures everything, stays audit-ready, and becomes a transferable asset Compass can roll out, sell, or franchise.</p>
+    <div class="meta">
+      <span><strong>Timeline</strong>4 months</span>
+      <span><strong>Investment</strong>$12,500 / month · $50k total</span>
+      <span><strong>Ownership</strong>100% Compass IP</span>
+    </div>
+  </div>
+</header>
+
+<!-- TWO OUTCOMES -->
+<section>
+  <div class="container">
+    <div class="eyebrow">Three outcomes from one build</div>
+    <h2>Efficiency. Compliance. Transferable IP.</h2>
+    <div class="outcomes">
+      <div class="outcome">
+        <h4>Outcome 01</h4>
+        <h3>Efficiency + scale</h3>
+        <p>Frees the team up to do what they do best: relationships and clients. Faster proposals, sharper property matching, more deals won, more room to grow.</p>
+      </div>
+      <div class="outcome">
+        <h4>Outcome 02</h4>
+        <h3>Compliance, by default</h3>
+        <p>Every client's information logged and organised, audit-ready at any moment. Compass sits in full compliance posture, historically and going forward.</p>
+      </div>
+      <div class="outcome">
+        <h4>Outcome 03</h4>
+        <h3>A transferable asset</h3>
+        <p>Multi-tenant from day one. The same system can be duplicated for new branches or partners launching alongside Compass.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRUCE -->
+<section class="alt">
+  <div class="container">
+    <div class="eyebrow">Meet Bruce</div>
+    <h2>Compass's agent. The one who orchestrates the rest.</h2>
+    <div class="bruce" style="margin-top: 2.25rem;">
+      <div>
+        <p>Bruce is one entity, one number, in WhatsApp with the team. Direct and short-spoken. Confirms action, not intent.</p>
+        <p>Behind Bruce sits a team of specialised AI agents, each doing one job extremely well. The team only ever talks to Bruce. Bruce delegates.</p>
+        <p style="margin-bottom: 0;"><strong>Why this matters:</strong> new capabilities (semantic property matching, suburb reports, conversion optimisation) get added later by registering new agents, not by rebuilding the system.</p>
+      </div>
+      <div class="bruce-visual">
+        <div class="center">
+          <div class="name">Bruce</div>
+          <div class="role">Orchestrator</div>
+        </div>
+        <div class="bruce-agents">
+          <div class="bruce-agent">Proposal Drafting</div>
+          <div class="bruce-agent">Brief Extraction</div>
+          <div class="bruce-agent">Property Capture</div>
+          <div class="bruce-agent">Match-Making</div>
+          <div class="bruce-agent">Compliance Records</div>
+          <div class="bruce-agent">SEO</div>
+          <div class="bruce-agent">Newsletter</div>
+          <div class="bruce-agent">Suburb Reports</div>
+          <div class="bruce-agent">Website Editor</div>
+          <div class="bruce-agent">Conversion Optimisation</div>
+          <div class="bruce-agent">Reminders</div>
+          <div class="bruce-agent">Daily Briefings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAUDE SKILLS / ROLLOUT -->
+<section>
+  <div class="container">
+    <div class="eyebrow">Ship early. Iterate. Then productise.</div>
+    <h2>Skills in the team's hands, ahead of the OS.</h2>
+    <p class="narrow" style="margin-bottom: 2.5rem;">Every capability lands as a Claude skill in Compass's own workspace first. The first batch is in the team's hands inside three weeks. The team uses it, gives feedback, we refine. The proven version gets wired into the OS later. By month four, the dashboard is a tidy version of tools the team already trusts.</p>
+
+    <div class="rollout">
+      <div class="rollout-col">
+        <h4>First 3 weeks</h4>
+        <ul>
+          <li><strong>Proposal generator</strong> — brief notes in, branded proposal out</li>
+          <li><strong>Brief extractor</strong> — voice note or chat into structured brief</li>
+          <li><strong>Property parser</strong> — listing link into clean property record</li>
+          <li><strong>Suburb report drafter</strong> — suburb name in, client-ready PDF out</li>
+          <li><strong>SEO audit + keyword skill</strong> — page or topic in, audit + brief out</li>
+        </ul>
+      </div>
+      <div class="rollout-col">
+        <h4>Month 2</h4>
+        <ul>
+          <li><strong>Match-making skill</strong> — brief + property shortlist into ranked matches</li>
+          <li><strong>Compliance summary skill</strong> — per-client email and chat digest</li>
+          <li><strong>Newsletter drafter</strong> — manual property pick into monthly buyer brief</li>
+        </ul>
+      </div>
+      <div class="rollout-col">
+        <h4>Month 3</h4>
+        <ul>
+          <li><strong>Website editor / blog drafter</strong> — topic brief into Sanity-ready draft</li>
+          <li><strong>Off-market pitch skill</strong> — listing details into agent-to-agent outreach</li>
+          <li><strong>Onboarding kit drafter</strong> — signed CAF into welcome pack</li>
+        </ul>
+      </div>
+      <div class="rollout-col">
+        <h4>Month 4 (productised)</h4>
+        <ul>
+          <li><strong>Conversion optimisation agent</strong> — analytics-connected, proposes tests</li>
+          <li><strong>Reminders + daily briefings</strong> — needs OS data to run</li>
+          <li>Every earlier skill, now wired into Bruce and the dashboard</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="narrow" style="margin-top: 2rem; font-size: 0.95rem; color: var(--stone);">The OS doesn't replace these skills. It connects them to your data, automates the handoffs, and organises everything in one place.</p>
+  </div>
+</section>
+
+<!-- SURFACES -->
+<section>
+  <div class="container">
+    <div class="eyebrow">How the team works in it</div>
+    <h2>Three surfaces. One system.</h2>
+    <div class="surfaces">
+      <div class="surface">
+        <div class="num">01</div>
+        <h3>WhatsApp + voice</h3>
+        <p>Where the team already lives. Voice-note brain dumps after every call. Property links with context. Photos from inspections. Bruce captures and files everything.</p>
+      </div>
+      <div class="surface">
+        <div class="num">02</div>
+        <h3>The Compass OS app</h3>
+        <p>Desktop view. Pipeline, client profiles, property log, dashboards, compliance exports. The foundation every future agent plugs into.</p>
+      </div>
+      <div class="surface">
+        <div class="num">03</div>
+        <h3>Email</h3>
+        <p>Bruce's outbound channel. Proposals, briefings, client comms. Finished and on-brand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTHS -->
+<section class="alt">
+  <div class="container">
+    <div class="eyebrow">The build, month by month</div>
+    <h2>Four months. Four clean checkpoints. Earnt monthly.</h2>
+    <p class="narrow months-intro">Each month ships one core capability end-to-end. Each month is its own earned stage with defined deliverables and a sign-off checkpoint before the next begins. We meet weekly on progress, with a formal review at month-end. Skills land in the team's hands first, get used and refined, then get folded into the OS. No three-month black box.</p>
+
+    <!-- M1 -->
+    <div class="month">
+      <div class="month-header">
+        <div class="num">01</div>
+        <div>
+          <div class="label">Month 1</div>
+          <h3>Compliance + Foundation</h3>
+          <div class="theme">Sleep at night. Every past client, audit-ready.</div>
+        </div>
+        <div class="price">$12,500</div>
+      </div>
+      <div class="month-body">
+        <div class="deliverables">
+          <h4>Deliverables</h4>
+          <ul>
+            <li>Compass OS app live: secure login, client records, file storage</li>
+            <li>Multi-tenant architecture from day one (franchise-ready)</li>
+            <li>Per-client compliance folders for every existing client</li>
+            <li>Historical CAFs, emails, WhatsApp transcripts ingested + filed</li>
+            <li>One-click compliance export (v1)</li>
+            <li>Bruce live on WhatsApp with the team — capturing voice notes and chat</li>
+          </ul>
+        </div>
+        <div class="month-side">
+          <div class="outcome-stat">
+            <h4>Outcome</h4>
+            <p>Compass becomes audit-defensible the day the system goes live. Every existing client is filed. Future interactions are captured automatically.</p>
+            <p style="margin-top: 0.6rem; font-weight: 600; color: var(--hills);">Pays back: one avoided audit failure protects the entire business.</p>
+          </div>
+          <div class="checkpoint">
+            <h4>Checkpoint</h4>
+            <p>"Every past client has a folder. We can produce records for any of them in 30 seconds. Bruce is in the team chat capturing today's work."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M2 -->
+    <div class="month">
+      <div class="month-header">
+        <div class="num">02</div>
+        <div>
+          <div class="label">Month 2</div>
+          <h3>The Sales Engine</h3>
+          <div class="theme">Discovery to live proposal — in hours, not days.</div>
+        </div>
+        <div class="price">$12,500</div>
+      </div>
+      <div class="month-body">
+        <div class="deliverables">
+          <h4>Deliverables</h4>
+          <ul>
+            <li>Brief extraction: voice-note or chat into structured client brief</li>
+            <li>Proposal templates with Compass branding</li>
+            <li>Proposal generated through Bruce on WhatsApp</li>
+            <li>Live shareable proposal link (one URL, refreshes on edit)</li>
+            <li>Iterate via Bruce: "change the strategy section, regenerate"</li>
+            <li>Client profile with proposal history + version log</li>
+            <li>Dashboard v1: sales velocity (proposal turnaround, out vs signed, versions per deal)</li>
+          </ul>
+        </div>
+        <div class="month-side">
+          <div class="outcome-stat">
+            <h4>Outcome</h4>
+            <p>Proposal turnaround drops from days to hours. Every iteration is logged. Conversations stop getting lost in WhatsApp threads. The team gets the first read on its own sales velocity.</p>
+            <p style="margin-top: 0.6rem; font-weight: 600; color: var(--hills);">Pays back: one extra deal closed from faster proposal velocity = $25k+ in fees.</p>
+          </div>
+          <div class="checkpoint">
+            <h4>Checkpoint</h4>
+            <p>"A real client received a real proposal generated by Bruce. The team iterated it through chat. It went out the same day."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M3 -->
+    <div class="month">
+      <div class="month-header">
+        <div class="num">03</div>
+        <div>
+          <div class="label">Month 3</div>
+          <h3>The Property Log + The Close</h3>
+          <div class="theme">The moat starts compounding. Clients sign and onboard themselves.</div>
+        </div>
+        <div class="price">$12,500</div>
+      </div>
+      <div class="month-body">
+        <div class="deliverables">
+          <h4>Deliverables</h4>
+          <ul>
+            <li>Property log: parse realestate.com.au and domain.com.au links + context</li>
+            <li>Manual entry for off-market properties (with photos)</li>
+            <li>Brief and property matching engine (rule-based v1)</li>
+            <li>Real-time match alerts to the team</li>
+            <li>Client intake form into DocuSign CAF auto-population</li>
+            <li>Stripe payment integration</li>
+            <li>Payment confirmed, WhatsApp client group auto-created</li>
+            <li>Dashboard v2: pipeline funnel, time-in-stage, properties added/week, match rate, intake-to-paid time</li>
+          </ul>
+        </div>
+        <div class="month-side">
+          <div class="outcome-stat">
+            <h4>Outcome</h4>
+            <p>Off-market opportunities surface to the right clients in minutes. Discovery to paid is a single automated flow with zero manual handoffs. Leadership sees the pipeline in one glance.</p>
+            <p style="margin-top: 0.6rem; font-weight: 600; color: var(--hills);">Pays back: one off-market match converted = $25k+. The whole month, recovered.</p>
+          </div>
+          <div class="checkpoint">
+            <h4>Checkpoint</h4>
+            <p>"A property entered the log this morning and pinged a client by lunch. A new client went from proposal to signed CAF to paid retainer without a manual step."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M4 -->
+    <div class="month">
+      <div class="month-header">
+        <div class="num">04</div>
+        <div>
+          <div class="label">Month 4</div>
+          <h3>Growth Engine + Handover</h3>
+          <div class="theme">Marketing on autopilot. Full BI. Compass owns the lot.</div>
+        </div>
+        <div class="price">$12,500</div>
+      </div>
+      <div class="month-body">
+        <div class="deliverables">
+          <h4>Deliverables</h4>
+          <ul>
+            <li><strong>SEO agent:</strong> keyword tracking, on-page audits, content briefs, internal linking plans</li>
+            <li><strong>Newsletter agent:</strong> drafts the monthly buyer brief from property log + market data</li>
+            <li><strong>Suburb report agent:</strong> generates suburb reports on demand for prospects and clients</li>
+            <li><strong>Website editor agent:</strong> drafts and pushes blog and area-page content into Sanity</li>
+            <li><strong>Conversion optimisation agent:</strong> watches site analytics, proposes tests, tracks lift</li>
+            <li>Reminders engine: pest/building, settlement -5d, follow-ups</li>
+            <li>Dormant-client flags and re-engagement triggers</li>
+            <li>Dashboard v3: MRR, retention, dormant count, agent performance, organic traffic, newsletter CTR, suburb report opens, site conversion rate</li>
+            <li>Compliance export (mature, full per-client audit pack)</li>
+            <li>Hardening, monitoring, backups, security review, team training, full handover</li>
+          </ul>
+        </div>
+        <div class="month-side">
+          <div class="outcome-stat">
+            <h4>Outcome</h4>
+            <p>Marketing runs itself. Compass has live BI on the whole business: sales, operations, and growth. The system is production-grade, transferable, and 100% in Compass's name.</p>
+            <p style="margin-top: 0.6rem; font-weight: 600; color: var(--hills);">Pays back: external SEO, newsletter, and content production absorbed in-house. Every dormant client resurfaced. Every retention saved by reminders.</p>
+          </div>
+          <div class="checkpoint">
+            <h4>Checkpoint</h4>
+            <p>"The marketing agents are publishing. The dashboards show the truth of the business. The team is trained. Every account is in Compass's name. Engagement closes on plan."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- M5 OPTIONAL -->
+    <div class="month month-optional">
+      <div class="month-header">
+        <div class="num">05</div>
+        <div>
+          <div class="label">Month 5 — Optional</div>
+          <h3>Extension</h3>
+          <div class="theme">Only engaged if month-4 review surfaces a clear next outcome.</div>
+        </div>
+        <div class="price">+$12,500</div>
+      </div>
+      <div class="month-body">
+        <div class="deliverables">
+          <h4>Reserved for one of</h4>
+          <ul>
+            <li>Residual scope identified at month-4 review</li>
+            <li>First Phase 2 capability (semantic matching, daily briefings)</li>
+            <li>Historical structured-data parsing brought forward</li>
+          </ul>
+        </div>
+        <div class="month-side">
+          <div class="outcome-stat">
+            <h4>Decision point</h4>
+            <p>End of month 4. Joint go/no-go between Compass and Roadmap, based on what's delivered and what's emerged.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="alt">
+  <div class="container">
+    <div class="eyebrow">How it's built</div>
+    <h2>Built for client security. Owned by Compass.</h2>
+    <p class="narrow" style="margin-bottom: 1rem;">Compass operates from the Tweed Coast. Client data lives in AU-region cloud, in Compass's own accounts. No Roadmap-held credentials, no Dan-shaped key person, no client information sitting in a personal Dropbox or someone's WhatsApp history. Production-grade, audit-defensible, and built to scale from a team of fifteen to fifty without rework.</p>
+    <p class="narrow" style="margin-bottom: 1.5rem; font-size: 0.95rem; color: var(--stone);"><strong>Why Sydney?</strong> The major AU cloud region (AWS, Supabase, all the big providers) lives in a Sydney data centre. It's the standard for Australian data residency and the closest production-grade infrastructure to the Tweed. Latency from the office to the data centre is single-digit milliseconds. Compass operates from the Tweed; the data centre is just the postbox.</p>
+
+    <div class="arch">
+      <div class="arch-layer">
+        <div class="arch-label">Team surfaces</div>
+        <div class="arch-row">
+          <div class="arch-node">WhatsApp</div>
+          <div class="arch-node">Compass OS web app</div>
+          <div class="arch-node">Email</div>
+        </div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-layer">
+        <div class="arch-label">Orchestrator</div>
+        <div class="arch-row" style="justify-content: center;">
+          <div class="arch-node arch-node-hero">Bruce</div>
+        </div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-layer">
+        <div class="arch-label">Agents, grouped by what they do</div>
+        <div class="arch-groups">
+          <div class="arch-group">
+            <h5>Core sales flow</h5>
+            <div class="arch-row arch-row-wrap">
+              <div class="arch-node">Proposal</div>
+              <div class="arch-node">Brief</div>
+              <div class="arch-node">Property Log</div>
+              <div class="arch-node">Match-Making</div>
+              <div class="arch-node">CAF Document</div>
+              <div class="arch-node">Payment</div>
+              <div class="arch-node">Compliance</div>
+              <div class="arch-node">Reminders</div>
+            </div>
+          </div>
+          <div class="arch-group">
+            <h5>Marketing agents</h5>
+            <div class="arch-row arch-row-wrap">
+              <div class="arch-node">SEO</div>
+              <div class="arch-node">Newsletter</div>
+              <div class="arch-node">Suburb Reports</div>
+            </div>
+          </div>
+          <div class="arch-group">
+            <h5>Site agents</h5>
+            <div class="arch-row arch-row-wrap">
+              <div class="arch-node">Website Editor</div>
+              <div class="arch-node">Conversion Optimisation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-layer arch-dash">
+        <div class="arch-label">Dashboards + insights</div>
+        <div class="arch-row arch-row-wrap">
+          <div class="arch-node">Sales velocity</div>
+          <div class="arch-node">Pipeline + funnel</div>
+          <div class="arch-node">Property log + match rate</div>
+          <div class="arch-node">MRR + retention</div>
+          <div class="arch-node">Marketing performance</div>
+          <div class="arch-node">Per-agent view</div>
+          <div class="arch-node">Compliance audit pack</div>
+        </div>
+        <div class="arch-dash-note">Surfaced to the team by role. Owners see everything. Agents see their own performance and the shared property log. Auditors get read-only.</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-layer">
+        <div class="arch-label">Compass OS core (AU region)</div>
+        <div class="arch-row arch-row-wrap">
+          <div class="arch-node">Auth + tenant scoping</div>
+          <div class="arch-node">File storage</div>
+          <div class="arch-node">Postgres + pgvector</div>
+          <div class="arch-node">Compliance export</div>
+        </div>
+      </div>
+      <div class="arch-arrow">↕</div>
+      <div class="arch-layer">
+        <div class="arch-label">External integrations</div>
+        <div class="arch-row arch-row-wrap">
+          <div class="arch-node arch-node-ext">Anthropic API</div>
+          <div class="arch-node arch-node-ext">WhatsApp (Cloud + Baileys)</div>
+          <div class="arch-node arch-node-ext">DocuSign</div>
+          <div class="arch-node arch-node-ext">Stripe</div>
+          <div class="arch-node arch-node-ext">REA / Domain</div>
+          <div class="arch-node arch-node-ext">Email (Resend)</div>
+          <div class="arch-node arch-node-ext">Sanity (website CMS)</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 3rem; margin-bottom: 0.6rem;">Client security, by design</h3>
+    <p class="narrow">Buyers agency clients hand over financial details, family circumstances, and large sums of money. The system has to treat that the way a private bank would.</p>
+    <ul class="narrow" style="list-style: disc; padding-left: 1.25rem; margin-top: 0.6rem;">
+      <li><strong>AU data residency.</strong> Every byte of client data sits in a Sydney AU-region data centre. Nothing leaves the country.</li>
+      <li><strong>Compass owns every account.</strong> Cloud, database, domain, secrets, API keys. All in Compass's name. Roadmap holds nothing.</li>
+      <li><strong>SSO + 2FA mandatory</strong> on every admin account. No shared passwords, no key person dependency.</li>
+      <li><strong>Secrets in a managed vault</strong> (1Password Business or AWS Secrets Manager). No keys in code, no keys in chat.</li>
+      <li><strong>Encrypted at rest and in transit</strong> across the whole stack.</li>
+      <li><strong>Daily automated backups</strong> with point-in-time recovery on the database.</li>
+      <li><strong>Audit log inside the OS itself.</strong> Who exported what, when. Defensible if a client or regulator asks.</li>
+      <li><strong>Annual security review</strong> baked into the maintenance plan, not a one-off.</li>
+    </ul>
+
+    <h3 style="margin-top: 2.5rem; margin-bottom: 0.6rem;">The Claude workspace</h3>
+    <p class="narrow">One Anthropic organisation, in Compass's name, billed by Compass. Recommended plan: <strong>Claude Enterprise</strong>. The reasoning is straight security maths.</p>
+    <ul class="narrow" style="list-style: disc; padding-left: 1.25rem; margin-top: 0.6rem;">
+      <li><strong>Zero data retention</strong> on API traffic by default. Client information passes through, isn't stored, isn't used for training.</li>
+      <li><strong>SSO</strong> across the team. One identity, removable in one click when someone leaves.</li>
+      <li><strong>Full audit log</strong> of who used what, when. Same compliance posture as the OS itself.</li>
+      <li><strong>Single billing relationship.</strong> Skills, Bruce, agents, and Claude Code seats all run on the same org. One place to see usage, one invoice.</li>
+    </ul>
+    <p class="narrow" style="margin-top: 0.9rem; font-size: 0.95rem; color: var(--stone);">If a regulator asks "where does client data go when your team uses AI?", the answer is one paragraph: Compass-owned Anthropic Enterprise org, AU traffic, zero retention, full audit trail.</p>
+
+    <h3 style="margin-top: 2.5rem; margin-bottom: 0.6rem;">Seats and access, mapped</h3>
+    <p class="narrow">Two layers to sort out: who gets a seat in the Claude workspace, and who can do what inside the Compass OS itself. Spelt out so there are no surprises.</p>
+
+    <h4 style="margin-top: 1.5rem; color: var(--hills); font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;">Claude workspace (Compass-owned org)</h4>
+    <table class="access-table">
+      <thead>
+        <tr><th>Person / role</th><th>Seat</th><th>What they get</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Chris (Licensee)</td><td><span class="access-tier">Owner / admin</span></td><td>Org owner. Billing, member management, audit logs.</td></tr>
+        <tr><td>Nick</td><td><span class="access-tier">Co-admin</span></td><td>Second admin for redundancy. Same access as Chris.</td></tr>
+        <tr><td>Each buyer's agent</td><td><span class="access-tier">Member</span></td><td>Skills, Claude Code, and Cowork access. Day-to-day use.</td></tr>
+        <tr><td>Ops / admin staff</td><td><span class="access-tier">Member</span></td><td>Skills + Cowork for back-office tasks.</td></tr>
+        <tr><td>Bruce + OS agents</td><td><span class="access-tier">Service (API)</span></td><td>API keys, no UI seat. Run via Compass OS, not the Claude app.</td></tr>
+        <tr><td>Dan (Roadmap)</td><td><span class="access-tier access-tier-ext">External, time-boxed</span></td><td>Member seat during the build. Removed at handover unless a retainer is in place.</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top: 2rem; color: var(--hills); font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;">Compass OS roles</h4>
+    <table class="access-table">
+      <thead>
+        <tr><th>Role</th><th>Who</th><th>Can do</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Owner</td><td>Chris, Nick</td><td>Everything: settings, billing, compliance export, all clients across all agents.</td></tr>
+        <tr><td>Agent</td><td>Each buyer's agent</td><td>Their own clients. Read access to the shared property log. Drafts proposals via Bruce.</td></tr>
+        <tr><td>Ops</td><td>Admin staff</td><td>All clients. No access to billing or system settings.</td></tr>
+        <tr><td>Auditor (optional)</td><td>Accountant / lawyer / regulator</td><td>Read-only. Time-boxed. For audits or due diligence.</td></tr>
+        <tr><td>Roadmap (Dan)</td><td>External</td><td>Full admin during the build for delivery. Revoked at handover. Re-granted only if a retainer is engaged.</td></tr>
+      </tbody>
+    </table>
+
+    <p class="narrow" style="margin-top: 1.25rem; font-size: 0.95rem; color: var(--stone);">Every seat and every role is logged. Removing access takes one click. The licensee can always answer the question: <em>who can see what, right now?</em></p>
+
+    <h3 style="margin-top: 2.5rem; margin-bottom: 0.6rem;">On the Mac Mini we discussed</h3>
+    <p class="narrow">Worth flagging directly because it came up in our conversations. The argument for a Mac Mini at the office was tangible local ownership: hardware Compass can see and touch. Real, but it solves the wrong problem.</p>
+    <p class="narrow">A box at the office is a single point of failure. One power cut, one cleaner unplugging the wrong cable, one office break-in, and client data is offline or worse. It also doesn't scale to franchise #2 without buying another box and another set of headaches. Sydney AU-region cloud satisfies data residency, has 99.99% uptime guarantees, and is in Compass's name the same way a Mac Mini would be.</p>
+    <p class="narrow">The Mac Mini stays useful as an optional <strong>Claude Code workstation</strong> at the office for the team to work on the OS. It's never the production host.</p>
+
+    <h3 style="margin-top: 2.5rem; margin-bottom: 0.6rem;">Running costs</h3>
+    <p class="narrow" style="margin-bottom: 0.5rem;">Indicative monthly spend across infrastructure and APIs at expected volume. All accounts in Compass's name, paid monthly. Stripe and DocuSign are pass-through and already paid.</p>
+    <div class="cost-grid">
+      <div class="cost-item"><span>Cloud hosting (DB + app)</span><strong>~$150/mo</strong></div>
+      <div class="cost-item"><span>Bruce VPS (Sydney)</span><strong>~$40/mo</strong></div>
+      <div class="cost-item"><span>Anthropic API (usage-based)</span><strong>$300-$1,000/mo</strong></div>
+      <div class="cost-item"><span>WhatsApp messaging</span><strong>~$80/mo</strong></div>
+      <div class="cost-item"><span>Transactional email</span><strong>~$25/mo</strong></div>
+      <div class="cost-item"><span>Domains, monitoring, backups</span><strong>~$30/mo</strong></div>
+      <div class="cost-item cost-total"><span>Expected total</span><strong>~$600-$1,400/mo</strong></div>
+    </div>
+    <p class="narrow" style="margin-top: 1rem; font-size: 0.9rem; color: var(--stone);">Anthropic spend scales with usage and is expected to sit at the lower end most months. Numbers are indicative and will be confirmed against actual usage during month one.</p>
+
+    <h3 style="margin-top: 2.5rem; margin-bottom: 0.6rem;">Ongoing maintenance</h3>
+    <p class="narrow">After handover, the OS runs without Roadmap. The team gets runbooks, admin access, and a tested upgrade path. Two practical options for ongoing development:</p>
+    <ul class="narrow" style="list-style: disc; padding-left: 1.25rem; margin-top: 0.6rem;">
+      <li><strong>In-house with Claude Code.</strong> The team can keep extending the OS using the same workspace skills land in. No agency dependency.</li>
+      <li><strong>Roadmap retainer (optional, separate SOW).</strong> If Compass wants ongoing development, new agents, schema evolution, or Phase 2 capabilities, we engage on a monthly retainer.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- OWNERSHIP -->
+<section class="sand">
+  <div class="container">
+    <div class="eyebrow">At handover</div>
+    <h2>What Compass owns.</h2>
+    <p class="narrow">Everything. Codebase, data, infrastructure, integrations, runbooks. Nothing held by Roadmap. Nothing tied to Dan.</p>
+    <div class="own-grid">
+      <div class="own-item">Production OS running on Compass-owned cloud (Sydney region)</div>
+      <div class="own-item">Bruce running on Compass's own number, accounts, and API keys</div>
+      <div class="own-item">Historical compliance archive. Every past client filed.</div>
+      <div class="own-item">Property log seeded with the team's relationships</div>
+      <div class="own-item">Multi-tenant architecture. Second state added by config, not rebuild.</div>
+      <div class="own-item">Full source code, schemas, runbooks, admin access. 100% IP.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section>
+  <div class="container">
+    <div class="eyebrow">The math</div>
+    <h2>Pays itself back inside year one. On savings alone.</h2>
+    <p class="narrow">Before we count a single extra deal, the OS absorbs costs Compass already pays. Year-one savings cover most of the build. Year two and beyond, those savings keep stacking.</p>
+
+    <div class="invest-grid" style="margin-top: 2.25rem;">
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Admin overhead</h4>
+        <p>Bruce absorbs the manual filing, chasing, and form-filling. <strong>$20k+/year</strong> in admin staff time recovered.</p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>SEO retainer</h4>
+        <p>SEO agent replaces external retainer. <strong>$15k/year</strong> back on the books.</p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Newsletter production</h4>
+        <p>Newsletter agent drafts the monthly buyer brief. <strong>~$5k/year</strong> in production fees absorbed.</p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Suburb reports + content</h4>
+        <p>Suburb report and website editor agents replace ad-hoc content spend. <strong>More to be quantified.</strong></p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Audit-prep labour</h4>
+        <p>One-click compliance export removes weeks of manual record assembly. <strong>$10k-$25k/year</strong> in saved time.</p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Compliance posture</h4>
+        <p>Hard to put a single number on. The licensee can sleep, the agency keeps trading through any audit, and PI insurers see a tighter operation. <strong>Existential risk, removed.</strong></p>
+      </div>
+    </div>
+
+    <p class="narrow" style="margin-top: 2rem;"><strong>Hard, recurring savings: ~$40k+/year</strong>, before efficiency or growth. The build pays itself back inside year one on those alone.</p>
+
+    <h3 style="margin-top: 3rem; margin-bottom: 0.75rem;">Then the upside on top.</h3>
+    <div class="invest-grid" style="margin-top: 1.25rem;">
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Faster proposals</h4>
+        <p>Hours, not days. Conversion lifts. <strong>1 extra deal/month = $25k+.</strong></p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Off-market matches</h4>
+        <p>Property log surfaces deals that were getting missed. <strong>1 match converted = $25k+.</strong></p>
+      </div>
+      <div class="outcome" style="border-left-color: var(--sea-breeze);">
+        <h4>Retention + reminders</h4>
+        <p>Dormant resurrection and zero dropped balls. <strong>Each saved retainer = $48k/year.</strong></p>
+      </div>
+    </div>
+    <p class="narrow" style="margin-top: 1.75rem; font-size: 0.95rem; color: var(--stone);">And the system itself. A productised OS Compass owns outright. Sellable, licensable, or franchised across states.</p>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="dark">
+  <div class="container">
+    <div class="eyebrow">Investment</div>
+    <h2>$50,000. Four months. Four checkpoints.</h2>
+    <div class="invest-grid">
+      <div class="invest-stat">
+        <div class="num">$12.5k</div>
+        <h4>Per month</h4>
+        <p>Flat. No surprises. Scope changes only by mutual decision.</p>
+      </div>
+      <div class="invest-stat">
+        <div class="num">4</div>
+        <h4>Checkpoints</h4>
+        <p>One per month. Sign-off before the next begins.</p>
+      </div>
+      <div class="invest-stat">
+        <div class="num">100%</div>
+        <h4>Compass-owned</h4>
+        <p>All infrastructure, accounts, IP — in Compass's name.</p>
+      </div>
+    </div>
+    <p class="invest-note">An optional 5th month at $12,500 is available if month-4 review surfaces residual scope or a clear next outcome — engaged by mutual agreement, not assumed.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>Compass Buyers Agency · Project Proposal</span>
+    <span>Prepared by Roadmap Digital · April 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
