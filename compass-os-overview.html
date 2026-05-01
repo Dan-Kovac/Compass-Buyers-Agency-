@@ -235,6 +235,10 @@
     .outcomes, .bruce, .surfaces, .month-body, .own-grid, .invest-grid { grid-template-columns: 1fr; }
     .rollout { grid-template-columns: 1fr; }
     .arch-groups { grid-template-columns: 1fr; }
+    .arch-row-wrap { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+    .arch-group .arch-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+    .arch-node { min-width: 0; flex: initial; }
+    .arch-node-hero { padding: 0.9rem 1.5rem; }
     .cost-grid { grid-template-columns: 1fr; }
     .month-header { grid-template-columns: auto 1fr; }
     .month-header .price { grid-column: 2; }
