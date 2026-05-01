@@ -90,7 +90,7 @@
   .arch-node-hero { background: var(--hills); color: var(--white); font-family: var(--serif); font-size: 1.3rem; padding: 0.9rem 2.5rem; flex: 0 0 auto; }
   .arch-node-ext { background: var(--sand); }
   .arch-arrow { text-align: center; color: var(--sea-breeze); font-size: 1.3rem; padding: 0.35rem 0; line-height: 1; }
-  .arch-groups { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 0.75rem; }
+  .arch-groups { display: grid; grid-template-columns: 1fr; gap: 1rem; }
   .arch-group { background: var(--bright-grey); padding: 1rem 0.85rem; border-top: 3px solid var(--sea-breeze); border-radius: 3px; }
   .arch-group h5 { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hills); font-weight: 600; margin-bottom: 0.65rem; text-align: center; }
   .arch-group .arch-row { gap: 0.4rem; }
@@ -258,7 +258,7 @@
     <p class="lede">Built around how the team already works. Captures everything passively, keeps the agency audit-ready, and lifts the admin and proposal load off the team. Owned outright by Compass at handover.</p>
     <div class="meta">
       <span><strong>Timeline</strong>4 months</span>
-      <span><strong>Investment</strong>$12,500 / month · $50k total</span>
+      <span><strong>Investment</strong>$12,500 / month</span>
       <span><strong>Ownership</strong>100% Compass IP</span>
     </div>
   </div>
@@ -763,13 +763,13 @@
     <div class="cost-grid">
       <div class="cost-item"><span>Cloud hosting (DB + app)</span><strong>~$150/mo</strong></div>
       <div class="cost-item"><span>Bruce VPS (Sydney)</span><strong>~$40/mo</strong></div>
-      <div class="cost-item"><span>Anthropic API (usage-based)</span><strong>$300-$1,000/mo</strong></div>
+      <div class="cost-item"><span>Anthropic API (usage-based)</span><strong>~$500/mo</strong></div>
       <div class="cost-item"><span>WhatsApp messaging</span><strong>~$80/mo</strong></div>
       <div class="cost-item"><span>Transactional email</span><strong>~$25/mo</strong></div>
       <div class="cost-item"><span>Domains, monitoring, backups</span><strong>~$30/mo</strong></div>
-      <div class="cost-item cost-total"><span>Expected total</span><strong>~$600-$1,400/mo</strong></div>
+      <div class="cost-item cost-total"><span>Expected total</span><strong>~$825/mo</strong></div>
     </div>
-    <p class="narrow" style="margin-top: 1rem; font-size: 0.9rem; color: var(--stone);">Anthropic spend scales with usage and is expected to sit at the lower end most months. Numbers are indicative and will be confirmed against actual usage during month one.</p>
+    <p class="narrow" style="margin-top: 1rem; font-size: 0.9rem; color: var(--stone);">Anthropic API is the variable line. We've used the midpoint of expected agent activity. Tuning prompts and prompt caching should pull this lower as the system matures. Numbers are indicative and will be confirmed against actual usage during month one.</p>
 
     <h3 style="margin-top: 2.5rem; margin-bottom: 0.6rem;">Ongoing maintenance</h3>
     <p class="narrow">After handover, the OS runs without Roadmap. The team gets runbooks, admin access, and a tested upgrade path. Two practical options for ongoing development:</p>
@@ -875,6 +875,16 @@
       </div>
     </div>
     <p class="invest-note">An optional 5th month at $12,500 is available if the month-4 review surfaces residual scope or a clear next outcome. Engaged by mutual agreement, not assumed.</p>
+  </div>
+</section>
+
+<!-- LONGER VIEW NOTE -->
+<section style="padding: 3.5rem 0;">
+  <div class="container">
+    <div class="eyebrow">A note for the longer view</div>
+    <h3 style="font-size: 1.6rem; margin-bottom: 1rem;">A replicable environment, as a byproduct.</h3>
+    <p class="narrow">What we're building here is a complete environment. The OS, the agents, the proven processes, all in one workspace. Once it's working for Compass, the same environment can be duplicated for a second branch, a JV, or a franchise across the state. New tenant by configuration, not rebuild.</p>
+    <p class="narrow" style="margin-top: 0.5rem;">That isn't the purpose of this project. It's a byproduct of building it properly the first time. Worth flagging because the architectural decisions we're making in month one are what make it possible later.</p>
   </div>
 </section>
 
