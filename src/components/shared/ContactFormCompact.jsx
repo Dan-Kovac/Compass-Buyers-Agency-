@@ -234,9 +234,9 @@ export default function ContactFormCompact({
 
     setIsSubmitting(true);
 
-    const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+    const endpoint = import.meta.env.VITE_GHL_WEBHOOK_URL || import.meta.env.VITE_FORMSPREE_ENDPOINT;
     if (!endpoint) {
-      console.error("VITE_FORMSPREE_ENDPOINT is not set");
+      console.error("Form endpoint env var is not set (VITE_GHL_WEBHOOK_URL or VITE_FORMSPREE_ENDPOINT)");
       setIsSubmitting(false);
       setSubmitStatus("error");
       return;
