@@ -154,10 +154,10 @@ export default function Areas() {
 
       {/* Section 5: Image band -- atmospheric breathing room */}
       <ImageBand
-        src="/images/areas/mid-band.jpg"
-        alt="Northern Rivers coastline"
-        height="340px"
-        mobileHeight="200px"
+        src="/images/home/hinterland-morning.webp"
+        alt="Northern Rivers hinterland at first light"
+        height="440px"
+        mobileHeight="240px"
         overlay
         parallax={true}
       />
