@@ -51,7 +51,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
       {/* Content — positioned in lower portion for cinematic feel */}
       <div className="relative z-10 w-full">
         <div className="site-container pb-20 md:pb-32 pt-28 md:pt-32">
-          <div className="max-w-3xl" style={{ "--h1-mb": "20px" }}>
+          <div className="max-w-5xl" style={{ "--h1-mb": "20px" }}>
 
             <div style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0ms forwards' }}>
               <div className="mb-5">
@@ -67,6 +67,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
                   fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)",
                   letterSpacing: "-0.03em",
                   lineHeight: 1.05,
+                  textWrap: "balance",
                 }}
               >
                 {title || "Your Buyers Agent, Byron to the Gold Coast"}
@@ -74,17 +75,17 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
             </div>
 
             <div style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 500ms forwards' }}>
-              {(() => {
-                const text = subtitle || "Independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. 100+ properties secured, most off-market.";
-                const lines = text.split(/(?<=\.)\s+/).filter(Boolean);
-                return (
-                  <div className="text-white/80 mb-0" style={{ fontWeight: 300, fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)", lineHeight: 1.65 }}>
-                    {lines.map((line, i) => (
-                      <p key={i} className="mb-0">{line}</p>
-                    ))}
-                  </div>
-                );
-              })()}
+              <p
+                className="text-white/80 mb-0 max-w-2xl"
+                style={{
+                  fontWeight: 300,
+                  fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
+                  lineHeight: 1.65,
+                  textWrap: "balance",
+                }}
+              >
+                {subtitle || "Independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. 100+ properties secured, most off-market."}
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-7" style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 700ms forwards' }}>

@@ -85,7 +85,7 @@ export default function AreasHero({
           className="site-container"
           style={{ padding: "clamp(3rem, 6vw, 6rem) 0" }}
         >
-          <div style={{ maxWidth: "48rem" }}>
+          <div style={{ maxWidth: "64rem" }}>
             {/* Eyebrow */}
             <div
               style={{
@@ -119,6 +119,7 @@ export default function AreasHero({
                   lineHeight: 1.08,
                   textShadow: "0 3px 8px rgba(0,0,0,0.5)",
                   fontFamily: "var(--font-heading)",
+                  textWrap: "balance",
                 }}
               >
                 {heading}
@@ -141,6 +142,8 @@ export default function AreasHero({
                     fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
                     lineHeight: 1.6,
                     marginBottom: 0,
+                    maxWidth: "40rem",
+                    textWrap: "balance",
                   }}
                 >
                   {subtitle}

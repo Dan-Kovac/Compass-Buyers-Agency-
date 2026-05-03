@@ -33,7 +33,7 @@ export default function PageHero({
       {/* Content — lower-left, same as HomeHero */}
       <div className="relative z-10 w-full">
         <div className="site-container" style={{ paddingBottom: "clamp(2.5rem, 5vw, 4rem)", paddingTop: "clamp(5rem, 10vw, 7rem)" }}>
-          <div style={{ maxWidth: "44rem" }}>
+          <div style={{ maxWidth: "60rem" }}>
             {eyebrow && (
               <p
                 className="eyebrow-label"
@@ -55,6 +55,7 @@ export default function PageHero({
                 letterSpacing: "-0.03em",
                 lineHeight: 1.05,
                 marginBottom: subtitle ? "1rem" : 0,
+                textWrap: "balance",
                 opacity: 0,
                 animation: "pageHeroReveal 800ms cubic-bezier(0.25,0.46,0.45,0.94) 250ms forwards",
               }}
@@ -69,6 +70,8 @@ export default function PageHero({
                   fontSize: "clamp(1rem, 1.4vw, 1.1875rem)",
                   lineHeight: 1.65,
                   margin: 0,
+                  maxWidth: "38rem",
+                  textWrap: "balance",
                   opacity: 0,
                   animation: "pageHeroReveal 800ms cubic-bezier(0.25,0.46,0.45,0.94) 420ms forwards",
                 }}
