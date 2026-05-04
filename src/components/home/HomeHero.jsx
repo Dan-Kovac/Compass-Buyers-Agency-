@@ -74,17 +74,18 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
             </div>
 
             <div style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 500ms forwards' }}>
-              {(() => {
-                const text = subtitle || "Independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. 100+ properties secured, most off-market.";
-                const lines = text.split(/(?<=\.)\s+/).filter(Boolean);
-                return (
-                  <div className="text-white/80 mb-0" style={{ fontWeight: 300, fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)", lineHeight: 1.65 }}>
-                    {lines.map((line, i) => (
-                      <p key={i} className="mb-0">{line}</p>
-                    ))}
-                  </div>
-                );
-              })()}
+              <p
+                style={{
+                  color: "rgba(255, 255, 255, 0.92)",
+                  fontWeight: 300,
+                  fontSize: "clamp(1.125rem, 1.55vw, 1.375rem)",
+                  lineHeight: 1.55,
+                  marginBottom: 0,
+                  maxWidth: "42rem",
+                }}
+              >
+                {subtitle || "Independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. 100+ properties secured, most off-market."}
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-7" style={{ opacity: 0, animation: 'heroReveal 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 700ms forwards' }}>
