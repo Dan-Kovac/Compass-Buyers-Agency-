@@ -11,7 +11,7 @@ const FALLBACK = {
   },
   hero: {
     title: "Byron Bay Buyers Agent",
-    subtitle: "Australia's toughest property market. $2.45M median. 5+ competing bidders. 42% never advertised. We know what you're up against.",
+    subtitle: "We help you navigate Australia's toughest property market with off-market access, deep local relationships and a buyer-only focus from search to settlement.",
     ctaText: "Speak to an Agent",
   },
   stats: [
