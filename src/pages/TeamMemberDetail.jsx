@@ -128,8 +128,8 @@ export default function TeamMemberDetail() {
   const memberDescription = member.bio
     ? String(member.bio).replace(/\s+/g, " ").trim().slice(0, 160)
     : `${member.name} is a licensed buyers agent at Compass Buyers Agency, working across the Tweed Coast, Byron Bay and Gold Coast.`;
-  const memberPhotoAbs = photoSrc
-    ? (photoSrc.startsWith("http") ? photoSrc : `https://compassagency.com.au${photoSrc}`)
+  const memberPhotoAbs = photoUrl
+    ? (photoUrl.startsWith("http") ? photoUrl : `https://compassagency.com.au${photoUrl}`)
     : undefined;
 
   return (

@@ -112,8 +112,8 @@ export default function About() {
         eyebrow="Your Advantage"
         title="Buyers Only. No Exceptions."
         description={"You get a team that only represents buyers. No selling. No conflicts. That changes the advice you receive and the outcomes you achieve.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, no hand-offs between departments\n\u2022 You always know where things stand, no chasing for updates"}
-        image="/images/pages/about.jpg"
-        imageAlt="Compass team at office"
+        image="/images/pages/about-team.jpg"
+        imageAlt="Compass buyers agents meeting clients"
         imageLeft={true}
         variant="white"
         ctaLabel="Start a Conversation"
