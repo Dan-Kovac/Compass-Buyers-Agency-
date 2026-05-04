@@ -27,7 +27,15 @@ export default function About() {
   const loadTeamMembers = async () => {
     try {
       const members = await fetchTeamMembers();
-      setTeamMembers(members);
+      const order = ["lee", "aiden", "chris"];
+      const sorted = [...(members || [])].sort((a, b) => {
+        const ai = order.findIndex((n) => a.name?.toLowerCase().includes(n));
+        const bi = order.findIndex((n) => b.name?.toLowerCase().includes(n));
+        const aRank = ai === -1 ? 999 : ai;
+        const bRank = bi === -1 ? 999 : bi;
+        return aRank - bRank;
+      });
+      setTeamMembers(sorted);
     } catch (error) {
       console.error("Error loading team members:", error);
     }
