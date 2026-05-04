@@ -3,9 +3,18 @@ import imageUrlBuilder from '@sanity/image-url';
 
 // ─── Client ──────────────────────────────────────────────────────────────────
 // projectId and dataset must match sanity/sanity.config.js
+const sanitizeProjectId = (raw) => {
+  const cleaned = String(raw || '').trim().replace(/^['"]|['"]$/g, '');
+  return /^[a-z0-9-]+$/.test(cleaned) ? cleaned : '31tdhl52';
+};
+const sanitizeDataset = (raw) => {
+  const cleaned = String(raw || '').trim().replace(/^['"]|['"]$/g, '');
+  return cleaned || 'production';
+};
+
 export const client = createClient({
-  projectId: (import.meta.env.VITE_SANITY_PROJECT_ID || '31tdhl52').trim(),
-  dataset: (import.meta.env.VITE_SANITY_DATASET || 'production').trim(),
+  projectId: sanitizeProjectId(import.meta.env.VITE_SANITY_PROJECT_ID),
+  dataset: sanitizeDataset(import.meta.env.VITE_SANITY_DATASET),
   apiVersion: '2024-01-01',
   useCdn: true, // fast cached reads; set false if you need live preview
 });
