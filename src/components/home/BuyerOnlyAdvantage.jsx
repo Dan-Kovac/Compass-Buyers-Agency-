@@ -27,7 +27,7 @@ export default function BuyerOnlyAdvantage({
   stats = DEFAULT_STATS,
 } = {}) {
   return (
-    <section className="bg-sand-wash" style={{ padding: "var(--section-padding) 0" }}>
+    <section id="buyer-only" className="bg-sand-wash" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         {/* Editorial copy */}
         <div className="grid lg:grid-cols-12" style={{ gap: "clamp(2rem, 4vw, 4rem)" }}>
