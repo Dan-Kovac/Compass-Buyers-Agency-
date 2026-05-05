@@ -51,7 +51,7 @@ export default function TestimonialSection({
         </ScrollReveal>
 
         <StaggerGroup stagger={80}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6 max-w-4xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {items.map((t, i) => (
               <ScrollReveal key={i} animation="scale-subtle" duration={600}>
                 <VideoTestimonialCard

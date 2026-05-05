@@ -33,8 +33,8 @@ export default function VideoTestimonialCard({ videoSrc, posterSrc, clientName, 
 
   return (
     <div className={`group ${size === "full" ? "" : "flex-shrink-0"} ${widthClass}`}>
-      {/* Video / Poster area — square aspect */}
-      <div className="relative aspect-square rounded-xl overflow-hidden bg-[var(--bright-grey)]">
+      {/* Video / Poster area — 16:9 landscape to match source */}
+      <div className="relative aspect-video rounded-xl overflow-hidden bg-[var(--bright-grey)]">
         {playing ? (
           <video
             ref={videoRef}

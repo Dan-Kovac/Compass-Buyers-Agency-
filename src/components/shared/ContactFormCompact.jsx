@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
 
 /* ─── Scoped styles for ContactFormCompact ────────────────────────────────── */
 const formStyles = `
@@ -220,6 +222,7 @@ export default function ContactFormCompact({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [prefsOpen, setPrefsOpen] = useState(false);
 
   const handleChange = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
 
@@ -368,61 +371,78 @@ export default function ContactFormCompact({
             </Select>
           </div>
 
-          {/* Buyer-only preferences */}
+          {/* Buyer-only preferences (optional) */}
           {isBuyer && (
-            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "clamp(0.75rem, 1.5vw, 1rem)" }}>
-              <div>
-                <Label htmlFor="contact-property-type" className="cfc-label">Property Type</Label>
-                <Select value={formData.propertyType} onValueChange={(v) => handleChange("propertyType", v)}>
-                  <SelectTrigger id="contact-property-type" className="mt-1.5 cfc-input">
-                    <SelectValue placeholder="Select property type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="house">House</SelectItem>
-                    <SelectItem value="apartment">Apartment</SelectItem>
-                    <SelectItem value="townhouse">Townhouse</SelectItem>
-                    <SelectItem value="acreage">Acreage/Land</SelectItem>
-                    <SelectItem value="investment">Investment</SelectItem>
-                    <SelectItem value="not-sure">Not Sure</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="contact-location" className="cfc-label">Preferred Location</Label>
-                <Input
-                  id="contact-location"
-                  type="text"
-                  value={formData.location}
-                  onChange={(e) => handleChange("location", e.target.value)}
-                  className="mt-1.5 cfc-input"
-                />
-              </div>
-              <div>
-                <Label htmlFor="contact-budget" className="cfc-label">Budget</Label>
-                <Input
-                  id="contact-budget"
-                  type="text"
-                  value={formData.budget}
-                  onChange={(e) => handleChange("budget", e.target.value)}
-                  className="mt-1.5 cfc-input"
-                />
-              </div>
-              <div>
-                <Label htmlFor="contact-timeframe" className="cfc-label">Timeframe</Label>
-                <Select value={formData.timeframe} onValueChange={(v) => handleChange("timeframe", v)}>
-                  <SelectTrigger id="contact-timeframe" className="mt-1.5 cfc-input">
-                    <SelectValue placeholder="Select timeframe" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="asap">ASAP</SelectItem>
-                    <SelectItem value="3-months">Within 3 months</SelectItem>
-                    <SelectItem value="6-months">Within 6 months</SelectItem>
-                    <SelectItem value="12-months">Within 12 months</SelectItem>
-                    <SelectItem value="flexible">No rush</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+            <Collapsible open={prefsOpen} onOpenChange={setPrefsOpen} className="border border-[var(--bright-grey)]" style={{ borderRadius: "var(--radius-button)" }}>
+              <CollapsibleTrigger asChild>
+                <button type="button" className="cfc-collapsible-trigger">
+                  <span>Property preferences (optional)</span>
+                  <ChevronDown
+                    className="w-4 h-4"
+                    style={{
+                      color: "var(--stone)",
+                      transform: prefsOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "transform 200ms",
+                    }}
+                  />
+                </button>
+              </CollapsibleTrigger>
+              <CollapsibleContent style={{ padding: "0 clamp(1rem, 2vw, 1.25rem) clamp(1rem, 2vw, 1.25rem)" }}>
+                <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "clamp(0.75rem, 1.5vw, 1rem)" }}>
+                  <div>
+                    <Label htmlFor="contact-property-type" className="cfc-label">Property Type</Label>
+                    <Select value={formData.propertyType} onValueChange={(v) => handleChange("propertyType", v)}>
+                      <SelectTrigger id="contact-property-type" className="mt-1.5 cfc-input">
+                        <SelectValue placeholder="Select property type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="house">House</SelectItem>
+                        <SelectItem value="apartment">Apartment</SelectItem>
+                        <SelectItem value="townhouse">Townhouse</SelectItem>
+                        <SelectItem value="acreage">Acreage/Land</SelectItem>
+                        <SelectItem value="investment">Investment</SelectItem>
+                        <SelectItem value="not-sure">Not Sure</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="contact-location" className="cfc-label">Preferred Location</Label>
+                    <Input
+                      id="contact-location"
+                      type="text"
+                      value={formData.location}
+                      onChange={(e) => handleChange("location", e.target.value)}
+                      className="mt-1.5 cfc-input"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="contact-budget" className="cfc-label">Budget</Label>
+                    <Input
+                      id="contact-budget"
+                      type="text"
+                      value={formData.budget}
+                      onChange={(e) => handleChange("budget", e.target.value)}
+                      className="mt-1.5 cfc-input"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="contact-timeframe" className="cfc-label">Timeframe</Label>
+                    <Select value={formData.timeframe} onValueChange={(v) => handleChange("timeframe", v)}>
+                      <SelectTrigger id="contact-timeframe" className="mt-1.5 cfc-input">
+                        <SelectValue placeholder="Select timeframe" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="asap">ASAP</SelectItem>
+                        <SelectItem value="3-months">Within 3 months</SelectItem>
+                        <SelectItem value="6-months">Within 6 months</SelectItem>
+                        <SelectItem value="12-months">Within 12 months</SelectItem>
+                        <SelectItem value="flexible">No rush</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           )}
 
           {/* Message */}
