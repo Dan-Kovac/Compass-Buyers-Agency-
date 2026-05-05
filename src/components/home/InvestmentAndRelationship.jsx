@@ -18,7 +18,7 @@ export default function InvestmentAndRelationship({
   const items = checklist && checklist.length > 0 ? checklist : DEFAULT_CHECKLIST;
 
   return (
-    <section className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
+    <section id="local-expertise" className="bg-white" style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <div
           className="grid lg:grid-cols-2 items-stretch"

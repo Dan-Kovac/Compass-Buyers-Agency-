@@ -98,7 +98,7 @@ function StatItem({ stat, isLast }) {
 export default function TrustBar({ stats }) {
   const data = stats || STATS;
   return (
-    <section style={{ backgroundColor: "var(--ink)" }}>
+    <section id="trust" style={{ backgroundColor: "var(--ink)" }}>
       <div className="site-container">
         <div className="grid grid-cols-2 md:grid-cols-4">
           {data.map((stat, i) => (

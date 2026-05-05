@@ -30,7 +30,7 @@ export default function TestimonialSection({
   const items = testimonials?.length ? testimonials : DEFAULT_TESTIMONIALS;
 
   return (
-    <section className={`bg-sand-wash ${className}`} style={{ padding: "var(--section-padding) 0" }}>
+    <section id="testimonials" className={`bg-sand-wash ${className}`} style={{ padding: "var(--section-padding) 0" }}>
       <div className="site-container">
         <ScrollReveal className="mb-10 md:mb-12">
           <p className="eyebrow-label">Client Stories</p>
