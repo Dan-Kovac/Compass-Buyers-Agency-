@@ -7,11 +7,11 @@ import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 const DEFAULT_ITEMS = [
-  { id: "buying", title: "Property buying", desc: "We search, evaluate and negotiate to secure the right property, at the right price and terms. End-to-end and stress-free." },
-  { id: "auction", title: "Auction bidding", desc: "Professional strategy and on-the-day representation to keep emotion out and results in." },
-  { id: "due", title: "Due diligence", desc: "Independent research, valuations, building & pest, and legal review for informed decisions." },
-  { id: "negotiate", title: "Negotiation & settlement", desc: "We handle every step of the deal to protect your position and deliver better outcomes." },
-  { id: "invest", title: "Investment advisory", desc: "Data-led insights, suburb selection and portfolio strategy tailored to your goals." },
+  { id: "buying", title: "Property buying", desc: "We work with you from the very first conversation through to settlement and beyond. That means defining the brief, sourcing on and off-market opportunities, inspecting in person, and negotiating to secure the right home at the right price and on the right terms." },
+  { id: "auction", title: "Auction bidding", desc: "A clear pre-auction strategy, a calm hand on the day, and a buyer's advocate who keeps the emotion out of the room. We bid with discipline and a defined ceiling so you walk away protected, whatever the result." },
+  { id: "due", title: "Due diligence", desc: "Independent research and a structured review of the property, the contract and the area. Valuations, building and pest, planning checks and legal review, all coordinated through trusted local specialists, so the decision you make is fully informed." },
+  { id: "negotiate", title: "Negotiation & settlement", desc: "Once we've found the right property, we handle every conversation with the selling agent and every step of the contract through to settlement. Your interests sit on one side of the table, and so do we." },
+  { id: "invest", title: "Investment advisory", desc: "For investors, we layer suburb selection, yield analysis and long-term capital growth thinking into a portfolio strategy tailored to your goals, not a generic spreadsheet." },
 ];
 
 const DEFAULT_TEAM_IMAGE = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/689ff2310196c0788d148d78/0b49c2526_6.png";
@@ -21,7 +21,7 @@ const DEFAULT_TEAM_IMAGE = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/
  * Modernised: rotating arrow icons, softer borders, crossfade image transitions.
  */
 export default function ServicesAccordionShowcase({
-  heading = "How We Help You Buy",
+  heading = "How we help you buy with confidence",
   teamImageUrl,
   teamImageAlt = "Our team",
   items,

@@ -11,14 +11,14 @@ const FALLBACK = {
   },
   hero: {
     title: "Tweed Heads Buyers Agent",
-    subtitle: "Kingscliff. Cabarita. Pottsville. Same beaches as Byron, 35% cheaper. Stock 36% below five-year norms.",
+    subtitle: "Kingscliff, Cabarita and Pottsville offer the same beaches as Byron at meaningfully better value. With stock running well below five-year norms, on-the-ground relationships and patient, considered representation matter more than ever.",
     ctaText: "Speak to an Agent",
   },
   stats: [
-    { end: 20, suffix: "+", label: "Tweed Properties Secured" },
-    { end: 38, suffix: "%", label: "Off-Market Deals" },
-    { end: 15, suffix: "+", label: "Years Local Experience" },
-    { end: 100, suffix: "%", label: "Buyer Focused" },
+    { end: 80, label: "Years Team Experience" },
+    { end: 3.6, prefix: "$", suffix: "B", decimals: 1, label: "In Transactions" },
+    { end: 76, suffix: "%", label: "Off-Market Purchases" },
+    { text: "#1", label: "Buyers Agency, Byron to Gold Coast" },
   ],
   acquisitions: {
     suburb: "Kingscliff",
@@ -68,8 +68,9 @@ const FALLBACK = {
     },
   ],
   cta: {
-    heading: "The Tweed Coast rewards preparation. Start here.",
-    buttonText: "Start a Conversation",
+    heading: "The Tweed Coast rewards preparation and local relationships",
+    supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
+    buttonText: "Speak with the Team",
   },
 };
 
@@ -104,6 +105,7 @@ export default function TweedHeadsBuyersAgent() {
         imageBandAlt="Tweed Coast waterway aerial"
         cta={{
           heading: FALLBACK.cta.heading,
+          supportingText: FALLBACK.cta.supportingText,
           buttonText: FALLBACK.cta.buttonText,
           buttonHref: createPageUrl("Contact"),
         }}

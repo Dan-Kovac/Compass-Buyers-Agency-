@@ -69,7 +69,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
                   lineHeight: 1.05,
                 }}
               >
-                {title || "Your Buyers Agent, Byron to the Gold Coast"}
+                {title || "Buyers Agents Byron Bay to Gold Coast"}
               </h1>
             </div>
 
@@ -84,7 +84,7 @@ export default function HomeHero({ title, subtitle, backgroundImageUrl, backgrou
                   maxWidth: "42rem",
                 }}
               >
-                {subtitle || "Independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. 100+ properties secured, most off-market."}
+                {subtitle || "Leading Independent Buyers Agents for Tweed Coast, Gold Coast and Byron Bay. Local Expertise, Professional Team, Exceptional Client Outcomes."}
               </p>
             </div>
 

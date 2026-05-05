@@ -28,9 +28,20 @@ export default function TeamStrip() {
     <section className="bg-sand-wash" style={{ padding: "var(--section-padding-compact) 0" }}>
       <div className="site-container">
         {/* Header */}
-        <div className="text-center" style={{ marginBottom: "2.5rem" }}>
-          <p className="eyebrow-label">Your Local Team</p>
-          <h2>The people behind Compass</h2>
+        <div className="text-center mx-auto" style={{ marginBottom: "2.5rem", maxWidth: "62ch" }}>
+          <p className="eyebrow-label">Your Local Expert Team</p>
+          <h2 className="mb-4">The people behind Compass</h2>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontWeight: 300,
+              fontSize: "clamp(1rem, 1.2vw, 1.0625rem)",
+              lineHeight: 1.65,
+              color: "var(--stone)",
+            }}
+          >
+            Compass is a high-performing collaborative team of property professionals. Each agent has intimate knowledge of the local property markets, working to support each other as one team on every client brief.
+          </p>
         </div>
 
         {/* Photo row */}

@@ -2,14 +2,15 @@ import React from "react";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
 const DEFAULT_CHECKLIST = [
-  "One point of contact from first call to settlement",
-  "Weekly updates with clear next steps, not radio silence",
-  "Local solicitor, building inspector and broker referrals included",
+  "76% of homes secured through off-market or pre-market channels, before they're advertised publicly",
+  "On-the-ground experience across the Tweed Shire, Gold Coast, Byron Bay and Ballina regions",
+  "Long-standing relationships with hundreds of local selling agents, plus access to top-tier legal, building and planning professionals",
 ];
 
 export default function InvestmentAndRelationship({
-  heading = "What working with us looks like",
-  body = "You'll deal with the same person from start to finish. We'll tell you when something's worth pursuing and when it isn't. No runaround, no surprises, no wasted weekends at open homes.",
+  eyebrow = "What Local Expertise Means",
+  heading = "Eighty years of property experience, all walking the same streets",
+  body = "Our team has more than 80 years of combined personal and professional property experience across the Northern Rivers and the Gold Coast. Every property is inspected in person, by us, before any recommendation. That's how you get the micro-pocket, street-level insights most buyers will never see.",
   imageUrl = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8be7777cb_ChrisCompass.jpg",
   imageAlt = "Chris from Compass Buyers Agency speaking with a client",
   checklist = DEFAULT_CHECKLIST,
@@ -48,7 +49,7 @@ export default function InvestmentAndRelationship({
 
           {/* Copy */}
           <ScrollReveal animation="fade-left" delay={120}>
-            <p className="eyebrow-label">The Experience</p>
+            <p className="eyebrow-label">{eyebrow}</p>
             <h2 className="mb-4" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}>{heading}</h2>
             <p
               className="mb-6"

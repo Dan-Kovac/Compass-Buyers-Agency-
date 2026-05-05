@@ -247,6 +247,7 @@ export default function AdLandingTemplate({
       {/* 11. CTA — dark variant, localised heading */}
       <CTASection
         heading={cta.heading || "Let's find your property"}
+        supportingText={cta.supportingText}
         buttonText={cta.buttonText || "Start a Conversation"}
         buttonHref={cta.buttonHref}
         variant="dark"

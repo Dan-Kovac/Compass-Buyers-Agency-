@@ -11,14 +11,14 @@ const FALLBACK = {
   },
   hero: {
     title: "Byron Bay Buyers Agent",
-    subtitle: "We help you navigate Australia's toughest property market with off-market access, deep local relationships and a buyer-only focus from search to settlement.",
+    subtitle: "Byron is one of the tightest property markets in the country. We navigate it for you with off-market access, deep relationships across Byron Shire, and a buyer-only focus that runs from your first brief through to settlement.",
     ctaText: "Speak to an Agent",
   },
   stats: [
-    { end: 35, suffix: "+", label: "Byron Properties Secured" },
-    { end: 42, suffix: "%", label: "Off-Market Deals" },
-    { end: 15, suffix: "+", label: "Years Local Experience" },
-    { end: 100, suffix: "%", label: "Buyer Focused" },
+    { end: 80, label: "Years Team Experience" },
+    { end: 3.6, prefix: "$", suffix: "B", decimals: 1, label: "In Transactions" },
+    { end: 76, suffix: "%", label: "Off-Market Purchases" },
+    { text: "#1", label: "Buyers Agency, Byron to Gold Coast" },
   ],
   acquisitions: {
     suburb: "Byron Bay",
@@ -68,8 +68,9 @@ const FALLBACK = {
     },
   ],
   cta: {
-    heading: "Buying in Byron? Move fast, move smart.",
-    buttonText: "Start a Conversation",
+    heading: "Buying in Byron rewards preparation and local relationships",
+    supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
+    buttonText: "Speak with the Team",
   },
 };
 
@@ -104,6 +105,7 @@ export default function ByronBayBuyersAgent() {
         imageBandAlt="Byron Bay coastline at golden hour"
         cta={{
           heading: FALLBACK.cta.heading,
+          supportingText: FALLBACK.cta.supportingText,
           buttonText: FALLBACK.cta.buttonText,
           buttonHref: createPageUrl("Contact"),
         }}

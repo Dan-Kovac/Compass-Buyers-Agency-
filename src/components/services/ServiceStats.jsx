@@ -4,10 +4,10 @@ import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 export default function ServiceStats({
   eyebrow = "By the Numbers",
   items = [
-    { value: "70+", label: "Properties Secured" },
-    { value: "42%", label: "Off-Market Deals" },
-    { value: "~5.5%", label: "Avg. Saving Below Asking" },
-    { value: "100%", label: "Buyer-Only Focus" },
+    { value: "80", label: "Years Team Experience" },
+    { value: "$3.6B", label: "In Transactions" },
+    { value: "76%", label: "Off-Market Purchases" },
+    { value: "#1", label: "Buyers Agency, Byron to Gold Coast" },
   ],
   bg = "bg-sand-wash",
 }) {
