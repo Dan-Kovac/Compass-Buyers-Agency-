@@ -27,7 +27,7 @@ export default function About() {
   const loadTeamMembers = async () => {
     try {
       const members = await fetchTeamMembers();
-      const order = ["lee", "aiden", "chris"];
+      const order = ["nick", "chris", "lee", "harley", "aiden", "kovic"];
       const sorted = [...(members || [])].sort((a, b) => {
         const ai = order.findIndex((n) => a.name?.toLowerCase().includes(n));
         const bi = order.findIndex((n) => b.name?.toLowerCase().includes(n));
