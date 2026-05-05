@@ -10,10 +10,10 @@ import ScrollReveal, { StaggerGroup } from "@/components/shared/ScrollReveal";
 
 /* ── Fallback stat data ────────────────────────────────────────────────────── */
 const DEFAULT_STATS = [
-  { value: "70+", label: "Properties Secured" },
-  { value: "42%", label: "Off-Market Deals" },
-  { value: "~5.5%", label: "Avg. Saving Below Asking" },
-  { value: "100%", label: "Buyer-Only Focus" },
+  { value: "80", label: "Years Team Experience" },
+  { value: "$3.6B", label: "In Transactions" },
+  { value: "76%", label: "Off-Market Purchases" },
+  { value: "#1", label: "Buyers Agency, Byron to Gold Coast" },
 ];
 
 export default function About() {
@@ -48,7 +48,7 @@ export default function About() {
     <div className="bg-white">
       <SEOHead
         title="Our Team | Compass Buyers Agency"
-        description="Meet the Compass team. Licensed buyers agents with street-level knowledge across Byron Bay, the Tweed Coast and Southern Gold Coast."
+        description="Meet the Compass team. A high-performing, collaborative group of licensed buyers agents with deep local knowledge across the Tweed Coast, Gold Coast and Byron Bay."
         canonicalPath="/about"
       />
       {/* AboutPage JSON-LD */}
@@ -93,10 +93,10 @@ export default function About() {
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">About Compass</p>
               <h1>
-                Your Team on the Tweed Coast
+                Your Local Expert Team, Byron Bay to the Gold Coast
               </h1>
               <p className="text-balance">
-                Licensed buyers agents who live where you're looking. Local streets, local agents, local knowledge, all working for you.
+                Compass is a high-performing, collaborative team of property professionals. Each agent has intimate knowledge of the local property markets, working to support each other as one team on every client brief.
               </p>
             </div>
           </ScrollReveal>
@@ -105,9 +105,9 @@ export default function About() {
 
       {/* ── Section 1: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
       <FeatureSplit
-        eyebrow="Local Knowledge"
-        title="What Local Actually Means"
-        description={"Your expert buying team with over 80 years combined experience. Every property is inspected in person, selling agents are consulted daily and weekly, and you get the micro-pocket, street-level insights most buyers never see.\n\n\u2022 74% of deals come from off-market or pre-market channels\n\u2022 Coverage across Tweed Shire, Gold Coast, Byron and Ballina\n\u2022 Deep relationships with hundreds of local agents, with access to top tier local professional services"}
+        eyebrow="What Local Expertise Means"
+        title="Eighty years of property experience, all walking the same streets"
+        description={"Our team carries more than 80 years of combined personal and professional property experience across the Northern Rivers and the Gold Coast. Every property is inspected in person, by us, before any recommendation. Selling agents are spoken to daily and weekly. That's how you get the micro-pocket, street-level insights most buyers will never see.\n\n\u2022 76% of homes secured through off-market or pre-market channels\n\u2022 On-the-ground experience across the Tweed Shire, Gold Coast, Byron Bay and Ballina regions\n\u2022 Long-standing relationships with hundreds of local selling agents, plus access to top-tier legal, building and planning professionals"}
         image="/images/pages/about.jpg"
         imageAlt="Compass team meeting clients"
         imageLeft={false}
@@ -117,9 +117,9 @@ export default function About() {
 
       {/* ── Section 3: FeatureSplit 2 ── bg-white (image left) ────────────── */}
       <FeatureSplit
-        eyebrow="Your Advantage"
-        title="Buyers Only. No Exceptions."
-        description={"You get a team that only represents buyers. No selling. No conflicts. That changes the advice you receive and the outcomes you achieve.\n\n\u2022 Independent advice with zero ties to selling agents or developers\n\u2022 One team from first call to settlement, no hand-offs between departments\n\u2022 You always know where things stand, no chasing for updates"}
+        eyebrow="Working Exclusively for the Buyer"
+        title="Our team represents buyers. No sales, no conflicts."
+        description={"Working only on the buyer's side of the table changes the nature of the advice you receive at every stage, and shapes the outcome you ultimately achieve.\n\n\u2022 Independent priority advice grounded in a proven due-diligence process\n\u2022 Our in-house team supports you from brief to settlement, and well beyond\n\u2022 You stay in control at every stage, with a clear, structured acquisition strategy"}
         image="/images/pages/about-team.jpg"
         imageAlt="Compass buyers agents meeting clients"
         imageLeft={true}
@@ -184,8 +184,8 @@ export default function About() {
               <h2>
                 Who you'll work with
               </h2>
-              <p className="text-balance" style={{ maxWidth: "36rem", margin: "0 auto" }}>
-                Every conversation, inspection and negotiation is handled by the people you see here. No hand-offs, no call centres.
+              <p className="text-balance" style={{ maxWidth: "40rem", margin: "0 auto" }}>
+                Every conversation, inspection and negotiation is handled by a core team of senior experts at Compass. No hand-offs, no call centres, no faceless agents managing you from afar.
               </p>
             </div>
           </ScrollReveal>

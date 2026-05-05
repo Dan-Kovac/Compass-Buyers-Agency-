@@ -11,14 +11,14 @@ const FALLBACK = {
   },
   hero: {
     title: "Gold Coast Buyers Agent",
-    subtitle: "Coolangatta. Kirra. Rainbow Bay. 31% of deals never hit portals. We find what others miss.",
+    subtitle: "From Coolangatta and Kirra through to Rainbow Bay and the hinterland, we work the southern Gold Coast at street level. Off-market access, careful strata and flood due diligence, and a team that represents the buyer only.",
     ctaText: "Speak to an Agent",
   },
   stats: [
-    { end: 25, suffix: "+", label: "Gold Coast Properties Secured" },
-    { end: 31, suffix: "%", label: "Off-Market Deals" },
-    { end: 15, suffix: "+", label: "Years Local Experience" },
-    { end: 100, suffix: "%", label: "Buyer Focused" },
+    { end: 80, label: "Years Team Experience" },
+    { end: 3.6, prefix: "$", suffix: "B", decimals: 1, label: "In Transactions" },
+    { end: 76, suffix: "%", label: "Off-Market Purchases" },
+    { text: "#1", label: "Buyers Agency, Byron to Gold Coast" },
   ],
   acquisitions: {
     suburb: "Coolangatta",
@@ -68,8 +68,9 @@ const FALLBACK = {
     },
   ],
   cta: {
-    heading: "Buying on the Gold Coast? Talk to a local.",
-    buttonText: "Start a Conversation",
+    heading: "Buying on the southern Gold Coast starts with a local conversation",
+    supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
+    buttonText: "Speak with the Team",
   },
 };
 
@@ -104,6 +105,7 @@ export default function GoldCoastBuyersAgent() {
         imageBandAlt="Gold Coast southern coastline"
         cta={{
           heading: FALLBACK.cta.heading,
+          supportingText: FALLBACK.cta.supportingText,
           buttonText: FALLBACK.cta.buttonText,
           buttonHref: createPageUrl("Contact"),
         }}

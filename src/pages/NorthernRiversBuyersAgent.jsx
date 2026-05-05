@@ -11,14 +11,14 @@ const FALLBACK = {
   },
   hero: {
     title: "Northern Rivers Buyers Agent",
-    subtitle: "Byron to Tweed specialists. 1,200+ annual transactions. Median $1.65M. We cover 15+ suburbs from $850k to $2.95M.",
+    subtitle: "From Byron Bay to the Tweed, the Northern Rivers is a remarkably diverse market. Each micro-pocket has to be approached with a specialist strategy, deep local relationships and genuine transaction experience to achieve the best result for the buyer.",
     ctaText: "Speak to an Agent",
   },
   stats: [
-    { end: 70, suffix: "+", label: "Properties Secured" },
-    { end: 150, prefix: "$", suffix: "M+", label: "In Property Value" },
-    { end: 15, suffix: "+", label: "Years Experience" },
-    { end: 100, suffix: "%", label: "Buyer Focused" },
+    { end: 80, label: "Years Team Experience" },
+    { end: 3.6, prefix: "$", suffix: "B", decimals: 1, label: "In Transactions" },
+    { end: 76, suffix: "%", label: "Off-Market Purchases" },
+    { text: "#1", label: "Buyers Agency, Byron to Gold Coast" },
   ],
   acquisitions: {
     eyebrow: "Recent Northern Rivers acquisitions",
@@ -66,8 +66,9 @@ const FALLBACK = {
     },
   ],
   cta: {
-    heading: "Three shires. Fifteen suburbs. One conversation.",
-    buttonText: "Start a Conversation",
+    heading: "Three shires, one team, one honest conversation",
+    supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
+    buttonText: "Speak with the Team",
   },
 };
 
@@ -102,6 +103,7 @@ export default function NorthernRiversBuyersAgent() {
         imageBandAlt="Northern Rivers beach at dawn"
         cta={{
           heading: FALLBACK.cta.heading,
+          supportingText: FALLBACK.cta.supportingText,
           buttonText: FALLBACK.cta.buttonText,
           buttonHref: createPageUrl("Contact"),
         }}

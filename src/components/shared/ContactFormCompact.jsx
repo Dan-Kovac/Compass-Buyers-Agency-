@@ -205,8 +205,8 @@ const formStyles = `
 export default function ContactFormCompact({
   title = "Get In Touch",
   showHeaderImage = true,
-  preferencesLabel = "Add preferences (optional)",
-  defaultPreferencesOpen = false,
+  preferencesLabel = "Your Preferences",
+  defaultPreferencesOpen = true,
   hideHeader = false,
   trustLine = "No obligation. We'll get back to you within 24 hours.",
   submitLabel = "Send enquiry"
@@ -215,6 +215,7 @@ export default function ContactFormCompact({
     name: "",
     email: "",
     phone: "",
+    enquiryType: "",
     propertyType: "",
     location: "",
     budget: "",
@@ -250,6 +251,7 @@ export default function ContactFormCompact({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          enquiryType: formData.enquiryType || "-",
           propertyType: formData.propertyType || "-",
           location: formData.location || "-",
           budget: formData.budget || "-",
@@ -260,7 +262,7 @@ export default function ContactFormCompact({
       });
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
 
-      setFormData({ name: "", email: "", phone: "", propertyType: "", location: "", budget: "", timeframe: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", enquiryType: "", propertyType: "", location: "", budget: "", timeframe: "", message: "" });
       setIsSubmitting(false);
       setSubmitStatus("success");
     } catch (err) {
@@ -352,6 +354,23 @@ export default function ContactFormCompact({
             />
           </div>
 
+          {/* Enquiry Type */}
+          <div>
+            <Label htmlFor="contact-enquiry-type" className="cfc-label">Enquiry Type *</Label>
+            <Select value={formData.enquiryType} onValueChange={(v) => handleChange("enquiryType", v)} required>
+              <SelectTrigger id="contact-enquiry-type" className="mt-1.5 cfc-input" aria-required="true">
+                <SelectValue placeholder="Select enquiry type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="buyer-advocacy">Buyer Advocacy</SelectItem>
+                <SelectItem value="selling-advisory">Selling Advisory</SelectItem>
+                <SelectItem value="b2b">B2B Enquiry</SelectItem>
+                <SelectItem value="careers">Careers</SelectItem>
+                <SelectItem value="general">General Enquiry</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Property details (collapsible) */}
           <Collapsible open={isOpen} onOpenChange={setIsOpen} className="border border-[var(--bright-grey)]" style={{ borderRadius: "var(--radius-button)" }}>
             <CollapsibleTrigger asChild>
@@ -387,38 +406,25 @@ export default function ContactFormCompact({
                 </div>
                 <div>
                   <Label htmlFor="contact-location" className="cfc-label">Preferred Location</Label>
-                  <Select value={formData.location} onValueChange={(v) => handleChange("location", v)}>
-                    <SelectTrigger id="contact-location" className="mt-1.5 cfc-input">
-                      <SelectValue placeholder="Select location" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="byron-bay">Byron Bay</SelectItem>
-                      <SelectItem value="ballina">Ballina</SelectItem>
-                      <SelectItem value="kingscliff">Kingscliff</SelectItem>
-                      <SelectItem value="cabarita">Cabarita Beach</SelectItem>
-                      <SelectItem value="tweed-heads">Tweed Heads</SelectItem>
-                      <SelectItem value="mullumbimby">Mullumbimby</SelectItem>
-                      <SelectItem value="lennox-head">Lennox Head</SelectItem>
-                      <SelectItem value="flexible">Flexible</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    id="contact-location"
+                    type="text"
+                    value={formData.location}
+                    onChange={(e) => handleChange("location", e.target.value)}
+                    placeholder="e.g. Byron Bay, Kingscliff, Tweed Heads"
+                    className="mt-1.5 cfc-input"
+                  />
                 </div>
                 <div>
-                  <Label htmlFor="contact-budget" className="cfc-label">Budget Range</Label>
-                  <Select value={formData.budget} onValueChange={(v) => handleChange("budget", v)}>
-                    <SelectTrigger id="contact-budget" className="mt-1.5 cfc-input">
-                      <SelectValue placeholder="Select budget range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="under-500k">Under $500k</SelectItem>
-                      <SelectItem value="500k-750k">$500k - $750k</SelectItem>
-                      <SelectItem value="750k-1m">$750k - $1M</SelectItem>
-                      <SelectItem value="1m-1.5m">$1M - $1.5M</SelectItem>
-                      <SelectItem value="1.5m-2m">$1.5M - $2M</SelectItem>
-                      <SelectItem value="over-2m">Over $2M</SelectItem>
-                      <SelectItem value="flexible">Flexible</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="contact-budget" className="cfc-label">Budget</Label>
+                  <Input
+                    id="contact-budget"
+                    type="text"
+                    value={formData.budget}
+                    onChange={(e) => handleChange("budget", e.target.value)}
+                    placeholder="e.g. $1.5M - $2M"
+                    className="mt-1.5 cfc-input"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="contact-timeframe" className="cfc-label">Timeframe</Label>

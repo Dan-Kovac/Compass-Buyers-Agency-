@@ -1,17 +1,17 @@
 import React from "react";
 
 const STATS = [
-  { end: 70, suffix: "+", label: "Properties Secured" },
-  { end: 150, prefix: "$", suffix: "M+", label: "In Property Value" },
-  { end: 15, suffix: "+", label: "Years Local Experience" },
-  { end: 100, suffix: "%", label: "Buyer Focused" },
+  { end: 80, suffix: "", label: "Years Team Experience" },
+  { end: 3.6, prefix: "$", suffix: "B", decimals: 1, label: "In Transactions" },
+  { end: 76, suffix: "%", label: "Off-Market Purchases" },
+  { text: "#1", label: "Buyers Agency, Byron to Gold Coast" },
 ];
 
 /**
  * useCountUp — animates a number from 0 to `end` when visible.
  * Starts counting once the element enters the viewport.
  */
-function useCountUp(end, duration = 2000) {
+function useCountUp(end, duration = 2000, decimals = 0) {
   const [count, setCount] = React.useState(0);
   const ref = React.useRef(null);
   const hasAnimated = React.useRef(false);
@@ -28,9 +28,9 @@ function useCountUp(end, duration = 2000) {
           function tick(now) {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
-            // Ease-out cubic for a smooth deceleration
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.round(eased * end));
+            const factor = Math.pow(10, decimals);
+            setCount(Math.round(eased * end * factor) / factor);
             if (progress < 1) requestAnimationFrame(tick);
           }
 
@@ -43,18 +43,19 @@ function useCountUp(end, duration = 2000) {
 
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [end, duration]);
+  }, [end, duration, decimals]);
 
   return { count, ref };
 }
 
 function StatItem({ stat, isLast }) {
-  const { count, ref } = useCountUp(stat.end);
+  const { count, ref } = useCountUp(stat.end ?? 0, 2000, stat.decimals ?? 0);
+  const display = stat.text ?? `${stat.prefix || ""}${stat.decimals ? count.toFixed(stat.decimals) : count}${stat.suffix || ""}`;
 
   return (
     <div
       ref={ref}
-      className={`flex flex-col items-center justify-center py-8 md:py-10 ${
+      className={`flex flex-col items-center justify-center py-8 md:py-10 px-3 ${
         !isLast ? "md:border-r md:border-white/10" : ""
       }`}
     >
@@ -70,7 +71,7 @@ function StatItem({ stat, isLast }) {
           textAlign: "center",
         }}
       >
-        {stat.prefix || ""}{count}{stat.suffix || ""}
+        {display}
       </span>
       <span
         className="block"

@@ -5,27 +5,27 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
 const DEFAULT_FAQS = [
   {
     q: "What does a buyers agent actually do?",
-    a: "We work exclusively for you. We search properties on and off market, evaluate what they're genuinely worth, negotiate on your behalf, and manage the process through to settlement. In markets like Byron Bay and the Gold Coast, where 42% of deals happen off-market and quality listings attract multiple bidders, that independent representation changes what you pay and what you get.",
+    a: "We work exclusively for you, the buyer, and never for the seller. That means we search across both on and off-market channels, assess what a property is genuinely worth, negotiate on your behalf, and manage the process all the way through to settlement and beyond. In markets like Byron Bay, the Tweed and the Gold Coast, where 76% of our acquisitions happen off-market and quality homes attract multiple bidders, having someone independent on your side of the table changes what you pay and what you ultimately secure.",
   },
   {
     q: "How much does it cost?",
-    a: "Our fees depend on the service and complexity. There's a small engagement fee to begin, then a success fee when we secure your property. We're upfront about costs from the first conversation. Most clients find the fee pays for itself through a better price, off-market access, or catching a costly issue during due diligence.",
+    a: "Our fees are tailored to the service and the complexity of the brief. There's a modest engagement fee to begin the work, then a success fee on settlement. We're upfront about every cost from the very first conversation. In our experience, most clients find the fee more than pays for itself through a sharper negotiated price, access to a property that was never publicly listed, or catching a costly issue during due diligence.",
   },
   {
     q: "Do you have access to off-market properties?",
-    a: "Around 42% of the properties we've secured were off-market or pre-market. We've built relationships with selling agents across Byron, Ballina, Tweed, and the Gold Coast over 15 years of repeat business. In tight markets, that access often determines whether you secure or miss out.",
+    a: "Around 76% of the properties we secure for clients are off-market or pre-market. We've spent decades building relationships with selling agents and local property professionals across Byron Bay, Ballina, the Tweed and the Gold Coast, and our team carries more than 80 years of combined experience between them. In tight markets, that depth of access is often the difference between securing the right home and missing out altogether.",
   },
   {
     q: "Can you help with investment properties?",
-    a: "We analyse rental yields, vacancy rates, council zoning, and growth indicators across the region. We cover everything from sub-$1M entry points in Ballina to $3M+ prestige in Byron Bay. Many of our investor clients are based in Sydney or Melbourne and rely on us as their local eyes and ears.",
+    a: "Yes. For investors, we layer rental yields, vacancy data, council zoning and longer-term growth indicators into a strategy built around your goals. We work across the full price spectrum, from sub-$1M entry points in Ballina through to $3M+ prestige homes in Byron Bay. Many of our investor clients are based in Sydney or Melbourne and rely on us as their on-the-ground team in the region.",
   },
   {
     q: "What's the typical process and timeline?",
-    a: "It starts with a free consultation where we learn what you're looking for. From there, we build a shortlist, arrange inspections, and provide appraisals. When you find the right property, we negotiate or bid on your behalf and manage everything through to settlement. Most clients go from first call to keys in four to eight weeks.",
+    a: "It begins with an obligation-free conversation, where we listen carefully to understand exactly what you're looking for and why. From there, we build a tailored shortlist, arrange and attend inspections in person, and provide independent appraisals on each property. Once you find the right home, we negotiate or bid on your behalf and manage every detail through to settlement. Our average engagement runs around 38 days from first call to keys.",
   },
   {
     q: "Can you help if I'm buying from interstate or overseas?",
-    a: "We regularly work with buyers relocating from Sydney, Melbourne, and overseas. We handle inspections via video walkthroughs, coordinate with solicitors, and manage the entire process remotely. Several recent clients settled in Byron Bay and Kingscliff without visiting until after exchange.",
+    a: "Absolutely. A meaningful portion of our work is with buyers relocating from Sydney, Melbourne and overseas. We act as your local eyes and ears, conducting inspections in person, hosting detailed video walkthroughs, coordinating with solicitors and brokers, and managing the entire process remotely. Several recent clients have settled in Byron Bay and Kingscliff without setting foot on the property until after exchange.",
   },
 ];
 

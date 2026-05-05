@@ -13,7 +13,7 @@ const DEFAULT_ITEMS = [
 export default function Regions({
   heading = "Where We Buy",
   eyebrow = "Our Regions",
-  subtitle = "The Tweed Shire, the City of Gold Coast and the Byron Shire. Three distinct markets, each with its own pricing, council rules and opportunities. Here's how we navigate them.",
+  subtitle = "The Northern Rivers and Gold Coast markets are remarkably diverse. Each micro-pocket has to be approached with a specialist strategy, deep local relationships and genuine transaction experience to achieve the best result for the buyer.",
   ctaText = "Explore Areas & Suburbs",
   bg = "bg-warm-gradient",
   items,

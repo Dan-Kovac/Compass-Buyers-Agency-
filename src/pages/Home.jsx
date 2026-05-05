@@ -4,6 +4,7 @@ import TrustBar from "../components/home/TrustBar";
 import ServicesAccordionShowcase from "../components/home/ServicesAccordionShowcase";
 import RecentAcquisitionsStrip from "../components/home/RecentAcquisitionsStrip";
 import InvestmentAndRelationship from "../components/home/InvestmentAndRelationship";
+import BuyerOnlyAdvantage from "../components/home/BuyerOnlyAdvantage";
 import Regions from "../components/home/Regions";
 import CTASection from "../components/shared/CTASection.jsx";
 import HomeFAQ from "../components/home/HomeFAQ";
@@ -16,8 +17,8 @@ export default function Home() {
   return (
     <div>
       <SEOHead
-        title="Buyers Agent Byron Bay to Gold Coast | Compass"
-        description="Byron Bay to Gold Coast buyers agent. $2.45M median Byron, $1.65M Tweed. 42% of our deals are off-market. We find, assess, negotiate."
+        title="Buyers Agents Byron Bay to Gold Coast | Compass"
+        description="Leading independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. Local expertise, a professional team, and exceptional client outcomes. 76% of homes secured off-market."
         canonicalPath="/"
       />
       <HomeHero backgroundVideoUrl="/videos/compass-hero.mp4" />
@@ -41,13 +42,16 @@ export default function Home() {
 
       <InvestmentAndRelationship />
 
+      <BuyerOnlyAdvantage />
+
       <Regions />
 
       <HomeFAQ />
 
       <CTASection
-        heading="Let's find your property"
-        buttonText="Start a Conversation"
+        heading="Let's find the right property for you"
+        supportingText="Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, no obligation, just a clear conversation about how we can help."
+        buttonText="Speak with the Team"
         buttonHref={createPageUrl("Contact")}
         variant="dark"
       />
@@ -60,7 +64,7 @@ export default function Home() {
         url: "https://compassagency.com.au",
         logo: "https://compassagency.com.au/logo.png",
         image: "https://compassagency.com.au/og-image.png",
-        description: "Independent buyers agent for Northern Rivers and Southern Gold Coast. Off-market access, local expertise, sharp negotiation.",
+        description: "Leading independent buyers agents for the Tweed Coast, Gold Coast and Byron Bay. Local expertise, a professional team, exceptional client outcomes.",
         telephone: "+61467634565",
         email: "hello@compassbuyersagency.com.au",
         areaServed: [

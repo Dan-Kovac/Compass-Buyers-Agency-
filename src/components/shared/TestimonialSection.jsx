@@ -19,23 +19,11 @@ const DEFAULT_TESTIMONIALS = [
     clientName: "Calvin",
     subtitle: "Buyer",
   },
-  {
-    videoSrc: "/videos/testimonials/julia.mp4",
-    posterSrc: "/videos/testimonials/julia-poster.jpg",
-    clientName: "Julia",
-    subtitle: "Buyer",
-  },
-  {
-    videoSrc: "/videos/testimonials/carradous.mp4",
-    posterSrc: "/videos/testimonials/carradous-poster.jpg",
-    clientName: "Mr Carradous",
-    subtitle: "Buyer",
-  },
 ];
 
 export default function TestimonialSection({
-  heading = "What Our Buyers Say",
-  subtitle = "Real conversations with real buyers. Hear how working with Compass changed their experience.",
+  heading = "In our clients' own words",
+  subtitle = "Real conversations with the buyers we've worked alongside. Hear what working with Compass actually felt like, and what it changed for them.",
   testimonials,
   className = "",
 }) {
@@ -63,7 +51,7 @@ export default function TestimonialSection({
         </ScrollReveal>
 
         <StaggerGroup stagger={80}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6 max-w-4xl">
             {items.map((t, i) => (
               <ScrollReveal key={i} animation="scale-subtle" duration={600}>
                 <VideoTestimonialCard

@@ -297,8 +297,8 @@ export default function Contact() {
                 <ContactFormCompact
                   showHeaderImage={false}
                   hideHeader={true}
-                  defaultPreferencesOpen={false}
-                  preferencesLabel="Property preferences (optional)"
+                  defaultPreferencesOpen={true}
+                  preferencesLabel="Your Preferences"
                   submitLabel="Book My Free Consult"
                 />
               </div>
