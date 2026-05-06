@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compass OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --hills:#2C4A3E;
+    --hills-soft:#3a5e50;
+    --sea-breeze:#7BAE9E;
+    --sand:#F5E6D3;
+    --sand-soft:#FAF1E2;
+    --stone:#8B7E74;
+    --stone-soft:#B8AFA8;
+    --bright-grey:#F5F5F5;
+    --ink:#1A1A1A;
+    --line:rgba(44,74,62,.12);
+    --line-strong:rgba(44,74,62,.22);
+    --shadow: 0 1px 2px rgba(44,74,62,.04), 0 8px 28px rgba(44,74,62,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:#FBFAF7;
+    font-size:14px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.005em;color:var(--hills)}
+  h1{font-size:38px;line-height:1.05;margin:0}
+  h2{font-size:26px;line-height:1.15;margin:0 0 6px}
+  h3{font-size:18px;margin:0 0 4px;font-weight:500}
+  a{color:var(--hills);text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.04em}
+  .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--stone);font-weight:500}
+  .muted{color:var(--stone)}
+
+  /* ---- LOGIN ---- */
+  #login{
+    position:fixed;inset:0;z-index:100;
+    background:
+      radial-gradient(1200px 600px at 70% 20%, rgba(123,174,158,.18), transparent 60%),
+      radial-gradient(900px 500px at 20% 90%, rgba(245,230,211,.55), transparent 60%),
+      #FBFAF7;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .login-card{
+    width:420px;background:#fff;border:1px solid var(--line);border-radius:4px;
+    padding:48px 44px;box-shadow:var(--shadow);text-align:left;
+  }
+  .login-mark{display:flex;align-items:center;gap:10px;margin-bottom:36px}
+  .login-mark .dot{width:8px;height:8px;border-radius:50%;background:var(--sea-breeze)}
+  .login-mark .name{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--hills);letter-spacing:.02em}
+  .login-card h1{font-size:32px;margin-bottom:6px}
+  .login-card p.lead{color:var(--stone);margin:0 0 28px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--stone);margin-bottom:6px}
+  .field input{
+    width:100%;padding:11px 12px;border:1px solid var(--line-strong);
+    background:#fff;border-radius:2px;font:inherit;color:var(--ink);outline:none;
+  }
+  .field input:focus{border-color:var(--hills)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--hills);color:#fff;padding:12px 22px;border-radius:2px;
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+    transition:background .2s ease;
+  }
+  .btn:hover{background:var(--hills-soft)}
+  .btn-ghost{background:transparent;color:var(--hills);border:1px solid var(--line-strong)}
+  .btn-ghost:hover{background:var(--bright-grey)}
+  .btn-block{width:100%;padding:14px}
+  .login-foot{margin-top:18px;font-size:12px;color:var(--stone);display:flex;justify-content:space-between}
+
+  /* ---- APP SHELL ---- */
+  .app{display:none;height:100vh;overflow:hidden}
+  .app.show{display:grid;grid-template-columns:220px 1fr 380px}
+
+  /* sidebar */
+  .side{
+    background:#fff;border-right:1px solid var(--line);
+    padding:28px 0 16px;display:flex;flex-direction:column;
+  }
+  .side .brand{padding:0 24px 28px;display:flex;align-items:center;gap:10px}
+  .side .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--sea-breeze)}
+  .side .brand .name{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--hills);letter-spacing:.02em}
+  .nav-section{padding:0 14px;margin-bottom:18px}
+  .nav-section .eyebrow{padding:0 10px 8px}
+  .nav a{
+    display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:2px;
+    color:var(--ink);font-size:13px;cursor:pointer;
+  }
+  .nav a:hover{background:var(--bright-grey)}
+  .nav a.active{background:var(--sand-soft);color:var(--hills);font-weight:500}
+  .nav a .ic{width:14px;height:14px;color:var(--stone)}
+  .nav a.active .ic{color:var(--hills)}
+  .side-foot{margin-top:auto;padding:16px 24px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .avatar{width:30px;height:30px;border-radius:50%;background:var(--sand);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;color:var(--hills);font-size:14px}
+
+  /* main */
+  .main{overflow-y:auto;background:#FBFAF7}
+  .topbar{
+    height:64px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 36px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:5;
+  }
+  .crumb{font-size:12px;color:var(--stone);letter-spacing:.04em}
+  .topbar-actions{display:flex;align-items:center;gap:14px}
+  .search{
+    width:280px;padding:8px 12px;border:1px solid var(--line);border-radius:2px;
+    background:var(--bright-grey);font:inherit;font-size:13px;color:var(--ink);outline:none;
+  }
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;
+    font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--bright-grey);color:var(--stone);font-weight:500;
+  }
+  .pill.green{background:rgba(123,174,158,.18);color:var(--hills)}
+  .pill.sand{background:var(--sand);color:var(--hills)}
+  .pill.warn{background:#FCEFE0;color:#8a5a2a}
+
+  .page{padding:36px;display:none}
+  .page.active{display:block}
+  .page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
+  .page-head .eyebrow{margin-bottom:8px}
+
+  /* cards */
+  .card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:22px}
+  .grid{display:grid;gap:18px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:1fr 1fr}
+
+  /* ---- DASHBOARD ---- */
+  .stat .num{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--hills);line-height:1;margin:6px 0 4px}
+  .stat .delta{font-size:12px;color:var(--sea-breeze)}
+  .stat .delta.down{color:#a96a5b}
+
+  .quick-row{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:22px}
+  .agenda-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}
+  .agenda-item:last-child{border-bottom:none}
+  .agenda-item .when{color:var(--stone);font-size:12px}
+
+  /* ---- PIPELINE ---- */
+  .pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+  .col{
+    background:transparent;border:1px dashed var(--line-strong);
+    border-radius:3px;padding:14px;min-height:520px;
+  }
+  .col h4{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;font-size:14px;color:var(--hills)}
+  .col h4 .count{font-family:'Inter';font-size:11px;color:var(--stone);letter-spacing:.06em}
+  .deal{
+    background:#fff;border:1px solid var(--line);border-radius:3px;
+    padding:14px;margin-bottom:10px;cursor:grab;transition:box-shadow .15s ease, transform .15s ease;
+  }
+  .deal:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+  .deal .who{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--hills);margin-bottom:2px}
+  .deal .where{font-size:12px;color:var(--stone);margin-bottom:10px}
+  .deal .meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--stone)}
+  .deal .val{color:var(--hills);font-weight:500}
+  .deal.dragging{opacity:.4}
+  .col.over{background:rgba(123,174,158,.07);border-color:var(--sea-breeze)}
+
+  /* ---- CLIENT PROFILE ---- */
+  .profile-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:22px}
+  .profile-head{
+    background:linear-gradient(135deg, var(--sand-soft), #fff);
+    border:1px solid var(--line);border-radius:3px;padding:30px;
+  }
+  .profile-head h1{margin-bottom:6px}
+  .meta-list{margin-top:18px}
+  .meta-list .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .meta-list .row:last-child{border-bottom:none}
+  .meta-list .row .k{color:var(--stone)}
+  .brief-block{margin-top:18px}
+  .brief-block p{margin:6px 0;color:var(--ink);font-size:13.5px;line-height:1.6}
+
+  .timeline{position:relative;padding-left:18px}
+  .timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+  .tl-item{position:relative;padding:0 0 22px 14px}
+  .tl-item::before{content:'';position:absolute;left:-15px;top:6px;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid var(--sea-breeze)}
+  .tl-item.archive::before{border-color:var(--stone-soft)}
+  .tl-item .when{font-size:11px;color:var(--stone);letter-spacing:.04em}
+  .tl-item .src{font-size:11px;color:var(--stone);margin-left:8px;text-transform:uppercase;letter-spacing:.1em}
+  .tl-item .body{
+    margin-top:6px;background:var(--bright-grey);padding:12px 14px;border-radius:3px;
+    font-size:13px;color:var(--ink);line-height:1.55;
+  }
+  .tl-item.archive .body{background:#F5F0E8;color:#5a544d;font-style:italic}
+  .doc-list .doc{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .doc-list .doc:last-child{border-bottom:none}
+  .doc .file{display:flex;align-items:center;gap:10px}
+  .doc .ext{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px;background:var(--hills);color:#fff;padding:2px 6px;border-radius:2px;letter-spacing:.06em}
+
+  /* ---- PROPERTY LOG ---- */
+  .filter-row{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+  .chip{
+    padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;
+    font-size:12px;color:var(--stone);cursor:pointer;background:#fff;
+  }
+  .chip.active{background:var(--hills);color:#fff;border-color:var(--hills)}
+  table.props{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}
+  table.props th{
+    text-align:left;font-weight:500;font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;
+    color:var(--stone);padding:14px 18px;border-bottom:1px solid var(--line);background:var(--sand-soft);
+  }
+  table.props td{padding:16px 18px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
+  table.props tr{cursor:pointer;transition:background .15s ease}
+  table.props tr:hover td{background:var(--bright-grey)}
+  table.props .addr{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--hills)}
+
+  .prop-detail{display:none;margin-top:22px}
+  .prop-detail.show{display:block}
+
+  /* ---- COMPLIANCE ---- */
+  .group{margin-bottom:22px}
+  .group .group-head{display:flex;justify-content:space-between;align-items:center;padding:0 0 10px;border-bottom:1px solid var(--line-strong);margin-bottom:10px}
+  .group .group-head h3{color:var(--hills)}
+  .group .group-head .meta{font-size:11px;color:var(--stone);letter-spacing:.06em}
+
+  /* ---- DASHBOARDS ---- */
+  .chart{
+    height:160px;background:linear-gradient(180deg, transparent, rgba(123,174,158,.07));
+    border-radius:2px;display:flex;align-items:flex-end;gap:6px;padding:10px 4px;
+  }
+  .chart .bar{flex:1;background:var(--sea-breeze);border-radius:2px 2px 0 0;opacity:.85}
+  .chart .bar.peak{background:var(--hills)}
+  .funnel{display:flex;flex-direction:column;gap:8px}
+  .funnel .step{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--sand-soft);border-radius:2px;font-size:13px}
+  .funnel .step .v{color:var(--hills);font-family:'Cormorant Garamond',serif;font-size:18px}
+
+  /* ---- AGENT PANEL ---- */
+  .agent{
+    background:#fff;border-left:1px solid var(--line);
+    display:flex;flex-direction:column;height:100vh;
+  }
+  .agent-head{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .agent-head .who{display:flex;align-items:center;gap:10px}
+  .agent-head .who .av{
+    width:32px;height:32px;border-radius:50%;
+    background:linear-gradient(135deg,var(--hills),var(--sea-breeze));
+    color:#fff;display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:14px;
+  }
+  .agent-head .who .nm{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--hills);line-height:1}
+  .agent-head .who .role{font-size:10.5px;color:var(--stone);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+  .agent-tabs{display:flex;gap:4px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--bright-grey)}
+  .agent-tabs .t{padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--stone);border-radius:2px;cursor:pointer}
+  .agent-tabs .t.active{background:#fff;color:var(--hills);box-shadow:var(--shadow)}
+  .agent-body{flex:1;overflow-y:auto;padding:20px 22px}
+  .msg{margin-bottom:18px;font-size:13px;line-height:1.6}
+  .msg .from{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:4px}
+  .msg.user .bubble{background:var(--sand-soft);padding:12px 14px;border-radius:3px}
+  .msg.bot .bubble{background:transparent;padding:0}
+  .msg.bot .from{color:var(--hills)}
+  .msg.bot .bubble .preview{
+    margin-top:12px;background:var(--bright-grey);border:1px solid var(--line);border-radius:3px;padding:14px;
+  }
+  .msg.bot .bubble .preview h4{font-size:14px;margin-bottom:8px}
+  .msg.bot .bubble .preview p{font-size:12.5px;color:var(--ink);margin:6px 0;line-height:1.55}
+  .msg.bot .bubble .preview .preview-foot{display:flex;gap:8px;margin-top:14px}
+  .preview-foot .btn-small{padding:6px 12px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--hills);color:#fff;border-radius:2px}
+  .preview-foot .btn-small.ghost{background:transparent;color:var(--hills);border:1px solid var(--line-strong)}
+  .typing{display:inline-flex;gap:3px;padding:4px 0}
+  .typing span{width:5px;height:5px;background:var(--stone);border-radius:50%;animation:bl 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}
+  .typing span:nth-child(3){animation-delay:.4s}
+  @keyframes bl{0%,80%,100%{opacity:.2}40%{opacity:1}}
+  .agent-input{padding:14px 18px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+  .agent-input input{
+    flex:1;padding:10px 12px;border:1px solid var(--line-strong);border-radius:2px;
+    font:inherit;font-size:13px;background:var(--bright-grey);outline:none;
+  }
+  .agent-input input:focus{background:#fff;border-color:var(--hills)}
+  .send-btn{background:var(--hills);color:#fff;padding:10px 14px;border-radius:2px;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .agent-suggest{padding:0 22px 14px;display:flex;flex-wrap:wrap;gap:6px}
+  .agent-suggest .s{font-size:11px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--stone);cursor:pointer;background:#fff}
+  .agent-suggest .s:hover{border-color:var(--hills);color:var(--hills)}
+
+  /* tiny SVG icons */
+  .ic{display:inline-block;flex-shrink:0}
+
+  /* responsive-ish */
+  @media (max-width:1280px){
+    .app.show{grid-template-columns:200px 1fr 340px}
+    .g4{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="login">
+  <form class="login-card" onsubmit="event.preventDefault();enterApp()">
+    <div class="login-mark">
+      <div class="dot"></div>
+      <div class="name">Compass OS</div>
+    </div>
+    <h1>Welcome back, Nick.</h1>
+    <p class="lead">The operating system for your buyers agency.</p>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" value="nick@compassbuyersagency.com.au" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" value="••••••••••">
+    </div>
+    <button class="btn btn-block" type="submit">Sign in</button>
+    <div class="login-foot">
+      <span>Stage 1 build · v0.4</span>
+      <a>Forgot password</a>
+    </div>
+  </form>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div class="app" id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand">
+      <div class="dot"></div>
+      <div class="name">Compass OS</div>
+    </div>
+
+    <div class="nav-section nav">
+      <div class="eyebrow">Workspace</div>
+      <a class="active" data-page="dashboard">
+        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="1.5" width="5.5" height="5.5"/><rect x="9" y="1.5" width="5.5" height="5.5"/><rect x="1.5" y="9" width="5.5" height="5.5"/><rect x="9" y="9" width="5.5" height="5.5"/></svg>
+        Dashboard
+      </a>
+      <a data-page="pipeline">
+        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 4h14M1 8h14M1 12h14"/></svg>
+        Pipeline
+      </a>
+      <a data-page="clients">
+        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="5.5" r="2.5"/><path d="M2.5 14c.4-2.6 2.7-4.5 5.5-4.5s5.1 1.9 5.5 4.5"/></svg>
+        Clients
+      </a>
+      <a data-page="properties">
+        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 7l6-4.5L14 7v6.5H2z"/><path d="M6.5 13.5V9.5h3v4"/></svg>
+        Property log
+      </a>
+      <a data-page="compliance">
+        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 1.5h7l3 3v10H3z"/><path d="M10 1.5v3h3"/><path d="M5.5 8.5h5M5.5 11h5"/></svg>
+        Compliance
+      </a>
+      <a data-page="dashboards">
+        <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 13V3M2 13h12"/><path d="M5 10V7M8 10V5M11 10V8"/></svg>
+        Reports
+      </a>
+    </div>
+
+    <div class="nav-section nav">
+      <div class="eyebrow">Agents</div>
+      <a><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2"/></svg> Bruce <span class="pill green" style="margin-left:auto">live</span></a>
+      <a><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2"/></svg> Marlow</a>
+      <a><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="2"/></svg> Iris</a>
+    </div>
+
+    <div class="side-foot">
+      <div class="avatar">N</div>
+      <div>
+        <div style="font-size:13px">Nick Boyd-Mathews</div>
+        <div style="font-size:11px;color:var(--stone)">Co-owner</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Compass Buyers Agency</div>
+        <div class="crumb" id="crumb">Workspace · Dashboard</div>
+      </div>
+      <div class="topbar-actions">
+        <input class="search" placeholder="Search clients, properties, files…">
+        <span class="pill green">All systems live</span>
+        <div class="avatar">N</div>
+      </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Tuesday · 6 May</div>
+          <h1>Good morning, Nick.</h1>
+          <p class="muted" style="margin:8px 0 0;max-width:560px">Three briefs to review, one settlement booked for Friday, and Bruce has drafted two proposals waiting on your sign-off.</p>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost">Add property</button>
+          <button class="btn">New client</button>
+        </div>
+      </div>
+
+      <div class="grid g4">
+        <div class="card stat">
+          <div class="eyebrow">Pipeline value</div>
+          <div class="num">$24.8M</div>
+          <div class="delta">↑ $3.2M this month</div>
+        </div>
+        <div class="card stat">
+          <div class="eyebrow">Active clients</div>
+          <div class="num">11</div>
+          <div class="delta">+2 since April</div>
+        </div>
+        <div class="card stat">
+          <div class="eyebrow">Conversion (90d)</div>
+          <div class="num">68%</div>
+          <div class="delta">↑ 9pts</div>
+        </div>
+        <div class="card stat">
+          <div class="eyebrow">Avg time to proposal</div>
+          <div class="num">2.4d</div>
+          <div class="delta">↓ from 5.1d</div>
+        </div>
+      </div>
+
+      <div class="quick-row">
+        <div class="card">
+          <h2>Today</h2>
+          <p class="muted" style="margin:0 0 12px">Five things that need you.</p>
+          <div class="agenda-item">
+            <div>
+              <strong>Robinson family</strong> · review Bruce's proposal draft
+              <div class="muted" style="font-size:12px;margin-top:2px">Byron Bay · $2.7M family home</div>
+            </div>
+            <div class="when">9:00am</div>
+          </div>
+          <div class="agenda-item">
+            <div>
+              <strong>Patel</strong> · brief intake call
+              <div class="muted" style="font-size:12px;margin-top:2px">Brunswick Heads · investment unit</div>
+            </div>
+            <div class="when">11:30am</div>
+          </div>
+          <div class="agenda-item">
+            <div>
+              <strong>Chen-Walters</strong> · inspection at 14 Goodwin St
+              <div class="muted" style="font-size:12px;margin-top:2px">Burleigh Heads</div>
+            </div>
+            <div class="when">2:00pm</div>
+          </div>
+          <div class="agenda-item">
+            <div>
+              <strong>McKenzie</strong> · contract review with solicitor
+              <div class="muted" style="font-size:12px;margin-top:2px">Tweed Heads · settlement Friday</div>
+            </div>
+            <div class="when">4:00pm</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Bruce's desk</h2>
+          <p class="muted" style="margin:0 0 12px">Drafts ready for your eye.</p>
+          <div class="agenda-item">
+            <div>
+              <strong>Proposal</strong> · Robinson family
+              <div class="muted" style="font-size:12px;margin-top:2px">Drafted 22 minutes ago</div>
+            </div>
+            <span class="pill sand">Review</span>
+          </div>
+          <div class="agenda-item">
+            <div>
+              <strong>CAF</strong> · Chen-Walters
+              <div class="muted" style="font-size:12px;margin-top:2px">Auto-filled from intake</div>
+            </div>
+            <span class="pill sand">Review</span>
+          </div>
+          <div class="agenda-item">
+            <div>
+              <strong>Inspection note</strong> · 14 Goodwin St
+              <div class="muted" style="font-size:12px;margin-top:2px">From your voice memo</div>
+            </div>
+            <span class="pill green">Filed</span>
+          </div>
+          <div class="agenda-item">
+            <div>
+              <strong>Weekly update</strong> · McKenzie
+              <div class="muted" style="font-size:12px;margin-top:2px">Sent 8:02am</div>
+            </div>
+            <span class="pill green">Sent</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PIPELINE ===== -->
+    <section class="page" id="page-pipeline">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Sales pipeline</div>
+          <h1>Eleven engagements in flight.</h1>
+          <p class="muted" style="margin:8px 0 0">Drag a card to move it through the four phases. The brief, comms history and compliance file follow it.</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <span class="pill">Byron region</span>
+          <span class="pill">Last 90 days</span>
+        </div>
+      </div>
+
+      <div class="pipe" id="pipe">
+        <div class="col" data-col="1">
+          <h4>Discovery &amp; brief <span class="count">3</span></h4>
+          <div class="deal" draggable="true">
+            <div class="who">Patel</div>
+            <div class="where">Brunswick Heads · investment unit</div>
+            <div class="meta"><span>Brief intake today</span><span class="val">~$850k</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Hollings</div>
+            <div class="where">Suffolk Park · second home</div>
+            <div class="meta"><span>Discovery call booked</span><span class="val">~$3.4M</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Wu</div>
+            <div class="where">Kingscliff · family upsize</div>
+            <div class="meta"><span>Awaiting brief</span><span class="val">~$1.9M</span></div>
+          </div>
+        </div>
+
+        <div class="col" data-col="2">
+          <h4>Proposal &amp; engage <span class="count">3</span></h4>
+          <div class="deal" draggable="true" onclick="goPage('client')">
+            <div class="who">Robinson family</div>
+            <div class="where">Byron Bay · 3-bed family home</div>
+            <div class="meta"><span><span class="pill sand">Proposal drafted</span></span><span class="val">$2.7M</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Chen-Walters</div>
+            <div class="where">Burleigh Heads · beachside</div>
+            <div class="meta"><span><span class="pill green">CAF signed</span></span><span class="val">$2.1M</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Lindgren</div>
+            <div class="where">Casuarina · downsize</div>
+            <div class="meta"><span>Proposal sent</span><span class="val">$1.6M</span></div>
+          </div>
+        </div>
+
+        <div class="col" data-col="3">
+          <h4>Source &amp; inspect <span class="count">3</span></h4>
+          <div class="deal" draggable="true">
+            <div class="who">Devereux</div>
+            <div class="where">Byron Bay · hinterland acreage</div>
+            <div class="meta"><span>4 properties shortlisted</span><span class="val">$4.2M</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Otis-Webb</div>
+            <div class="where">Suffolk Park · family home</div>
+            <div class="meta"><span>Inspection Thu</span><span class="val">$2.4M</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Yoshida</div>
+            <div class="where">Brunswick Heads · investment</div>
+            <div class="meta"><span>2 offers prepared</span><span class="val">$1.1M</span></div>
+          </div>
+        </div>
+
+        <div class="col" data-col="4">
+          <h4>Close &amp; settle <span class="count">2</span></h4>
+          <div class="deal" draggable="true">
+            <div class="who">McKenzie</div>
+            <div class="where">Tweed Heads · settles Fri</div>
+            <div class="meta"><span><span class="pill warn">Settlement</span></span><span class="val">$1.45M</span></div>
+          </div>
+          <div class="deal" draggable="true">
+            <div class="who">Albrechtsen</div>
+            <div class="where">Byron Bay · cooling off</div>
+            <div class="meta"><span>Building &amp; pest</span><span class="val">$3.1M</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CLIENTS LIST ===== -->
+    <section class="page" id="page-clients">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Clients</div>
+          <h1>Active engagements.</h1>
+        </div>
+        <button class="btn">New client</button>
+      </div>
+      <div class="card" style="padding:0">
+        <table class="props">
+          <thead><tr><th>Client</th><th>Brief</th><th>Phase</th><th>Last touch</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr onclick="goPage('client')">
+              <td class="addr">Robinson family</td>
+              <td>3-bed family home, Byron Bay, hinterland or beach</td>
+              <td><span class="pill sand">Proposal &amp; engage</span></td>
+              <td>Today, 8:14am</td>
+              <td>$2.7M</td>
+            </tr>
+            <tr>
+              <td class="addr">Chen-Walters</td>
+              <td>Beachside 4-bed, Burleigh Heads</td>
+              <td><span class="pill sand">Proposal &amp; engage</span></td>
+              <td>Yesterday</td>
+              <td>$2.1M</td>
+            </tr>
+            <tr>
+              <td class="addr">McKenzie</td>
+              <td>Family home, Tweed Heads, north-facing</td>
+              <td><span class="pill warn">Close &amp; settle</span></td>
+              <td>2d ago</td>
+              <td>$1.45M</td>
+            </tr>
+            <tr>
+              <td class="addr">Patel</td>
+              <td>Investment unit, sub-$900k, Brunswick Heads, north-facing</td>
+              <td><span class="pill">Discovery &amp; brief</span></td>
+              <td>Today, 11:30am</td>
+              <td>~$850k</td>
+            </tr>
+            <tr>
+              <td class="addr">Devereux</td>
+              <td>Hinterland acreage, Byron Bay, 5+ acres, cottage</td>
+              <td><span class="pill green">Source &amp; inspect</span></td>
+              <td>3d ago</td>
+              <td>$4.2M</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== CLIENT PROFILE ===== -->
+    <section class="page" id="page-client">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Client</div>
+          <h1>Robinson family</h1>
+          <p class="muted" style="margin:6px 0 0">Engaged 11 April 2026 · Phase: Proposal &amp; engage</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost">Open WhatsApp</button>
+          <button class="btn btn-ghost">New note</button>
+          <button class="btn">Send proposal</button>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <!-- LEFT -->
+        <div>
+          <div class="profile-head">
+            <div class="eyebrow">Brief</div>
+            <h2 style="margin-top:6px">3-bed family home, Byron Bay or hinterland</h2>
+            <div class="brief-block">
+              <p><strong>Budget:</strong> $2.5M – $3M</p>
+              <p><strong>Areas:</strong> Byron Bay, Suffolk Park, hinterland (Bangalow, Federal)</p>
+              <p><strong>Must-haves:</strong> 3 beds, study, walking distance to school, mature garden</p>
+              <p><strong>Nice-to-haves:</strong> pool, dual living for visiting parents, north-facing rear</p>
+              <p><strong>Timeline:</strong> settle before end of school term, late September</p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:18px">
+            <div class="eyebrow">Contact</div>
+            <div class="meta-list">
+              <div class="row"><span class="k">Lead</span><span>Sarah Robinson</span></div>
+              <div class="row"><span class="k">Partner</span><span>James Robinson</span></div>
+              <div class="row"><span class="k">Mobile</span><span>0412 884 102</span></div>
+              <div class="row"><span class="k">Email</span><span>sarah.robinson@gmail.com</span></div>
+              <div class="row"><span class="k">Source</span><span>Referral · Lindgren</span></div>
+              <div class="row"><span class="k">Children</span><span>2 (school-age)</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:18px">
+            <div class="eyebrow">Document library</div>
+            <div class="doc-list" style="margin-top:8px">
+              <div class="doc"><div class="file"><span class="ext">PDF</span> Customer Authorisation Form</div><span class="muted">11 Apr</span></div>
+              <div class="doc"><div class="file"><span class="ext">PDF</span> Engagement letter (signed)</div><span class="muted">12 Apr</span></div>
+              <div class="doc"><div class="file"><span class="ext">DOC</span> Brief v3 (Bruce)</div><span class="muted">29 Apr</span></div>
+              <div class="doc"><div class="file"><span class="ext">PDF</span> Suffolk Park comparables</div><span class="muted">2 May</span></div>
+              <div class="doc"><div class="file"><span class="ext">M4A</span> Voice memo · Sarah call</div><span class="muted">5 May</span></div>
+              <div class="doc"><div class="file"><span class="ext">PDF</span> Proposal v1 (draft)</div><span class="muted">Today</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="card">
+          <div class="eyebrow">Activity timeline</div>
+          <h2 style="margin:6px 0 18px">Everything, in one thread.</h2>
+          <div class="timeline">
+            <div class="tl-item">
+              <div><span class="when">Today, 8:14am</span><span class="src">· Bruce</span></div>
+              <div class="body">Proposal v1 drafted from the Suffolk Park comparables and the brief. Three properties recommended, one stretch. Ready for Nick to review.</div>
+            </div>
+            <div class="tl-item">
+              <div><span class="when">Yesterday, 6:42pm</span><span class="src">· Voice note · Nick</span></div>
+              <div class="body">"Spoke to Sarah on the way back from Bangalow. They're flexible on the school catchment if the right hinterland place comes up. Pool is a strong nice-to-have, not a deal-breaker."</div>
+            </div>
+            <div class="tl-item">
+              <div><span class="when">Yesterday, 2:18pm</span><span class="src">· WhatsApp · Sarah</span></div>
+              <div class="body">"Hi Nick, James and I had a chat last night. We're open to going a bit further out if it means a real garden. Bangalow or Federal would be fine. Also, we saw 84 Marvell on realestate.com — any thoughts?"</div>
+            </div>
+            <div class="tl-item">
+              <div><span class="when">3 May, 11:02am</span><span class="src">· File · Bruce</span></div>
+              <div class="body">Suffolk Park comparables PDF generated. 14 sales over $2.4M in the last 6 months. Median time on market: 38 days.</div>
+            </div>
+            <div class="tl-item">
+              <div><span class="when">29 Apr, 9:30am</span><span class="src">· Meeting · Nick</span></div>
+              <div class="body">Brief refinement call. Sarah confirmed budget ceiling at $3M including stamps. James added study as a must-have. Recorded and transcribed by Bruce.</div>
+            </div>
+            <div class="tl-item archive">
+              <div><span class="when">Imported · 17 Aug 2023</span><span class="src">· WhatsApp archive</span></div>
+              <div class="body">"Hey Chris, the Robinsons are friends of the Lindgrens, they're moving up from Sydney next year. Sarah said keep us in mind for early 2026. Filing this for now."</div>
+            </div>
+            <div class="tl-item archive">
+              <div><span class="when">Imported · 22 Mar 2024</span><span class="src">· Voice note archive</span></div>
+              <div class="body">"Quick note, Robinsons looking at a place at Lennox last weekend, they didn't go ahead. Said they want to wait until the kids finish primary. Following up Q4."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROPERTY LOG ===== -->
+    <section class="page" id="page-properties">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Property log</div>
+          <h1>1,847 properties tracked.</h1>
+          <p class="muted" style="margin:6px 0 0">Every property the team has touched. Search by suburb, agent, client, or what was said about it.</p>
+        </div>
+        <button class="btn btn-ghost">Add property</button>
+      </div>
+
+      <div class="filter-row">
+        <span class="chip active">All suburbs</span>
+        <span class="chip">Byron Bay</span>
+        <span class="chip">Suffolk Park</span>
+        <span class="chip">Burleigh Heads</span>
+        <span class="chip">Tweed Heads</span>
+        <span class="chip">Brunswick Heads</span>
+        <span class="chip">Casuarina</span>
+        <span class="chip">Kingscliff</span>
+        <span style="margin-left:auto" class="chip">Last 12 months</span>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="props">
+          <thead><tr><th>Address</th><th>Mentioned by</th><th>Context</th><th>When</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr onclick="togglePropDetail()">
+              <td class="addr">14 Goodwin St, Burleigh Heads</td>
+              <td>Chen-Walters · Chris</td>
+              <td>Inspection booked, beachside, 4-bed</td>
+              <td>Today</td>
+              <td><span class="pill green">Active</span></td>
+            </tr>
+            <tr>
+              <td class="addr">8 Marvell St, Byron Bay</td>
+              <td>Robinson · Sarah (WhatsApp)</td>
+              <td>"Saw it on realestate.com, any thoughts?"</td>
+              <td>Yesterday</td>
+              <td><span class="pill sand">Watching</span></td>
+            </tr>
+            <tr>
+              <td class="addr">42 Friday Hut Rd, Possum Creek</td>
+              <td>Devereux · Nick</td>
+              <td>Hinterland acreage, off-market intro from McGrath</td>
+              <td>2 May</td>
+              <td><span class="pill green">Shortlisted</span></td>
+            </tr>
+            <tr>
+              <td class="addr">12 Tweed Coast Rd, Casuarina</td>
+              <td>Lindgren · Chris</td>
+              <td>Downsizer, north-facing, walking to surf</td>
+              <td>30 Apr</td>
+              <td><span class="pill">Watching</span></td>
+            </tr>
+            <tr>
+              <td class="addr">3 Tristania Way, Suffolk Park</td>
+              <td>Otis-Webb · Nick</td>
+              <td>Inspection Thursday, family home</td>
+              <td>28 Apr</td>
+              <td><span class="pill green">Shortlisted</span></td>
+            </tr>
+            <tr>
+              <td class="addr">19 Tweed St, Brunswick Heads</td>
+              <td>Yoshida · Chris</td>
+              <td>Investment unit, two offers prepared</td>
+              <td>26 Apr</td>
+              <td><span class="pill warn">Offer ready</span></td>
+            </tr>
+            <tr>
+              <td class="addr">7 Childe St, Byron Bay</td>
+              <td>Albrechtsen · Nick</td>
+              <td>Cooling off, building &amp; pest in progress</td>
+              <td>22 Apr</td>
+              <td><span class="pill warn">Under contract</span></td>
+            </tr>
+            <tr>
+              <td class="addr">61 Bangalow Rd, Byron Bay</td>
+              <td>Robinson · Bruce</td>
+              <td>Auto-flagged from comparables sweep</td>
+              <td>20 Apr</td>
+              <td><span class="pill">Filed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prop-detail card" id="propDetail">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div class="eyebrow">Property</div>
+            <h2 style="margin-top:4px">14 Goodwin St, Burleigh Heads</h2>
+            <p class="muted" style="margin:4px 0 0">4-bed, 3-bath beachside · listed $2.05M – $2.2M · McGrath</p>
+          </div>
+          <button class="btn btn-ghost" onclick="togglePropDetail()">Close</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px">
+          <div>
+            <div class="eyebrow">Mention history</div>
+            <div class="timeline" style="margin-top:14px">
+              <div class="tl-item">
+                <div><span class="when">Today, 9:11am</span><span class="src">· Chris · Note</span></div>
+                <div class="body">Booked inspection 2pm with selling agent. Chen-Walters keen, they've seen the listing. North-facing rear, big call on the side fence height.</div>
+              </div>
+              <div class="tl-item">
+                <div><span class="when">Today, 7:42am</span><span class="src">· Bruce · Auto</span></div>
+                <div class="body">New listing matched against Chen-Walters brief. Score 0.91. Flagged to Chris.</div>
+              </div>
+              <div class="tl-item archive">
+                <div><span class="when">Imported · 14 Sep 2023</span><span class="src">· WhatsApp archive</span></div>
+                <div class="body">"Goodwin St in Burleigh sold for $1.78 last winter, market's run since. Worth tracking the street."</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="eyebrow">Linked clients</div>
+            <div style="margin-top:14px">
+              <div class="agenda-item"><div><strong>Chen-Walters</strong><div class="muted" style="font-size:12px">Beachside 4-bed brief · 0.91 match</div></div><span class="pill green">Active</span></div>
+              <div class="agenda-item"><div><strong>Otis-Webb</strong><div class="muted" style="font-size:12px">Family home brief · 0.62 match</div></div><span class="pill">Watching</span></div>
+            </div>
+            <div class="eyebrow" style="margin-top:18px">Comparables</div>
+            <div style="margin-top:8px">
+              <div class="agenda-item"><div>11 Goodwin St</div><div class="muted">Sold $1.92M · Aug 2024</div></div>
+              <div class="agenda-item"><div>22 Goodwin St</div><div class="muted">Sold $2.15M · Jan 2026</div></div>
+              <div class="agenda-item"><div>4 Hedges Ave (next st)</div><div class="muted">Sold $2.30M · Mar 2026</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPLIANCE ===== -->
+    <section class="page" id="page-compliance">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Compliance file · Robinson family</div>
+          <h1>Everything Fair Trading or REBAA could ever ask for.</h1>
+          <p class="muted" style="margin:6px 0 0">Grouped, time-stamped, exportable as a single bundle.</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost">Switch client</button>
+          <button class="btn">Export bundle (PDF)</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="group">
+          <div class="group-head"><h3>REBAA</h3><span class="meta">3 documents · current</span></div>
+          <div class="doc-list">
+            <div class="doc"><div class="file"><span class="ext">PDF</span> REBAA Code of Conduct acknowledgement</div><span class="muted">Signed 11 Apr · Sarah, James</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Buyer's agent disclosure statement</div><span class="muted">Signed 11 Apr</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Conflict of interest declaration</div><span class="muted">Filed 11 Apr · clean</span></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3>NSW Fair Trading</h3><span class="meta">4 documents · current</span></div>
+          <div class="doc-list">
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Customer Authorisation Form (CAF)</div><span class="muted">Signed 11 Apr</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Agency agreement (Form 6 equiv.)</div><span class="muted">Signed 12 Apr · 90 days</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Material fact disclosure log</div><span class="muted">Auto-maintained · 4 entries</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Consumer guide acknowledgement</div><span class="muted">Issued 11 Apr</span></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3>Internal · Compass</h3><span class="meta">5 documents</span></div>
+          <div class="doc-list">
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Onboarding checklist</div><span class="muted">Complete</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Brief v3 (final)</div><span class="muted">29 Apr</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Fee schedule (signed)</div><span class="muted">12 Apr</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> ID verification (Sarah)</div><span class="muted">11 Apr · driver licence</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> ID verification (James)</div><span class="muted">11 Apr · passport</span></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="group-head"><h3>Communications log</h3><span class="meta">Auto-archived · last 30 days</span></div>
+          <div class="doc-list">
+            <div class="doc"><div class="file"><span class="ext">CSV</span> WhatsApp thread (Sarah)</div><span class="muted">42 messages</span></div>
+            <div class="doc"><div class="file"><span class="ext">CSV</span> Email thread</div><span class="muted">11 messages</span></div>
+            <div class="doc"><div class="file"><span class="ext">M4A</span> Voice notes (3)</div><span class="muted">Nick · transcribed</span></div>
+            <div class="doc"><div class="file"><span class="ext">PDF</span> Meeting recordings (2)</div><span class="muted">Bruce · transcribed</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DASHBOARDS ===== -->
+    <section class="page" id="page-dashboards">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Reports</div>
+          <h1>The numbers behind the agency.</h1>
+        </div>
+        <div style="display:flex;gap:8px">
+          <span class="pill">Last 90 days</span>
+          <span class="pill">All agents</span>
+        </div>
+      </div>
+
+      <div class="grid g4">
+        <div class="card stat"><div class="eyebrow">Pipeline value</div><div class="num">$24.8M</div><div class="delta">↑ 14.7%</div></div>
+        <div class="card stat"><div class="eyebrow">Conversion rate</div><div class="num">68%</div><div class="delta">↑ 9pts vs Q1</div></div>
+        <div class="card stat"><div class="eyebrow">Time to proposal</div><div class="num">2.4 days</div><div class="delta">↓ from 5.1d</div></div>
+        <div class="card stat"><div class="eyebrow">Property log</div><div class="num">1,847</div><div class="delta">+128 this month</div></div>
+      </div>
+
+      <div class="grid g2" style="margin-top:18px">
+        <div class="card">
+          <div class="eyebrow">Pipeline value · last 12 weeks</div>
+          <h2 style="margin:6px 0 14px">Steady climb since Bruce went live.</h2>
+          <div class="chart">
+            <div class="bar" style="height:30%"></div>
+            <div class="bar" style="height:38%"></div>
+            <div class="bar" style="height:36%"></div>
+            <div class="bar" style="height:48%"></div>
+            <div class="bar" style="height:52%"></div>
+            <div class="bar" style="height:55%"></div>
+            <div class="bar" style="height:62%"></div>
+            <div class="bar" style="height:71%"></div>
+            <div class="bar" style="height:74%"></div>
+            <div class="bar" style="height:82%"></div>
+            <div class="bar peak" style="height:90%"></div>
+            <div class="bar peak" style="height:96%"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="eyebrow">Conversion funnel</div>
+          <h2 style="margin:6px 0 14px">From enquiry to settlement.</h2>
+          <div class="funnel">
+            <div class="step"><span>Enquiries</span><span class="v">142</span></div>
+            <div class="step"><span>Discovery calls</span><span class="v">88</span></div>
+            <div class="step"><span>Briefs received</span><span class="v">61</span></div>
+            <div class="step"><span>Proposals sent</span><span class="v">44</span></div>
+            <div class="step"><span>Engaged</span><span class="v">30</span></div>
+            <div class="step"><span>Settled</span><span class="v">21</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid g3" style="margin-top:18px">
+        <div class="card">
+          <div class="eyebrow">By suburb (engaged)</div>
+          <div class="meta-list" style="margin-top:6px">
+            <div class="row"><span>Byron Bay</span><span>$8.4M</span></div>
+            <div class="row"><span>Burleigh Heads</span><span>$5.1M</span></div>
+            <div class="row"><span>Suffolk Park</span><span>$4.2M</span></div>
+            <div class="row"><span>Tweed Heads</span><span>$2.9M</span></div>
+            <div class="row"><span>Brunswick Heads</span><span>$2.6M</span></div>
+            <div class="row"><span>Casuarina / Kingscliff</span><span>$1.6M</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="eyebrow">Agent contribution</div>
+          <div class="meta-list" style="margin-top:6px">
+            <div class="row"><span>Nick</span><span>$13.1M pipeline · 6 settled</span></div>
+            <div class="row"><span>Chris</span><span>$11.7M pipeline · 5 settled</span></div>
+            <div class="row"><span>Bruce (assist)</span><span>83% of proposals drafted</span></div>
+            <div class="row"><span>Marlow (assist)</span><span>1,128 properties indexed</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="eyebrow">Compliance</div>
+          <div class="meta-list" style="margin-top:6px">
+            <div class="row"><span>CAFs current</span><span>11 / 11</span></div>
+            <div class="row"><span>Disclosures filed</span><span>11 / 11</span></div>
+            <div class="row"><span>REBAA acknowledgements</span><span>11 / 11</span></div>
+            <div class="row"><span>Material facts logged</span><span>34 entries</span></div>
+            <div class="row"><span>Last bundle export</span><span>2 May · McKenzie</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== AGENT PANEL ===== -->
+  <aside class="agent">
+    <div class="agent-head">
+      <div class="who">
+        <div class="av">B</div>
+        <div>
+          <div class="nm">Bruce</div>
+          <div class="role">Sales agent · Compass OS</div>
+        </div>
+      </div>
+      <span class="pill green">Live</span>
+    </div>
+
+    <div class="agent-tabs">
+      <div class="t active">Bruce</div>
+      <div class="t">Marlow</div>
+      <div class="t">Iris</div>
+      <div class="t" style="margin-left:auto">+ New</div>
+    </div>
+
+    <div class="agent-body" id="chat">
+      <div class="msg user">
+        <div class="from">Nick · 8:12am</div>
+        <div class="bubble">Draft a proposal for the Robinsons.</div>
+      </div>
+      <div class="msg bot">
+        <div class="from">Bruce · 8:13am</div>
+        <div class="bubble">
+          <div>Pulling the brief, comparables and last week's voice notes. Drafted from the Suffolk Park sweep and the Bangalow follow-up. Tone matches the engagement letter.</div>
+          <div class="preview">
+            <div class="eyebrow">Proposal · Robinson family · v1</div>
+            <h4 style="margin-top:6px">Three properties for your consideration.</h4>
+            <p><strong>Sarah and James,</strong></p>
+            <p>Following our call on the 29th, here are the three homes we'd like you to consider. Each sits inside the brief on budget, layout and feel, with one stretch in the hinterland that we believe is worth the look.</p>
+            <p><strong>1. 3 Tristania Way, Suffolk Park</strong> · 3-bed, study, mature garden, 600m to the school. Listed $2.65M, our read is $2.55M is fair.</p>
+            <p><strong>2. 61 Bangalow Rd, Byron Bay</strong> · 4-bed with the dual living option you mentioned for visiting parents. North-facing rear. Off-market through McGrath.</p>
+            <p><strong>3. 42 Friday Hut Rd, Possum Creek</strong> (stretch) · acreage, cottage, the kind of garden James asked about. Above the ceiling at $3.2M, but worth a conversation.</p>
+            <p style="color:var(--stone);font-size:11px;margin-top:10px">Sources used: brief v3, Suffolk Park comparables 2 May, voice memo 5 May, WhatsApp 5 May.</p>
+            <div class="preview-foot">
+              <button class="btn-small">Send to Nick</button>
+              <button class="btn-small ghost">Open full draft</button>
+              <button class="btn-small ghost">Re-draft</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="msg user">
+        <div class="from">Nick · 8:14am</div>
+        <div class="bubble">Drop the stretch. Sarah said budget is firm at $3M including stamps.</div>
+      </div>
+      <div class="msg bot">
+        <div class="from">Bruce · 8:14am</div>
+        <div class="bubble">
+          <div>Got it. Removed the Possum Creek property and tightened the framing. Brief note added to her file so we don't suggest stretches again unless she opens the door.</div>
+          <div class="preview" style="background:var(--sand-soft)">
+            <div class="eyebrow">Proposal v1.1 · ready for review</div>
+            <p style="margin:6px 0 0">Two properties. Same structure. Settlement window matches the September deadline on both.</p>
+            <div class="preview-foot">
+              <button class="btn-small">Approve &amp; send</button>
+              <button class="btn-small ghost">Open in editor</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-suggest">
+      <div class="s" onclick="askBruce(this.textContent)">Summarise today's pipeline movement</div>
+      <div class="s" onclick="askBruce(this.textContent)">Find Burleigh listings under $2.2M</div>
+      <div class="s" onclick="askBruce(this.textContent)">Draft McKenzie settlement update</div>
+    </div>
+
+    <form class="agent-input" onsubmit="event.preventDefault();sendMsg()">
+      <input id="chatInput" placeholder="Ask Bruce…">
+      <button class="send-btn" type="submit">Send</button>
+    </form>
+  </aside>
+</div>
+
+<script>
+  function enterApp(){
+    document.getElementById('login').style.display='none';
+    document.getElementById('app').classList.add('show');
+  }
+
+  // nav
+  const crumbs={
+    dashboard:'Workspace · Dashboard',
+    pipeline:'Workspace · Pipeline',
+    clients:'Workspace · Clients',
+    client:'Clients · Robinson family',
+    properties:'Workspace · Property log',
+    compliance:'Compliance · Robinson family',
+    dashboards:'Reports · Overview'
+  };
+  function goPage(name){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    const target=document.getElementById('page-'+name);
+    if(target) target.classList.add('active');
+    document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
+    const navLink=document.querySelector('.nav a[data-page="'+name+'"]');
+    if(navLink) navLink.classList.add('active');
+    document.getElementById('crumb').textContent=crumbs[name]||'';
+    document.querySelector('.main').scrollTop=0;
+  }
+  document.querySelectorAll('.nav a[data-page]').forEach(a=>{
+    a.addEventListener('click',()=>goPage(a.dataset.page));
+  });
+
+  // pipeline drag/drop
+  let dragged=null;
+  document.querySelectorAll('.deal').forEach(d=>{
+    d.addEventListener('dragstart',e=>{dragged=d;d.classList.add('dragging');e.dataTransfer.effectAllowed='move'});
+    d.addEventListener('dragend',()=>{if(dragged){dragged.classList.remove('dragging');dragged=null}});
+  });
+  document.querySelectorAll('.col').forEach(col=>{
+    col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('over')});
+    col.addEventListener('dragleave',()=>col.classList.remove('over'));
+    col.addEventListener('drop',e=>{
+      e.preventDefault();col.classList.remove('over');
+      if(dragged){col.appendChild(dragged);updateCounts()}
+    });
+  });
+  function updateCounts(){
+    document.querySelectorAll('.col').forEach(col=>{
+      const n=col.querySelectorAll('.deal').length;
+      col.querySelector('.count').textContent=n;
+    });
+  }
+
+  // property detail
+  function togglePropDetail(){
+    const d=document.getElementById('propDetail');
+    d.classList.toggle('show');
+    if(d.classList.contains('show')) d.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  // filter chips
+  document.querySelectorAll('.filter-row .chip').forEach(c=>{
+    c.addEventListener('click',()=>{
+      c.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+    });
+  });
+
+  // chat
+  function sendMsg(){
+    const input=document.getElementById('chatInput');
+    const v=input.value.trim();if(!v)return;
+    askBruce(v);input.value='';
+  }
+  function askBruce(text){
+    const chat=document.getElementById('chat');
+    const u=document.createElement('div');u.className='msg user';
+    u.innerHTML='<div class="from">Nick · now</div><div class="bubble">'+escapeHtml(text)+'</div>';
+    chat.appendChild(u);
+    const b=document.createElement('div');b.className='msg bot';
+    b.innerHTML='<div class="from">Bruce · now</div><div class="bubble"><span class="typing"><span></span><span></span><span></span></span></div>';
+    chat.appendChild(b);
+    chat.scrollTop=chat.scrollHeight;
+    setTimeout(()=>{
+      b.querySelector('.bubble').innerHTML=brucReply(text);
+      chat.scrollTop=chat.scrollHeight;
+    },900);
+  }
+  function brucReply(q){
+    const t=q.toLowerCase();
+    if(t.includes('pipeline')) return 'Two cards moved this morning. Robinson into Proposal &amp; engage, Yoshida into Source &amp; inspect with two offers prepared. Pipeline value lifted by $1.1M in the last 24 hours. Want me to surface what changed for each?';
+    if(t.includes('burleigh')||t.includes('listing')) return 'Six listings in Burleigh under $2.2M as of this morning. Two beachside, one north-facing in Goodwin St (already linked to Chen-Walters), three off-water. Should I draft a shortlist with comparables for Chris?';
+    if(t.includes('mckenzie')||t.includes('settlement')) return 'Drafted. Friday settlement on track, solicitor confirmed funds cleared yesterday. Note added on the side fence repair credit. Ready to send from Chris\\'s account whenever you are.';
+    return 'Pulling that together now. I\\'ll cross-check the brief, the property log and the last fortnight of comms before I draft anything. Should have something for you in a minute.';
+  }
+  function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+</script>
+</body>
+</html>
