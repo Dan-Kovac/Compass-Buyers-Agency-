@@ -181,20 +181,31 @@
   </tbody>
 </table>
 
-<h3>Week 0 — Account access (Compass-billed)</h3>
-<p>Compass owns every account so there's no vendor lock-in. Nick is owner on each, Daniel is admin, and a second Compass person is named as backup admin.</p>
+<h3>Week 0 — Account access (everything Compass-owned from day 1)</h3>
+<p>Every account is created on Compass billing from day 1. No transfer event mid-project, no risk of drift, no "build on Daniel's instance and migrate later." Nick owns every account, Daniel is added as admin, and a second Compass person is named backup admin so nothing is bonded to one person. The "Why" column explains what would go wrong without each item.</p>
 <table>
-  <thead><tr><th>Account</th><th>Purpose</th><th>Owner action</th><th>Daniel needs</th></tr></thead>
+  <thead><tr><th>Account</th><th>Why we need it</th><th>What Nick does to set it up</th></tr></thead>
   <tbody>
-    <tr><td class="title">Supabase</td><td>Database, auth, storage, RLS for tenant isolation</td><td>Create org under Compass billing. Invite Daniel as Owner.</td><td>Org admin access</td></tr>
-    <tr><td class="title">Vercel</td><td>Web app hosting, preview deployments</td><td>Create team under Compass billing. Invite Daniel as Owner.</td><td>Team admin access</td></tr>
-    <tr><td class="title">GitHub</td><td>Source code repository</td><td>Create or use existing Compass GitHub org. Invite Daniel as Owner.</td><td>Org admin access</td></tr>
-    <tr><td class="title">OpenAI (or Anthropic)</td><td>LLM API for Bruce</td><td>Create org under Compass billing. Add payment method. Invite Daniel as Owner.</td><td>Org admin access plus billing visibility</td></tr>
-    <tr><td class="title">WhatsApp Business (Twilio or Meta)</td><td>Bruce's channel</td><td>Apply for Business API access. Decide provider with Daniel before applying. Add Compass payment method.</td><td>Admin access. Approval can take 1-2 weeks, so start early.</td></tr>
-    <tr><td class="title">Resend (transactional email)</td><td>Invites, summaries, recaps</td><td>Create account under Compass billing. Invite Daniel.</td><td>Admin access</td></tr>
-    <tr><td class="title">Notion</td><td>Project board and documentation</td><td>Decide between Compass workspace or a fresh Compass OS workspace. Invite Daniel and second admin.</td><td>Workspace admin or guest access to project pages</td></tr>
-    <tr><td class="title">1Password (or Bitwarden)</td><td>Shared credentials vault</td><td>Create a Compass OS vault. Invite Daniel and second admin.</td><td>Vault access</td></tr>
-    <tr><td class="title">Sentry (or equivalent)</td><td>Error monitoring across web and Bruce</td><td>Create account under Compass billing. Invite Daniel.</td><td>Admin access</td></tr>
+    <tr><td class="title">Supabase</td><td>The database, the buyer/agent login system, the file storage for property photos, and the row-level rules that make sure one tenant can never see another's data. The single most important piece of infrastructure.</td><td>Create a new Supabase organisation under Compass's payment method. Invite Daniel as Owner. Pick a project name (e.g. <em>compass-os</em>).</td></tr>
+    <tr><td class="title">Vercel</td><td>Hosts the web app and the buyer portal. Every code push gets a preview URL Daniel can share with Nick for instant feedback. Without this, there's nowhere for the web app to live.</td><td>Create a Vercel team under Compass's payment method (the Pro plan is enough). Invite Daniel as Owner. Connect to the Compass GitHub org.</td></tr>
+    <tr><td class="title">GitHub</td><td>Where all the source code lives. Compass owns the codebase from day 1, so the work is on Compass GitHub from day 1. No "transfer the repo at the end."</td><td>Use Compass's existing GitHub organisation, or create a new one (free tier is fine). Invite Daniel as Owner. Create one private repository called <em>compass-os</em>.</td></tr>
+    <tr><td class="title">LLM provider (Anthropic or OpenAI)</td><td>The brain behind Bruce. Every WhatsApp reply Bruce sends costs a fraction of a cent in API tokens. Billed to Compass directly so usage and cost are transparent.</td><td>Create an organisation under Compass billing. Add a payment method. Invite Daniel as Owner with billing visibility. Set a monthly spend cap (Daniel will recommend a starting figure).</td></tr>
+    <tr><td class="title">WhatsApp Business (Twilio)</td><td>Bruce's channel. Cannot be transferred between businesses cleanly, and approval takes 1-2 weeks, so it has to be Compass-owned from Week 0 — no exceptions.</td><td>Sign up for Twilio with Compass billing. Apply for WhatsApp Business API approval (Daniel will provide the application content). Verify the Compass business with Meta. Add Daniel to the Twilio console.</td></tr>
+    <tr><td class="title">Resend (transactional email)</td><td>Sends every system email — buyer invites, agent escalation alerts, weekly recaps, account notifications. Without it, the system can't communicate by email.</td><td>Create a Resend account on Compass billing. Add the <em>compass.com.au</em> domain (DNS records below). Invite Daniel.</td></tr>
+    <tr><td class="title">Google Workspace (or existing email)</td><td>Compass already has this. Used to host two new email identities (<em>dan@compass.com.au</em> and <em>bruce@compass.com.au</em>) so Daniel and Bruce both look like part of the team. See the Email identities table below.</td><td>If Workspace already exists: Nick adds Daniel as a user with one paid seat, and adds <em>bruce@</em> as an alias on an existing seat. If not: setting up Workspace is a 30-min job and Daniel can guide it.</td></tr>
+    <tr><td class="title">Notion</td><td>The shared project board. Every ticket in this plan lives there. Nick can see at any time what's done, in progress, or coming up.</td><td>Create a new <em>Compass OS</em> workspace, or use Compass's existing workspace with a project page. Invite Daniel as full member, second admin as full member.</td></tr>
+    <tr><td class="title">1Password (or Bitwarden)</td><td>Shared credentials vault. Every API key, secret, and password lives here, encrypted. Daniel never holds a Compass credential outside this vault.</td><td>Create a <em>Compass OS</em> vault under Compass's existing 1Password account, or sign up for a new one. Invite Daniel and second admin.</td></tr>
+    <tr><td class="title">Sentry</td><td>Watches both the web app and Bruce for errors. Daniel gets alerted within seconds if anything breaks in production. Without it, problems only surface when a user complains.</td><td>Create a Sentry account on Compass billing (the team plan covers what we need). Invite Daniel as admin.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — Email identities</h3>
+<p>Two email addresses on the Compass domain. Both are essential. One is paid (Daniel's seat), one is free (Bruce's alias). Both get switched off at the end of the engagement.</p>
+<table>
+  <thead><tr><th>Address</th><th>Type</th><th>Why we need it</th><th>What Nick does</th></tr></thead>
+  <tbody>
+    <tr><td class="title">dan@compass.com.au</td><td>Workspace seat (paid, ~AUD $14/mo)</td><td>Daniel appears as part of the Compass team for the engagement. All account invites, billing alerts, and security notifications land in a Compass-managed inbox that survives even if Daniel later offboards. Same-domain identity also makes Google integrations and any client-facing comms cleaner.</td><td>Add Daniel as a Workspace user with one seat. Send Daniel the temporary password.</td></tr>
+    <tr><td class="title">bruce@compass.com.au</td><td>Alias on existing seat (free)</td><td>Bruce's sending identity for any email-based comms (e.g. weekly recaps to buyers). An alias means no extra seat cost, and replies land in a monitored mailbox that the system parses back into the right buyer thread. Bruce never needs his own paid mailbox.</td><td>Create the alias on Nick's seat (or any monitored seat). Set up SPF, DKIM, and DMARC DNS records on <em>compass.com.au</em> so Resend can send from this address (Daniel will provide the exact records).</td></tr>
   </tbody>
 </table>
 
@@ -273,6 +284,21 @@
     <tr><td class="title">Stand up local development environment</td><td>Daniel</td><td class="effort">S</td><td>Tools, runtimes, secrets management ready to start coding Week 1 day 1.</td></tr>
     <tr><td class="title">Draft Week 1 kick-off agenda and pre-read</td><td>Daniel</td><td class="effort">S</td><td>Agenda covers goals, success metrics, decisions, risks. Sent 48h ahead.</td></tr>
     <tr><td class="title">Confirm receipt of all Week 0 inputs from Compass</td><td>Daniel</td><td class="effort">S</td><td>Every checklist item ticked or explicitly deferred with a Week 1 date.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — End-of-engagement wind-down (for Nick's reassurance)</h3>
+<p>Everything Daniel adds in Week 0 gets cleanly removed when the engagement closes. Compass keeps every account, every credential, every line of code, every record. Daniel's footprint in Compass infrastructure goes to zero.</p>
+<table>
+  <thead><tr><th>Item</th><th>What happens at engagement end</th><th>Cost impact for Compass</th></tr></thead>
+  <tbody>
+    <tr><td class="title">dan@compass.com.au Workspace seat</td><td>Disabled by Nick. Mailbox archived to a Compass-owned location. Seat slot freed up.</td><td>Stops the ~AUD $14/mo seat cost.</td></tr>
+    <tr><td class="title">bruce@compass.com.au alias</td><td>Stays. It's free, and Bruce keeps running.</td><td>$0 ongoing.</td></tr>
+    <tr><td class="title">Daniel's admin access on Supabase, Vercel, GitHub, LLM provider, Twilio, Resend, Notion, 1Password, Sentry</td><td>Removed from each account. Compass remains sole owner with full control.</td><td>$0. The accounts and their billing don't change.</td></tr>
+    <tr><td class="title">Source code repository</td><td>Stays under Compass GitHub org. Daniel's commit history remains; access is revoked.</td><td>$0.</td></tr>
+    <tr><td class="title">Notion workspace and ticket board</td><td>Stays as Compass's living record of the build. Daniel's account removed.</td><td>$0.</td></tr>
+    <tr><td class="title">1Password vault</td><td>All credentials remain. Daniel's user removed. Nick rotates the API keys Daniel had access to.</td><td>$0.</td></tr>
+    <tr><td class="title">Operational support after launch</td><td>Optional. If Compass wants ongoing support, it's a separate engagement on its own SOW. Otherwise the runbook delivered in Week 16 covers day-to-day.</td><td>Only billed if Compass opts in.</td></tr>
   </tbody>
 </table>
 
