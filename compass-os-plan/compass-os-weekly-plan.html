@@ -5,13 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compass OS — 16-Week Delivery Plan</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
   :root {
     --hills: #2C4A3E;
+    --hills-light: #4A6B5F;
     --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
     --bright-grey: #F5F5F5;
     --sea: #7BAE9E;
+    --sea-soft: #B8D4CB;
     --sand: #F5E6D3;
+    --sand-light: #FBF6EE;
     --stone: #8B7E74;
+    --stone-light: #D9D3CC;
     --white: #FFFFFF;
   }
   * { box-sizing: border-box; }
@@ -19,73 +26,469 @@
     margin: 0; padding: 0;
     color: var(--ink);
     background: var(--white);
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    font-size: 10.5pt; line-height: 1.5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
   }
-  .page { max-width: 980px; margin: 0 auto; padding: 36px 48px; }
-  h1, h2, h3, h4 {
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--hills); font-weight: 600; letter-spacing: -0.01em;
+  .page { max-width: 880px; margin: 0 auto; padding: 64px 56px 40px; }
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--hills);
+    letter-spacing: -0.018em;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
   }
-  h1 { font-size: 28pt; line-height: 1.15; margin: 0 0 6px; }
-  h2 { font-size: 17pt; margin: 32px 0 4px; border-bottom: 1px solid var(--sand); padding-bottom: 6px; }
-  h3 { font-size: 13pt; margin: 22px 0 6px; }
-  h4 { font-size: 11pt; margin: 14px 0 4px; color: var(--hills); }
-  .lead { color: var(--stone); font-size: 11.5pt; margin: 0 0 4px; }
-  .meta { color: var(--stone); font-size: 9.5pt; margin: 0 0 20px; }
+  h1 { font-size: 38pt; line-height: 1.05; margin: 0 0 14px; font-weight: 300; }
+  h2 {
+    font-size: 19pt; line-height: 1.2;
+    margin: 56px 0 12px; padding: 0;
+    border: none; font-weight: 400;
+  }
+  h2 .num {
+    color: var(--stone); font-size: 8.5pt;
+    letter-spacing: 0.22em; display: block;
+    text-transform: uppercase; margin-bottom: 10px;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+  }
+  h3 { font-size: 13pt; margin: 32px 0 8px; font-weight: 500; }
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt; margin: 20px 0 8px;
+    color: var(--stone); font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .lead {
+    color: var(--hills-light); font-size: 14pt;
+    margin: 0 0 6px; font-weight: 300;
+    line-height: 1.45;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+  .meta {
+    color: var(--stone); font-size: 9pt;
+    margin: 0 0 36px; letter-spacing: 0.01em;
+    line-height: 1.55;
+  }
+  p { margin: 8px 0 14px; color: var(--ink); line-height: 1.65; }
+
+  /* Header info block (SOW) */
+  .header-block {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px; margin: 18px 0 36px; padding: 22px 0;
+    background: transparent;
+    border-top: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+    border-left: none; border-radius: 0;
+  }
+  .header-block .item { font-size: 9pt; }
+  .header-block .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.18em; font-size: 7.5pt;
+    margin-bottom: 6px; font-weight: 500;
+  }
+  .header-block .item .value {
+    color: var(--ink); font-weight: 400; font-size: 10.5pt;
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+  }
+
+  /* Cards */
   .card {
+    background: var(--sand-light);
+    border-left: none;
+    padding: 18px 22px; margin: 18px 0 26px;
+    border-radius: 2px;
+  }
+  .card.sand { background: var(--sand); }
+  .card.nick {
     background: var(--bright-grey);
-    border-left: 4px solid var(--sea);
-    padding: 14px 18px; margin: 14px 0 22px; border-radius: 2px;
+    border-left: 2px solid var(--sea);
+    padding-left: 20px;
   }
-  .card.sand { background: var(--sand); border-left-color: var(--hills); }
-  .card.nick { background: #FFF7E8; border-left-color: #C68A2E; }
-  .card.nick strong.tag { color: #8a5e1d; letter-spacing: 0.05em; text-transform: uppercase; font-size: 9pt; }
+  .card.nick strong.tag {
+    color: var(--hills); letter-spacing: 0.22em;
+    text-transform: uppercase; font-size: 7.5pt;
+    font-weight: 600;
+    display: block; margin-bottom: 8px;
+  }
+
+  /* Companion link */
+  .companion-link {
+    background: var(--sand); padding: 16px 22px;
+    margin: 24px 0 36px; border-radius: 2px; font-size: 10pt;
+    border-left: none;
+  }
+  .companion-link a { color: var(--hills); font-weight: 500; }
+
+  /* Outcome / surface grids */
+  .outcome-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 36px 44px; margin: 28px 0 40px;
+  }
+  .outcome { padding: 0; background: transparent; border: none; }
+  .outcome .num {
+    color: var(--stone); font-family: 'Fraunces', serif;
+    font-style: italic; font-size: 11pt;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: block;
+    background: transparent; padding: 0;
+    font-weight: 400;
+  }
+  .outcome .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 16pt;
+    margin: 0 0 10px; line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .outcome p { margin: 0; font-size: 10pt; color: var(--ink-soft); line-height: 1.6; }
+
+  .surface-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; margin: 24px 0 40px;
+  }
+  .surface { padding: 0; background: transparent; border: none; }
+  .surface .num {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .surface .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 15pt;
+    margin: 8px 0 10px; letter-spacing: -0.015em; line-height: 1.2;
+  }
+  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6; }
+
+  /* Streams */
+  .stream {
+    background: var(--sand-light); padding: 24px 28px;
+    margin: 16px 0; border-radius: 2px;
+    border-left: none;
+  }
+  .stream .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .stream .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 18pt;
+    margin: 6px 0 12px; letter-spacing: -0.015em; line-height: 1.15;
+  }
+  .stream ul {
+    margin: 14px 0 0 18px; padding: 0;
+    font-size: 10pt; color: var(--ink-soft);
+  }
+  .stream ul li { margin: 5px 0; line-height: 1.55; }
+  .stream .note {
+    background: var(--white); padding: 14px 18px;
+    margin-top: 16px; font-size: 9.5pt;
+    border-radius: 2px;
+    color: var(--ink-soft); line-height: 1.6;
+    border-left: none;
+  }
+
+  /* Stage banner */
   .stage-banner {
+    margin: 64px 0 18px; padding: 28px 0 14px;
+    border-top: 1px solid var(--sand);
+    background: transparent;
+    color: var(--hills);
+    border-radius: 0;
+  }
+  .stage-banner .label {
+    color: var(--stone); font-size: 8pt;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 10px;
+    opacity: 1;
+  }
+  .stage-banner .title {
+    font-family: 'Fraunces', serif; font-size: 24pt;
+    color: var(--hills); font-weight: 300;
+    letter-spacing: -0.022em; line-height: 1.1;
+  }
+
+  /* Milestone block (SOW) */
+  .milestone-block {
+    background: var(--sand-light);
+    padding: 32px 36px; margin: 28px 0 36px; border-radius: 3px;
+    border-left: none;
+  }
+  .milestone-block .head {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: start; gap: 28px; margin-bottom: 14px;
+  }
+  .milestone-block .head .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .milestone-block .head .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 19pt;
+    margin: 8px 0 8px; letter-spacing: -0.018em; line-height: 1.15;
+  }
+  .milestone-block .head .when {
+    font-size: 9.5pt; color: var(--stone); font-style: italic;
+    font-family: 'Fraunces', serif; line-height: 1.45;
+  }
+  .milestone-block .price {
+    background: var(--white); padding: 16px 20px;
+    border-radius: 2px; text-align: right; min-width: 170px;
+    color: var(--hills);
+  }
+  .milestone-block .price .num {
+    font-family: 'Fraunces', serif; font-size: 22pt;
+    color: var(--hills); font-weight: 300; line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .milestone-block .price .terms {
+    font-size: 8pt; color: var(--stone); margin-top: 6px;
+    letter-spacing: 0.05em; opacity: 1;
+  }
+
+  /* Meta row in milestone */
+  .meta-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 28px; margin: 16px 0 18px;
+    padding: 14px 0;
+    border-top: 1px solid var(--sand);
+    font-size: 9.5pt;
+  }
+  .meta-row .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.18em; font-size: 7.5pt;
+    margin-bottom: 4px; font-weight: 500;
+  }
+
+  /* Stream mini cards in milestones */
+  .stream-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; margin-top: 18px;
+  }
+  .stream-mini {
+    background: var(--white); padding: 18px 20px;
+    border-radius: 2px; font-size: 9.5pt;
+    border-top: none;
+  }
+  .stream-mini .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.18em; font-size: 7pt;
+    font-weight: 600;
+  }
+  .stream-mini .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 13pt;
+    margin: 6px 0 10px; letter-spacing: -0.012em; line-height: 1.2;
+  }
+  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink-soft); }
+  .stream-mini ul li { margin: 3px 0; line-height: 1.55; }
+
+  /* Acceptance gate */
+  .gate, .milestone {
     background: var(--hills); color: var(--white);
-    padding: 12px 18px; margin: 28px 0 8px; border-radius: 2px;
+    padding: 20px 24px; border-radius: 2px;
+    margin: 18px 0 32px; font-size: 10pt;
+    line-height: 1.6;
   }
-  .stage-banner .label { font-size: 9pt; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
-  .stage-banner .title { font-family: Georgia, serif; font-size: 16pt; }
-  .milestone {
-    background: var(--sea); color: var(--white);
-    padding: 12px 16px; margin: 12px 0; border-radius: 2px;
+  .gate .label, .milestone .label {
+    font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; font-size: 7.5pt;
+    opacity: 0.85; margin-bottom: 10px; display: block;
+    font-family: 'Inter', sans-serif;
   }
-  .milestone .label { font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 8.5pt; opacity: 0.95; display: block; margin-bottom: 2px; }
-  table { width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: 9pt; }
-  th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid #e6e6e6; }
-  th { background: var(--bright-grey); color: var(--hills); font-weight: 600; font-size: 8.5pt; letter-spacing: 0.04em; text-transform: uppercase; }
-  td.title { font-weight: 600; color: var(--ink); width: 26%; }
-  .pill { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 8pt; font-weight: 600; }
-  .stream-A { background: #E5EFEA; color: var(--hills); }
-  .stream-B { background: #DDEBE6; color: #1f5d4f; }
-  .stream-C { background: #EAE0CF; color: #6b5a48; }
-  .stream-Compass { background: #F0E1CC; color: #735c3f; }
-  .stream-All { background: #E8E4DF; color: var(--stone); }
+
+  /* Tables */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 12px 0 24px; font-size: 9.5pt;
+  }
+  th, td {
+    text-align: left; vertical-align: top;
+    padding: 12px 14px 12px 0;
+    border-bottom: 1px solid var(--sand);
+  }
+  th {
+    background: transparent; color: var(--stone);
+    font-weight: 600; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    border-bottom: 1px solid var(--stone-light);
+    padding-top: 10px; padding-bottom: 10px;
+  }
+  td.title {
+    font-weight: 500; color: var(--ink); width: 26%;
+    font-size: 10pt;
+  }
+
+  /* Pills */
+  .pill {
+    display: inline-block; padding: 2px 10px;
+    border-radius: 999px; font-size: 7.5pt;
+    font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .pill-web, .stream-A { background: #E5EFEA; color: var(--hills); }
+  .pill-bruce, .stream-B { background: #DDEBE6; color: #1F5D4F; }
+  .pill-agent, .stream-C { background: #EAE0CF; color: #6B5A48; }
+  .pill-manual, .stream-Compass { background: var(--bright-grey); color: var(--stone); }
+  .stream-All { background: var(--bright-grey); color: var(--stone); }
+
   .effort { font-weight: 600; color: var(--hills); }
-  ul.compact { margin: 6px 0 0 18px; padding: 0; }
-  ul.compact li { margin: 2px 0; }
-  .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin: 10px 0 0; }
-  .role { padding: 8px 0; border-top: 1px solid var(--sand); }
+
+  /* Lists */
+  ul.compact { margin: 10px 0 0 20px; padding: 0; }
+  ul.compact li { margin: 5px 0; line-height: 1.6; }
+
+  /* Roles grid */
+  .roles-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 22px 36px; margin: 18px 0 28px;
+  }
+  .role { padding: 6px 0; border: none; }
   .role:first-child, .role:nth-child(2) { border-top: none; }
-  .role .name { font-weight: 700; color: var(--hills); }
-  .role .desc { font-size: 9.5pt; color: var(--ink); }
+  .role .name {
+    font-weight: 500; color: var(--hills); font-size: 11pt;
+    font-family: 'Fraunces', serif; letter-spacing: -0.005em;
+    margin-bottom: 4px;
+  }
+  .role .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Summary table */
   .summary-table th, .summary-table td { font-size: 9.5pt; }
-  .companion-link { background: var(--sand); border-left: 4px solid var(--hills); padding: 12px 16px; margin: 14px 0 22px; border-radius: 2px; font-size: 10pt; }
-  .companion-link a { color: var(--hills); font-weight: 600; }
-  .risk { background: var(--bright-grey); border-left: 4px solid #C68A2E; padding: 14px 18px; margin: 12px 0; border-radius: 2px; }
-  .risk .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.08em; font-size: 8.5pt; font-weight: 700; }
-  .risk .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 12pt; margin: 4px 0 6px; }
-  .risk .handle { background: #FFF7E8; padding: 8px 12px; margin-top: 8px; border-radius: 2px; font-size: 9.5pt; }
-  .footer { color: var(--stone); font-size: 9pt; margin-top: 36px; border-top: 1px solid var(--sand); padding-top: 14px; }
-  @page { size: A4; margin: 16mm 14mm; }
+
+  /* Flow table */
+  .flow-table th, .flow-table td { font-size: 9.5pt; padding: 10px 14px 10px 0; }
+  .flow-table .phase {
+    background: transparent; color: var(--hills);
+    font-family: 'Fraunces', serif; font-weight: 400;
+    font-size: 14pt; padding: 28px 0 10px;
+    border-bottom: 1px solid var(--sand);
+    letter-spacing: -0.015em;
+  }
+  .flow-table .phase-num {
+    font-size: 7.5pt; letter-spacing: 0.22em;
+    color: var(--stone); text-transform: uppercase;
+    font-weight: 600; margin-right: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+  .flow-table tr:first-child .phase { padding-top: 10px; }
+
+  /* Legend */
+  .legend {
+    font-size: 8.5pt; color: var(--stone);
+    margin: 10px 0 16px;
+  }
+  .legend .pill { margin-right: 8px; }
+
+  /* Commitment grid */
+  .commitment-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 18px; margin: 18px 0 24px;
+  }
+  .commitment-grid .item {
+    padding: 18px 22px; background: var(--sand-light);
+    border-radius: 2px;
+  }
+  .commitment-grid .item .qty {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 18pt;
+    letter-spacing: -0.015em; line-height: 1.1;
+  }
+  .commitment-grid .item .desc {
+    font-size: 9.5pt; color: var(--ink-soft);
+    margin-top: 8px; line-height: 1.55;
+  }
+
+  /* Total band */
+  .total-band {
+    background: var(--hills); color: var(--white);
+    padding: 22px 28px; border-radius: 2px;
+    margin: 14px 0 32px;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 20px;
+  }
+  .total-band .label { font-size: 9.5pt; opacity: 0.85; line-height: 1.55; }
+  .total-band .num {
+    font-family: 'Fraunces', serif; font-size: 26pt;
+    font-weight: 300; letter-spacing: -0.02em; line-height: 1;
+  }
+
+  /* Invoice grid */
+  .invoice-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; margin: 24px 0 32px;
+  }
+  .invoice {
+    background: var(--sand-light); padding: 24px;
+    border-radius: 2px;
+    border-top: none;
+  }
+  .invoice .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .invoice .num {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 300; font-size: 32pt;
+    margin: 8px 0 0; letter-spacing: -0.025em; line-height: 1;
+  }
+  .invoice .terms {
+    font-size: 8.5pt; color: var(--stone);
+    margin: 4px 0 14px; letter-spacing: 0.05em;
+  }
+  .invoice .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6; }
+
+  /* Risk */
+  .risk {
+    background: var(--sand-light); padding: 24px 28px;
+    margin: 16px 0; border-radius: 2px;
+    border-left: none;
+  }
+  .risk .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .risk .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 15pt;
+    margin: 8px 0 10px; letter-spacing: -0.015em;
+  }
+  .risk .handle {
+    background: var(--white); padding: 14px 18px;
+    margin-top: 14px; border-radius: 2px;
+    font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6;
+  }
+
+  /* Running costs */
+  .running-costs table td:nth-child(2) {
+    text-align: right; font-weight: 400;
+    color: var(--hills); white-space: nowrap;
+    font-family: 'Fraunces', serif; font-size: 12pt;
+    letter-spacing: -0.01em;
+  }
+
+  /* Footer */
+  .footer {
+    color: var(--stone); font-size: 8.5pt;
+    margin-top: 64px; border-top: 1px solid var(--sand);
+    padding-top: 22px; line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  /* Print */
+  @page { size: A4; margin: 18mm 16mm; }
   @media print {
     body { font-size: 9.5pt; }
     .page { padding: 0; max-width: none; }
     .stage-banner { page-break-before: always; }
-    .stage-banner.first { page-break-before: auto; }
-    table, .card, .risk { page-break-inside: avoid; }
-    h3 { page-break-after: avoid; }
+    .stage-banner.first, h2:first-of-type { page-break-before: auto; }
+    table, .card, .risk, .stream, .milestone-block, .gate, .milestone {
+      page-break-inside: avoid;
+    }
+    h2, h3 { page-break-after: avoid; }
+    .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid {
+      page-break-inside: avoid;
+    }
     a { color: inherit; text-decoration: none; }
   }
 </style>
@@ -114,17 +517,17 @@
 <h2>Who's building this</h2>
 <p>A small, focused team:</p>
 <ul class="compact">
-  <li><strong>Daniel</strong> as Delivery Lead. Single point of contact. Plans the work, runs the Monday catch-ups, owns every milestone sign-off.</li>
-  <li><strong>A local engineer</strong> working alongside Daniel on the build. Engineering depth and review on every code change before it reaches production.</li>
+  <li><strong>Dan</strong> as Delivery Lead. Single point of contact. Plans the work, runs the Monday catch-ups, owns every milestone sign-off.</li>
+  <li><strong>A local engineer</strong> working alongside Dan on the build. Engineering depth and review on every code change before it reaches production.</li>
   <li><strong>A purpose-built agent stack</strong> running vetted skills refined across multiple prior projects. Handles drafting, scaffolding, and the long tail of build work.</li>
 </ul>
-<p>The agents aren't the headline. They're the tools that let a small team deliver studio-scale throughput. What makes the work above standard is the craft layered on top: curated quality of inputs, meticulous output refinement, and human-reviewed integration. Compass deals with Daniel.</p>
+<p>The agents aren't the headline. They're the tools that let a small team deliver studio-scale throughput. What makes the work above standard is the craft layered on top: curated quality of inputs, meticulous output refinement, and human-reviewed integration. Compass deals with Dan.</p>
 
 <h4>Roles you'll see in tickets</h4>
 <div class="roles-grid">
-  <div class="role"><div class="name">Delivery Lead — Daniel</div><div class="desc">Plans, briefs, reviews, runs catch-ups, owns sign-offs. Compass's single point of contact.</div></div>
-  <div class="role"><div class="name">Engineer</div><div class="desc">Code, database, integrations. Daniel and the local engineer working with engineering agents. Every change reviewed.</div></div>
-  <div class="role"><div class="name">Frontend Designer</div><div class="desc">Layout, type, motion. Design agents from Compass's brand assets. Daniel directs and reviews.</div></div>
+  <div class="role"><div class="name">Delivery Lead — Dan</div><div class="desc">Plans, briefs, reviews, runs catch-ups, owns sign-offs. Compass's single point of contact.</div></div>
+  <div class="role"><div class="name">Engineer</div><div class="desc">Code, database, integrations. Dan and the local engineer working with engineering agents. Every change reviewed.</div></div>
+  <div class="role"><div class="name">Frontend Designer</div><div class="desc">Layout, type, motion. Design agents from Compass's brand assets. Dan directs and reviews.</div></div>
   <div class="role"><div class="name">Copywriter</div><div class="desc">UI copy, emails, Bruce's persona. Copy agents from Compass's voice samples. Refined against brief, never shipped raw.</div></div>
   <div class="role"><div class="name">DevOps</div><div class="desc">Hosting, deployment, security, monitoring, the WhatsApp transport plumbing. Under engineer review.</div></div>
   <div class="role"><div class="name">Tester</div><div class="desc">Cross-device QA, end-to-end flows, milestone gates. QA agents validating against acceptance criteria.</div></div>
@@ -162,19 +565,19 @@
 <p>The SOW commits to ~2 hours of async kick-off provisioning with a click-by-click pack. This is that pack. Every account, every artefact, every joint decision needed before Week 1 starts. Compass-owned from Day 1. No transfer event later.</p>
 
 <h3>Accounts to open in Compass's name</h3>
-<p>Every account billed to Compass directly. Daniel is added as admin on each. A second Compass person is named backup admin so nothing is bonded to one person.</p>
+<p>Every account billed to Compass directly. Dan is added as admin on each. A second Compass person is named backup admin so nothing is bonded to one person.</p>
 <table>
   <thead><tr><th>Account</th><th>Why we need it</th><th>What Compass does</th></tr></thead>
   <tbody>
-    <tr><td class="title">GitHub repository</td><td>Where the source code lives. Compass owns the codebase from Day 1.</td><td>Use existing or create a new GitHub organisation. Invite Daniel as Owner. Create a private repo named <em>compass-os</em>.</td></tr>
-    <tr><td class="title">Supabase (Sydney)</td><td>The database, login system, file storage. Australian data residency for buyer and client records.</td><td>Create a Supabase organisation under Compass billing. Region = Sydney. Invite Daniel as Owner.</td></tr>
-    <tr><td class="title">Vercel</td><td>Hosts the web app. Every push gets a preview link Compass can poke at any time.</td><td>Create a Vercel team under Compass billing (Pro plan). Invite Daniel as Owner. Connect to the GitHub org.</td></tr>
-    <tr><td class="title">Anthropic workspace</td><td>The brain behind every agent. Bruce orchestrator and the six sub-agents all run here.</td><td>Compass logs in to Anthropic, creates a workspace, adds payment, sets a monthly spend cap (Daniel will recommend a starting figure). Invite Daniel as Owner.</td></tr>
-    <tr><td class="title">WhatsApp Business number</td><td>Bruce's channel. Bonded to Compass's verified business in Meta. Approval can take 1-2 weeks, so kick this off on Day 1.</td><td>Apply for WhatsApp Business through Meta with Compass as the verified business. Daniel will provide the application content. Compass owns the number.</td></tr>
-    <tr><td class="title">Bruce hosting (cloud server)</td><td>The Compass-owned cloud server that runs Bruce. Self-hosted so the WhatsApp number stays Compass's, the message log stays Compass's, the operational logs stay Compass's.</td><td>Daniel provisions the server under a Compass-owned cloud account (Hetzner, DigitalOcean, or similar). Account billed to Compass.</td></tr>
-    <tr><td class="title">DocuSign</td><td>CAF e-signature in the closed-loop onboarding flow.</td><td>Use existing Compass DocuSign account, or sign up. Add Daniel as a user with API access.</td></tr>
-    <tr><td class="title">Notion workspace</td><td>The shared project board. Every ticket in this plan lives there. Status visible at all times.</td><td>Create a Compass OS workspace, or add a project page to Compass's existing workspace. Invite Daniel and second admin as full members.</td></tr>
-    <tr><td class="title">Monitoring + transcription</td><td>Uptime alerts on Bruce, voice-note transcription, error logs across the stack.</td><td>Daniel sets these up under Compass billing during Week 1. Compass approves the choices in the kick-off catch-up.</td></tr>
+    <tr><td class="title">GitHub repository</td><td>Where the source code lives. Compass owns the codebase from Day 1.</td><td>Use existing or create a new GitHub organisation. Invite Dan as Owner. Create a private repo named <em>compass-os</em>.</td></tr>
+    <tr><td class="title">Supabase (Sydney)</td><td>The database, login system, file storage. Australian data residency for buyer and client records.</td><td>Create a Supabase organisation under Compass billing. Region = Sydney. Invite Dan as Owner.</td></tr>
+    <tr><td class="title">Vercel</td><td>Hosts the web app. Every push gets a preview link Compass can poke at any time.</td><td>Create a Vercel team under Compass billing (Pro plan). Invite Dan as Owner. Connect to the GitHub org.</td></tr>
+    <tr><td class="title">Anthropic workspace</td><td>The brain behind every agent. Bruce orchestrator and the six sub-agents all run here.</td><td>Compass logs in to Anthropic, creates a workspace, adds payment, sets a monthly spend cap (Dan will recommend a starting figure). Invite Dan as Owner.</td></tr>
+    <tr><td class="title">WhatsApp Business number</td><td>Bruce's channel. Bonded to Compass's verified business in Meta. Approval can take 1-2 weeks, so kick this off on Day 1.</td><td>Apply for WhatsApp Business through Meta with Compass as the verified business. Dan will provide the application content. Compass owns the number.</td></tr>
+    <tr><td class="title">Bruce hosting (cloud server)</td><td>The Compass-owned cloud server that runs Bruce. Self-hosted so the WhatsApp number stays Compass's, the message log stays Compass's, the operational logs stay Compass's.</td><td>Dan provisions the server under a Compass-owned cloud account (Hetzner, DigitalOcean, or similar). Account billed to Compass.</td></tr>
+    <tr><td class="title">DocuSign</td><td>CAF e-signature in the closed-loop onboarding flow.</td><td>Use existing Compass DocuSign account, or sign up. Add Dan as a user with API access.</td></tr>
+    <tr><td class="title">Notion workspace</td><td>The shared project board. Every ticket in this plan lives there. Status visible at all times.</td><td>Create a Compass OS workspace, or add a project page to Compass's existing workspace. Invite Dan and second admin as full members.</td></tr>
+    <tr><td class="title">Monitoring + transcription</td><td>Uptime alerts on Bruce, voice-note transcription, error logs across the stack.</td><td>Dan sets these up under Compass billing during Week 1. Compass approves the choices in the kick-off catch-up.</td></tr>
   </tbody>
 </table>
 
@@ -200,13 +603,13 @@
   <tbody>
     <tr><td class="title">Hosting region</td><td>Sydney (Supabase + Vercel routing).</td></tr>
     <tr><td class="title">Auth method for the team</td><td>Email + magic link, MFA on at launch.</td></tr>
-    <tr><td class="title">Primary comms channel between Compass and Daniel</td><td>WhatsApp for quick things, email for sign-offs, Notion comments for ticket-specific feedback.</td></tr>
+    <tr><td class="title">Primary comms channel between Compass and Dan</td><td>WhatsApp for quick things, email for sign-offs, Notion comments for ticket-specific feedback.</td></tr>
     <tr><td class="title">Out-of-office handling</td><td>5 business days' notice for planned leave on either side. Backup contacts named.</td></tr>
     <tr><td class="title">Data retention</td><td>Hold for the life of the relationship plus 7 years (matches REBAA + state Fair Trading record-keeping).</td></tr>
   </tbody>
 </table>
 
-<div class="milestone"><span class="label">Kick-off complete when</span>Accounts created with Daniel admin. Brand pack received. WhatsApp Business application submitted to Meta. Joint decisions locked. Week 1 starts on the next Monday.</div>
+<div class="milestone"><span class="label">Kick-off complete when</span>Accounts created with Dan admin. Brand pack received. WhatsApp Business application submitted to Meta. Joint decisions locked. Week 1 starts on the next Monday.</div>
 
 <!-- STAGE 1 / M1 -->
 <div class="stage-banner">
@@ -227,9 +630,9 @@
   <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
   <tbody>
     <tr><td class="title">Monorepo scaffold + CI</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>React + Vite + TypeScript app skeleton building cleanly. Lint and format hooks in CI. Vercel preview deploy live.</td></tr>
-    <tr><td class="title">Supabase project provisioned (Sydney)</td><td><span class="pill stream-A">A</span></td><td>DevOps</td><td class="effort">S</td><td>Project live in Sydney region. Connection string in Compass-owned secret store. Daniel has admin.</td></tr>
+    <tr><td class="title">Supabase project provisioned (Sydney)</td><td><span class="pill stream-A">A</span></td><td>DevOps</td><td class="effort">S</td><td>Project live in Sydney region. Connection string in Compass-owned secret store. Dan has admin.</td></tr>
     <tr><td class="title">Compass design tokens (colour, type, spacing)</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">M</td><td>Tokens drawn from Compass brand assets. Storybook running. Reviewed against Compass's existing materials.</td></tr>
-    <tr><td class="title">Bruce server provisioned in Compass cloud</td><td><span class="pill stream-B">B</span></td><td>DevOps</td><td class="effort">M</td><td>Cloud server running. Process manager configured. Server billed to Compass. Daniel has admin.</td></tr>
+    <tr><td class="title">Bruce server provisioned in Compass cloud</td><td><span class="pill stream-B">B</span></td><td>DevOps</td><td class="effort">M</td><td>Cloud server running. Process manager configured. Server billed to Compass. Dan has admin.</td></tr>
     <tr><td class="title">Bruce paired to Compass WhatsApp number</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Bruce paired and listening. Test message round-trips. Re-pair procedure documented.</td></tr>
     <tr><td class="title">Anthropic workspace stood up + first orchestrator prompt</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Workspace live under Compass billing. Bruce orchestrator skeleton prompt deployed. Engineering agent operational on the build itself.</td></tr>
     <tr><td class="title">Open Compass OS Notion board</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Tickets imported. Views by week, stream, status. Compass invited.</td></tr>
@@ -503,7 +906,7 @@
   <tbody>
     <tr><td class="title">Clear all UAT P0/P1 findings</td><td><span class="pill stream-All">All</span></td><td>Engineer</td><td class="effort">M</td><td>Every P0/P1 closed. P2/P3 logged for post-launch backlog.</td></tr>
     <tr><td class="title">Performance + accessibility pass</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>LCP under 2.5s on 4G. Bruce p95 reply under 5s. Keyboard navigation works on every key view.</td></tr>
-    <tr><td class="title">Repo admin transferred + credentials handover</td><td><span class="pill stream-Compass">Compass</span></td><td>DevOps</td><td class="effort">S</td><td>Compass takes Owner of GitHub, Vercel, Supabase, Anthropic. Daniel switches to read-only for the support window.</td></tr>
+    <tr><td class="title">Repo admin transferred + credentials handover</td><td><span class="pill stream-Compass">Compass</span></td><td>DevOps</td><td class="effort">S</td><td>Compass takes Owner of GitHub, Vercel, Supabase, Anthropic. Dan switches to read-only for the support window.</td></tr>
     <tr><td class="title">Quarterly health-check schedule set</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Four async health-checks scheduled across the 12 months post-handover. Calendar invites sent.</td></tr>
     <tr><td class="title">M3 demo + handover walkthrough</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Demo recorded. Playbook walked. Compass signs M3 acceptance.</td></tr>
   </tbody>

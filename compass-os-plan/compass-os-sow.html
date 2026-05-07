@@ -5,13 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compass OS — Statement of Work · Stage 1</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
   :root {
     --hills: #2C4A3E;
+    --hills-light: #4A6B5F;
     --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
     --bright-grey: #F5F5F5;
     --sea: #7BAE9E;
+    --sea-soft: #B8D4CB;
     --sand: #F5E6D3;
+    --sand-light: #FBF6EE;
     --stone: #8B7E74;
+    --stone-light: #D9D3CC;
     --white: #FFFFFF;
   }
   * { box-sizing: border-box; }
@@ -19,106 +26,470 @@
     margin: 0; padding: 0;
     color: var(--ink);
     background: var(--white);
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    font-size: 10.5pt; line-height: 1.5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
   }
-  .page { max-width: 980px; margin: 0 auto; padding: 36px 48px; }
-  h1, h2, h3, h4 {
-    font-family: Georgia, "Times New Roman", serif;
-    color: var(--hills); font-weight: 600; letter-spacing: -0.01em;
+  .page { max-width: 880px; margin: 0 auto; padding: 64px 56px 40px; }
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--hills);
+    letter-spacing: -0.018em;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
   }
-  h1 { font-size: 28pt; line-height: 1.15; margin: 0 0 6px; }
-  h2 { font-size: 17pt; margin: 32px 0 4px; border-bottom: 1px solid var(--sand); padding-bottom: 6px; }
-  h2 .num { color: var(--stone); font-size: 11pt; letter-spacing: 0.1em; display: block; text-transform: uppercase; margin-bottom: 2px; }
-  h3 { font-size: 13pt; margin: 22px 0 6px; }
-  h4 { font-size: 11pt; margin: 14px 0 4px; color: var(--hills); }
-  .lead { color: var(--stone); font-size: 11.5pt; margin: 0 0 4px; }
-  .meta { color: var(--stone); font-size: 9.5pt; margin: 0 0 20px; }
-  .card {
-    background: var(--bright-grey);
-    border-left: 4px solid var(--sea);
-    padding: 14px 18px; margin: 14px 0 22px; border-radius: 2px;
+  h1 { font-size: 38pt; line-height: 1.05; margin: 0 0 14px; font-weight: 300; }
+  h2 {
+    font-size: 19pt; line-height: 1.2;
+    margin: 56px 0 12px; padding: 0;
+    border: none; font-weight: 400;
   }
-  .card.sand { background: var(--sand); border-left-color: var(--hills); }
-  .card.nick { background: #FFF7E8; border-left-color: #C68A2E; }
-  .header-block { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 14px 0 24px; padding: 14px 18px; background: var(--bright-grey); border-left: 4px solid var(--hills); border-radius: 2px; }
+  h2 .num {
+    color: var(--stone); font-size: 8.5pt;
+    letter-spacing: 0.22em; display: block;
+    text-transform: uppercase; margin-bottom: 10px;
+    font-family: 'Inter', sans-serif; font-weight: 500;
+  }
+  h3 { font-size: 13pt; margin: 32px 0 8px; font-weight: 500; }
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt; margin: 20px 0 8px;
+    color: var(--stone); font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .lead {
+    color: var(--hills-light); font-size: 14pt;
+    margin: 0 0 6px; font-weight: 300;
+    line-height: 1.45;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+  .meta {
+    color: var(--stone); font-size: 9pt;
+    margin: 0 0 36px; letter-spacing: 0.01em;
+    line-height: 1.55;
+  }
+  p { margin: 8px 0 14px; color: var(--ink); line-height: 1.65; }
+
+  /* Header info block (SOW) */
+  .header-block {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px; margin: 18px 0 36px; padding: 22px 0;
+    background: transparent;
+    border-top: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+    border-left: none; border-radius: 0;
+  }
   .header-block .item { font-size: 9pt; }
-  .header-block .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8pt; margin-bottom: 2px; }
-  .header-block .item .value { color: var(--ink); font-weight: 600; font-size: 10.5pt; }
-  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0 22px; }
-  .outcome { background: var(--bright-grey); border-left: 4px solid var(--sea); padding: 14px 16px; border-radius: 2px; }
-  .outcome .num { display: inline-block; background: var(--hills); color: var(--white); font-weight: 700; font-size: 9pt; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.05em; }
-  .outcome .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 13pt; margin: 8px 0 4px; }
-  .outcome p { margin: 0; font-size: 10pt; }
-  .flow-table th, .flow-table td { font-size: 9pt; }
-  .flow-table .phase { background: var(--hills); color: var(--white); font-weight: 600; padding: 8px 10px; }
-  .flow-table .phase-num { font-size: 8pt; letter-spacing: 0.1em; opacity: 0.75; }
-  .flow-table td .pill { margin-left: 6px; }
-  .legend { font-size: 9pt; color: var(--stone); margin: 6px 0 14px; }
-  .legend .pill { margin-right: 4px; }
-  .pill { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 8pt; font-weight: 600; }
-  .pill-web { background: #E5EFEA; color: var(--hills); }
-  .pill-bruce { background: #DDEBE6; color: #1f5d4f; }
-  .pill-agent { background: #EAE0CF; color: #6b5a48; }
-  .pill-manual { background: #E8E4DF; color: var(--stone); }
-  .surface-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0 22px; }
-  .surface { background: var(--bright-grey); padding: 14px 16px; border-radius: 2px; border-top: 3px solid var(--sea); }
-  .surface .num { color: var(--stone); text-transform: uppercase; letter-spacing: 0.1em; font-size: 8.5pt; }
-  .surface .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 12pt; margin: 4px 0 4px; }
-  .surface p { margin: 0; font-size: 9.5pt; }
-  .stream { background: var(--bright-grey); border-left: 4px solid var(--sea); padding: 14px 18px; margin: 12px 0; border-radius: 2px; }
-  .stream .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.1em; font-size: 8.5pt; }
-  .stream .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 14pt; margin: 4px 0 6px; }
-  .stream ul { margin: 8px 0 0 18px; padding: 0; font-size: 10pt; }
-  .stream ul li { margin: 2px 0; }
-  .stream .note { background: var(--sand); border-left: 3px solid var(--hills); padding: 8px 12px; margin-top: 10px; font-size: 9.5pt; }
-  .milestone-block { background: var(--bright-grey); border-left: 4px solid var(--hills); padding: 18px 22px; margin: 18px 0 22px; border-radius: 2px; }
-  .milestone-block .head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 14px; margin-bottom: 10px; }
-  .milestone-block .head .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.1em; font-size: 8.5pt; }
-  .milestone-block .head .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 15pt; margin: 2px 0 4px; }
-  .milestone-block .head .when { font-size: 9.5pt; color: var(--stone); }
-  .milestone-block .price { background: var(--hills); color: var(--white); padding: 10px 14px; border-radius: 2px; text-align: right; min-width: 150px; }
-  .milestone-block .price .num { font-family: Georgia, serif; font-size: 17pt; font-weight: 700; }
-  .milestone-block .price .terms { font-size: 8.5pt; opacity: 0.85; }
-  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 12px; font-size: 9.5pt; }
-  .meta-row .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8pt; margin-bottom: 2px; }
-  .stream-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 10px; }
-  .stream-mini { background: var(--white); padding: 12px 14px; border-top: 3px solid var(--sea); border-radius: 2px; font-size: 9.5pt; }
-  .stream-mini .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8pt; }
-  .stream-mini .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 11pt; margin: 2px 0 6px; }
-  .stream-mini ul { margin: 4px 0 0 16px; padding: 0; }
-  .stream-mini ul li { margin: 1px 0; }
-  .gate { background: var(--sea); color: var(--white); padding: 12px 16px; border-radius: 2px; margin-top: 14px; font-size: 9.5pt; }
-  .gate .label { font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 8.5pt; opacity: 0.95; }
-  .commitment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 14px 0 18px; }
-  .commitment-grid .item { padding: 12px 14px; background: var(--bright-grey); border-radius: 2px; }
-  .commitment-grid .item .qty { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 14pt; }
-  .commitment-grid .item .desc { font-size: 9.5pt; color: var(--ink); margin-top: 4px; }
-  .invoice-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0 22px; }
-  .invoice { background: var(--bright-grey); padding: 16px; border-top: 3px solid var(--hills); border-radius: 2px; }
-  .invoice .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8.5pt; }
-  .invoice .num { font-family: Georgia, serif; color: var(--hills); font-weight: 700; font-size: 22pt; margin: 4px 0 0; }
-  .invoice .terms { font-size: 9pt; color: var(--stone); margin-bottom: 8px; }
-  .invoice .desc { font-size: 9.5pt; }
-  .risk { background: var(--bright-grey); border-left: 4px solid #C68A2E; padding: 14px 18px; margin: 12px 0; border-radius: 2px; }
-  .risk .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.08em; font-size: 8.5pt; font-weight: 700; }
-  .risk .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 12pt; margin: 4px 0 6px; }
-  .risk .handle { background: #FFF7E8; padding: 8px 12px; margin-top: 8px; border-radius: 2px; font-size: 9.5pt; }
-  .running-costs table td:nth-child(2) { text-align: right; font-weight: 600; color: var(--hills); white-space: nowrap; }
-  .total-band { background: var(--hills); color: var(--white); padding: 14px 18px; border-radius: 2px; margin: 12px 0 22px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; }
-  .total-band .label { font-size: 9.5pt; opacity: 0.85; }
-  .total-band .num { font-family: Georgia, serif; font-size: 18pt; font-weight: 700; }
-  .footer { color: var(--stone); font-size: 9pt; margin-top: 36px; border-top: 1px solid var(--sand); padding-top: 14px; }
-  .companion-link { background: var(--sand); border-left: 4px solid var(--hills); padding: 12px 16px; margin: 14px 0 22px; border-radius: 2px; font-size: 10pt; }
-  .companion-link a { color: var(--hills); font-weight: 600; }
-  @page { size: A4; margin: 16mm 14mm; }
+  .header-block .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.18em; font-size: 7.5pt;
+    margin-bottom: 6px; font-weight: 500;
+  }
+  .header-block .item .value {
+    color: var(--ink); font-weight: 400; font-size: 10.5pt;
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--sand-light);
+    border-left: none;
+    padding: 18px 22px; margin: 18px 0 26px;
+    border-radius: 2px;
+  }
+  .card.sand { background: var(--sand); }
+  .card.nick {
+    background: var(--bright-grey);
+    border-left: 2px solid var(--sea);
+    padding-left: 20px;
+  }
+  .card.nick strong.tag {
+    color: var(--hills); letter-spacing: 0.22em;
+    text-transform: uppercase; font-size: 7.5pt;
+    font-weight: 600;
+    display: block; margin-bottom: 8px;
+  }
+
+  /* Companion link */
+  .companion-link {
+    background: var(--sand); padding: 16px 22px;
+    margin: 24px 0 36px; border-radius: 2px; font-size: 10pt;
+    border-left: none;
+  }
+  .companion-link a { color: var(--hills); font-weight: 500; }
+
+  /* Outcome / surface grids */
+  .outcome-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 36px 44px; margin: 28px 0 40px;
+  }
+  .outcome { padding: 0; background: transparent; border: none; }
+  .outcome .num {
+    color: var(--stone); font-family: 'Fraunces', serif;
+    font-style: italic; font-size: 11pt;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    display: block;
+    background: transparent; padding: 0;
+    font-weight: 400;
+  }
+  .outcome .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 16pt;
+    margin: 0 0 10px; line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .outcome p { margin: 0; font-size: 10pt; color: var(--ink-soft); line-height: 1.6; }
+
+  .surface-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; margin: 24px 0 40px;
+  }
+  .surface { padding: 0; background: transparent; border: none; }
+  .surface .num {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .surface .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 15pt;
+    margin: 8px 0 10px; letter-spacing: -0.015em; line-height: 1.2;
+  }
+  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6; }
+
+  /* Streams */
+  .stream {
+    background: var(--sand-light); padding: 24px 28px;
+    margin: 16px 0; border-radius: 2px;
+    border-left: none;
+  }
+  .stream .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .stream .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 18pt;
+    margin: 6px 0 12px; letter-spacing: -0.015em; line-height: 1.15;
+  }
+  .stream ul {
+    margin: 14px 0 0 18px; padding: 0;
+    font-size: 10pt; color: var(--ink-soft);
+  }
+  .stream ul li { margin: 5px 0; line-height: 1.55; }
+  .stream .note {
+    background: var(--white); padding: 14px 18px;
+    margin-top: 16px; font-size: 9.5pt;
+    border-radius: 2px;
+    color: var(--ink-soft); line-height: 1.6;
+    border-left: none;
+  }
+
+  /* Stage banner */
+  .stage-banner {
+    margin: 64px 0 18px; padding: 28px 0 14px;
+    border-top: 1px solid var(--sand);
+    background: transparent;
+    color: var(--hills);
+    border-radius: 0;
+  }
+  .stage-banner .label {
+    color: var(--stone); font-size: 8pt;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 10px;
+    opacity: 1;
+  }
+  .stage-banner .title {
+    font-family: 'Fraunces', serif; font-size: 24pt;
+    color: var(--hills); font-weight: 300;
+    letter-spacing: -0.022em; line-height: 1.1;
+  }
+
+  /* Milestone block (SOW) */
+  .milestone-block {
+    background: var(--sand-light);
+    padding: 32px 36px; margin: 28px 0 36px; border-radius: 3px;
+    border-left: none;
+  }
+  .milestone-block .head {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: start; gap: 28px; margin-bottom: 14px;
+  }
+  .milestone-block .head .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .milestone-block .head .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 19pt;
+    margin: 8px 0 8px; letter-spacing: -0.018em; line-height: 1.15;
+  }
+  .milestone-block .head .when {
+    font-size: 9.5pt; color: var(--stone); font-style: italic;
+    font-family: 'Fraunces', serif; line-height: 1.45;
+  }
+  .milestone-block .price {
+    background: var(--white); padding: 16px 20px;
+    border-radius: 2px; text-align: right; min-width: 170px;
+    color: var(--hills);
+  }
+  .milestone-block .price .num {
+    font-family: 'Fraunces', serif; font-size: 22pt;
+    color: var(--hills); font-weight: 300; line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .milestone-block .price .terms {
+    font-size: 8pt; color: var(--stone); margin-top: 6px;
+    letter-spacing: 0.05em; opacity: 1;
+  }
+
+  /* Meta row in milestone */
+  .meta-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 28px; margin: 16px 0 18px;
+    padding: 14px 0;
+    border-top: 1px solid var(--sand);
+    font-size: 9.5pt;
+  }
+  .meta-row .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.18em; font-size: 7.5pt;
+    margin-bottom: 4px; font-weight: 500;
+  }
+
+  /* Stream mini cards in milestones */
+  .stream-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; margin-top: 18px;
+  }
+  .stream-mini {
+    background: var(--white); padding: 18px 20px;
+    border-radius: 2px; font-size: 9.5pt;
+    border-top: none;
+  }
+  .stream-mini .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.18em; font-size: 7pt;
+    font-weight: 600;
+  }
+  .stream-mini .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 13pt;
+    margin: 6px 0 10px; letter-spacing: -0.012em; line-height: 1.2;
+  }
+  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink-soft); }
+  .stream-mini ul li { margin: 3px 0; line-height: 1.55; }
+
+  /* Acceptance gate */
+  .gate, .milestone {
+    background: var(--hills); color: var(--white);
+    padding: 20px 24px; border-radius: 2px;
+    margin: 18px 0 32px; font-size: 10pt;
+    line-height: 1.6;
+  }
+  .gate .label, .milestone .label {
+    font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; font-size: 7.5pt;
+    opacity: 0.85; margin-bottom: 10px; display: block;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Tables */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 12px 0 24px; font-size: 9.5pt;
+  }
+  th, td {
+    text-align: left; vertical-align: top;
+    padding: 12px 14px 12px 0;
+    border-bottom: 1px solid var(--sand);
+  }
+  th {
+    background: transparent; color: var(--stone);
+    font-weight: 600; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    border-bottom: 1px solid var(--stone-light);
+    padding-top: 10px; padding-bottom: 10px;
+  }
+  td.title {
+    font-weight: 500; color: var(--ink); width: 26%;
+    font-size: 10pt;
+  }
+
+  /* Pills */
+  .pill {
+    display: inline-block; padding: 2px 10px;
+    border-radius: 999px; font-size: 7.5pt;
+    font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .pill-web, .stream-A { background: #E5EFEA; color: var(--hills); }
+  .pill-bruce, .stream-B { background: #DDEBE6; color: #1F5D4F; }
+  .pill-agent, .stream-C { background: #EAE0CF; color: #6B5A48; }
+  .pill-manual, .stream-Compass { background: var(--bright-grey); color: var(--stone); }
+  .stream-All { background: var(--bright-grey); color: var(--stone); }
+
+  .effort { font-weight: 600; color: var(--hills); }
+
+  /* Lists */
+  ul.compact { margin: 10px 0 0 20px; padding: 0; }
+  ul.compact li { margin: 5px 0; line-height: 1.6; }
+
+  /* Roles grid */
+  .roles-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 22px 36px; margin: 18px 0 28px;
+  }
+  .role { padding: 6px 0; border: none; }
+  .role:first-child, .role:nth-child(2) { border-top: none; }
+  .role .name {
+    font-weight: 500; color: var(--hills); font-size: 11pt;
+    font-family: 'Fraunces', serif; letter-spacing: -0.005em;
+    margin-bottom: 4px;
+  }
+  .role .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Summary table */
+  .summary-table th, .summary-table td { font-size: 9.5pt; }
+
+  /* Flow table */
+  .flow-table th, .flow-table td { font-size: 9.5pt; padding: 10px 14px 10px 0; }
+  .flow-table .phase {
+    background: transparent; color: var(--hills);
+    font-family: 'Fraunces', serif; font-weight: 400;
+    font-size: 14pt; padding: 28px 0 10px;
+    border-bottom: 1px solid var(--sand);
+    letter-spacing: -0.015em;
+  }
+  .flow-table .phase-num {
+    font-size: 7.5pt; letter-spacing: 0.22em;
+    color: var(--stone); text-transform: uppercase;
+    font-weight: 600; margin-right: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+  .flow-table tr:first-child .phase { padding-top: 10px; }
+
+  /* Legend */
+  .legend {
+    font-size: 8.5pt; color: var(--stone);
+    margin: 10px 0 16px;
+  }
+  .legend .pill { margin-right: 8px; }
+
+  /* Commitment grid */
+  .commitment-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 18px; margin: 18px 0 24px;
+  }
+  .commitment-grid .item {
+    padding: 18px 22px; background: var(--sand-light);
+    border-radius: 2px;
+  }
+  .commitment-grid .item .qty {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 18pt;
+    letter-spacing: -0.015em; line-height: 1.1;
+  }
+  .commitment-grid .item .desc {
+    font-size: 9.5pt; color: var(--ink-soft);
+    margin-top: 8px; line-height: 1.55;
+  }
+
+  /* Total band */
+  .total-band {
+    background: var(--hills); color: var(--white);
+    padding: 22px 28px; border-radius: 2px;
+    margin: 14px 0 32px;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 20px;
+  }
+  .total-band .label { font-size: 9.5pt; opacity: 0.85; line-height: 1.55; }
+  .total-band .num {
+    font-family: 'Fraunces', serif; font-size: 26pt;
+    font-weight: 300; letter-spacing: -0.02em; line-height: 1;
+  }
+
+  /* Invoice grid */
+  .invoice-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; margin: 24px 0 32px;
+  }
+  .invoice {
+    background: var(--sand-light); padding: 24px;
+    border-radius: 2px;
+    border-top: none;
+  }
+  .invoice .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .invoice .num {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 300; font-size: 32pt;
+    margin: 8px 0 0; letter-spacing: -0.025em; line-height: 1;
+  }
+  .invoice .terms {
+    font-size: 8.5pt; color: var(--stone);
+    margin: 4px 0 14px; letter-spacing: 0.05em;
+  }
+  .invoice .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6; }
+
+  /* Risk */
+  .risk {
+    background: var(--sand-light); padding: 24px 28px;
+    margin: 16px 0; border-radius: 2px;
+    border-left: none;
+  }
+  .risk .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
+  }
+  .risk .name {
+    font-family: 'Fraunces', serif; color: var(--hills);
+    font-weight: 400; font-size: 15pt;
+    margin: 8px 0 10px; letter-spacing: -0.015em;
+  }
+  .risk .handle {
+    background: var(--white); padding: 14px 18px;
+    margin-top: 14px; border-radius: 2px;
+    font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6;
+  }
+
+  /* Running costs */
+  .running-costs table td:nth-child(2) {
+    text-align: right; font-weight: 400;
+    color: var(--hills); white-space: nowrap;
+    font-family: 'Fraunces', serif; font-size: 12pt;
+    letter-spacing: -0.01em;
+  }
+
+  /* Footer */
+  .footer {
+    color: var(--stone); font-size: 8.5pt;
+    margin-top: 64px; border-top: 1px solid var(--sand);
+    padding-top: 22px; line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  /* Print */
+  @page { size: A4; margin: 18mm 16mm; }
   @media print {
     body { font-size: 9.5pt; }
     .page { padding: 0; max-width: none; }
-    h2 { page-break-before: always; }
-    h2:first-of-type { page-break-before: auto; }
-    .milestone-block, .card, .risk, .stream { page-break-inside: avoid; }
-    .outcome-grid, .surface-grid, .invoice-grid, .stream-row { page-break-inside: avoid; }
+    .stage-banner { page-break-before: always; }
+    .stage-banner.first, h2:first-of-type { page-break-before: auto; }
+    table, .card, .risk, .stream, .milestone-block, .gate, .milestone {
+      page-break-inside: avoid;
+    }
+    h2, h3 { page-break-after: avoid; }
+    .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid {
+      page-break-inside: avoid;
+    }
+    a { color: inherit; text-decoration: none; }
   }
 </style>
 </head>
@@ -139,6 +510,27 @@
 <div class="companion-link">
   <strong>Companion document.</strong> The week-by-week delivery breakdown of this SOW lives at <a href="compass-os-weekly-plan.html">Compass OS — 16-Week Build Plan</a>. This SOW is the commercial spec. The weekly plan is the delivery detail.
 </div>
+
+<h2><span class="num">00 · Who delivers this</span>A small team. One point of contact.</h2>
+<p>Compass OS is delivered by a small, focused team. The shape is deliberately lean so Compass deals with one person, one quality bar, and zero coordination overhead.</p>
+<div class="surface-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+  <div class="surface">
+    <div class="num">Lead</div>
+    <div class="name">Dan</div>
+    <p>Roadmap Digital. Single point of contact for Compass. Plans the work, runs the catch-ups, owns every milestone sign-off, accountable for what ships.</p>
+  </div>
+  <div class="surface">
+    <div class="num">Engineering</div>
+    <div class="name">A local human engineer</div>
+    <p>Working alongside Dan on the build. Real engineering depth on the harder technical edges, plus reviewer-of-record on every code change before it reaches production. No bottlenecks behind one person.</p>
+  </div>
+  <div class="surface">
+    <div class="num">Throughput</div>
+    <div class="name">A vetted agent stack</div>
+    <p>Purpose-built automated agents running skills refined across multiple prior projects. Drafting, scaffolding, and the long tail of build work. Always under human review before it ships.</p>
+  </div>
+</div>
+<p style="font-size: 10pt; color: var(--ink-soft);">The agents aren't the headline. They're the tools that let a small team deliver studio-scale throughput. What makes the work above standard is the craft layered on top: quality of the inputs the agents work from, meticulous refinement of every output, and human-reviewed integration before anything reaches production. Compass gets the speed and consistency of an automated build with the judgement of a senior team.</p>
 
 <h2><span class="num">01 · What we're building</span>Four outcomes. One system.</h2>
 <p>Compass OS is the operating system the team runs the business through. Stage 1 is built around four outcomes that compound. Everything in the scope serves at least one of them. Anything that doesn't is out.</p>
@@ -517,13 +909,13 @@
   <tbody>
     <tr><td><strong>Supabase (Sydney)</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Database, file storage, auth. Holds every client, brief, property, document.</span></td><td>$35-$120/mo</td></tr>
     <tr><td><strong>Vercel</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Hosts the web app. Serves it fast to the team's browsers.</span></td><td>$0-$25/mo</td></tr>
-    <tr><td><strong>Anthropic (Claude)</strong><br><span style="color: var(--stone); font-size: 9.5pt;">The AI behind every agent. Pay-per-use. Scales with how many proposals, briefs and matches the agents run.</span></td><td>$300-$900/mo</td></tr>
+    <tr><td><strong>Anthropic (Claude)</strong><br><span style="color: var(--stone); font-size: 9.5pt;">The AI behind every agent. Pay-per-use. Scales with how many proposals, briefs and matches the agents run.</span></td><td>$150-$500/mo</td></tr>
     <tr><td><strong>Bruce hosting + WhatsApp number</strong><br><span style="color: var(--stone); font-size: 9.5pt;">The cloud server Bruce runs on, plus the WhatsApp business line.</span></td><td>$40-$90/mo</td></tr>
     <tr><td><strong>Email + DocuSign</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Outbound proposals and CAF e-signatures. Likely already covered by existing subscriptions.</span></td><td>$30-$80/mo</td></tr>
     <tr><td><strong>Monitoring + transcription</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Uptime alerts on Bruce, voice-note transcription, error logs.</span></td><td>$30-$80/mo</td></tr>
   </tbody>
 </table>
-<div class="total-band"><div class="label">Realistic monthly range. Lower end while volume is normal. Upper end during heavy months. Every account paid by Compass directly.</div><div class="num">$600-$1,400/mo</div></div>
+<div class="total-band"><div class="label">Realistic monthly range. Lower end while volume is normal. Upper end during heavy months. Most months sit in the middle. Every account paid by Compass directly.</div><div class="num">$300-$900/mo</div></div>
 
 <h2><span class="num">11 · How it gets better over time</span>The system improves itself, with Compass in the driver's seat.</h2>
 <p>Stage 1 is built so the OS gets sharper the more the team uses it. Not magic. Just an architecture that learns from outcomes and a workspace where new agents can be slotted in cleanly when Compass spots a job worth automating.</p>
