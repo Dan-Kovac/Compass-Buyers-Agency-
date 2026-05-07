@@ -542,7 +542,7 @@
 <p class="meta">Compass Buyers Agency · 4 months · $50,000 + GST · Three streams: Web app · Bruce on WhatsApp · Agent space · Prepared by Dan for Nick and Chris</p>
 
 <div class="companion-link">
-  <strong>Read this with the SOW.</strong> The <a href="compass-os-sow.html">Statement of Work</a> says what we're building and how Compass pays for it. This plan says how it gets built, week by week.
+  <strong>Read this after the SOW.</strong> The <a href="compass-os-sow.html">Statement of Work</a> is the strategic view: architecture, milestones, deliverables, payment, risks. This plan is the tactical view: every week, every ticket, every acceptance test. The SOW holds anything strategic. This plan holds the build itself.
 </div>
 
 <div class="card sand">
@@ -952,65 +952,17 @@
   Compass OS in productive daily use across the team. Dashboards live with real data. Mobile-responsive. Playbook delivered. Both build agents handed over with prompts and runbooks. Repo admin transferred. 30-day support window starts. Compass signs off in writing.
 </div>
 
-<!-- POST-DELIVERY SECTIONS (mirroring SOW) -->
-<h2>Explicitly not in Stage 1</h2>
-<p>What the SOW carves out as Phase 2 or Phase 3 work. Not part of this 16 weeks. Scoped separately when Compass is ready for them.</p>
+<!-- Pointer back to SOW for strategic content -->
+<h2>What's in the SOW, not here</h2>
+<p>To keep this plan focused on the week-by-week build, four things live only in the <a href="compass-os-sow.html">Statement of Work</a>:</p>
 <ul class="compact">
-  <li>Stripe payments and auto WhatsApp group creation.</li>
-  <li>Semantic property matching (pgvector).</li>
-  <li>External property enrichment (CoreLogic, PriceFinder).</li>
-  <li>Bruce in client groups by default (silent-observer-when-added only in Stage 1).</li>
-  <li>Daily briefings (needs ≥4 weeks of data).</li>
-  <li>Dormant client resurrection.</li>
-  <li>Marketing OS (SEO, content, Sanity agents).</li>
-  <li>Multi-tenant activation for franchise #2.</li>
-  <li>Historical structured parsing (Stage 1 is archive-grade only).</li>
+  <li><strong>What's not in Stage 1.</strong> The Phase 2 and Phase 3 work we've carved out, with reasons.</li>
+  <li><strong>Risks and how we handle them.</strong> The three real risks on this build, named, with the mitigation against each.</li>
+  <li><strong>After handover.</strong> What Compass owns from day 31, the support window, and the quarterly health-checks.</li>
+  <li><strong>How we work together.</strong> Cadence, change control, termination terms.</li>
 </ul>
+<p>Anything strategic sits in the SOW. Anything tactical sits here.</p>
 
-<h2>Risks and how we handle them</h2>
-<p>Same three risks the SOW names. Worth repeating here so we hold them in mind every week.</p>
-<div class="risk">
-  <div class="label">Risk 01</div>
-  <div class="name">WhatsApp transport reliability</div>
-  <p>Bruce's WhatsApp number can drop. Outbound can be rate-limited if too aggressive. The whole capture story leans on this working.</p>
-  <div class="handle"><strong>How we handle it.</strong> WhatsApp is the transport, not the source of truth. Every message mirrors into Supabase as an append-only event log. If Bruce drops, capture pauses, records survive. Outbound is rate-limited. Heartbeat monitoring runs from Week 14. Re-pair runbook lives in the repo from Week 1.</div>
-</div>
-<div class="risk">
-  <div class="label">Risk 02</div>
-  <div class="name">Historical archive is messier than expected</div>
-  <p>2.5 years of WhatsApp + email + Drive is a lot of data, much of it unique to Compass. Ingestion may sit lower than expected on first pass.</p>
-  <div class="handle"><strong>How we handle it.</strong> Stage 1 historical scope is archive-grade only: files filed, searchable, retrievable, defensible if audited. Structured parsing is a Phase 2 SOW. The Week 11 acceptance gate is "ingested + searchable", not "100% structured".</div>
-</div>
-<div class="risk">
-  <div class="label">Risk 03</div>
-  <div class="name">Scope grows mid-build</div>
-  <p>The team will see the build and have ideas. Real client work will surface patterns the original spec didn't catch.</p>
-  <div class="handle"><strong>How we handle it.</strong> Inside-scope work gets reordered in real time without paperwork. Outside-scope work gets a one-page change note (impact, cost, knock-on) that Compass confirms in writing before anything starts. No surprises either way.</div>
-</div>
-
-<h2>After handover</h2>
-<p>What Compass owns from day 31. How the system keeps running. Same as the SOW.</p>
-<table class="summary-table">
-  <thead><tr><th>Item</th><th>Detail</th></tr></thead>
-  <tbody>
-    <tr><td class="title">Ownership</td><td>Repo, Supabase, Vercel, Anthropic workspace, Bruce hosting, WhatsApp number, every credential. All in Compass's name from day one. I keep read-only access for the 30-day support window, and that's it.</td></tr>
-    <tr><td class="title">Both build agents</td><td>Engineering and frontend agents handed over with prompts, runbooks, and instructions. Compass keeps using them post-handover for tweaks, new screens, schema changes.</td></tr>
-    <tr><td class="title">Six sub-agents</td><td>Bruce orchestrator + Brief Extractor + Proposal Writer + Proposal Editor + Property Parser + Property Matcher + Compliance Filer. Prompts, evaluations, runbooks. Replaceable, extensible.</td></tr>
-    <tr><td class="title">Playbook</td><td>Architecture decisions, runbooks, how-to-extend. Lives in the repo. Anyone joining the team can be productive in a week.</td></tr>
-    <tr><td class="title">Health-checks</td><td>Four quarterly reviews across the 12 months post-handover, included. Async by default, no meeting required. We flag drift and suggest tweaks. Compass decides what to act on.</td></tr>
-    <tr><td class="title">Support window</td><td>30 days from M3 acceptance. Bug fixes and small tweaks at no extra cost. After that, support is by separate agreement only if Compass wants it.</td></tr>
-  </tbody>
-</table>
-
-<h2>How we work together</h2>
-<table class="summary-table">
-  <tbody>
-    <tr><td class="title" style="width: 28%;">Verbal agreement, written record</td><td>The SOW is the spec. Once Nick and Chris say yes, kick-off begins. No formal signature required to start.</td></tr>
-    <tr><td class="title">Cadence</td><td>30-min Monday catch-up. 5-min Friday Loom. Email for decisions. One demo per milestone (30 min, recorded). Notion board live throughout.</td></tr>
-    <tr><td class="title">Change control</td><td>Inside scope, we adjust order in real time. Outside scope, a one-page change note (impact, cost, knock-on) that Compass confirms in writing before anything starts.</td></tr>
-    <tr><td class="title">Termination</td><td>Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback.</td></tr>
-  </tbody>
-</table>
 
 <div class="footer">
   Compass OS · Delivery Plan · 16 weeks across M1, M2, M3 · Companion to the Statement of Work<br>
