@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compass OS — Statement of Work · Stage 1</title>
+<style>
+  :root {
+    --hills: #2C4A3E;
+    --ink: #1A1A1A;
+    --bright-grey: #F5F5F5;
+    --sea: #7BAE9E;
+    --sand: #F5E6D3;
+    --stone: #8B7E74;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    color: var(--ink);
+    background: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.5;
+  }
+  .page { max-width: 980px; margin: 0 auto; padding: 36px 48px; }
+  h1, h2, h3, h4 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--hills); font-weight: 600; letter-spacing: -0.01em;
+  }
+  h1 { font-size: 28pt; line-height: 1.15; margin: 0 0 6px; }
+  h2 { font-size: 17pt; margin: 32px 0 4px; border-bottom: 1px solid var(--sand); padding-bottom: 6px; }
+  h2 .num { color: var(--stone); font-size: 11pt; letter-spacing: 0.1em; display: block; text-transform: uppercase; margin-bottom: 2px; }
+  h3 { font-size: 13pt; margin: 22px 0 6px; }
+  h4 { font-size: 11pt; margin: 14px 0 4px; color: var(--hills); }
+  .lead { color: var(--stone); font-size: 11.5pt; margin: 0 0 4px; }
+  .meta { color: var(--stone); font-size: 9.5pt; margin: 0 0 20px; }
+  .card {
+    background: var(--bright-grey);
+    border-left: 4px solid var(--sea);
+    padding: 14px 18px; margin: 14px 0 22px; border-radius: 2px;
+  }
+  .card.sand { background: var(--sand); border-left-color: var(--hills); }
+  .card.nick { background: #FFF7E8; border-left-color: #C68A2E; }
+  .header-block { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 14px 0 24px; padding: 14px 18px; background: var(--bright-grey); border-left: 4px solid var(--hills); border-radius: 2px; }
+  .header-block .item { font-size: 9pt; }
+  .header-block .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8pt; margin-bottom: 2px; }
+  .header-block .item .value { color: var(--ink); font-weight: 600; font-size: 10.5pt; }
+  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0 22px; }
+  .outcome { background: var(--bright-grey); border-left: 4px solid var(--sea); padding: 14px 16px; border-radius: 2px; }
+  .outcome .num { display: inline-block; background: var(--hills); color: var(--white); font-weight: 700; font-size: 9pt; padding: 2px 8px; border-radius: 999px; letter-spacing: 0.05em; }
+  .outcome .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 13pt; margin: 8px 0 4px; }
+  .outcome p { margin: 0; font-size: 10pt; }
+  .flow-table th, .flow-table td { font-size: 9pt; }
+  .flow-table .phase { background: var(--hills); color: var(--white); font-weight: 600; padding: 8px 10px; }
+  .flow-table .phase-num { font-size: 8pt; letter-spacing: 0.1em; opacity: 0.75; }
+  .flow-table td .pill { margin-left: 6px; }
+  .legend { font-size: 9pt; color: var(--stone); margin: 6px 0 14px; }
+  .legend .pill { margin-right: 4px; }
+  .pill { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 8pt; font-weight: 600; }
+  .pill-web { background: #E5EFEA; color: var(--hills); }
+  .pill-bruce { background: #DDEBE6; color: #1f5d4f; }
+  .pill-agent { background: #EAE0CF; color: #6b5a48; }
+  .pill-manual { background: #E8E4DF; color: var(--stone); }
+  .surface-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0 22px; }
+  .surface { background: var(--bright-grey); padding: 14px 16px; border-radius: 2px; border-top: 3px solid var(--sea); }
+  .surface .num { color: var(--stone); text-transform: uppercase; letter-spacing: 0.1em; font-size: 8.5pt; }
+  .surface .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 12pt; margin: 4px 0 4px; }
+  .surface p { margin: 0; font-size: 9.5pt; }
+  .stream { background: var(--bright-grey); border-left: 4px solid var(--sea); padding: 14px 18px; margin: 12px 0; border-radius: 2px; }
+  .stream .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.1em; font-size: 8.5pt; }
+  .stream .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 14pt; margin: 4px 0 6px; }
+  .stream ul { margin: 8px 0 0 18px; padding: 0; font-size: 10pt; }
+  .stream ul li { margin: 2px 0; }
+  .stream .note { background: var(--sand); border-left: 3px solid var(--hills); padding: 8px 12px; margin-top: 10px; font-size: 9.5pt; }
+  .milestone-block { background: var(--bright-grey); border-left: 4px solid var(--hills); padding: 18px 22px; margin: 18px 0 22px; border-radius: 2px; }
+  .milestone-block .head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 14px; margin-bottom: 10px; }
+  .milestone-block .head .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.1em; font-size: 8.5pt; }
+  .milestone-block .head .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 15pt; margin: 2px 0 4px; }
+  .milestone-block .head .when { font-size: 9.5pt; color: var(--stone); }
+  .milestone-block .price { background: var(--hills); color: var(--white); padding: 10px 14px; border-radius: 2px; text-align: right; min-width: 150px; }
+  .milestone-block .price .num { font-family: Georgia, serif; font-size: 17pt; font-weight: 700; }
+  .milestone-block .price .terms { font-size: 8.5pt; opacity: 0.85; }
+  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 12px; font-size: 9.5pt; }
+  .meta-row .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8pt; margin-bottom: 2px; }
+  .stream-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 10px; }
+  .stream-mini { background: var(--white); padding: 12px 14px; border-top: 3px solid var(--sea); border-radius: 2px; font-size: 9.5pt; }
+  .stream-mini .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8pt; }
+  .stream-mini .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 11pt; margin: 2px 0 6px; }
+  .stream-mini ul { margin: 4px 0 0 16px; padding: 0; }
+  .stream-mini ul li { margin: 1px 0; }
+  .gate { background: var(--sea); color: var(--white); padding: 12px 16px; border-radius: 2px; margin-top: 14px; font-size: 9.5pt; }
+  .gate .label { font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 8.5pt; opacity: 0.95; }
+  .commitment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 14px 0 18px; }
+  .commitment-grid .item { padding: 12px 14px; background: var(--bright-grey); border-radius: 2px; }
+  .commitment-grid .item .qty { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 14pt; }
+  .commitment-grid .item .desc { font-size: 9.5pt; color: var(--ink); margin-top: 4px; }
+  .invoice-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0 22px; }
+  .invoice { background: var(--bright-grey); padding: 16px; border-top: 3px solid var(--hills); border-radius: 2px; }
+  .invoice .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; font-size: 8.5pt; }
+  .invoice .num { font-family: Georgia, serif; color: var(--hills); font-weight: 700; font-size: 22pt; margin: 4px 0 0; }
+  .invoice .terms { font-size: 9pt; color: var(--stone); margin-bottom: 8px; }
+  .invoice .desc { font-size: 9.5pt; }
+  .risk { background: var(--bright-grey); border-left: 4px solid #C68A2E; padding: 14px 18px; margin: 12px 0; border-radius: 2px; }
+  .risk .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.08em; font-size: 8.5pt; font-weight: 700; }
+  .risk .name { font-family: Georgia, serif; color: var(--hills); font-weight: 600; font-size: 12pt; margin: 4px 0 6px; }
+  .risk .handle { background: #FFF7E8; padding: 8px 12px; margin-top: 8px; border-radius: 2px; font-size: 9.5pt; }
+  .running-costs table td:nth-child(2) { text-align: right; font-weight: 600; color: var(--hills); white-space: nowrap; }
+  .total-band { background: var(--hills); color: var(--white); padding: 14px 18px; border-radius: 2px; margin: 12px 0 22px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; }
+  .total-band .label { font-size: 9.5pt; opacity: 0.85; }
+  .total-band .num { font-family: Georgia, serif; font-size: 18pt; font-weight: 700; }
+  .footer { color: var(--stone); font-size: 9pt; margin-top: 36px; border-top: 1px solid var(--sand); padding-top: 14px; }
+  .companion-link { background: var(--sand); border-left: 4px solid var(--hills); padding: 12px 16px; margin: 14px 0 22px; border-radius: 2px; font-size: 10pt; }
+  .companion-link a { color: var(--hills); font-weight: 600; }
+  @page { size: A4; margin: 16mm 14mm; }
+  @media print {
+    body { font-size: 9.5pt; }
+    .page { padding: 0; max-width: none; }
+    h2 { page-break-before: always; }
+    h2:first-of-type { page-break-before: auto; }
+    .milestone-block, .card, .risk, .stream { page-break-inside: avoid; }
+    .outcome-grid, .surface-grid, .invoice-grid, .stream-row { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Statement of Work</h1>
+<p class="lead">Compass Buyers Agency · Stage 1 of Compass OS</p>
+<p class="meta">The build plan. Four months. $50,000 + GST. A web app, Bruce on WhatsApp, and a working agent layer behind both. Built into Compass-owned infrastructure, in Compass's name from Day 1.</p>
+
+<div class="header-block">
+  <div class="item"><div class="label">Term</div><div class="value">4 months from kick-off</div></div>
+  <div class="item"><div class="label">Payment</div><div class="value">Three invoices · first kicks the project off</div></div>
+  <div class="item"><div class="label">For</div><div class="value">Nick &amp; Chris, co-owners</div></div>
+  <div class="item"><div class="label">By</div><div class="value">Roadmap Digital</div></div>
+</div>
+
+<div class="companion-link">
+  <strong>Companion document.</strong> The week-by-week delivery breakdown of this SOW lives at <a href="compass-os-weekly-plan.html">Compass OS — 16-Week Build Plan</a>. This SOW is the commercial spec. The weekly plan is the delivery detail.
+</div>
+
+<h2><span class="num">01 · What we're building</span>Four outcomes. One system.</h2>
+<p>Compass OS is the operating system the team runs the business through. Stage 1 is built around four outcomes that compound. Everything in the scope serves at least one of them. Anything that doesn't is out.</p>
+<div class="outcome-grid">
+  <div class="outcome">
+    <span class="num">01</span>
+    <div class="name">Legal protection</div>
+    <p>Per-client compliance file structure, plus an archive-grade backfill of every Compass client since inception. If audited tomorrow, records produce. REBAA, QLD Fair Trading, NSW Fair Trading covered.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">02</span>
+    <div class="name">Conversion velocity</div>
+    <p>Discovery call to a polished, branded, live-link proposal in under ten minutes. Bruce drafts, the agent iterates in WhatsApp, the client opens a single canonical URL. Higher win rate at $25k a deal.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">03</span>
+    <div class="name">Property log moat</div>
+    <p>Every off-market property the team hears about gets parsed and filed by Bruce. Bi-directional matching: new brief scans the log, new property scans open briefs. The business's biggest IP, captured.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">04</span>
+    <div class="name">Closed-loop onboarding</div>
+    <p>Brief signed off, CAF auto-populated and sent via DocuSign, signed, client engaged, property sourcing fires. The ten manual handoffs that exist today collapse to one approval per stage.</p>
+  </div>
+</div>
+
+<h2><span class="num">02 · The sales flow</span>How a deal moves through the system.</h2>
+<p>Four phases, fourteen stages. Most stages are driven by Bruce in WhatsApp or by automation in the web app. The stages that should stay manual (negotiation, judgement calls, client conversations) stay manual. Bruce captures, never replaces.</p>
+<div class="legend">
+  <span class="pill pill-web">Web app</span>
+  <span class="pill pill-bruce">Bruce on WhatsApp</span>
+  <span class="pill pill-agent">Agent space</span>
+  <span class="pill pill-manual">Stays manual</span>
+</div>
+<table class="flow-table">
+  <tbody>
+    <tr><td colspan="2" class="phase"><span class="phase-num">Phase 01</span> &nbsp; Discovery &amp; brief</td></tr>
+    <tr><td>Discovery call (agent + client)</td><td><span class="pill pill-manual">Stays manual</span></td></tr>
+    <tr><td>Meeting context captured to client</td><td><span class="pill pill-agent">Agent space</span></td></tr>
+    <tr><td>Brief Extractor structures the brief</td><td><span class="pill pill-agent">Agent space</span></td></tr>
+    <tr><td>Client + brief visible in dashboard</td><td><span class="pill pill-web">Web app</span></td></tr>
+
+    <tr><td colspan="2" class="phase"><span class="phase-num">Phase 02</span> &nbsp; Proposal &amp; engage</td></tr>
+    <tr><td>Proposal Writer drafts HTML</td><td><span class="pill pill-agent">Agent space</span></td></tr>
+    <tr><td>Agent iterates with Bruce in DM</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
+    <tr><td>Single live-link sent to client</td><td><span class="pill pill-web">Web app</span></td></tr>
+    <tr><td>CAF auto-populates from brief</td><td><span class="pill pill-agent">Agent space</span></td></tr>
+    <tr><td>DocuSign sends. Client signs.</td><td><span class="pill pill-manual">Stays manual</span></td></tr>
+
+    <tr><td colspan="2" class="phase"><span class="phase-num">Phase 03</span> &nbsp; Source &amp; inspect</td></tr>
+    <tr><td>Property log scans for matches</td><td><span class="pill pill-agent">Agent space</span></td></tr>
+    <tr><td>Bruce pings agent + listing agents</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
+    <tr><td>Agent drops links, photos, voice notes</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
+    <tr><td>Property Parser files everything</td><td><span class="pill pill-agent">Agent space</span></td></tr>
+    <tr><td>Shortlist visible in dashboard</td><td><span class="pill pill-web">Web app</span></td></tr>
+
+    <tr><td colspan="2" class="phase"><span class="phase-num">Phase 04</span> &nbsp; Close &amp; settle</td></tr>
+    <tr><td>Offer + negotiation (agent + client)</td><td><span class="pill pill-manual">Stays manual</span></td></tr>
+    <tr><td>Bruce captures outcome</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
+    <tr><td>Pest + building reminder fires</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
+    <tr><td>Final inspection -5 days reminder</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
+    <tr><td>Compliance export ready any time</td><td><span class="pill pill-web">Web app</span></td></tr>
+  </tbody>
+</table>
+
+<h2><span class="num">03 · How the team uses it</span>Three surfaces. Each picked for the job.</h2>
+<p>The team doesn't sit at one place to use Compass OS. They use the surface that matches the moment, and the system stitches it together behind the scenes.</p>
+<div class="surface-grid">
+  <div class="surface">
+    <div class="num">Surface 01</div>
+    <div class="name">Web app</div>
+    <p>Desktop-first. Sales pipeline, property log browser, dashboards, per-client compliance files. An embedded agent panel pipes the team straight into the agent space without leaving the page.</p>
+  </div>
+  <div class="surface">
+    <div class="num">Surface 02</div>
+    <div class="name">WhatsApp (Bruce)</div>
+    <p>Phone-first. Where capture happens. Voice notes, photos, links, "just spoke to X", dropped naturally. Bruce parses, structures, files. In team DMs by default. Silent observer in client groups when added.</p>
+  </div>
+  <div class="surface">
+    <div class="num">Surface 03</div>
+    <div class="name">Email</div>
+    <p>Bruce's outbound channel. Live-link proposals, daily briefings (when the data's rich enough), forwarded client comms ingested back into the OS via a Bruce inbox.</p>
+  </div>
+</div>
+
+<h2><span class="num">04 · The build, in three streams</span>Three workstreams in parallel. Convergence in the middle.</h2>
+<p>The web app, Bruce on WhatsApp, and the agent space build in parallel. Each stream stands up on its own. Then they wire together through the convergence phase. Then we polish, test, train, and hand over.</p>
+
+<div class="stream">
+  <div class="label">Stream A</div>
+  <div class="name">The web app</div>
+  <p style="margin: 0; font-size: 10pt;">React + Vite + TypeScript on Vercel. Supabase Sydney for data, auth, storage. Built mobile-responsive from the start. The Compass design language, cleanly applied.</p>
+  <ul>
+    <li>Login, tenant + user model, RLS scoped to tenant from Day 1</li>
+    <li>Sales pipeline view (the four-phase flow above, made real)</li>
+    <li>Client records, briefs, per-client document library</li>
+    <li>Property log browser with search and filter</li>
+    <li>Dashboards v1: pipeline, conversion, velocity</li>
+    <li>Embedded agent panel that pipes into the agent space</li>
+    <li>Compliance export per client, one click</li>
+  </ul>
+  <div class="note"><strong>Quick note on the plumbing.</strong> Repo = GitHub, where the code lives. Supabase = the Sydney-hosted database for clients, briefs, properties, files. Vercel = what serves the web app to browsers. All three accounts in Compass's name from Day 1.</div>
+</div>
+
+<div class="stream">
+  <div class="label">Stream B</div>
+  <div class="name">Bruce on WhatsApp</div>
+  <p style="margin: 0; font-size: 10pt;">Bruce as its own entity, with its own WhatsApp business number. Active in team DMs. Silent observer in client groups when the team adds him. WhatsApp is the transport, the OS is the source of truth.</p>
+  <ul>
+    <li>Bruce server provisioned and paired to a Compass number</li>
+    <li>DM-active workflow: voice notes, photos, links, natural language</li>
+    <li>Persona, tone, capture rules locked (no chatty, no fluff)</li>
+    <li>Mirror every message into the OS as an append-only event log</li>
+    <li>Auto-file photos and forwarded emails to the right client</li>
+    <li>Operational runbook: rate-limit, heartbeat, re-pair on session drop</li>
+  </ul>
+</div>
+
+<div class="stream">
+  <div class="label">Stream C</div>
+  <div class="name">The agent space</div>
+  <p style="margin: 0; font-size: 10pt;">Compass's Anthropic workspace, built like a proper environment. Bruce as orchestrator. Six specialised sub-agents doing the work. Plus the engineering and frontend agents that build the OS.</p>
+  <ul>
+    <li>Anthropic workspace owned and billed by Compass</li>
+    <li>Bruce orchestrator: routing, DB writes, persona-consistent replies</li>
+    <li>Brief Extractor: meeting context to structured brief</li>
+    <li>Proposal Writer + Proposal Editor: brief to live-link HTML</li>
+    <li>Property Parser: realestate / domain link to structured property</li>
+    <li>Property Matcher: rule-based brief ↔ property matching</li>
+    <li>Compliance Filer: forwarded artefacts to right client + tag</li>
+    <li>Engineering + frontend agents that build the OS, handed over with prompts and runbooks</li>
+  </ul>
+  <div class="note"><strong>Quick note on the workspace.</strong> Anthropic workspace = Compass's own login at Anthropic (the company behind Claude), billed and controlled by Compass. The orchestrator is Bruce's brain. Sub-agents are the specialists he hands work to.</div>
+</div>
+
+<h2><span class="num">05 · The plan, milestone by milestone</span>Three milestones. Each milestone is a productively-used asset.</h2>
+<p>Each milestone is accepted by Compass before the next invoice issues. Deliverables are grouped by stream so the build can run in parallel.</p>
+
+<div class="milestone-block">
+  <div class="head">
+    <div>
+      <div class="label">Milestone 1</div>
+      <div class="name">Foundation in parallel. First proposal in WhatsApp.</div>
+      <div class="when">Month 1 · Three streams stand up · End-of-month demo: Bruce takes a brief in DM and returns a live-link proposal</div>
+    </div>
+    <div class="price"><div class="num">$19,500</div><div class="terms">+ GST, on acceptance</div></div>
+  </div>
+  <div class="meta-row">
+    <div class="item"><div class="label">Window</div>Weeks 1-4</div>
+    <div class="item"><div class="label">Compass time</div>About 4 hours total</div>
+  </div>
+  <div class="card sand" style="margin: 0 0 10px;"><strong>What we need from Compass.</strong> Kick-off provisioning (2 hrs async, click-by-click pack) · 30-min Monday catch-ups × 4 · M1 demo (30 min, recorded)</div>
+  <div class="stream-row">
+    <div class="stream-mini">
+      <div class="label">Stream A · Web app</div>
+      <div class="name">Shell + foundations</div>
+      <ul>
+        <li>Repo, scaffold, deploy pipeline live</li>
+        <li>Supabase schema with tenant_id and RLS</li>
+        <li>Login + dashboard shell deployed</li>
+        <li>Compass design system in place</li>
+      </ul>
+    </div>
+    <div class="stream-mini">
+      <div class="label">Stream B · WhatsApp</div>
+      <div class="name">Bruce paired and listening</div>
+      <ul>
+        <li>Bruce stood up as its own entity in Compass-owned cloud</li>
+        <li>Compass WhatsApp business number registered to Bruce</li>
+        <li>DM workflow live with the team</li>
+        <li>Persona + capture rules tuned</li>
+      </ul>
+    </div>
+    <div class="stream-mini">
+      <div class="label">Stream C · Agent space</div>
+      <div class="name">Workspace + first agents</div>
+      <ul>
+        <li>Compass Anthropic workspace stood up</li>
+        <li>Bruce orchestrator + Brief Extractor live</li>
+        <li>Proposal Writer drafting HTML live-links</li>
+        <li>Engineering agent operational on the build</li>
+      </ul>
+    </div>
+  </div>
+  <div class="gate"><div class="label">Acceptance gate</div>An agent DMs Bruce a client name + brief. Bruce creates the client, Brief Extractor structures it, Proposal Writer drafts the HTML, the agent gets a live link emailed. Web app shows the new client in the pipeline. M1 invoice issues on sign-off. "First used" attestation per stage.</div>
+</div>
+
+<div class="milestone-block">
+  <div class="head">
+    <div>
+      <div class="label">Milestone 2</div>
+      <div class="name">Convergence. The full sales flow, end to end.</div>
+      <div class="when">Months 2-3 · Streams wire together · Property log moat operational · CAF closes the loop</div>
+    </div>
+    <div class="price"><div class="num">$19,500</div><div class="terms">+ GST, on acceptance</div></div>
+  </div>
+  <div class="meta-row">
+    <div class="item"><div class="label">Window</div>Weeks 5-12</div>
+    <div class="item"><div class="label">Compass time</div>5 to 6 hours total</div>
+  </div>
+  <div class="card sand" style="margin: 0 0 10px;"><strong>What we need from Compass.</strong> 30-min Monday catch-ups × 8 · One real client travels the full flow (no extra time, your normal client work) · M2 demo (30 min, recorded)</div>
+  <div class="stream-row">
+    <div class="stream-mini">
+      <div class="label">Stream A · Web app</div>
+      <div class="name">Pipeline + property log + compliance</div>
+      <ul>
+        <li>Full sales pipeline view, all four phases</li>
+        <li>Property log browser with search + filter</li>
+        <li>Per-client compliance file UI</li>
+        <li>Embedded agent panel piped to agent space</li>
+        <li>Compliance export per client, one click</li>
+      </ul>
+    </div>
+    <div class="stream-mini">
+      <div class="label">Stream B · WhatsApp</div>
+      <div class="name">Capture in real Compass workflow</div>
+      <ul>
+        <li>Voice notes transcribed and filed</li>
+        <li>Photos auto-filed to client + property</li>
+        <li>Forwarded emails ingested via Bruce inbox</li>
+        <li>Property links parsed and logged</li>
+        <li>Client-group silent-observer mode tested</li>
+      </ul>
+    </div>
+    <div class="stream-mini">
+      <div class="label">Stream C · Agent space</div>
+      <div class="name">Sub-agents complete + integrations</div>
+      <ul>
+        <li>Property Parser + Property Matcher live</li>
+        <li>Compliance Filer routing artefacts correctly</li>
+        <li>Meeting-context tool ingesting transcripts to client</li>
+        <li>DocuSign CAF auto-populating from brief</li>
+        <li>Historical archive ingested (archive-grade)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="gate"><div class="label">Acceptance gate</div>One real Compass client travels the full flow. Discovery call captured, brief structured, proposal drafted and sent, CAF auto-populated and signed via DocuSign, client engaged, property log surfaces matches, agent drops a link with photos, everything files cleanly. Historical archive searchable across every prior client. M2 invoice issues on sign-off.</div>
+</div>
+
+<div class="milestone-block">
+  <div class="head">
+    <div>
+      <div class="label">Milestone 3</div>
+      <div class="name">Reminders, dashboards, polish, handover.</div>
+      <div class="when">Month 4 · UAT, training, Playbook · 30-day support window starts on acceptance</div>
+    </div>
+    <div class="price"><div class="num">$11,000</div><div class="terms">+ GST, on acceptance</div></div>
+  </div>
+  <div class="meta-row">
+    <div class="item"><div class="label">Window</div>Weeks 13-16</div>
+    <div class="item"><div class="label">Compass time</div>5 to 6 hours total</div>
+  </div>
+  <div class="card sand" style="margin: 0 0 10px;"><strong>What we need from Compass.</strong> 30-min Monday catch-ups × 4 · UAT week 16 (about 3 hrs across the team) · M3 demo + handover walkthrough (30 min, recorded)</div>
+  <div class="stream-row">
+    <div class="stream-mini">
+      <div class="label">Stream A · Web app</div>
+      <div class="name">Dashboards + mobile + polish</div>
+      <ul>
+        <li>Dashboards v1 live with real data</li>
+        <li>Mobile-responsive pass complete</li>
+        <li>UAT findings cleared to zero P0/P1</li>
+        <li>Performance + accessibility pass</li>
+      </ul>
+    </div>
+    <div class="stream-mini">
+      <div class="label">Stream B · WhatsApp</div>
+      <div class="name">Reminders + ops</div>
+      <ul>
+        <li>Pest + building reminder, settlement -5d</li>
+        <li>Follow-up reminders on configurable cadence</li>
+        <li>Operational monitoring + alerting live</li>
+        <li>Re-pair runbook documented</li>
+      </ul>
+    </div>
+    <div class="stream-mini">
+      <div class="label">Stream C · Agent space</div>
+      <div class="name">Handover-ready</div>
+      <ul>
+        <li>Engineering + frontend agents finalised</li>
+        <li>Sub-agent prompts + runbooks in repo</li>
+        <li>Compass OS Playbook delivered</li>
+        <li>Quarterly health-check schedule set</li>
+      </ul>
+    </div>
+  </div>
+  <div class="gate"><div class="label">Acceptance gate</div>Compass OS in productive daily use across the team. Dashboards live with real Compass data. Mobile-responsive. Playbook delivered. Both build agents handed over with prompts and runbooks. Repo admin transferred to Compass. 30-day support window starts. M3 invoice issues.</div>
+</div>
+
+<div class="card">
+  <strong>Explicitly not in Stage 1.</strong> Stripe payments and auto WhatsApp group creation. Semantic property matching (pgvector). External property enrichment (CoreLogic, PriceFinder). Bruce in client groups by default (still silent-observer-when-added only). Daily briefings (needs ≥4 weeks of data). Dormant client resurrection. Marketing OS (SEO, content, Sanity agents). Multi-tenant activation for franchise #2. Historical structured parsing. All scoped separately as Phase 2 or Phase 3 when Compass is ready.
+</div>
+
+<h2><span class="num">06 · What we need from Compass</span>A weekly rhythm that keeps everyone in check.</h2>
+<p>Compass watches the build happen rather than sitting in it. The cadence is light but consistent: a 30-minute Monday catch-up, a 5-minute Friday Loom, and email correspondence as decisions come up.</p>
+<h4>Active time</h4>
+<div class="commitment-grid">
+  <div class="item"><div class="qty">2 hrs</div><div class="desc">Kick-off provisioning. Async. Click-by-click pack provided. Every account opened in Compass's name.</div></div>
+  <div class="item"><div class="qty">30 min × week</div><div class="desc">Monday catch-up with Nick and/or Chris. Align on the week ahead, surface anything blocked. 16 catch-ups across the build.</div></div>
+  <div class="item"><div class="qty">3 × 30 min</div><div class="desc">Three milestone demos. Recorded. Either Nick or Chris attends, whichever suits.</div></div>
+  <div class="item"><div class="qty">3 hrs</div><div class="desc">UAT week (Month 4). Nick, Chris, and the agents test the system in real work. Distributed across the team, across one week.</div></div>
+</div>
+<div class="total-band"><div class="label">Across the full four months</div><div class="num">About 15 hours</div></div>
+<h4>Passive visibility</h4>
+<p>So Nick and Chris stay attached to every decision without giving time to it.</p>
+<div class="commitment-grid">
+  <div class="item"><div class="qty">5 min</div><div class="desc">Friday Loom every week. What shipped, what's next, what's blocked.</div></div>
+  <div class="item"><div class="qty">As needed</div><div class="desc">Email correspondence on decisions, blockers, scope nudges.</div></div>
+  <div class="item"><div class="qty">Live</div><div class="desc">Notion board open at all times. Every ticket, every status, every decision.</div></div>
+  <div class="item"><div class="qty">Weekly</div><div class="desc">Preview deploys updated. Poke at the build any time.</div></div>
+</div>
+
+<h2><span class="num">07 · How payment works</span>Three invoices. First kicks it off, two gated by acceptance.</h2>
+<p>First invoice issues at kick-off and gets the project moving. The next two are released only on Compass's acceptance of M2 and M3. If a milestone isn't accepted, the next invoice doesn't issue. Compass can pull out at any milestone with full ownership of everything delivered to that point.</p>
+<div class="invoice-grid">
+  <div class="invoice">
+    <div class="label">Invoice 1 of 3</div>
+    <div class="num">$19,500</div>
+    <div class="terms">+ GST · 14-day terms</div>
+    <div class="desc">Issued at kick-off. Funds Month 1 build. Three streams stand up in parallel. End of M1: Bruce takes a brief in DM and returns a live-link proposal.</div>
+  </div>
+  <div class="invoice">
+    <div class="label">Invoice 2 of 3</div>
+    <div class="num">$19,500</div>
+    <div class="terms">+ GST · 14-day terms</div>
+    <div class="desc">Issued after M2 acceptance. Full sales flow end-to-end. Property log moat live. Historical archive ingested.</div>
+  </div>
+  <div class="invoice">
+    <div class="label">Invoice 3 of 3</div>
+    <div class="num">$11,000</div>
+    <div class="terms">+ GST · 14-day terms</div>
+    <div class="desc">Issued after M3 acceptance. UAT clean, dashboards live, Playbook delivered, agents handed over, repo admin transferred.</div>
+  </div>
+</div>
+<div class="card sand"><strong>If something goes wrong.</strong> Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback. If a milestone isn't accepted, the next invoice doesn't issue and the work continues until it is.</div>
+
+<h2><span class="num">08 · How we de-risk delivery</span>The three things that could slow this down. Named first.</h2>
+<p>No build is risk-free. Naming the risks honestly is how we keep them small. Here are the three real ones, and how we handle each.</p>
+<div class="risk">
+  <div class="label">Risk 01</div>
+  <div class="name">WhatsApp transport reliability</div>
+  <p>The whole capture story leans on Bruce's WhatsApp number working reliably. Sessions can drop. Numbers can get rate-limited if outbound is too aggressive. Most of this is solved by treating WhatsApp as a transport, not a database.</p>
+  <div class="handle"><strong>How we handle it.</strong> WhatsApp is the transport, not the source of truth. Every message mirrors into the OS instantly as an append-only log. If Bruce drops, capture pauses, records survive. We rate-limit outbound, run heartbeat monitoring, and document a re-pair runbook from Day 1.</div>
+</div>
+<div class="risk">
+  <div class="label">Risk 02</div>
+  <div class="name">Historical archive is messier than expected</div>
+  <p>Two and a half years of WhatsApp + email + Drive folders is a lot of data, and real Compass data is unique. Ingestion may sit lower than expected on first pass.</p>
+  <div class="handle"><strong>How we handle it.</strong> Stage 1 historical scope is archive-grade only. Files filed, searchable, retrievable, defensible if audited. Structured parsing is a Phase 2 SOW. The acceptance gate is "ingested + searchable", not "100% structured".</div>
+</div>
+<div class="risk">
+  <div class="label">Risk 03</div>
+  <div class="name">Scope grows mid-build</div>
+  <p>The team will see the build and have ideas. Real client work will surface patterns the original spec didn't catch. Saying yes to everything blows the timeline. Saying no to everything stops Compass shaping its own system.</p>
+  <div class="handle"><strong>How we handle it.</strong> Anything inside the existing scope gets reordered in real time, no paperwork. Anything outside scope gets a one-page change note: impact, cost, knock-on. Compass decides in writing. No surprises either way.</div>
+</div>
+
+<h2><span class="num">09 · After handover</span>Day 31 onwards. What Compass owns and how it keeps running.</h2>
+<p>When the 30-day support window ends, Compass owns a system that doesn't go to mush. Here's what that looks like.</p>
+<table class="summary-table">
+  <thead><tr><th>Item</th><th>What Compass gets</th></tr></thead>
+  <tbody>
+    <tr><td class="title" style="width: 28%;">Ownership</td><td>The repo, the Supabase project, the Vercel project, the Anthropic workspace, Bruce's hosting, every credential. All in Compass's name from Day 1. Roadmap retains read access for the support window only.</td></tr>
+    <tr><td class="title">Both build agents</td><td>The engineering agent and the frontend design agent we used through the build, handed over with prompts, runbooks, and instructions. Compass keeps Roadmap-quality engineering for whatever comes next.</td></tr>
+    <tr><td class="title">Six sub-agents</td><td>Bruce orchestrator and the six specialised sub-agents, with prompts, evaluations, and runbooks. Replaceable, extensible, owned.</td></tr>
+    <tr><td class="title">Playbook</td><td>Architecture decisions, runbooks, how-to-extend guide. Lives in the repo. Anyone hired into the team can read it and be productive in a week.</td></tr>
+    <tr><td class="title">Health-checks</td><td>Four quarterly reviews across the 12 months after handover, included. Async by default, no meeting required. We look at the system, suggest tweaks, flag things to keep an eye on.</td></tr>
+    <tr><td class="title">Support window</td><td>30 days from M3 acceptance. Bug fixes and small tweaks at no extra cost. After that, support is by separate agreement only if Compass wants it.</td></tr>
+    <tr><td class="title">What's next</td><td>Phase 2 (semantic matching, dormant resurrection, daily briefings, historical structuring) and Phase 3 (Marketing OS, franchise activation) are scoped separately when Compass is ready. Nothing committed. Nothing priced. The architecture is ready for both.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="num">10 · What it costs to run</span>Ongoing monthly costs after handover.</h2>
+<p>Compass OS sits on a small handful of paid services, each in Compass's name. These are the running costs once Stage 1 is live. They scale with usage, not with team size, so the band shifts mostly with how much the agents are doing.</p>
+<table class="running-costs">
+  <thead><tr><th>Service</th><th>Monthly band</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Supabase (Sydney)</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Database, file storage, auth. Holds every client, brief, property, document.</span></td><td>$35-$120/mo</td></tr>
+    <tr><td><strong>Vercel</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Hosts the web app. Serves it fast to the team's browsers.</span></td><td>$0-$25/mo</td></tr>
+    <tr><td><strong>Anthropic (Claude)</strong><br><span style="color: var(--stone); font-size: 9.5pt;">The AI behind every agent. Pay-per-use. Scales with how many proposals, briefs and matches the agents run.</span></td><td>$300-$900/mo</td></tr>
+    <tr><td><strong>Bruce hosting + WhatsApp number</strong><br><span style="color: var(--stone); font-size: 9.5pt;">The cloud server Bruce runs on, plus the WhatsApp business line.</span></td><td>$40-$90/mo</td></tr>
+    <tr><td><strong>Email + DocuSign</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Outbound proposals and CAF e-signatures. Likely already covered by existing subscriptions.</span></td><td>$30-$80/mo</td></tr>
+    <tr><td><strong>Monitoring + transcription</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Uptime alerts on Bruce, voice-note transcription, error logs.</span></td><td>$30-$80/mo</td></tr>
+  </tbody>
+</table>
+<div class="total-band"><div class="label">Realistic monthly range. Lower end while volume is normal. Upper end during heavy months. Every account paid by Compass directly.</div><div class="num">$600-$1,400/mo</div></div>
+
+<h2><span class="num">11 · How it gets better over time</span>The system improves itself, with Compass in the driver's seat.</h2>
+<p>Stage 1 is built so the OS gets sharper the more the team uses it. Not magic. Just an architecture that learns from outcomes and a workspace where new agents can be slotted in cleanly when Compass spots a job worth automating.</p>
+<div class="outcome-grid">
+  <div class="outcome">
+    <span class="num">01</span>
+    <div class="name">Proposal Writer learns from wins and losses</div>
+    <p>Every proposal is tagged won, lost, or unanswered. The Proposal Writer reads its own history before drafting the next one. Phrasing, structure and emphasis that converted, get reused. What didn't, gets quietly dropped.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">02</span>
+    <div class="name">Property Matcher learns from agent feedback</div>
+    <p>Every match Bruce surfaces gets a thumbs up or down from the agent who reviews it. Those signals feed the matching rules. Over weeks, fewer bad matches. Over months, the log starts catching things the team would have missed by hand.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">03</span>
+    <div class="name">New sub-agents slot in cleanly</div>
+    <p>The architecture is built so a new specialist (a settlement chaser, a vendor enrichment agent, a marketing scheduler) can be added without rebuilding anything. Compass writes a brief, the engineering agent scaffolds it, you test it, you turn it on. Days, not weeks.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">04</span>
+    <div class="name">Claude upgrades inherited automatically</div>
+    <p>Anthropic releases new Claude models regularly. Because the OS routes through Anthropic directly, every upgrade flows through to your agents the moment Compass switches the model name. No rebuild. No re-engagement. Just better output.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">05</span>
+    <div class="name">The engineering agent keeps shipping</div>
+    <p>The engineering and frontend agents handed over at M3 are the same ones that built the OS. Compass keeps using them after handover for tweaks, new screens, schema changes. The system stays alive instead of going stale.</p>
+  </div>
+  <div class="outcome">
+    <span class="num">06</span>
+    <div class="name">Quarterly health-checks keep us honest</div>
+    <p>Four quarterly reviews across the 12 months after handover, included. Async. We look at the system, flag anything drifting, suggest tweaks. Compass decides what to act on. No upsell motion attached.</p>
+  </div>
+</div>
+
+<h2><span class="num">12 · How we work together</span>Verbal go-ahead. Eyes on it. Quiet delivery.</h2>
+<table class="summary-table">
+  <tbody>
+    <tr><td class="title" style="width: 28%;">Verbal agreement, written record</td><td>This SOW is the spec. Once Nick and Chris say yes, we start. No formal signature required to begin. The doc gets emailed and acknowledged. The Notion board opens. Kick-off begins.</td></tr>
+    <tr><td class="title">Cadence</td><td>30-minute Monday catch-up. 5-minute Friday Loom. Email as decisions come up. One demo per milestone (30 min, recorded). Notion board live throughout. No half-day workshops.</td></tr>
+    <tr><td class="title">Change control</td><td>Inside scope, we adjust order in real time. Outside scope, a one-page change note with impact, cost, knock-on. Compass confirms in writing. Nothing binding until then.</td></tr>
+    <tr><td class="title">Termination</td><td>Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback.</td></tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  Compass OS · Statement of Work · Stage 1 of 3 · Draft v0.3<br>
+  Roadmap Digital · Prepared for Nick &amp; Chris, Compass Buyers Agency · May 2026
+</div>
+
+</div>
+</body>
+</html>
