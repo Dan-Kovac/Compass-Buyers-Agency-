@@ -79,11 +79,11 @@
     letter-spacing: -0.018em;
     
   }
-  h1 { font-size: 38pt; line-height: 1.05; margin: 0 0 14px; font-weight: 300; }
+  h1 { font-size: 38pt; line-height: 1.05; margin: 0 0 14px; font-weight: 400; }
   h2 {
     font-size: 19pt; line-height: 1.2;
     margin: 56px 0 12px; padding: 0;
-    border: none; font-weight: 400;
+    border: none; font-weight: 500;
   }
   h2 .num {
     color: var(--stone); font-size: 8.5pt;
@@ -99,8 +99,8 @@
     letter-spacing: 0.18em; text-transform: uppercase;
   }
   .lead {
-    color: var(--hills-light); font-size: 14pt;
-    margin: 0 0 6px; font-weight: 300;
+    color: var(--hills); font-size: 14pt;
+    margin: 0 0 6px; font-weight: 400;
     line-height: 1.45;
     font-family: 'MinervaModern', serif;
     font-style: normal;
@@ -118,8 +118,8 @@
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 18px; margin: 18px 0 36px; padding: 22px 0;
     background: transparent;
-    border-top: 1px solid var(--sand);
-    border-bottom: 1px solid var(--sand);
+    border-top: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
     border-left: none; border-radius: 0;
   }
   .header-block .item { font-size: 9pt; }
@@ -137,7 +137,7 @@
 
   /* Cards */
   .card {
-    background: var(--sand-light);
+    background: var(--sand);
     border-left: none;
     padding: 18px 22px; margin: 18px 0 26px;
     border-radius: 2px;
@@ -157,11 +157,12 @@
 
   /* Companion link */
   .companion-link {
-    background: var(--sand); padding: 16px 22px;
+    background: var(--bright-grey); padding: 18px 24px;
     margin: 24px 0 36px; border-radius: 2px; font-size: 10pt;
-    border-left: none;
+    border-left: 3px solid var(--hills);
+    color: var(--ink);
   }
-  .companion-link a { color: var(--hills); font-weight: 500; }
+  .companion-link a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 
   /* Outcome / surface grids */
   .outcome-grid {
@@ -184,7 +185,7 @@
     margin: 0 0 10px; line-height: 1.2;
     letter-spacing: -0.015em;
   }
-  .outcome p { margin: 0; font-size: 10pt; color: var(--ink-soft); line-height: 1.6; }
+  .outcome p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
 
   .surface-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
@@ -200,13 +201,13 @@
     font-weight: 400; font-size: 15pt;
     margin: 8px 0 10px; letter-spacing: -0.015em; line-height: 1.2;
   }
-  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6; }
+  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
 
   /* Streams */
   .stream {
     background: var(--sand-light); padding: 24px 28px;
     margin: 16px 0; border-radius: 2px;
-    border-left: none;
+    border-left: 3px solid var(--sea);
   }
   .stream .label {
     color: var(--stone); text-transform: uppercase;
@@ -219,15 +220,15 @@
   }
   .stream ul {
     margin: 14px 0 0 18px; padding: 0;
-    font-size: 10pt; color: var(--ink-soft);
+    font-size: 10pt; color: var(--ink);
   }
   .stream ul li { margin: 5px 0; line-height: 1.55; }
   .stream .note {
     background: var(--white); padding: 14px 18px;
     margin-top: 16px; font-size: 9.5pt;
     border-radius: 2px;
-    color: var(--ink-soft); line-height: 1.6;
-    border-left: none;
+    color: var(--ink); line-height: 1.6;
+    border-left: 2px solid var(--stone-light);
   }
 
   /* Stage banner */
@@ -246,15 +247,15 @@
   }
   .stage-banner .title {
     font-family: 'MinervaModern', serif; font-size: 24pt;
-    color: var(--hills); font-weight: 300;
+    color: var(--hills); font-weight: 400;
     letter-spacing: -0.022em; line-height: 1.1;
   }
 
   /* Milestone block (SOW) */
   .milestone-block {
-    background: var(--sand-light);
+    background: var(--sand);
     padding: 32px 36px; margin: 28px 0 36px; border-radius: 3px;
-    border-left: none;
+    border-left: 4px solid var(--hills);
   }
   .milestone-block .head {
     display: grid; grid-template-columns: 1fr auto;
@@ -266,7 +267,7 @@
   }
   .milestone-block .head .name {
     font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 19pt;
+    font-weight: 500; font-size: 19pt;
     margin: 8px 0 8px; letter-spacing: -0.018em; line-height: 1.15;
   }
   .milestone-block .head .when {
@@ -280,7 +281,7 @@
   }
   .milestone-block .price .num {
     font-family: 'MinervaModern', serif; font-size: 22pt;
-    color: var(--hills); font-weight: 300; line-height: 1;
+    color: var(--hills); font-weight: 400; line-height: 1;
     letter-spacing: -0.02em;
   }
   .milestone-block .price .terms {
@@ -310,7 +311,7 @@
   .stream-mini {
     background: var(--white); padding: 18px 20px;
     border-radius: 2px; font-size: 9.5pt;
-    border-top: none;
+    border-top: 3px solid var(--sea);
   }
   .stream-mini .label {
     color: var(--stone); text-transform: uppercase;
@@ -322,7 +323,7 @@
     font-weight: 400; font-size: 13pt;
     margin: 6px 0 10px; letter-spacing: -0.012em; line-height: 1.2;
   }
-  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink-soft); }
+  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink); }
   .stream-mini ul li { margin: 3px 0; line-height: 1.55; }
 
   /* Acceptance gate */
@@ -347,13 +348,13 @@
   th, td {
     text-align: left; vertical-align: top;
     padding: 12px 14px 12px 0;
-    border-bottom: 1px solid var(--sand);
+    border-bottom: 1px solid var(--stone-light);
   }
   th {
-    background: transparent; color: var(--stone);
+    background: transparent; color: var(--hills);
     font-weight: 600; font-size: 7.5pt;
     letter-spacing: 0.22em; text-transform: uppercase;
-    border-bottom: 1px solid var(--stone-light);
+    border-bottom: 1.5px solid var(--stone);
     padding-top: 10px; padding-bottom: 10px;
   }
   td.title {
@@ -392,7 +393,7 @@
     font-family: 'MinervaModern', serif; letter-spacing: -0.005em;
     margin-bottom: 4px;
   }
-  .role .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.55; }
+  .role .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
 
   /* Summary table */
   .summary-table th, .summary-table td { font-size: 9.5pt; }
@@ -427,7 +428,7 @@
     gap: 18px; margin: 18px 0 24px;
   }
   .commitment-grid .item {
-    padding: 18px 22px; background: var(--sand-light);
+    padding: 18px 22px; background: var(--sand);
     border-radius: 2px;
   }
   .commitment-grid .item .qty {
@@ -436,7 +437,7 @@
     letter-spacing: -0.015em; line-height: 1.1;
   }
   .commitment-grid .item .desc {
-    font-size: 9.5pt; color: var(--ink-soft);
+    font-size: 9.5pt; color: var(--ink);
     margin-top: 8px; line-height: 1.55;
   }
 
@@ -451,7 +452,7 @@
   .total-band .label { font-size: 9.5pt; opacity: 0.85; line-height: 1.55; }
   .total-band .num {
     font-family: 'MinervaModern', serif; font-size: 26pt;
-    font-weight: 300; letter-spacing: -0.02em; line-height: 1;
+    font-weight: 400; letter-spacing: -0.02em; line-height: 1;
   }
 
   /* Invoice grid */
@@ -460,9 +461,9 @@
     gap: 18px; margin: 24px 0 32px;
   }
   .invoice {
-    background: var(--sand-light); padding: 24px;
+    background: var(--sand); padding: 24px;
     border-radius: 2px;
-    border-top: none;
+    border-top: 3px solid var(--hills);
   }
   .invoice .label {
     color: var(--stone); text-transform: uppercase;
@@ -470,20 +471,20 @@
   }
   .invoice .num {
     font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 300; font-size: 32pt;
+    font-weight: 400; font-size: 32pt;
     margin: 8px 0 0; letter-spacing: -0.025em; line-height: 1;
   }
   .invoice .terms {
     font-size: 8.5pt; color: var(--stone);
     margin: 4px 0 14px; letter-spacing: 0.05em;
   }
-  .invoice .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6; }
+  .invoice .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
 
   /* Risk */
   .risk {
-    background: var(--sand-light); padding: 24px 28px;
+    background: #FFF7E8; padding: 24px 28px;
     margin: 16px 0; border-radius: 2px;
-    border-left: none;
+    border-left: 4px solid #C68A2E;
   }
   .risk .label {
     color: var(--stone); text-transform: uppercase;
@@ -497,7 +498,7 @@
   .risk .handle {
     background: var(--white); padding: 14px 18px;
     margin-top: 14px; border-radius: 2px;
-    font-size: 9.5pt; color: var(--ink-soft); line-height: 1.6;
+    font-size: 9.5pt; color: var(--ink); line-height: 1.6;
   }
 
   /* Running costs */
@@ -723,7 +724,7 @@
     <div class="item"><div class="label">Window</div>Weeks 1-4</div>
     <div class="item"><div class="label">Compass time</div>About 4 hours total</div>
   </div>
-  <div class="card sand" style="margin: 0 0 10px;"><strong>What we need from Compass.</strong> Kick-off provisioning (2 hrs async, click-by-click pack) · 30-min Monday catch-ups × 4 · M1 demo (30 min, recorded)</div>
+  <div class="card sand" style="margin: 0 0 10px;"><strong>What we need from Compass.</strong> Week 0 setup (2 hrs async) · 30-min Monday catch-ups × 4 · M1 demo (30 min, recorded)</div>
   <div class="stream-row">
     <div class="stream-mini">
       <div class="label">Stream A · Web app</div>
@@ -868,7 +869,7 @@
 <p>Compass watches the build happen rather than sitting in it. The cadence is light but consistent: a 30-minute Monday catch-up, a 5-minute Friday Loom, and email correspondence as decisions come up.</p>
 <h4>Active time</h4>
 <div class="commitment-grid">
-  <div class="item"><div class="qty">2 hrs</div><div class="desc">Kick-off provisioning. Async. Click-by-click pack provided. Every account opened in Compass's name.</div></div>
+  <div class="item"><div class="qty">2 hrs</div><div class="desc">Week 0 setup. Async. Every account opened in Compass's name, brand assets shared, decisions locked.</div></div>
   <div class="item"><div class="qty">30 min × week</div><div class="desc">Monday catch-up with Nick and/or Chris. Align on the week ahead, surface anything blocked. 16 catch-ups across the build.</div></div>
   <div class="item"><div class="qty">3 × 30 min</div><div class="desc">Three milestone demos. Recorded. Either Nick or Chris attends, whichever suits.</div></div>
   <div class="item"><div class="qty">3 hrs</div><div class="desc">UAT week (Month 4). Nick, Chris, and the agents test the system in real work. Distributed across the team, across one week.</div></div>
