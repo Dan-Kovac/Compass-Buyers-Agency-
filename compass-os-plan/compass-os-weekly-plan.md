@@ -14,7 +14,7 @@ Every row is one Notion ticket. Fields:
 - **Title** — imperative, what gets done
 - **Stream** — A, B, C, or Compass
 - **Stage** — 1 / 2 / 3
-- **Role** — Engineer · Frontend Designer · BA · Copywriter · DevOps · Tester
+- **Role** — Engineer · Frontend Designer · Delivery Lead · Copywriter · DevOps · Tester
 - **Effort** — S (≤ ½ day) · M (½ to 2 days) · L (2 to 5 days)
 - **Depends on** — other ticket titles that must finish first
 - **Acceptance criteria** — concrete, demonstrable, 1-3 bullets
@@ -31,15 +31,15 @@ Goal of Stage 1: every stream has a working skeleton wired to a shared identity 
 
 | Title | Stream | Stage | Role | Effort | Depends on | Acceptance criteria |
 |---|---|---|---|---|---|---|
-| Run Compass OS kick-off workshop | Compass | 1 | BA | M | — | Goals, success metrics, and risks captured · Stream owners named · Decisions log opened |
+| Run Compass OS kick-off workshop | Compass | 1 | Delivery Lead | M | — | Goals, success metrics, and risks captured · Stream owners named · Decisions log opened |
 | Provision Compass-owned accounts (Supabase, Vercel, Twilio/Meta WhatsApp, OpenAI, Resend, GitHub, Notion) | Compass | 1 | DevOps | M | Run Compass OS kick-off workshop | All accounts billed to Compass · Owner + 2nd admin on each · Credentials in shared 1Password vault |
 | Stand up monorepo with apps/web, apps/bruce, apps/agent, packages/db, packages/ui | A | 1 | Engineer | M | Provision Compass-owned accounts | Repo builds clean on CI · Shared lint/format/tsconfig · README explains each app |
 | Stand up Supabase project with tenant_id + RLS baseline | A | 1 | Engineer | L | Stand up monorepo with apps/web, apps/bruce, apps/agent, packages/db, packages/ui | tenants, users, memberships tables exist · RLS enforces tenant isolation · Smoke test proves cross-tenant read is blocked |
 | Define brand tokens and component library shell | A | 1 | Frontend Designer | M | Stand up monorepo with apps/web, apps/bruce, apps/agent, packages/db, packages/ui | Color, type, spacing tokens live in packages/ui · Storybook running · Button, Input, Card, Layout shells in place |
-| Draft information architecture for Web app and Agent space | A | 1 | BA | M | Run Compass OS kick-off workshop | IA diagram covers buyer, agent, admin views · Reviewed with Chris · Saved to Notion |
+| Draft information architecture for Web app and Agent space | A | 1 | Delivery Lead | M | Run Compass OS kick-off workshop | IA diagram covers buyer, agent, admin views · Reviewed with Chris · Saved to Notion |
 | Set up Twilio (or Meta) WhatsApp sandbox number | B | 1 | DevOps | S | Provision Compass-owned accounts | Sandbox number receives and replies to "hello" via webhook · Webhook secret stored in env |
 | Write Bruce persona and conversation principles | B | 1 | Copywriter | S | Run Compass OS kick-off workshop | One-pager covers tone, do/don't, escalation rules · Signed off by Chris |
-| Create Compass OS ticket board in Notion | Compass | 1 | BA | S | Run Compass OS kick-off workshop | Database has Title, Stream, Stage, Week, Role, Effort, Depends on, Status, Acceptance · Views: by week, by stream, by status |
+| Create Compass OS ticket board in Notion | Compass | 1 | Delivery Lead | S | Run Compass OS kick-off workshop | Database has Title, Stream, Stage, Week, Role, Effort, Depends on, Status, Acceptance · Views: by week, by stream, by status |
 
 ### Week 2 — Data model, auth, first round-trip
 
@@ -51,7 +51,7 @@ Goal of Stage 1: every stream has a working skeleton wired to a shared identity 
 | Build Bruce inbound webhook and message store | B | 1 | Engineer | M | Set up Twilio WhatsApp sandbox · Model core entities | Inbound WhatsApp messages persist to messages table · Idempotent on retries · Logged with provider message id |
 | Wire Bruce reply pipeline (echo only, no LLM yet) | B | 1 | Engineer | S | Build Bruce inbound webhook and message store | Sandbox number echoes user input · Reply visible in Supabase · Errors surface to Sentry/Logflare |
 | Sketch Agent space layout (inbox, briefs, properties, board) | C | 1 | Frontend Designer | M | Draft information architecture | Lo-fi wireframes for 4 core screens · Reviewed with Chris · Captured in Figma |
-| Schedule Monday Compass catch-up cadence (30 min weekly) | Compass | 1 | BA | S | Run Compass OS kick-off workshop | Recurring calendar invite · Standing agenda template · First 4 weeks pre-booked |
+| Schedule Monday Compass catch-up cadence (30 min weekly) | Compass | 1 | Delivery Lead | S | Run Compass OS kick-off workshop | Recurring calendar invite · Standing agenda template · First 4 weeks pre-booked |
 
 ### Week 3 — Brief intake, agent inbox, Bruce LLM
 
@@ -63,7 +63,7 @@ Goal of Stage 1: every stream has a working skeleton wired to a shared identity 
 | Connect Bruce to LLM with grounded system prompt | B | 1 | Engineer | M | Wire Bruce reply pipeline | Bruce replies using LLM · System prompt loaded from config · Token + cost logged per message |
 | Write Bruce v1 system prompt | B | 1 | Copywriter | M | Write Bruce persona and conversation principles | Prompt covers identity, scope, escalation, refusal · Reviewed by Chris · Versioned in repo |
 | Define environments (dev, staging, prod) and deploy pipeline | A | 1 | DevOps | M | Stand up monorepo | Three Vercel projects · Env vars documented · Branch-to-env mapping written up |
-| Demo to Compass: "sign in, submit brief, message Bruce" | Compass | 1 | BA | S | Build buyer brief intake form · Build Agent space inbox view · Connect Bruce to LLM | 30 min walkthrough with Chris · Feedback captured as tickets · Status updated in Notion |
+| Demo to Compass: "sign in, submit brief, message Bruce" | Compass | 1 | Delivery Lead | S | Build buyer brief intake form · Build Agent space inbox view · Connect Bruce to LLM | 30 min walkthrough with Chris · Feedback captured as tickets · Status updated in Notion |
 
 ### Week 4 — Stage 1 hardening and M1 gate
 
@@ -73,8 +73,8 @@ Goal of Stage 1: every stream has a working skeleton wired to a shared identity 
 | Add audit log for sensitive actions | A | 1 | Engineer | S | Add tenant onboarding flow | Tenant creation, invites, role changes, brief submits write to audit_log · Visible to admin only |
 | Write data model and architecture doc (v1) | A | 1 | Engineer | M | Model core entities | Diagram + plain-English explainer · Stored in repo /docs · Linked from Notion |
 | QA pass on Web app + Bruce + Agent inbox | All | 1 | Tester | M | Add tenant onboarding flow · Build Agent space inbox view · Connect Bruce to LLM | Test plan executed across desktop + iOS Safari + Android Chrome · Bugs logged in Notion · P0/P1 cleared |
-| Compass UAT on M1 scope | Compass | 1 | BA | S | QA pass on Web app + Bruce + Agent inbox | Chris signs off on M1 acceptance · Outstanding items moved to Stage 2 backlog |
-| **M1 gate: Foundations accepted** | Compass | 1 | BA | S | Compass UAT on M1 scope | Auth, tenancy, brief intake, Bruce echo+LLM, agent inbox demonstrated end-to-end · Written sign-off from Chris · Stage 2 kicked off |
+| Compass UAT on M1 scope | Compass | 1 | Delivery Lead | S | QA pass on Web app + Bruce + Agent inbox | Chris signs off on M1 acceptance · Outstanding items moved to Stage 2 backlog |
+| **M1 gate: Foundations accepted** | Compass | 1 | Delivery Lead | S | Compass UAT on M1 scope | Auth, tenancy, brief intake, Bruce echo+LLM, agent inbox demonstrated end-to-end · Written sign-off from Chris · Stage 2 kicked off |
 
 ---
 
@@ -91,7 +91,7 @@ Goal of Stage 2: turn the skeleton into a working product across all three strea
 | Design property card and shortlist view | A | 2 | Frontend Designer | M | Define brand tokens and component library shell | Card and list designs approved · Mobile + desktop · Empty, loading, error states covered |
 | Add intent classifier to Bruce | B | 2 | Engineer | M | Connect Bruce to LLM with grounded system prompt | Bruce tags inbound messages with intent (question, update, escalation, off-topic) · Tag stored on message · Accuracy spot-checked on 50 samples |
 | Add escalation handoff to agent | B | 2 | Engineer | M | Add intent classifier to Bruce · Build Agent space inbox view | When Bruce flags escalation, an agent gets notified · Agent can take over thread · Buyer sees seamless handoff |
-| Compass Monday catch-up (week 5) | Compass | 2 | BA | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged · Agenda followed |
+| Compass Monday catch-up (week 5) | Compass | 2 | Delivery Lead | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged · Agenda followed |
 
 ### Week 6 — Buyer portal, agent thread view
 
@@ -111,13 +111,13 @@ Goal of Stage 2: turn the skeleton into a working product across all three strea
 | Build agent task board (kanban: To Do / In Progress / Done) | C | 2 | Engineer | L | Build agent thread view with reply | Kanban view of tasks across buyers · Drag to move column · Filter by agent or buyer |
 | Design agent task board | C | 2 | Frontend Designer | M | Sketch Agent space layout | Board, columns, card designs approved · Empty/full states covered |
 | Add Bruce summarisation (daily digest per buyer) | B | 2 | Engineer | M | Add Bruce knowledge base · Build agent thread view with reply | Each morning, agent gets a per-buyer summary of last 24h chat · Delivered to Agent space · Tunable cadence |
-| Compass Monday catch-up (week 7) | Compass | 2 | BA | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged |
+| Compass Monday catch-up (week 7) | Compass | 2 | Delivery Lead | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged |
 
 ### Week 8 — Mid-stage demo and course correct
 
 | Title | Stream | Stage | Role | Effort | Depends on | Acceptance criteria |
 |---|---|---|---|---|---|---|
-| Mid-stage demo to Compass | Compass | 2 | BA | S | Build buyer portal home · Build agent task board · Add Bruce summarisation | 45 min demo of buyer portal, agent space, Bruce v1 · Feedback captured · Re-prioritisation locked in |
+| Mid-stage demo to Compass | Compass | 2 | Delivery Lead | S | Build buyer portal home · Build agent task board · Add Bruce summarisation | 45 min demo of buyer portal, agent space, Bruce v1 · Feedback captured · Re-prioritisation locked in |
 | Mid-stage QA sweep | All | 2 | Tester | M | Mid-stage demo to Compass | Cross-browser + mobile pass · Top 10 bugs filed · Regression list documented |
 | Refine Bruce prompts based on real conversation review | B | 2 | Copywriter | M | Mid-stage demo to Compass | 50 real-or-realistic conversations reviewed · Prompt v2 drafted · Signed off by Chris |
 | Performance baseline (web app + Bruce reply latency) | A | 2 | Engineer | S | Mid-stage QA sweep | Lighthouse + Bruce p95 reply latency captured · Targets agreed for Stage 3 |
@@ -139,7 +139,7 @@ Goal of Stage 2: turn the skeleton into a working product across all three strea
 | Write transactional email copy | A | 2 | Copywriter | S | Add transactional email | All 5 templates copy-checked · Australian English · Plain-text fallbacks |
 | Add in-app notifications (mentions, escalations, new messages) | C | 2 | Engineer | M | Build agent thread view with reply · Add escalation handoff to agent | Bell icon shows unread · Click jumps to source · Read state persisted |
 | Add calendar/inspection scheduling on a property | C | 2 | Engineer | M | Build property record | Agent can schedule and track inspections · Visible to buyer in portal · ICS export available |
-| Compass Monday catch-up (week 10) | Compass | 2 | BA | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged |
+| Compass Monday catch-up (week 10) | Compass | 2 | Delivery Lead | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged |
 
 ### Week 11 — Reporting, exports, polish pass
 
@@ -155,9 +155,9 @@ Goal of Stage 2: turn the skeleton into a working product across all three strea
 | Title | Stream | Stage | Role | Effort | Depends on | Acceptance criteria |
 |---|---|---|---|---|---|---|
 | End-to-end QA of buyer journey | All | 2 | Tester | L | Build buyer-facing weekly recap · Build agent reporting · Bruce safety + refusal review | Brief → Bruce chat → shortlist → inspection → recap tested as a single flow · Bugs logged · P0/P1 cleared |
-| Run dry-run buyer engagement with internal volunteer | Compass | 2 | BA | M | End-to-end QA of buyer journey | One internal "buyer" runs through the system for a week · Findings written up · Tickets filed |
-| Compass UAT on M2 scope | Compass | 2 | BA | M | Run dry-run buyer engagement with internal volunteer | Chris and one agent UAT the full flow · Sign-off captured · Stage 3 backlog locked |
-| **M2 gate: Build accepted** | Compass | 2 | BA | S | Compass UAT on M2 scope | Buyer portal, agent space, Bruce v2 demonstrated end-to-end with real-style data · Written sign-off · Stage 3 kicked off |
+| Run dry-run buyer engagement with internal volunteer | Compass | 2 | Delivery Lead | M | End-to-end QA of buyer journey | One internal "buyer" runs through the system for a week · Findings written up · Tickets filed |
+| Compass UAT on M2 scope | Compass | 2 | Delivery Lead | M | Run dry-run buyer engagement with internal volunteer | Chris and one agent UAT the full flow · Sign-off captured · Stage 3 backlog locked |
+| **M2 gate: Build accepted** | Compass | 2 | Delivery Lead | S | Compass UAT on M2 scope | Buyer portal, agent space, Bruce v2 demonstrated end-to-end with real-style data · Written sign-off · Stage 3 kicked off |
 
 ---
 
@@ -173,14 +173,14 @@ Goal of Stage 3: ready for real buyers. M3 is launch acceptance. We harden secur
 | Integrate with Compass email (forward to brief/thread) | A | 3 | Engineer | M | M2 gate: Build accepted | Forwarded emails attach to the right buyer thread · Sender matched on email · Unmatched go to triage |
 | Add export (PDF brief, CSV of shortlist) | A | 3 | Engineer | S | Build shortlist · Build buyer brief intake form | Buyer can export their brief · Agent can export a shortlist · Branded layout |
 | Tune Bruce on real Compass voice samples | B | 3 | Copywriter | M | Refine Bruce prompts based on real conversation review | 20-30 real voice samples reviewed · Prompt v3 drafted · A/B compared with v2 |
-| Compass Monday catch-up (week 13) | Compass | 3 | BA | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged |
+| Compass Monday catch-up (week 13) | Compass | 3 | Delivery Lead | S | Schedule Monday Compass catch-up cadence | Status, blockers, decisions logged |
 
 ### Week 14 — Security, privacy, performance
 
 | Title | Stream | Stage | Role | Effort | Depends on | Acceptance criteria |
 |---|---|---|---|---|---|---|
 | Security review (RLS, auth, secrets, dependencies) | All | 3 | Engineer | L | M2 gate: Build accepted | RLS policies audited per table · npm audit clean for high/critical · Secrets rotated · Findings doc published |
-| Privacy review (data captured, retention, consent) | All | 3 | BA | M | Security review | Data inventory documented · Privacy notice updated · Consent recorded on intake |
+| Privacy review (data captured, retention, consent) | All | 3 | Delivery Lead | M | Security review | Data inventory documented · Privacy notice updated · Consent recorded on intake |
 | Performance pass (Web app, Bruce reply latency) | All | 3 | Engineer | M | Performance baseline (web app + Bruce reply latency) | LCP under 2.5s on 4G · Bruce p95 reply under 5s · Heavy queries indexed |
 | Backup, restore, and disaster recovery drill | All | 3 | DevOps | M | Security review | Documented backup strategy · Restore tested in staging · RTO/RPO recorded |
 
@@ -188,11 +188,11 @@ Goal of Stage 3: ready for real buyers. M3 is launch acceptance. We harden secur
 
 | Title | Stream | Stage | Role | Effort | Depends on | Acceptance criteria |
 |---|---|---|---|---|---|---|
-| Run agent training session (Compass team) | Compass | 3 | BA | M | M2 gate: Build accepted | 90 min hands-on session · Recording shared · Quick-reference card delivered |
+| Run agent training session (Compass team) | Compass | 3 | Delivery Lead | M | M2 gate: Build accepted | 90 min hands-on session · Recording shared · Quick-reference card delivered |
 | Write Compass OS user guide (buyer + agent + admin) | All | 3 | Copywriter | M | M2 gate: Build accepted | Three guides written · Reviewed by Chris · Embedded in app and shared in Notion |
 | Build help/onboarding tooltips in app | A | 3 | Engineer | M | Write Compass OS user guide | First-run tooltips on key views · Dismissible · Re-openable from help menu |
 | Final design polish across all surfaces | All | 3 | Frontend Designer | M | Polish pass on Web app and Agent space | Designer walks every screen on mobile + desktop · Polish items logged and resolved |
-| Compass go/no-go review for launch | Compass | 3 | BA | S | Run agent training session · Write Compass OS user guide · Build help/onboarding tooltips in app · Final design polish across all surfaces | Go/no-go decision recorded · Launch checklist complete · Comms scheduled |
+| Compass go/no-go review for launch | Compass | 3 | Delivery Lead | S | Run agent training session · Write Compass OS user guide · Build help/onboarding tooltips in app · Final design polish across all surfaces | Go/no-go decision recorded · Launch checklist complete · Comms scheduled |
 
 ### Week 16 — Launch and handover
 
@@ -204,8 +204,8 @@ Goal of Stage 3: ready for real buyers. M3 is launch acceptance. We harden secur
 | Live launch monitoring (first 48 hours) | All | 3 | Engineer | M | Cut production environment over to compass-owned domain · Launch Bruce on production WhatsApp number · Launch Agent space to Compass team | On-call cover for 48h · Incidents logged · Daily standup with Chris |
 | Final QA pass in production | All | 3 | Tester | M | Live launch monitoring (first 48 hours) | Smoke tests across web, Bruce, agent space · No P0/P1 outstanding |
 | Hand over runbooks, credentials, and roadmap | Compass | 3 | DevOps | M | Live launch monitoring (first 48 hours) | Runbook for incidents, restores, deploys · Credentials transferred · Forward roadmap drafted |
-| Compass UAT on M3 scope (launch acceptance) | Compass | 3 | BA | S | Final QA pass in production · Hand over runbooks, credentials, and roadmap | Chris signs off launch acceptance · Outstanding items move to post-launch backlog |
-| **M3 gate: Launch accepted** | Compass | 3 | BA | S | Compass UAT on M3 scope (launch acceptance) | Compass OS live in production with buyers, agents, and Bruce · Written sign-off · Engagement closed out |
+| Compass UAT on M3 scope (launch acceptance) | Compass | 3 | Delivery Lead | S | Final QA pass in production · Hand over runbooks, credentials, and roadmap | Chris signs off launch acceptance · Outstanding items move to post-launch backlog |
+| **M3 gate: Launch accepted** | Compass | 3 | Delivery Lead | S | Compass UAT on M3 scope (launch acceptance) | Compass OS live in production with buyers, agents, and Bruce · Written sign-off · Engagement closed out |
 
 ---
 
