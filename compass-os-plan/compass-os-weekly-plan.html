@@ -5,7 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compass OS — 16-Week Delivery Plan</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'MinervaModern';
+    src: url('fonts/MinervaModern-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'MinervaModern';
+    src: url('fonts/MinervaModern-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('fonts/Aeonik-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('fonts/Aeonik-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('fonts/Aeonik-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Aeonik';
+    src: url('fonts/Aeonik-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
 
   :root {
     --hills: #2C4A3E;
@@ -26,17 +67,17 @@
     margin: 0; padding: 0;
     color: var(--ink);
     background: var(--white);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
     font-size: 10.5pt; line-height: 1.65;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
   .page { max-width: 880px; margin: 0 auto; padding: 64px 56px 40px; }
   h1, h2, h3 {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'MinervaModern', Georgia, serif;
     color: var(--hills);
     letter-spacing: -0.018em;
-    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    
   }
   h1 { font-size: 38pt; line-height: 1.05; margin: 0 0 14px; font-weight: 300; }
   h2 {
@@ -48,11 +89,11 @@
     color: var(--stone); font-size: 8.5pt;
     letter-spacing: 0.22em; display: block;
     text-transform: uppercase; margin-bottom: 10px;
-    font-family: 'Inter', sans-serif; font-weight: 500;
+    font-family: 'Aeonik', sans-serif; font-weight: 500;
   }
   h3 { font-size: 13pt; margin: 32px 0 8px; font-weight: 500; }
   h4 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Aeonik', sans-serif;
     font-size: 8.5pt; margin: 20px 0 8px;
     color: var(--stone); font-weight: 600;
     letter-spacing: 0.18em; text-transform: uppercase;
@@ -61,8 +102,8 @@
     color: var(--hills-light); font-size: 14pt;
     margin: 0 0 6px; font-weight: 300;
     line-height: 1.45;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
+    font-family: 'MinervaModern', serif;
+    font-style: normal;
     letter-spacing: -0.01em;
   }
   .meta {
@@ -89,7 +130,7 @@
   }
   .header-block .item .value {
     color: var(--ink); font-weight: 400; font-size: 10.5pt;
-    font-family: 'Fraunces', serif;
+    font-family: 'MinervaModern', serif;
     letter-spacing: -0.005em;
     line-height: 1.35;
   }
@@ -129,8 +170,8 @@
   }
   .outcome { padding: 0; background: transparent; border: none; }
   .outcome .num {
-    color: var(--stone); font-family: 'Fraunces', serif;
-    font-style: italic; font-size: 11pt;
+    color: var(--stone); font-family: 'MinervaModern', serif;
+    font-style: normal; font-size: 11pt;
     letter-spacing: 0.05em;
     margin-bottom: 8px;
     display: block;
@@ -138,7 +179,7 @@
     font-weight: 400;
   }
   .outcome .name {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 16pt;
     margin: 0 0 10px; line-height: 1.2;
     letter-spacing: -0.015em;
@@ -155,7 +196,7 @@
     letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
   }
   .surface .name {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 15pt;
     margin: 8px 0 10px; letter-spacing: -0.015em; line-height: 1.2;
   }
@@ -172,7 +213,7 @@
     letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
   }
   .stream .name {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 18pt;
     margin: 6px 0 12px; letter-spacing: -0.015em; line-height: 1.15;
   }
@@ -204,7 +245,7 @@
     opacity: 1;
   }
   .stage-banner .title {
-    font-family: 'Fraunces', serif; font-size: 24pt;
+    font-family: 'MinervaModern', serif; font-size: 24pt;
     color: var(--hills); font-weight: 300;
     letter-spacing: -0.022em; line-height: 1.1;
   }
@@ -224,13 +265,13 @@
     letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
   }
   .milestone-block .head .name {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 19pt;
     margin: 8px 0 8px; letter-spacing: -0.018em; line-height: 1.15;
   }
   .milestone-block .head .when {
     font-size: 9.5pt; color: var(--stone); font-style: italic;
-    font-family: 'Fraunces', serif; line-height: 1.45;
+    font-family: 'MinervaModern', serif; line-height: 1.45;
   }
   .milestone-block .price {
     background: var(--white); padding: 16px 20px;
@@ -238,7 +279,7 @@
     color: var(--hills);
   }
   .milestone-block .price .num {
-    font-family: 'Fraunces', serif; font-size: 22pt;
+    font-family: 'MinervaModern', serif; font-size: 22pt;
     color: var(--hills); font-weight: 300; line-height: 1;
     letter-spacing: -0.02em;
   }
@@ -277,7 +318,7 @@
     font-weight: 600;
   }
   .stream-mini .name {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 13pt;
     margin: 6px 0 10px; letter-spacing: -0.012em; line-height: 1.2;
   }
@@ -295,7 +336,7 @@
     font-weight: 600; letter-spacing: 0.22em;
     text-transform: uppercase; font-size: 7.5pt;
     opacity: 0.85; margin-bottom: 10px; display: block;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Aeonik', sans-serif;
   }
 
   /* Tables */
@@ -348,7 +389,7 @@
   .role:first-child, .role:nth-child(2) { border-top: none; }
   .role .name {
     font-weight: 500; color: var(--hills); font-size: 11pt;
-    font-family: 'Fraunces', serif; letter-spacing: -0.005em;
+    font-family: 'MinervaModern', serif; letter-spacing: -0.005em;
     margin-bottom: 4px;
   }
   .role .desc { font-size: 9.5pt; color: var(--ink-soft); line-height: 1.55; }
@@ -360,7 +401,7 @@
   .flow-table th, .flow-table td { font-size: 9.5pt; padding: 10px 14px 10px 0; }
   .flow-table .phase {
     background: transparent; color: var(--hills);
-    font-family: 'Fraunces', serif; font-weight: 400;
+    font-family: 'MinervaModern', serif; font-weight: 400;
     font-size: 14pt; padding: 28px 0 10px;
     border-bottom: 1px solid var(--sand);
     letter-spacing: -0.015em;
@@ -369,7 +410,7 @@
     font-size: 7.5pt; letter-spacing: 0.22em;
     color: var(--stone); text-transform: uppercase;
     font-weight: 600; margin-right: 14px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Aeonik', sans-serif;
   }
   .flow-table tr:first-child .phase { padding-top: 10px; }
 
@@ -390,7 +431,7 @@
     border-radius: 2px;
   }
   .commitment-grid .item .qty {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 18pt;
     letter-spacing: -0.015em; line-height: 1.1;
   }
@@ -409,7 +450,7 @@
   }
   .total-band .label { font-size: 9.5pt; opacity: 0.85; line-height: 1.55; }
   .total-band .num {
-    font-family: 'Fraunces', serif; font-size: 26pt;
+    font-family: 'MinervaModern', serif; font-size: 26pt;
     font-weight: 300; letter-spacing: -0.02em; line-height: 1;
   }
 
@@ -428,7 +469,7 @@
     letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
   }
   .invoice .num {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 300; font-size: 32pt;
     margin: 8px 0 0; letter-spacing: -0.025em; line-height: 1;
   }
@@ -449,7 +490,7 @@
     letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
   }
   .risk .name {
-    font-family: 'Fraunces', serif; color: var(--hills);
+    font-family: 'MinervaModern', serif; color: var(--hills);
     font-weight: 400; font-size: 15pt;
     margin: 8px 0 10px; letter-spacing: -0.015em;
   }
@@ -463,7 +504,7 @@
   .running-costs table td:nth-child(2) {
     text-align: right; font-weight: 400;
     color: var(--hills); white-space: nowrap;
-    font-family: 'Fraunces', serif; font-size: 12pt;
+    font-family: 'MinervaModern', serif; font-size: 12pt;
     letter-spacing: -0.01em;
   }
 
