@@ -102,18 +102,30 @@
 
 <h2>Who's building this</h2>
 
-<p>The work is delivered by Daniel as the lead, orchestrating a team of specialist AI agents. Each agent is purpose-built for its discipline: it carries the right skills, the right tools, and the right context for that slice of the work. Daniel briefs them, reviews their output, and is accountable for everything that ships. Nick deals with one person. He gets the throughput of a small studio.</p>
+<p>A small, focused team:</p>
+<ul class="compact">
+  <li><strong>Daniel</strong> as Delivery Lead. Single point of contact for Compass. Plans the work, runs the Monday catch-ups, owns every sign-off, and is accountable for what ships.</li>
+  <li><strong>A local engineer</strong> working alongside Daniel on the build. Engineering depth and review on every code change before it reaches production.</li>
+  <li><strong>A purpose-built agent stack</strong> running vetted, tested skills refined across multiple prior projects. The agents handle drafting, scaffolding, and the long tail of repetitive build work.</li>
+</ul>
 
-<p>Every ticket in this plan has a named role attached so Nick always knows what kind of skill is being applied. <strong>Five of the six roles are AI agents</strong> (Engineer, Frontend Designer, Copywriter, DevOps, Tester). <strong>One is Daniel personally</strong> — the Delivery Lead. Daniel runs the project, briefs the agents, runs the catch-ups, owns sign-offs, and is the single point of contact for Nick.</p>
+<p>The agents aren't the headline. They're the tools that let a small team deliver studio-scale throughput. What makes the work above standard is the craft layered on top:</p>
+<ul class="compact">
+  <li><strong>Quality of inputs.</strong> Brand tokens, voice samples, data models, and constraints are curated before the agents touch them. Agents working from the right source produce work that's already most of the way there.</li>
+  <li><strong>Meticulous refinement of outputs.</strong> Every artefact is reviewed against quality bars from past projects and refined across multiple passes. Nothing ships raw.</li>
+  <li><strong>Human-reviewed integration.</strong> Code is reviewed by the engineer. Copy and design are reviewed by Daniel. Nothing reaches production without human eyes on it.</li>
+</ul>
+
+<p>Compass gets the speed and consistency of an automated build with the judgement of a senior team. One point of contact, one quality bar, faster than a traditional agency.</p>
 
 <h4>The roles you'll see in this plan</h4>
 <div class="roles-grid">
-  <div class="role"><div class="name">Engineer</div><div class="desc">Writes the code. Builds the database, the web app, the WhatsApp bot, and the agent dashboard. The bulk of the build.</div></div>
-  <div class="role"><div class="name">Frontend Designer</div><div class="desc">Decides how it looks and feels. Layout, type, spacing, colour, motion. Makes sure every screen is on-brand and pleasant to use.</div></div>
-  <div class="role"><div class="name">Copywriter</div><div class="desc">Writes the words. Button labels, error messages, emails, and most importantly Bruce's voice on WhatsApp. Australian English throughout.</div></div>
-  <div class="role"><div class="name">DevOps</div><div class="desc">Sets up infrastructure, hosting, security, backups, and the production launch. The plumbing that makes everything reliable.</div></div>
-  <div class="role"><div class="name">Tester</div><div class="desc">Tries to break it before real users do. Runs cross-device checks, files bugs, runs the end-to-end flow before each milestone.</div></div>
-  <div class="role"><div class="name">Delivery Lead — Daniel</div><div class="desc">This is Daniel's role personally. Plans the work, briefs the AI agents, runs the Monday catch-ups, keeps the Notion board in shape, runs demos, and owns every sign-off. The single point of contact for Nick.</div></div>
+  <div class="role"><div class="name">Delivery Lead — Daniel</div><div class="desc">Daniel's role personally. Plans the work, runs catch-ups, briefs the team, runs demos, owns every sign-off. Compass's single point of contact.</div></div>
+  <div class="role"><div class="name">Engineer</div><div class="desc">Code, database, integrations, the full stack. Daniel and the local engineer working with engineering agents. Every change reviewed before merge.</div></div>
+  <div class="role"><div class="name">Frontend Designer</div><div class="desc">Layout, type, spacing, colour, motion. Design agents working from Compass's brand assets, with Daniel directing and reviewing every screen.</div></div>
+  <div class="role"><div class="name">Copywriter</div><div class="desc">UI copy, emails, Bruce's voice. Copy agents working from Compass's voice samples and tone-of-voice guide. Refined against brief, never shipped raw.</div></div>
+  <div class="role"><div class="name">DevOps</div><div class="desc">Hosting, deployment, security, backups, monitoring. Infrastructure agents under the engineer's review.</div></div>
+  <div class="role"><div class="name">Tester</div><div class="desc">Cross-device QA, end-to-end flows, milestone gates. QA agents validating against acceptance criteria. Daniel reviews flagged issues before sign-off.</div></div>
 </div>
 
 <h2>Nick's commitments at a glance</h2>
@@ -192,7 +204,7 @@
     <tr><td class="title">LLM provider (Anthropic or OpenAI)</td><td>The brain behind Bruce. Every WhatsApp reply Bruce sends costs a fraction of a cent in API tokens. Billed to Compass directly so usage and cost are transparent.</td><td>Create an organisation under Compass billing. Add a payment method. Invite Daniel as Owner with billing visibility. Set a monthly spend cap (Daniel will recommend a starting figure).</td></tr>
     <tr><td class="title">WhatsApp Business (Twilio)</td><td>Bruce's channel. Cannot be transferred between businesses cleanly, and approval takes 1-2 weeks, so it has to be Compass-owned from Week 0 — no exceptions.</td><td>Sign up for Twilio with Compass billing. Apply for WhatsApp Business API approval (Daniel will provide the application content). Verify the Compass business with Meta. Add Daniel to the Twilio console.</td></tr>
     <tr><td class="title">Resend (transactional email)</td><td>Sends every system email — buyer invites, agent escalation alerts, weekly recaps, account notifications. Without it, the system can't communicate by email.</td><td>Create a Resend account on Compass billing. Add the <em>compass.com.au</em> domain (DNS records below). Invite Daniel.</td></tr>
-    <tr><td class="title">Google Workspace (or existing email)</td><td>Compass already has this. Used to host two new email identities (<em>dan@compass.com.au</em> and <em>bruce@compass.com.au</em>) so Daniel and Bruce both look like part of the team. See the Email identities table below.</td><td>If Workspace already exists: Nick adds Daniel as a user with one paid seat, and adds <em>bruce@</em> as an alias on an existing seat. If not: setting up Workspace is a 30-min job and Daniel can guide it.</td></tr>
+    <tr><td class="title">Google Workspace (or existing email)</td><td>Compass already has this. Used to host two new email identities (<em>daniel@compass.com.au</em> and <em>bruce@compass.com.au</em>) so Daniel and Bruce both look like part of the team. See the Email identities table below.</td><td>If Workspace already exists: Nick adds Daniel as a user with one paid seat, and adds <em>bruce@</em> as an alias on an existing seat. If not: setting up Workspace is a 30-min job and Daniel can guide it.</td></tr>
     <tr><td class="title">Notion</td><td>The shared project board. Every ticket in this plan lives there. Nick can see at any time what's done, in progress, or coming up.</td><td>Create a new <em>Compass OS</em> workspace, or use Compass's existing workspace with a project page. Invite Daniel as full member, second admin as full member.</td></tr>
     <tr><td class="title">1Password (or Bitwarden)</td><td>Shared credentials vault. Every API key, secret, and password lives here, encrypted. Daniel never holds a Compass credential outside this vault.</td><td>Create a <em>Compass OS</em> vault under Compass's existing 1Password account, or sign up for a new one. Invite Daniel and second admin.</td></tr>
     <tr><td class="title">Sentry</td><td>Watches both the web app and Bruce for errors. Daniel gets alerted within seconds if anything breaks in production. Without it, problems only surface when a user complains.</td><td>Create a Sentry account on Compass billing (the team plan covers what we need). Invite Daniel as admin.</td></tr>
@@ -204,7 +216,7 @@
 <table>
   <thead><tr><th>Address</th><th>Type</th><th>Why we need it</th><th>What Nick does</th></tr></thead>
   <tbody>
-    <tr><td class="title">dan@compass.com.au</td><td>Workspace seat (paid, ~AUD $14/mo)</td><td>Daniel appears as part of the Compass team for the engagement. All account invites, billing alerts, and security notifications land in a Compass-managed inbox that survives even if Daniel later offboards. Same-domain identity also makes Google integrations and any client-facing comms cleaner.</td><td>Add Daniel as a Workspace user with one seat. Send Daniel the temporary password.</td></tr>
+    <tr><td class="title">daniel@compass.com.au</td><td>Workspace seat (paid, ~AUD $14/mo)</td><td>Daniel appears as part of the Compass team for the engagement. All account invites, billing alerts, and security notifications land in a Compass-managed inbox that survives even if Daniel later offboards. Same-domain identity also makes Google integrations and any client-facing comms cleaner.</td><td>Add Daniel as a Workspace user with one seat. Send Daniel the temporary password.</td></tr>
     <tr><td class="title">bruce@compass.com.au</td><td>Alias on existing seat (free)</td><td>Bruce's sending identity for any email-based comms (e.g. weekly recaps to buyers). An alias means no extra seat cost, and replies land in a monitored mailbox that the system parses back into the right buyer thread. Bruce never needs his own paid mailbox.</td><td>Create the alias on Nick's seat (or any monitored seat). Set up SPF, DKIM, and DMARC DNS records on <em>compass.com.au</em> so Resend can send from this address (Daniel will provide the exact records).</td></tr>
   </tbody>
 </table>
@@ -280,7 +292,7 @@
   <thead><tr><th>Title</th><th>Owner</th><th>Effort</th><th>Outcome</th></tr></thead>
   <tbody>
     <tr><td class="title">Spin up Compass OS Notion workspace and seed the ticket board from this plan</td><td>Daniel</td><td class="effort">M</td><td>All ~90 tickets imported, weeks tagged, Stage 1 prioritised.</td></tr>
-    <tr><td class="title">Configure AI agent roster for the engagement</td><td>Daniel</td><td class="effort">M</td><td>Each agent (Engineer, Designer, Copywriter, DevOps, Tester) briefed on Compass context, brand, and constraints.</td></tr>
+    <tr><td class="title">Brief the local engineer and configure the agent stack for Compass</td><td>Daniel</td><td class="effort">M</td><td>Engineer onboarded to the project. Agent skills loaded with Compass context, brand assets, voice samples, and constraints. Quality bars set.</td></tr>
     <tr><td class="title">Stand up local development environment</td><td>Daniel</td><td class="effort">S</td><td>Tools, runtimes, secrets management ready to start coding Week 1 day 1.</td></tr>
     <tr><td class="title">Draft Week 1 kick-off agenda and pre-read</td><td>Daniel</td><td class="effort">S</td><td>Agenda covers goals, success metrics, decisions, risks. Sent 48h ahead.</td></tr>
     <tr><td class="title">Confirm receipt of all Week 0 inputs from Compass</td><td>Daniel</td><td class="effort">S</td><td>Every checklist item ticked or explicitly deferred with a Week 1 date.</td></tr>
@@ -292,7 +304,7 @@
 <table>
   <thead><tr><th>Item</th><th>What happens at engagement end</th><th>Cost impact for Compass</th></tr></thead>
   <tbody>
-    <tr><td class="title">dan@compass.com.au Workspace seat</td><td>Disabled by Nick. Mailbox archived to a Compass-owned location. Seat slot freed up.</td><td>Stops the ~AUD $14/mo seat cost.</td></tr>
+    <tr><td class="title">daniel@compass.com.au Workspace seat</td><td>Disabled by Nick. Mailbox archived to a Compass-owned location. Seat slot freed up.</td><td>Stops the ~AUD $14/mo seat cost.</td></tr>
     <tr><td class="title">bruce@compass.com.au alias</td><td>Stays. It's free, and Bruce keeps running.</td><td>$0 ongoing.</td></tr>
     <tr><td class="title">Daniel's admin access on Supabase, Vercel, GitHub, LLM provider, Twilio, Resend, Notion, 1Password, Sentry</td><td>Removed from each account. Compass remains sole owner with full control.</td><td>$0. The accounts and their billing don't change.</td></tr>
     <tr><td class="title">Source code repository</td><td>Stays under Compass GitHub org. Daniel's commit history remains; access is revoked.</td><td>$0.</td></tr>
@@ -652,7 +664,7 @@
   <ul class="compact">
     <li><strong>About 20 hours of your time over four months.</strong> Mostly Monday catch-ups, three milestone sign-offs, one training session, and a handful of content drops (FAQs, voice samples).</li>
     <li><strong>Three formal gates.</strong> M1, M2, M3. If something isn't right, we don't move on.</li>
-    <li><strong>One person to deal with.</strong> Daniel orchestrates a team of specialist AI agents. You don't need to manage developers, designers, or copywriters — Daniel does that.</li>
+    <li><strong>One person to deal with.</strong> Daniel runs the project alongside a local engineer and a vetted agent stack. Compass deals with Daniel. Compass doesn't manage developers, designers, or copywriters.</li>
     <li><strong>Everything is tracked in Notion.</strong> Every ticket in this document lives on the Compass OS board. You can see exactly what's done, what's in progress, and what's coming.</li>
   </ul>
 </div>
