@@ -102,9 +102,9 @@
 
 <h2>Who's building this</h2>
 
-<p>The work is delivered by Daniel as the lead, orchestrating a team of specialist AI agents. Each agent is purpose-built for its discipline: it carries the right skills, the right tools, and the right context for that slice of the work. Daniel briefs them, reviews their output, and is accountable for everything that ships. You deal with one person. You get the throughput of a small studio.</p>
+<p>The work is delivered by Daniel as the lead, orchestrating a team of specialist AI agents. Each agent is purpose-built for its discipline: it carries the right skills, the right tools, and the right context for that slice of the work. Daniel briefs them, reviews their output, and is accountable for everything that ships. Nick deals with one person. He gets the throughput of a small studio.</p>
 
-<p>That means progress is fast, traceable, and consistent. Every ticket in this plan has a named role attached so you always know what kind of skill is being applied.</p>
+<p>Every ticket in this plan has a named role attached so Nick always knows what kind of skill is being applied. <strong>Five of the six roles are AI agents</strong> (Engineer, Frontend Designer, Copywriter, DevOps, Tester). <strong>One is Daniel personally</strong> — the Delivery Lead. Daniel runs the project, briefs the agents, runs the catch-ups, owns sign-offs, and is the single point of contact for Nick.</p>
 
 <h4>The roles you'll see in this plan</h4>
 <div class="roles-grid">
@@ -113,7 +113,7 @@
   <div class="role"><div class="name">Copywriter</div><div class="desc">Writes the words. Button labels, error messages, emails, and most importantly Bruce's voice on WhatsApp. Australian English throughout.</div></div>
   <div class="role"><div class="name">DevOps</div><div class="desc">Sets up infrastructure, hosting, security, backups, and the production launch. The plumbing that makes everything reliable.</div></div>
   <div class="role"><div class="name">Tester</div><div class="desc">Tries to break it before real users do. Runs cross-device checks, files bugs, runs the end-to-end flow before each milestone.</div></div>
-  <div class="role"><div class="name">Delivery Lead</div><div class="desc">Plans the work, runs the Monday catch-ups, keeps the Notion board in shape, runs demos, and handles UAT sign-offs. Nick's main point of contact alongside Daniel.</div></div>
+  <div class="role"><div class="name">Delivery Lead — Daniel</div><div class="desc">This is Daniel's role personally. Plans the work, briefs the AI agents, runs the Monday catch-ups, keeps the Notion board in shape, runs demos, and owns every sign-off. The single point of contact for Nick.</div></div>
 </div>
 
 <h2>Nick's commitments at a glance</h2>
@@ -123,6 +123,7 @@
 <table class="summary-table">
   <thead><tr><th>Week</th><th>What Nick does</th><th>Time</th></tr></thead>
   <tbody>
+    <tr><td><strong>0</strong></td><td>Pre-kick-off setup: countersign SOW, pay deposit, create and invite Daniel to all accounts, share brand assets and source content, lock in joint decisions (see Week 0 section for the full checklist)</td><td>~3-4 hrs</td></tr>
     <tr><td><strong>1</strong></td><td>Kick-off workshop, naming a 2nd admin on accounts, sharing brand assets, sign off on Bruce's persona one-pager</td><td>~2 hrs</td></tr>
     <tr><td><strong>2</strong></td><td>Monday catch-up. Review information architecture and Agent space wireframes</td><td>~45 min</td></tr>
     <tr><td><strong>3</strong></td><td>Monday catch-up. Sign off Bruce's v1 system prompt. Live demo: sign in, submit a brief, message Bruce</td><td>~1 hr</td></tr>
@@ -142,14 +143,143 @@
   </tbody>
 </table>
 
-<p><strong>Total Compass time over 16 weeks:</strong> approximately 20-22 hours. Roughly the same as one and a half working days, spread across four months.</p>
+<p><strong>Total Compass time across Week 0 and 16 build weeks:</strong> approximately 24-26 hours. Roughly three working days, spread across four months.</p>
 
 <div class="card">
   <strong>How to read the weekly tables.</strong> Every row is one ticket. Tickets carry a stream (A / B / C / Compass), a role, an effort estimate (S = under half a day, M = half to two days, L = two to five days), and concrete acceptance criteria. The yellow box at the start of each week tells Nick exactly what he needs to do.
 </div>
 
-<!-- STAGE 1 -->
+<!-- WEEK 0 -->
 <div class="stage-banner first">
+  <div class="label">Stage 0 · Week 0</div>
+  <div class="title">Pre-kick-off</div>
+</div>
+<p>Week 0 is the setup week. Nothing technical gets built. Everything that needs to be agreed, signed, granted, or shared has to be done before Week 1 can start cleanly. Treat this as a checklist. If a row isn't ticked, Week 1 doesn't start.</p>
+
+<div class="card nick">
+  <strong class="tag">Nick this week (the short version)</strong>
+  <ul class="compact">
+    <li>Countersign the SOW and pay the deposit invoice.</li>
+    <li>Set up or transfer ownership of the seven Compass-billed accounts and invite Daniel as admin on each.</li>
+    <li>Send the brand and content pack: logos, fonts, colours, sample emails, FAQs, brochures, photo library, past buyer engagement examples (anonymised if needed).</li>
+    <li>Confirm the production domain (likely <em>app.compassagency.com.au</em>) and DNS contact.</li>
+    <li>Provide the Compass team list with emails.</li>
+    <li>Lock in joint decisions on WhatsApp provider, hosting region, retention, and comms channel.</li>
+  </ul>
+</div>
+
+<h3>Week 0 — Commercial and legal</h3>
+<table>
+  <thead><tr><th>Title</th><th>Owner</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Countersign Statement of Work</td><td><span class="pill stream-Compass">Nick</span></td><td class="effort">S</td><td>SOW signed by both parties. Filed in shared vault.</td></tr>
+    <tr><td class="title">Issue first invoice (deposit)</td><td><span class="pill stream-A">Daniel</span></td><td class="effort">S</td><td>Tax invoice issued per SOW payment schedule. Sent to nominated AP contact.</td></tr>
+    <tr><td class="title">Pay deposit invoice</td><td><span class="pill stream-Compass">Nick</span></td><td class="effort">S</td><td>Payment received. Receipt issued.</td></tr>
+    <tr><td class="title">Sign mutual NDA (if not already in place)</td><td><span class="pill stream-All">Both</span></td><td class="effort">S</td><td>NDA signed. Filed in shared vault.</td></tr>
+    <tr><td class="title">Confirm IP and data ownership</td><td><span class="pill stream-All">Both</span></td><td class="effort">S</td><td>Compass owns all data, content, brand outputs, and the production codebase on completion. Documented in SOW.</td></tr>
+    <tr><td class="title">Agree change-control process</td><td><span class="pill stream-All">Both</span></td><td class="effort">S</td><td>Any scope change goes through a written change request signed by both parties before work starts.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — Account access (Compass-billed)</h3>
+<p>Compass owns every account so there's no vendor lock-in. Nick is owner on each, Daniel is admin, and a second Compass person is named as backup admin.</p>
+<table>
+  <thead><tr><th>Account</th><th>Purpose</th><th>Owner action</th><th>Daniel needs</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Supabase</td><td>Database, auth, storage, RLS for tenant isolation</td><td>Create org under Compass billing. Invite Daniel as Owner.</td><td>Org admin access</td></tr>
+    <tr><td class="title">Vercel</td><td>Web app hosting, preview deployments</td><td>Create team under Compass billing. Invite Daniel as Owner.</td><td>Team admin access</td></tr>
+    <tr><td class="title">GitHub</td><td>Source code repository</td><td>Create or use existing Compass GitHub org. Invite Daniel as Owner.</td><td>Org admin access</td></tr>
+    <tr><td class="title">OpenAI (or Anthropic)</td><td>LLM API for Bruce</td><td>Create org under Compass billing. Add payment method. Invite Daniel as Owner.</td><td>Org admin access plus billing visibility</td></tr>
+    <tr><td class="title">WhatsApp Business (Twilio or Meta)</td><td>Bruce's channel</td><td>Apply for Business API access. Decide provider with Daniel before applying. Add Compass payment method.</td><td>Admin access. Approval can take 1-2 weeks, so start early.</td></tr>
+    <tr><td class="title">Resend (transactional email)</td><td>Invites, summaries, recaps</td><td>Create account under Compass billing. Invite Daniel.</td><td>Admin access</td></tr>
+    <tr><td class="title">Notion</td><td>Project board and documentation</td><td>Decide between Compass workspace or a fresh Compass OS workspace. Invite Daniel and second admin.</td><td>Workspace admin or guest access to project pages</td></tr>
+    <tr><td class="title">1Password (or Bitwarden)</td><td>Shared credentials vault</td><td>Create a Compass OS vault. Invite Daniel and second admin.</td><td>Vault access</td></tr>
+    <tr><td class="title">Sentry (or equivalent)</td><td>Error monitoring across web and Bruce</td><td>Create account under Compass billing. Invite Daniel.</td><td>Admin access</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — Brand, content, and source material</h3>
+<p>Everything Bruce, the buyer portal, the agent space, and the emails will read like depends on what Compass shares this week. The more, the better.</p>
+<table>
+  <thead><tr><th>Item</th><th>Format</th><th>Why we need it</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Logo files</td><td>SVG plus high-res PNG</td><td>App, emails, exports, login screen.</td></tr>
+    <tr><td class="title">Brand fonts</td><td>Font files or licence info</td><td>Web app typography to match Compass's existing look.</td></tr>
+    <tr><td class="title">Brand colours</td><td>Hex codes</td><td>Tokenised in the design system so every screen is on-brand.</td></tr>
+    <tr><td class="title">Tone-of-voice guide</td><td>Existing doc, or a 30-min conversation with Daniel</td><td>Drives Bruce's voice and all UI copy.</td></tr>
+    <tr><td class="title">Sample emails to past buyers</td><td>5-10 real emails, names redacted if needed</td><td>Tunes Bruce to sound like Compass actually sounds.</td></tr>
+    <tr><td class="title">Existing FAQs, brochures, website copy</td><td>Whatever exists</td><td>Source for Bruce's knowledge base.</td></tr>
+    <tr><td class="title">Examples of past buyer briefs / engagements</td><td>5-10 anonymised examples</td><td>Drives the brief intake form structure and demo data.</td></tr>
+    <tr><td class="title">Photo library / image bank</td><td>Folder of property and lifestyle images Compass owns rights to</td><td>Demo content, marketing screens.</td></tr>
+    <tr><td class="title">List of regions Compass services</td><td>Plain list with notes on each</td><td>Bruce's geographical knowledge base (Byron, Gold Coast, Tweed, Northern Rivers, etc.).</td></tr>
+    <tr><td class="title">Privacy notice (current)</td><td>Existing doc or website link</td><td>Baseline for the updated notice we'll need by Week 14.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — People and access</h3>
+<table>
+  <thead><tr><th>Item</th><th>Owner</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Nominate second Compass admin</td><td><span class="pill stream-Compass">Nick</span></td><td>Backup point of contact for accounts and decisions if Nick is unavailable.</td></tr>
+    <tr><td class="title">Compass team list</td><td><span class="pill stream-Compass">Nick</span></td><td>Names and email addresses of every Compass person who will need an Agent space account, with role (admin / agent / view-only).</td></tr>
+    <tr><td class="title">UAT participants</td><td><span class="pill stream-Compass">Nick</span></td><td>Confirm Nick + at least one Compass agent will be on every milestone UAT (M1, M2, M3).</td></tr>
+    <tr><td class="title">Internal "test buyer" candidate</td><td><span class="pill stream-Compass">Nick</span></td><td>One person willing to dry-run the system in Week 12.</td></tr>
+    <tr><td class="title">Calendar access for booking demos</td><td><span class="pill stream-Compass">Nick</span></td><td>Either grant Daniel access to a shared calendar slot, or commit to responding to demo invites within 48 hours.</td></tr>
+    <tr><td class="title">Domain and DNS</td><td><span class="pill stream-Compass">Nick</span></td><td>Confirm production domain (likely <em>app.compassagency.com.au</em>). Identify who manages DNS at Compass.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — Joint decisions (lock in before Week 1)</h3>
+<table>
+  <thead><tr><th>Decision</th><th>Default if not raised</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td class="title">WhatsApp Business provider</td><td>Twilio</td><td>Twilio is faster to onboard. Meta Cloud API is cheaper at scale. Daniel will recommend in Week 0 kick-off prep call.</td></tr>
+    <tr><td class="title">Hosting region</td><td>Sydney (ap-southeast-2)</td><td>Australian data residency. No reason to deviate.</td></tr>
+    <tr><td class="title">Authentication method for buyers</td><td>Email plus magic link</td><td>No passwords for buyers. Lower friction, fewer support requests.</td></tr>
+    <tr><td class="title">Authentication method for agents</td><td>Email plus magic link, MFA on at launch</td><td>MFA enforced from Week 16.</td></tr>
+    <tr><td class="title">CRM integration scope</td><td>Out of scope for v1</td><td>Can be added post-launch as a separate engagement if Compass uses a CRM.</td></tr>
+    <tr><td class="title">Email forwarding strategy</td><td>Compass team forwards relevant emails to a dedicated app inbox; system attaches to the right thread.</td><td>Confirmed in Week 13.</td></tr>
+    <tr><td class="title">Data retention</td><td>24 months for buyer chats and briefs unless Compass specifies otherwise</td><td>Confirmed in Week 14.</td></tr>
+    <tr><td class="title">Primary comms channel between Nick and Daniel</td><td>WhatsApp for quick things, email for sign-offs, Notion comments for ticket-specific feedback.</td><td>Lock in at kick-off.</td></tr>
+    <tr><td class="title">Out-of-office handling</td><td>Each side names a backup contact and notifies the other 5 business days in advance for planned leave.</td><td>Documented in shared vault.</td></tr>
+    <tr><td class="title">Definition of "done" per milestone</td><td>Acceptance criteria on every M1, M2, M3 ticket are met and signed off in writing</td><td>No fuzzy gates.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — Daniel's deliverables to Nick</h3>
+<p>What Nick should expect from Daniel before Week 1.</p>
+<table>
+  <thead><tr><th>Item</th><th>Format</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Signed countersignature on SOW</td><td>PDF</td><td>Day 1 of Week 0</td></tr>
+    <tr><td class="title">First invoice (deposit)</td><td>PDF tax invoice</td><td>Day 1 of Week 0</td></tr>
+    <tr><td class="title">Compass OS Notion workspace and ticket board</td><td>Notion link with Nick invited</td><td>Day 2 of Week 0</td></tr>
+    <tr><td class="title">Recurring Monday catch-up calendar invites</td><td>16 invites in Nick's calendar</td><td>Day 2 of Week 0</td></tr>
+    <tr><td class="title">Kick-off pre-read</td><td>One-page brief with agenda, decisions to make, materials to bring</td><td>48h before Week 1 kick-off</td></tr>
+    <tr><td class="title">WhatsApp Business provider recommendation</td><td>Short written recommendation in Notion</td><td>Day 3 of Week 0</td></tr>
+    <tr><td class="title">Account invite tracker</td><td>Notion checklist showing each account, who's invited, status</td><td>Day 3 of Week 0</td></tr>
+    <tr><td class="title">This document</td><td>HTML and PDF</td><td>Already delivered</td></tr>
+    <tr><td class="title">Statement of Work</td><td>HTML and PDF</td><td>Already delivered</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 0 — Daniel's internal setup</h3>
+<p>For transparency. Nick doesn't need to do anything here.</p>
+<table>
+  <thead><tr><th>Title</th><th>Owner</th><th>Effort</th><th>Outcome</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Spin up Compass OS Notion workspace and seed the ticket board from this plan</td><td>Daniel</td><td class="effort">M</td><td>All ~90 tickets imported, weeks tagged, Stage 1 prioritised.</td></tr>
+    <tr><td class="title">Configure AI agent roster for the engagement</td><td>Daniel</td><td class="effort">M</td><td>Each agent (Engineer, Designer, Copywriter, DevOps, Tester) briefed on Compass context, brand, and constraints.</td></tr>
+    <tr><td class="title">Stand up local development environment</td><td>Daniel</td><td class="effort">S</td><td>Tools, runtimes, secrets management ready to start coding Week 1 day 1.</td></tr>
+    <tr><td class="title">Draft Week 1 kick-off agenda and pre-read</td><td>Daniel</td><td class="effort">S</td><td>Agenda covers goals, success metrics, decisions, risks. Sent 48h ahead.</td></tr>
+    <tr><td class="title">Confirm receipt of all Week 0 inputs from Compass</td><td>Daniel</td><td class="effort">S</td><td>Every checklist item ticked or explicitly deferred with a Week 1 date.</td></tr>
+  </tbody>
+</table>
+
+<div class="milestone">Week 0 gate: SOW signed, deposit paid, all accounts provisioned with Daniel invited, brand pack received, joint decisions locked. Week 1 cannot start until this gate is green.</div>
+
+<!-- STAGE 1 -->
+<div class="stage-banner">
   <div class="label">Stage 1 · Weeks 1-4</div>
   <div class="title">Foundations</div>
 </div>
