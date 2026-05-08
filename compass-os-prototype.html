@@ -661,6 +661,23 @@ a{color:inherit;text-decoration:none}
 }
 .prop-card .prop-actions{display:flex;gap:8px;margin-top:10px}
 
+.mobile-notice{display:none}
+@media (max-width: 720px){
+  body{display:block;height:auto;overflow:auto}
+  .top-nav-wrap{position:sticky;top:0}
+
+  .mobile-notice{
+    display:flex;align-items:center;gap:14px;
+    padding:18px 22px;background:var(--sand);border-bottom:1px solid var(--line);
+    font-family:var(--serif);font-size:14.5px;color:var(--hills);font-style:italic;line-height:1.45;
+  }
+  .mobile-notice b{font-style:normal;font-weight:500;font-family:var(--sans);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sea-2);display:block;margin-bottom:4px}
+
+  /* let the OS render at a usable width with horizontal scroll */
+  .app-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .app{min-width:1200px;height:760px}
+}
+
 .hidden{display:none !important}
 
 /* reveal */
@@ -683,6 +700,21 @@ a{color:inherit;text-decoration:none}
 .doc-nav .doc-name{font-family:'MinervaModern',var(--serif);font-size:17px;color:var(--hills);line-height:1.15;display:block;margin-bottom:3px;letter-spacing:-.01em}
 .doc-nav .doc-desc{font-family:'Aeonik',var(--sans);font-size:11px;color:var(--stone);line-height:1.4;display:block}
 .doc-nav a.current .doc-desc{color:var(--ink)}
+.doc-nav-toggle{display:none;align-items:center;gap:12px;width:100%;padding:14px 22px;background:#fff;border:none;border-bottom:1px solid var(--sand);font-family:'Aeonik',var(--sans);font-size:14px;color:var(--hills);cursor:pointer;text-align:left}
+.doc-nav-toggle .ham{display:inline-flex;flex-direction:column;gap:3px}
+.doc-nav-toggle .ham i{display:block;width:16px;height:1.5px;background:currentColor}
+.doc-nav-toggle .label{flex:1;font-weight:500;letter-spacing:.02em}
+.doc-nav-toggle .chev{transition:transform .2s}
+.doc-nav.open .doc-nav-toggle .chev{transform:rotate(180deg)}
+@media (max-width: 720px){
+  .doc-nav-toggle{display:flex}
+  .doc-nav-inner{display:none;grid-template-columns:1fr}
+  .doc-nav.open .doc-nav-inner{display:grid}
+  .doc-nav a{padding:14px 22px;border-right:none;border-bottom:1px solid var(--sand)}
+  .doc-nav .doc-name{font-size:15px}
+  .doc-nav .doc-desc{display:block;font-size:11px;margin-top:2px}
+  .doc-nav .doc-label{font-size:9px}
+}
 
 /* indicative-only controls */
 .indicative{opacity:.55;cursor:not-allowed !important;pointer-events:none}
@@ -698,8 +730,13 @@ a{color:inherit;text-decoration:none}
 
 <div class="top-nav-wrap">
 <div class="top-band"></div>
-<nav class="doc-nav">
-  <div class="doc-nav-inner">
+<nav class="doc-nav" id="doc-nav">
+  <button class="doc-nav-toggle" type="button" aria-expanded="false" aria-controls="doc-nav-inner" onclick="var n=this.closest('.doc-nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">
+    <span class="ham"><i></i><i></i><i></i></span>
+    <span class="label">Pages</span>
+    <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+  </button>
+  <div class="doc-nav-inner" id="doc-nav-inner">
     <a href="compass-os-proposal.html">
       <span class="doc-label">01 · Proposal</span>
       <span class="doc-name">Why this works</span>
@@ -745,7 +782,14 @@ a{color:inherit;text-decoration:none}
   </defs>
 </svg>
 
-<div class="app">
+<div class="mobile-notice">
+  <div>
+    <b>Best on desktop</b>
+    A walk-through of the Compass OS interface. Open this page on a laptop for the full experience. On mobile you can still scroll across to peek at the layout.
+  </div>
+</div>
+
+<div class="app-scroll"><div class="app">
 
   <aside class="sidebar">
     <div class="brand">
@@ -1018,6 +1062,7 @@ a{color:inherit;text-decoration:none}
 
   </main>
 </div>
+</div><!-- /.app-scroll -->
 
 <!-- ===== AGENT CHAT MODAL ===== -->
 <div class="modal-scrim" id="agent-chat-scrim" aria-hidden="true">

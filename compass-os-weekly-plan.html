@@ -81,6 +81,12 @@
     color: var(--stone); line-height: 1.4; display: block;
   }
   .doc-nav a.current .doc-desc { color: var(--ink-soft); }
+  .doc-nav-toggle { display: none; align-items: center; gap: 12px; width: 100%; padding: 14px 22px; background: var(--white); border: none; border-bottom: 1px solid var(--sand); font-family: 'Aeonik', sans-serif; font-size: 11pt; color: var(--hills); cursor: pointer; text-align: left; }
+  .doc-nav-toggle .ham { display: inline-flex; flex-direction: column; gap: 3px; }
+  .doc-nav-toggle .ham i { display: block; width: 16px; height: 1.5px; background: currentColor; }
+  .doc-nav-toggle .label { flex: 1; font-weight: 500; letter-spacing: 0.02em; }
+  .doc-nav-toggle .chev { transition: transform 0.2s; }
+  .doc-nav.open .doc-nav-toggle .chev { transform: rotate(180deg); }
 
   /* SECTION-BASED LAYOUT — full-bleed backgrounds, content constrained */
   .container { max-width: 880px; margin: 0 auto; padding: 0 56px; }
@@ -342,6 +348,26 @@
 
   /* PRINT */
   @page { size: A4; margin: 18mm 16mm; }
+  @media (max-width: 720px) {
+    .container { padding: 0 22px; }
+    .doc-nav-toggle { display: flex; }
+    .doc-nav-inner { display: none; grid-template-columns: 1fr !important; }
+    .doc-nav.open .doc-nav-inner { display: grid; }
+    .doc-nav a { padding: 14px 22px; border-right: none !important; border-bottom: 1px solid var(--sand); }
+    .doc-nav .doc-name { font-size: 13pt; }
+    .doc-nav .doc-desc { display: block; font-size: 9pt; margin-top: 2px; }
+    .doc-nav .doc-label { font-size: 7pt; }
+    .page-hero { padding: 40px 0 12px; }
+    h1 { font-size: 28pt; line-height: 1.1; }
+    h2 { font-size: 18pt; }
+    h2 .num { font-size: 7.5pt; }
+    h3 { font-size: 13pt; }
+    .lead { font-size: 14pt; }
+    section.seq { padding: 40px 0; }
+    .header-block { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .outcome-grid, .roi-grid, .invest-grid, .surface-grid { grid-template-columns: 1fr !important; }
+    table { font-size: 9pt; display: block; overflow-x: auto; }
+  }
   @media print {
     .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
     body { font-size: 9.5pt; }
@@ -358,8 +384,13 @@
 
 <div class="top-nav-wrap">
 <div class="top-band"></div>
-<nav class="doc-nav">
-  <div class="doc-nav-inner">
+<nav class="doc-nav" id="doc-nav">
+  <button class="doc-nav-toggle" type="button" aria-expanded="false" aria-controls="doc-nav-inner" onclick="var n=this.closest('.doc-nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">
+    <span class="ham"><i></i><i></i><i></i></span>
+    <span class="label">Pages</span>
+    <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+  </button>
+  <div class="doc-nav-inner" id="doc-nav-inner">
     <a href="compass-os-proposal.html">
       <span class="doc-label">01 · Proposal</span>
       <span class="doc-name">Why this works</span>
