@@ -378,6 +378,92 @@
     .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid, .roi-grid, .own-grid { page-break-inside: avoid; }
     a { color: inherit; text-decoration: none; }
   }
+
+  /* ============================================================
+     TYPOGRAPHY POLISH — editorial weight + contrast pass
+     ============================================================ */
+  section.seq.bg-dark,
+  section.seq.bg-dark p,
+  section.seq.bg-dark td,
+  section.seq.bg-dark th,
+  section.seq.bg-dark strong,
+  section.seq.bg-dark em,
+  section.seq.bg-dark .num,
+  section.seq.bg-dark .invest-note,
+  section.seq.bg-dark .terms { color: var(--white); }
+  section.seq.bg-dark td.title,
+  section.seq.bg-dark th { color: var(--sand); }
+  section.seq.bg-dark td.muted { color: rgba(255,255,255,0.55); font-style: italic; }
+  section.seq.bg-dark table { border-color: rgba(255,255,255,0.18); }
+  section.seq.bg-dark table tr td { border-color: rgba(255,255,255,0.14); }
+
+  h1 { font-weight: 400; letter-spacing: -0.015em; }
+  h2 { font-weight: 500; }
+  h3 { font-weight: 500; font-size: 15pt; letter-spacing: -0.005em; }
+
+  .month-card .month-body h3,
+  .stream .name { font-size: 18pt; font-weight: 500; letter-spacing: -0.01em; }
+  .outcome .name,
+  .surface .name,
+  .risk .name,
+  .milestone-block .head .name,
+  .own-item .name,
+  .roi-item .name,
+  .commitment-grid .item .name,
+  .gate .name, .milestone .name { font-size: 16pt; font-weight: 500; letter-spacing: -0.005em; }
+  .stream-mini .name,
+  .role .name { font-size: 13pt; font-weight: 500; }
+
+  h4,
+  .invoice .label,
+  .invoice .terms,
+  .outcome .num,
+  .surface .num,
+  .risk .label,
+  .month-card .month-body .label,
+  .month-side .checkpoint-label,
+  .stage-banner .label,
+  .milestone-block .head .label,
+  .milestone-block .price .terms,
+  .meta-row .item .label,
+  .stream-mini .label,
+  .stream .label,
+  .open-question .label,
+  .gate .label,
+  .milestone .label,
+  .flow-table .phase-num,
+  .roi-item .label,
+  .own-item .label,
+  .commitment-grid .item .label,
+  th { font-size: 8pt; font-weight: 500; letter-spacing: 0.20em; }
+  .pill { font-size: 8pt; font-weight: 500; letter-spacing: 0.18em; }
+
+  .invest-stat .num,
+  .invoice .num,
+  .total-band .num,
+  .milestone-block .price .num,
+  .month-card .month-num,
+  .roi-item .num,
+  .header-block .num,
+  h2 .num { font-weight: 400; }
+
+  .invest-stat p,
+  .invest-note,
+  .surface p,
+  .stream-mini,
+  .stream .note,
+  .role .desc,
+  .roi-item p,
+  .milestone-block .head .when,
+  .commitment-grid .item .desc { font-size: 10pt; line-height: 1.55; }
+  .page-footer .container { font-size: 9pt; }
+
+  section.seq.bg-dark td.title { font-size: 9.5pt; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+  section.seq.bg-dark td strong { font-weight: 500; }
+
+  @media (max-width: 768px) {
+    h3 { font-size: 14pt; }
+  }
 </style>
 </head>
 <body>
