@@ -526,6 +526,31 @@ a{color:inherit;text-decoration:none}
 }
 .modal-scrim.open .chat{transform:none;opacity:1}
 
+.bruce-fab{
+  position:fixed;right:24px;bottom:24px;z-index:40;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 18px 10px 10px;
+  background:var(--hills);color:#fff;
+  border:1px solid rgba(255,255,255,.08);border-radius:999px;
+  box-shadow:0 14px 36px -14px rgba(31,52,41,.45), 0 2px 6px rgba(31,52,41,.18);
+  font-family:'Aeonik',var(--sans);font-size:13.5px;font-weight:500;letter-spacing:.01em;
+  cursor:pointer;
+  transition:transform var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+}
+.bruce-fab:hover{transform:translateY(-2px);box-shadow:0 18px 44px -14px rgba(31,52,41,.55), 0 2px 6px rgba(31,52,41,.22)}
+.bruce-fab .fab-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(123,174,158,.22);color:var(--sea);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-size:17px;font-weight:400;
+  border:1px solid rgba(123,174,158,.35);
+}
+.bruce-fab .fab-label{padding-right:4px}
+.bruce-fab .fab-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--sea);
+  box-shadow:0 0 0 3px rgba(123,174,158,.18);
+}
+
 .chat-head{padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
 .chat-icon{width:38px;height:38px;border-radius:2px;background:var(--hills);color:var(--sea);display:grid;place-items:center;flex-shrink:0;font-family:var(--serif);font-size:20px;font-weight:400}
 .chat-title{font-family:var(--serif);font-size:22px;color:var(--hills);font-weight:400;letter-spacing:-.01em;line-height:1.1}
@@ -688,7 +713,10 @@ a{color:inherit;text-decoration:none}
   /* Main column */
   .main{overflow:visible}
   .topbar{padding:12px 18px;gap:12px}
-  .topbar .search{display:none}
+  .topbar .search,.topbar .btn{display:none}
+  .bruce-fab{right:14px;bottom:14px;padding:8px 14px 8px 8px}
+  .bruce-fab .fab-avatar{width:26px;height:26px;font-size:15px}
+  .bruce-fab .fab-label{font-size:12.5px}
   .crumb{font-size:15px}
   .crumb .sep{margin:0 6px}
 
@@ -1120,6 +1148,12 @@ a{color:inherit;text-decoration:none}
 </div><!-- /.app-scroll -->
 
 <!-- ===== AGENT CHAT MODAL ===== -->
+<button class="bruce-fab" id="bruce-fab" type="button" aria-label="Ask Bruce" onclick="openBruceChat()">
+  <span class="fab-avatar">B</span>
+  <span class="fab-label">Ask Bruce</span>
+  <span class="fab-dot" aria-hidden="true"></span>
+</button>
+
 <div class="modal-scrim" id="agent-chat-scrim" aria-hidden="true">
   <div class="chat" role="dialog" aria-modal="true" aria-labelledby="chat-title">
     <div class="chat-head">
@@ -1586,6 +1620,19 @@ const io = new IntersectionObserver((entries) => {
 
 /* ===== AGENT CHAT ===== */
 const agentScripts = {
+  "Bruce": {
+    intro: c => `Morning. ${c ? `You're on ${c.name}. ` : ""}I can pull up a brief, write a proposal, log a property, or chase a quiet thread. Tell me what you need and I'll line up the right agent.`,
+    suggested: ["Where am I behind today?", "Draft a proposal for this client", "Log a new property from a link", "Who needs a nudge this week?"],
+    reply: c => ({
+      text: `On it. I've handed this to the right agents and I'll surface anything Chris needs to sign off. You'll see the result on the client card in a moment.`,
+      card: {
+        label: "BRUCE · ORCHESTRATING",
+        title: c ? `Working on ${c.name}` : "Working across the book",
+        body: `<p><b>Active</b> · Brief Extractor, Proposal Writer, Reminders Engine.</p><p><b>Next check-in</b> · I'll WhatsApp Chris when there's something to look at.</p>`,
+        foot: "Stay in WhatsApp · See in OS"
+      }
+    })
+  },
   "Brief Extractor": {
     intro: c => `I've got the WhatsApp thread and the discovery call from ${c ? c.name : "this client"}. Want me to stitch them into a brief Chris can sign off in thirty seconds, or pull a specific angle first?`,
     suggested: ["Stitch the brief", "What did they say about budget?", "Flag anything inconsistent"],
@@ -1711,6 +1758,10 @@ function openAgentChat(agent){
 
   document.getElementById("agent-chat-scrim").classList.add("open");
   setTimeout(() => document.getElementById("chat-input-field").focus(), 240);
+}
+
+function openBruceChat(){
+  openAgentChat({n:"Bruce", icon:"i-msg"});
 }
 
 function closeAgentChat(){
