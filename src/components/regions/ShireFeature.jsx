@@ -21,6 +21,7 @@ export default function ShireFeature({
   image,
   imageAlt,
   suburbs = [],
+  surroundingAreas = [],
   imageLeft = false,
   bg = "bg-white",
 }) {
@@ -192,6 +193,32 @@ export default function ShireFeature({
                 );
               })}
             </div>
+
+            {surroundingAreas.length > 0 && (
+              <div
+                style={{
+                  marginTop: "clamp(1.25rem, 2.5vw, 1.75rem)",
+                  paddingTop: "clamp(1rem, 2vw, 1.25rem)",
+                  borderTop: "1px solid var(--bright-grey)",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontWeight: "var(--font-body-light)",
+                    fontSize: "0.8125rem",
+                    lineHeight: 1.65,
+                    color: "var(--stone)",
+                    margin: 0,
+                  }}
+                >
+                  <span style={{ fontWeight: "var(--font-body-medium)", color: "var(--ink)" }}>
+                    And surrounding areas:
+                  </span>{" "}
+                  {surroundingAreas.join(", ")}.
+                </p>
+              </div>
+            )}
           </ScrollReveal>
         </div>
       </div>

@@ -11,6 +11,7 @@ import HomeFAQ from "../components/home/HomeFAQ";
 import TestimonialSection from "../components/shared/TestimonialSection";
 import ImageBand from "../components/shared/ImageBand";
 import SEOHead from "../components/shared/SEOHead";
+import WhoWeHelpGrid from "../components/shared/WhoWeHelpGrid";
 import { createPageUrl } from "@/utils";
 
 export default function Home() {
@@ -22,6 +23,8 @@ export default function Home() {
         canonicalPath="/"
       />
       <HomeHero backgroundVideoUrl="/videos/compass-hero.mp4" />
+
+      <WhoWeHelpGrid />
 
       <TrustBar />
 

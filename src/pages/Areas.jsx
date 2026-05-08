@@ -19,28 +19,59 @@ const fallbackShires = [
       "Our number one focus. Kingscliff to Pottsville along the coast, through Banora Point, Terranora and Bilambil in the hinterland, then inland to Murwillumbah and the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
     suburbs: [
       { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
-      { name: "Cabarita Beach", isLive: false },
       { name: "Casuarina", isLive: false },
+      { name: "Cabarita Beach", isLive: false },
       { name: "Pottsville", isLive: false },
+      { name: "Hastings Point", isLive: false },
       { name: "Tweed Heads", isLive: false },
       { name: "Banora Point", isLive: false },
       { name: "Terranora", isLive: false },
-      { name: "Bilambil", isLive: false },
+      { name: "Bilambil Heights", isLive: false },
       { name: "Murwillumbah", isLive: false },
+      { name: "Fingal Head", isLive: false },
+      { name: "Chinderah", isLive: false },
+      { name: "Cudgen", isLive: false },
+      { name: "Tumbulgum", isLive: false },
+      { name: "Duranbah", isLive: false },
+    ],
+    surroundingAreas: [
+      "Bungalora",
+      "Tweed Heads South",
+      "Tweed Heads West",
+      "Mooball",
+      "Wooyung",
+      "Cudgera Creek",
+      "Reserve Creek",
+      "Clothiers Creek",
+      "Farrants Hill",
     ],
   },
   {
     title: "Gold Coast",
     image: "/images/areas/gold-coast.jpg",
     description:
-      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
+      "Coolangatta to Broadbeach, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
     suburbs: [
-      { name: "Currumbin", isLive: false },
+      { name: "Coolangatta", isLive: false },
+      { name: "Kirra", isLive: false },
+      { name: "Rainbow Bay", isLive: false },
+      { name: "Bilinga", isLive: false },
+      { name: "Tugun", isLive: false },
       { name: "Palm Beach", isLive: false },
-      { name: "Tallebudgera", isLive: false },
       { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
-      { name: "Miami", isLive: false },
+      { name: "Burleigh Waters", isLive: false },
       { name: "Mermaid Beach", isLive: false },
+      { name: "Mermaid Waters", isLive: false },
+      { name: "Broadbeach", isLive: false },
+      { name: "Broadbeach Waters", isLive: false },
+      { name: "Robina", isLive: false },
+      { name: "Varsity Lakes", isLive: false },
+      { name: "Elanora", isLive: false },
+    ],
+    surroundingAreas: [
+      "Bonogin",
+      "Tallebudgera Valley",
+      "Currumbin Valley",
     ],
   },
   {
@@ -50,11 +81,24 @@ const fallbackShires = [
       "Byron Bay medians sit above $2.4M and 40% of stock moves off-market. Bangalow, Suffolk Park and the hinterland each have distinct pricing and character. We know which streets hold value and which carry risk.",
     suburbs: [
       { name: "Byron Bay", isLive: true, slug: "byron-bay-suburb-report-q1-2026" },
+      { name: "Suffolk Park", isLive: false },
       { name: "Bangalow", isLive: false },
       { name: "Brunswick Heads", isLive: true, slug: "brunswick-heads-profile" },
       { name: "Mullumbimby", isLive: false },
-      { name: "Suffolk Park", isLive: false },
       { name: "Ocean Shores", isLive: false },
+      { name: "Belongil Beach", isLive: false },
+      { name: "Wategos Beach", isLive: false },
+      { name: "Broken Head", isLive: false },
+      { name: "Ewingsdale", isLive: false },
+      { name: "Newrybar", isLive: false },
+      { name: "Coorabell", isLive: false },
+      { name: "Coopers Shoot", isLive: false },
+      { name: "Tyagarah", isLive: false },
+      { name: "New Brighton", isLive: false },
+    ],
+    surroundingAreas: [
+      "South Golden Beach",
+      "Main Arm",
     ],
   },
   {
@@ -65,10 +109,19 @@ const fallbackShires = [
     suburbs: [
       { name: "Ballina", isLive: false },
       { name: "Lennox Head", isLive: false },
+      { name: "East Ballina", isLive: false },
+      { name: "Skennars Head", isLive: false },
+      { name: "Cumbalum", isLive: false },
       { name: "Alstonville", isLive: false },
       { name: "Wollongbar", isLive: false },
-      { name: "Cumbalum", isLive: false },
-      { name: "Skennars Head", isLive: false },
+      { name: "Tintenbar", isLive: false },
+      { name: "Newrybar", isLive: false },
+      { name: "Wardell", isLive: false },
+    ],
+    surroundingAreas: [
+      "Alstonvale",
+      "Evans Head",
+      "Yamba",
     ],
   },
 ];
@@ -146,6 +199,7 @@ export default function Areas() {
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}
+          surroundingAreas={shire.surroundingAreas}
           imageLeft={shireLayout[i]?.imageLeft ?? false}
           bg={shireLayout[i]?.bg ?? "bg-white"}
           index={i}
@@ -172,6 +226,7 @@ export default function Areas() {
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}
+          surroundingAreas={shire.surroundingAreas}
           imageLeft={shireLayout[i + 2]?.imageLeft ?? false}
           bg={shireLayout[i + 2]?.bg ?? "bg-white"}
           index={i + 2}
