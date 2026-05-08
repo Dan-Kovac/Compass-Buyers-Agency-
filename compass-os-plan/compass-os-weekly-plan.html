@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Compass OS · 16-Week Delivery Plan</title>
+<title>Compass OS · Delivery Plan</title>
 <style>
   @font-face {
     font-family: 'MinervaModern';
@@ -533,17 +533,39 @@
     }
     a { color: inherit; text-decoration: none; }
   }
+
+  .top-band { height: 8px; background: var(--hills); width: 100%; }
+  .doc-nav { background: var(--white); border-bottom: 1px solid var(--sand); padding: 14px 56px; }
+  .doc-nav-inner { max-width: 880px; margin: 0 auto; display: flex; gap: 20px; font-size: 8.5pt; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+  .doc-nav a { color: var(--stone); text-decoration: none; padding: 4px 0; }
+  .doc-nav a.current { color: var(--hills); border-bottom: 2px solid var(--hills); padding-bottom: 8px; margin-bottom: -8px; }
+  .doc-nav a:hover { color: var(--hills); }
+  .doc-nav .sep { color: var(--stone-light); }
+
+  @media print { .top-band, .doc-nav { display: none; } }
+
 </style>
 </head>
 <body>
+
+<div class="top-band"></div>
+<nav class="doc-nav">
+  <div class="doc-nav-inner">
+    <a href="compass-os-proposal.html">Proposal</a>
+    <span class="sep">·</span>
+    <a href="compass-os-sow.html">Statement of Work</a>
+    <span class="sep">·</span>
+    <a href="compass-os-weekly-plan.html" class="current">Delivery Plan</a>
+  </div>
+</nav>
 <div class="page">
 
 <h1>Compass OS · Delivery Plan</h1>
 <p class="lead">Week-by-week breakdown of the Stage 1 Statement of Work.</p>
-<p class="meta">Compass Buyers Agency · 4 months · $50,000 + GST · Three streams: Web app · Bruce on WhatsApp · Agent space · Prepared by Dan for Nick and Chris</p>
+<p class="meta">Compass Buyers Agency · 4 months · $50,000 + GST · Three streams · Four monthly milestones · Prepared by Dan for Nick and Chris</p>
 
 <div class="companion-link">
-  <strong>Read this after the SOW.</strong> The <a href="compass-os-sow.html">Statement of Work</a> is the strategic view: architecture, milestones, deliverables, payment, risks. This plan is the tactical view: every week, every ticket, every acceptance test. The SOW holds anything strategic. This plan holds the build itself.
+  <strong>Three documents work together.</strong> The <a href="compass-os-proposal.html">Proposal</a> covers vision and value. The <a href="compass-os-sow.html">Statement of Work</a> is the contractual detail. This <strong>Delivery Plan</strong> is the week-by-week build. Read in that order.
 </div>
 
 <div class="card sand">
@@ -570,7 +592,7 @@
 </div>
 
 <h2>Compass's time at a glance</h2>
-<p>About 15 hours total, across four months. A 30-minute Monday catch-up plus a 5-minute Friday Loom each week. Email when something needs deciding. Compass watches the build, doesn't sit in it.</p>
+<p>About 15 hours total, across four months. A 30-minute Monday catch-up plus a 5-minute Friday Loom each week. One demo per month. Email when something needs deciding. Compass watches the build, doesn't sit in it.</p>
 <table class="summary-table">
   <thead><tr><th>Week</th><th>What Compass does</th><th>Active time</th></tr></thead>
   <tbody>
@@ -578,19 +600,19 @@
     <tr><td><strong>1</strong></td><td>Monday catch-up. Friday Loom.</td><td>~35 min</td></tr>
     <tr><td><strong>2</strong></td><td>Monday catch-up. Friday Loom.</td><td>~35 min</td></tr>
     <tr><td><strong>3</strong></td><td>Monday catch-up. Friday Loom.</td><td>~35 min</td></tr>
-    <tr><td><strong>4</strong></td><td>Monday catch-up. Friday Loom. <strong>M1 demo (30 min, recorded)</strong>.</td><td>~1 hr</td></tr>
+    <tr><td><strong>4</strong></td><td>Monday catch-up. Friday Loom. <strong>M1 demo (30 min, recorded). Compliance and Foundation.</strong></td><td>~1 hr</td></tr>
     <tr><td><strong>5-7</strong></td><td>Monday catch-up. Friday Loom each week.</td><td>~35 min × 3</td></tr>
-    <tr><td><strong>8</strong></td><td>Monday catch-up. Friday Loom. Mid-stage check-in (informal).</td><td>~45 min</td></tr>
-    <tr><td><strong>9-11</strong></td><td>Monday catch-up. Friday Loom each week. One real Compass client travels the full flow during this window (using your normal client work, no extra time).</td><td>~35 min × 3</td></tr>
-    <tr><td><strong>12</strong></td><td>Monday catch-up. Friday Loom. <strong>M2 demo (30 min, recorded)</strong>.</td><td>~1 hr</td></tr>
+    <tr><td><strong>8</strong></td><td>Monday catch-up. Friday Loom. <strong>M2 demo (30 min, recorded). The Sales Engine.</strong></td><td>~1 hr</td></tr>
+    <tr><td><strong>9-11</strong></td><td>Monday catch-up. Friday Loom each week. Property links shared in DMs as they come up (your normal work, no extra time).</td><td>~35 min × 3</td></tr>
+    <tr><td><strong>12</strong></td><td>Monday catch-up. Friday Loom. <strong>M3 demo (30 min, recorded). Property Log + The Close.</strong></td><td>~1 hr</td></tr>
     <tr><td><strong>13-15</strong></td><td>Monday catch-up. Friday Loom each week.</td><td>~35 min × 3</td></tr>
-    <tr><td><strong>16</strong></td><td>Monday catch-up. <strong>UAT across the team (~3 hrs distributed)</strong>. <strong>M3 demo + handover walkthrough (30 min, recorded)</strong>.</td><td>~4 hrs</td></tr>
+    <tr><td><strong>16</strong></td><td>Monday catch-up. <strong>UAT across the team (~3 hrs distributed)</strong>. <strong>M4 demo + handover walkthrough (30 min, recorded). Growth Engine + Handover.</strong></td><td>~4 hrs</td></tr>
   </tbody>
 </table>
-<p><strong>Total across the four months:</strong> about 15 hours. Same number the SOW commits to.</p>
+<p><strong>Total across four months:</strong> about 15 hours. Four monthly demos. Same number the SOW commits to.</p>
 
 <div class="card">
-  <strong>How to read the weekly tables.</strong> Every row is one ticket. Each carries a stream, a role, an effort (S = under half a day, M = half to two days, L = two to five days), and an acceptance test. The yellow box at the top of each week lists what we need from Compass.
+  <strong>How to read the weekly tables.</strong> Every row is one ticket. Each carries a stream, a role, an effort (S = under half a day, M = half to two days, L = two to five days), and an acceptance test. The yellow box at the top of each week lists what we need from Compass. The plan is grouped into four monthly stages, each closing with a milestone demo and acceptance gate.
 </div>
 
 <!-- WEEK 0 -->
@@ -649,10 +671,10 @@
 
 <!-- STAGE 1 / M1 -->
 <div class="stage-banner">
-  <div class="label">Stage 1 / Milestone 1 · Weeks 1-4 · $19,500 + GST on acceptance</div>
-  <div class="title">Foundation in parallel. First proposal in WhatsApp.</div>
+  <div class="label">Month 1 · Milestone 1 · Weeks 1-4</div>
+  <div class="title">Compliance and Foundation</div>
 </div>
-<p>Three streams stand up in parallel. By the end of week 4, the demo is this: an agent DMs Bruce a client name and a brief. Bruce creates the client, the Brief Extractor structures the brief, the Proposal Writer drafts the proposal, and the live link lands in the agent's inbox. The client shows up in the pipeline.</p>
+<p>Sleep at night. Every past client, audit-ready. By the end of week 4, the OS is live, every past client has a folder, Bruce is in team WhatsApp DMs capturing today's work, and the first Claude skills are in the team's hands. The dashboard shows real numbers from week one. Compass becomes audit-defensible the day this ships.</p>
 
 <h3>Week 1: Provisioning and scaffolding</h3>
 <div class="card nick">
@@ -736,15 +758,15 @@
 
 <div class="milestone">
   <span class="label">M1 acceptance gate</span>
-  An agent DMs Bruce a client name + brief. Bruce creates the client, Brief Extractor structures it, Proposal Writer drafts the HTML, the agent gets a live link emailed. Web app shows the new client in the pipeline. Compass signs off in writing.
+  Every past client has a folder. Records produce in under a minute. Bruce captures today's work. The dashboard shows it happening. The first skills (proposal drafter, brief extractor, listing capture, SEO audit) are in the team's hands. Compass signs off in writing.
 </div>
 
 <!-- STAGE 2 / M2 -->
 <div class="stage-banner">
-  <div class="label">Stage 2 / Milestone 2 · Weeks 5-12 · $19,500 + GST on acceptance</div>
-  <div class="title">Convergence. The full sales flow, end to end.</div>
+  <div class="label">Month 2 · Milestone 2 · Weeks 5-8</div>
+  <div class="title">The Sales Engine</div>
 </div>
-<p>The heaviest stage. Eight weeks. The three streams wire together. The property log gets real. The CAF closes the loop. The historical archive comes in. By the end of week 12, one real Compass client has travelled the full flow without anyone stitching it together by hand.</p>
+<p>Discovery to live proposal. Hours, not days. By the end of week 8, a real Compass client receives a real proposal generated by Bruce, the team iterates it through chat, and it goes out the same day. Match-making, compliance summary, and newsletter drafter skills join the team's stack.</p>
 
 <h3>Week 5: Full pipeline view + voice transcription</h3>
 <div class="card nick">
@@ -789,24 +811,37 @@
   </tbody>
 </table>
 
-<h3>Week 8: Property Matcher + mid-stage check-in</h3>
+<h3>Week 8: M2 demo. Real client through the sales engine.</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact">
     <li>30-min Monday catch-up. 5-min Friday Loom.</li>
-    <li>Mid-stage check-in (15 min, informal). Half-way through M2.</li>
+    <li><strong>M2 demo (30 min, recorded).</strong> A real client receives a Bruce-drafted proposal, iterated in chat, sent same day.</li>
+    <li>M2 sign-off in writing.</li>
   </ul>
 </div>
 <table>
   <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
   <tbody>
-    <tr><td class="title">Compliance export per client (one click)</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>Per client, one click produces a single PDF or zip of every artefact, ordered by date, with audit metadata.</td></tr>
-    <tr><td class="title">Property links parsed when dropped in DM</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">S</td><td>Drop a realestate/domain link in DM, Property Parser kicks in, property appears in log within seconds.</td></tr>
-    <tr><td class="title">Property Matcher sub-agent live (rule-based)</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>New brief scans the log for matches. New property scans open briefs. Rule-based: suburb, type, beds, price band. Bruce surfaces matches in DM.</td></tr>
+    <tr><td class="title">Real-client end-to-end (sales engine)</td><td><span class="pill stream-All">All</span></td><td>Tester</td><td class="effort">M</td><td>One real Compass client travels: brief in DM, Bruce drafts proposal, agent iterates by chat, live-link out, version log captured.</td></tr>
+    <tr><td class="title">Sales velocity dashboard polish</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">S</td><td>Dashboard v1 final pass. Turnaround time, out vs signed, versions per deal visible.</td></tr>
+    <tr><td class="title">M2 demo run-through</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Demo script. Real-client walkthrough rehearsed. Recording saved to Notion.</td></tr>
   </tbody>
 </table>
 
-<h3>Week 9: Embedded agent panel + DocuSign integration starts</h3>
+<div class="milestone">
+  <span class="label">M2 acceptance gate</span>
+  A real Compass client receives a real proposal generated by Bruce. The team iterates it through chat. It goes out the same day. Sales velocity is visible on the dashboard. Compass signs off in writing.
+</div>
+
+<!-- STAGE 3 / M3 -->
+<div class="stage-banner">
+  <div class="label">Month 3 · Milestone 3 · Weeks 9-12</div>
+  <div class="title">The Property Log + The Close</div>
+</div>
+<p>The moat starts compounding. Off-market properties surface to the right clients in minutes. Discovery to engaged is one automated flow. By the end of week 12, a property entered the log this morning pings a client by lunch, and a new client has gone from proposal to signed CAF to engaged without a manual handoff.</p>
+
+<h3>Week 9: Property log browser + Property Parser live</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact">
@@ -852,13 +887,13 @@
   </tbody>
 </table>
 
-<h3>Week 12: One real client through the full flow + M2 demo</h3>
+<h3>Week 12: M3 demo. Property + close end-to-end.</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact">
     <li>30-min Monday catch-up. 5-min Friday Loom.</li>
-    <li><strong>M2 demo (30 min, recorded).</strong> Either Nick or Chris attends. The real client travels the full flow on screen.</li>
-    <li>M2 sign-off in writing. Triggers Invoice 2.</li>
+    <li><strong>M3 demo (30 min, recorded).</strong> Either Nick or Chris attends. A property logged this morning pings a client by lunch. A new client goes proposal to signed CAF to engaged.</li>
+    <li>M3 sign-off in writing.</li>
   </ul>
 </div>
 <table>
@@ -871,18 +906,18 @@
 </table>
 
 <div class="milestone">
-  <span class="label">M2 acceptance gate</span>
-  One real Compass client travels the full flow. Discovery captured, brief structured, proposal drafted and sent, CAF auto-populated and signed via DocuSign, client engaged, property log surfaces matches, agent drops a link with photos, everything files cleanly. Historical archive searchable across every prior client. Compass signs off in writing.
+  <span class="label">M3 acceptance gate</span>
+  A property entered the log this morning pings a client by lunch. A new client goes from proposal to signed CAF to engaged without a manual handoff. Property log surfaces matches in real time. Historical archive searchable across every prior client. Compass signs off in writing.
 </div>
 
-<!-- STAGE 3 / M3 -->
+<!-- STAGE 4 / M4 -->
 <div class="stage-banner">
-  <div class="label">Stage 3 / Milestone 3 · Weeks 13-16 · $11,000 + GST on acceptance</div>
-  <div class="title">Reminders, dashboards, polish, handover.</div>
+  <div class="label">Month 4 · Milestone 4 · Weeks 13-16</div>
+  <div class="title">Growth Engine + Handover</div>
 </div>
-<p>Polish, mobile, dashboards, UAT, training, Playbook, handover. By the end of week 16, Compass OS is in daily use across the team. The 30-day support window starts the day Compass signs off.</p>
+<p>Marketing on autopilot. Full BI. Compass owns the lot. SEO, newsletter, and website editor agents come online. Reminders engine wires into Bruce. Dashboards reach v3 with full BI. UAT, training, Playbook, handover. By the end of week 16, Compass OS is in daily use across the team and the 30-day support window starts.</p>
 
-<h3>Week 13: Dashboards + reminders</h3>
+<h3>Week 13: SEO agent + Newsletter agent live</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
@@ -890,13 +925,14 @@
 <table>
   <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
   <tbody>
-    <tr><td class="title">Dashboards v1 with real data</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">L</td><td>Pipeline metrics, conversion velocity, win rate, time-in-phase. Live data from Supabase. Filters by agent and time range.</td></tr>
-    <tr><td class="title">Reminder system: pest + building, settlement -5d, follow-up cadence</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Reminders fire on schedule. Configurable cadence per stage. Bruce sends reminders in DM.</td></tr>
-    <tr><td class="title">Sub-agent prompt cleanup + runbooks</td><td><span class="pill stream-C">C</span></td><td>Delivery Lead</td><td class="effort">M</td><td>Each of the six sub-agents has a clean prompt, a runbook, and a how-to-extend note. Saved to repo.</td></tr>
+    <tr><td class="title">Dashboards v3: full BI</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">L</td><td>Pipeline + funnel, MRR + retention, dormant count, organic traffic, newsletter CTR, suburb report opens. Live data, role-scoped views.</td></tr>
+    <tr><td class="title">Reminders engine wired into Bruce</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Pest + building, settlement -5d, follow-up cadence. Configurable per client. Bruce sends reminders in DM.</td></tr>
+    <tr><td class="title">SEO Agent productised</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Keyword tracking live. On-page audits run automatically. Content briefs generated for the website editor.</td></tr>
+    <tr><td class="title">Newsletter Agent productised</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Drafts the monthly buyer brief from property log + market data. Reviewed by Compass before send.</td></tr>
   </tbody>
 </table>
 
-<h3>Week 14: Mobile pass + monitoring + alerting</h3>
+<h3>Week 14: Website Editor + dormant flags + mobile pass</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
@@ -905,12 +941,14 @@
   <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
   <tbody>
     <tr><td class="title">Mobile-responsive pass</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">L</td><td>Every view walked on mobile. Pipeline, property log, client view, compliance file all work cleanly on iPhone-class devices.</td></tr>
+    <tr><td class="title">Dormant-client flags + re-engagement</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>Clients with no contact in N days are flagged. Bruce surfaces re-engagement triggers to the lead agent.</td></tr>
     <tr><td class="title">Operational monitoring + alerting on Bruce</td><td><span class="pill stream-B">B</span></td><td>DevOps</td><td class="effort">M</td><td>Heartbeat checks. Alerts on session drop, rate-limit, queue lag. Re-pair runbook documented and tested.</td></tr>
+    <tr><td class="title">Website Editor Agent productised</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Drafts blog and area-page content. Pushes drafts into Sanity for Compass review. Topic brief in, draft out.</td></tr>
     <tr><td class="title">Build agents (engineering + frontend) finalised</td><td><span class="pill stream-C">C</span></td><td>Delivery Lead</td><td class="effort">M</td><td>Both build agents handed over with prompts, runbooks, and how-to-extend instructions. Compass can drive them post-handover.</td></tr>
   </tbody>
 </table>
 
-<h3>Week 15: UAT + Playbook</h3>
+<h3>Week 15: UAT + Playbook + sub-agent prompts</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact">
@@ -928,13 +966,13 @@
   </tbody>
 </table>
 
-<h3>Week 16: Polish, training, handover, M3 acceptance</h3>
+<h3>Week 16: Polish, training, handover, M4 acceptance</h3>
 <div class="card nick">
   <strong class="tag">Compass this week</strong>
   <ul class="compact">
     <li>30-min Monday catch-up.</li>
-    <li><strong>M3 demo + handover walkthrough (30 min, recorded).</strong> Either Nick or Chris attends.</li>
-    <li>Final UAT sign-off in writing. Triggers Invoice 3 and starts the 30-day support window.</li>
+    <li><strong>M4 demo + handover walkthrough (30 min, recorded).</strong> Either Nick or Chris attends.</li>
+    <li>Final UAT sign-off in writing. Triggers Invoice 3 (if on the 3-invoice cadence) and starts the 30-day support window.</li>
   </ul>
 </div>
 <table>
@@ -949,20 +987,18 @@
 </table>
 
 <div class="milestone">
-  <span class="label">M3 acceptance gate</span>
-  Compass OS in productive daily use across the team. Dashboards live with real data. Mobile-responsive. Playbook delivered. Both build agents handed over with prompts and runbooks. Repo admin transferred. 30-day support window starts. Compass signs off in writing.
+  <span class="label">M4 acceptance gate</span>
+  Compass OS in productive daily use across the team. Marketing agents live (SEO, newsletter, website editor). Dashboards v3 live with real data. Mobile-responsive. Playbook delivered. Both build agents handed over with prompts and runbooks. Repo admin transferred. 30-day support window starts. Compass signs off in writing.
 </div>
 
 <!-- Pointer back to SOW for strategic content -->
-<h2>What's in the SOW, not here</h2>
-<p>To keep this plan focused on the week-by-week build, four things live only in the <a href="compass-os-sow.html">Statement of Work</a>:</p>
+<h2>What's in the other documents</h2>
+<p>To keep this plan focused on the week-by-week build, the strategic content sits in the other two documents.</p>
 <ul class="compact">
-  <li><strong>What's not in Stage 1.</strong> The Phase 2 and Phase 3 work we've carved out, with reasons.</li>
-  <li><strong>Risks and how we handle them.</strong> The three real risks on this build, named, with the mitigation against each.</li>
-  <li><strong>After handover.</strong> What Compass owns from day 31, the support window, and the quarterly health-checks.</li>
-  <li><strong>How we work together.</strong> Cadence, change control, termination terms.</li>
+  <li><strong><a href="compass-os-proposal.html">Proposal</a>:</strong> vision, four outcomes, Bruce + sub-agents, ROI, investment headline, longer view.</li>
+  <li><strong><a href="compass-os-sow.html">Statement of Work</a>:</strong> architecture, monthly milestones in detail, Skills rollout, payment terms, risks, after handover, running costs, governance.</li>
+  <li><strong>This Delivery Plan:</strong> 16 weeks, ticket by ticket. The build itself.</li>
 </ul>
-<p>Anything strategic sits in the SOW. Anything tactical sits here.</p>
 
 
 <div class="footer">
