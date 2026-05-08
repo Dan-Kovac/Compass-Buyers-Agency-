@@ -534,30 +534,138 @@
     a { color: inherit; text-decoration: none; }
   }
 
-  .top-band { height: 8px; background: var(--hills); width: 100%; }
-  .doc-nav { background: var(--white); border-bottom: 1px solid var(--sand); padding: 14px 56px; }
-  .doc-nav-inner { max-width: 880px; margin: 0 auto; display: flex; gap: 20px; font-size: 8.5pt; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
-  .doc-nav a { color: var(--stone); text-decoration: none; padding: 4px 0; }
-  .doc-nav a.current { color: var(--hills); border-bottom: 2px solid var(--hills); padding-bottom: 8px; margin-bottom: -8px; }
-  .doc-nav a:hover { color: var(--hills); }
-  .doc-nav .sep { color: var(--stone-light); }
 
-  @media print { .top-band, .doc-nav { display: none; } }
+  /* Sticky nav with three-column descriptions */
+  .top-nav-wrap {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    box-shadow: 0 1px 0 var(--sand);
+  }
+  .top-band { height: 6px; background: var(--hills); width: 100%; }
+  .doc-nav {
+    background: var(--white);
+    padding: 0;
+    border-bottom: 1px solid var(--sand);
+  }
+  .doc-nav-inner {
+    max-width: 880px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .doc-nav a {
+    display: block;
+    padding: 14px 24px 16px;
+    text-decoration: none;
+    color: var(--stone);
+    border-right: 1px solid var(--sand);
+    border-bottom: 3px solid transparent;
+    transition: background 0.15s ease;
+  }
+  .doc-nav a:last-child { border-right: none; }
+  .doc-nav a:hover { background: var(--sand-light); color: var(--hills); }
+  .doc-nav a.current {
+    background: var(--sand-light);
+    border-bottom-color: var(--hills);
+    color: var(--hills);
+  }
+  .doc-nav .doc-label {
+    font-family: 'Aeonik', sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--stone);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .doc-nav a.current .doc-label { color: var(--hills); }
+  .doc-nav .doc-name {
+    font-family: 'MinervaModern', serif;
+    font-size: 14pt;
+    color: var(--hills);
+    line-height: 1.15;
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+  }
+  .doc-nav .doc-desc {
+    font-family: 'Aeonik', sans-serif;
+    font-size: 8.5pt;
+    color: var(--stone);
+    line-height: 1.4;
+    display: block;
+  }
+  .doc-nav a.current .doc-desc { color: var(--ink-soft); }
+
+  @media print {
+    .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
+  }
+
+  /* Contrast lift across cards and panels */
+  .card { background: var(--sand); }
+  .card.sand { background: var(--sand); }
+
+  /* Stronger heading colour and tighter tracking */
+  h1 { font-weight: 500; letter-spacing: -0.022em; }
+  h2 { font-weight: 600; letter-spacing: -0.02em; }
+  h3 { font-weight: 600; }
+
+  /* Lead paragraph more presence */
+  .lead { font-weight: 500; }
+
+  /* Add visual rhythm: subtle separator above each h2 */
+  h2 {
+    position: relative;
+  }
+  h2::before {
+    content: '';
+    display: block;
+    width: 32px; height: 2px;
+    background: var(--hills);
+    margin-bottom: 18px;
+  }
+
+  /* Outcome name weight up */
+  .outcome .name { font-weight: 600; }
+
+  /* Surface name weight up */
+  .surface .name { font-weight: 600; }
+
+  /* Stream name weight up */
+  .stream .name { font-weight: 600; }
+
+  /* Milestone block name weight up */
+  .milestone-block .head .name { font-weight: 600; }
+
+  /* Footer link weight */
+  .footer a { font-weight: 600; }
 
 </style>
 </head>
 <body>
 
+<div class="top-nav-wrap">
 <div class="top-band"></div>
 <nav class="doc-nav">
   <div class="doc-nav-inner">
-    <a href="compass-os-proposal.html">Proposal</a>
-    <span class="sep">·</span>
-    <a href="compass-os-sow.html">Statement of Work</a>
-    <span class="sep">·</span>
-    <a href="compass-os-weekly-plan.html" class="current">Delivery Plan</a>
+    <a href="compass-os-proposal.html">
+      <span class="doc-label">01 · Proposal</span>
+      <span class="doc-name">Why this works</span>
+      <span class="doc-desc">Vision, value, ROI, investment.</span>
+    </a>
+    <a href="compass-os-sow.html">
+      <span class="doc-label">02 · Statement of Work</span>
+      <span class="doc-name">What we commit to</span>
+      <span class="doc-desc">Architecture, milestones, payment, risks.</span>
+    </a>
+    <a href="compass-os-weekly-plan.html" class="current">
+      <span class="doc-label">03 · Delivery Plan</span>
+      <span class="doc-name">How it gets built</span>
+      <span class="doc-desc">16 weeks, ticket by ticket.</span>
+    </a>
   </div>
 </nav>
+</div>
 <div class="page">
 
 <h1>Compass OS · Delivery Plan</h1>
