@@ -1,0 +1,1760 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Compass OS · Prototype</title>
+<meta name="description" content="Compass OS prototype. Sales journey, agents, dashboard and client database for the Compass Buyers Agency team." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  @font-face { font-family: 'MinervaModern'; src: url('fonts/MinervaModern-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+</style>
+<style>
+:root {
+  /* palette */
+  --hills:#2C4A3E;
+  --hills-2:#1F3429;
+  --ink:#1A1A1A;
+  --bright:#F5F5F5;
+  --sea:#7BAE9E;
+  --sea-2:#5C9684;
+  --sand:#F5E6D3;
+  --sand-2:#EFD9BD;
+  --stone:#8B7E74;
+  --stone-2:#BDB4AC;
+  --white:#FFFFFF;
+  --paper:#FBFAF6;
+  --line:rgba(26,26,26,0.08);
+  --line-soft:rgba(26,26,26,0.05);
+  --line-strong:rgba(26,26,26,0.16);
+
+  /* type */
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  /* motion */
+  --ease:cubic-bezier(0.22,0.61,0.36,1);
+  --dur-slow:900ms;
+  --dur-med:600ms;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{display:flex;flex-direction:column;overflow:hidden}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:14.5px;
+  line-height:1.65;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:.005em;
+}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+a{color:inherit;text-decoration:none}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;color:var(--hills)}
+.eyebrow{
+  font-family:var(--sans);font-size:10.5px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--stone);
+}
+
+/* ─────────  prototype strip  ───────── */
+.proto-strip{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  background:var(--sand);color:var(--hills);
+  font-size:11.5px;letter-spacing:.04em;
+  padding:8px 24px;display:flex;align-items:center;justify-content:center;gap:14px;
+  border-bottom:1px solid rgba(44,74,62,.12);
+}
+.proto-strip .lbl{
+  font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  color:var(--sea-2);
+}
+.proto-strip .lbl::after{content:"";display:inline-block;width:18px;height:1px;background:currentColor;vertical-align:middle;margin-left:10px;opacity:.4}
+.proto-strip em{font-family:var(--serif);font-style:italic;font-weight:400;font-size:13.5px;color:var(--hills);letter-spacing:0}
+
+/* ─────────  SHELL  ───────── */
+.app{display:grid;grid-template-columns:240px 1fr;flex:1;min-height:0;overflow:hidden}
+
+/* sidebar */
+.sidebar{
+  background:var(--hills);color:rgba(245,230,211,0.92);
+  padding:30px 18px 20px;display:flex;flex-direction:column;gap:2px;
+  border-right:1px solid rgba(0,0,0,0.18);
+}
+.brand{display:flex;align-items:baseline;gap:10px;padding:0 6px 28px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:18px}
+.brand-name{font-family:var(--serif);font-size:22px;color:#fff;letter-spacing:-.01em;font-weight:400}
+.brand-sub{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-left:auto;padding-bottom:3px}
+
+.nav-label{
+  font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);padding:18px 8px 8px;font-weight:500;
+}
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  padding:9px 10px;border-radius:2px;
+  color:rgba(255,255,255,0.7);font-size:13.5px;font-weight:400;
+  transition:color .25s var(--ease), background .25s var(--ease);
+  width:100%;text-align:left;
+}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,0.04)}
+.nav-item.active{color:#fff;background:rgba(123,174,158,0.14)}
+.nav-item .ico{width:15px;height:15px;flex-shrink:0;opacity:.7}
+.nav-item.active .ico{opacity:1;color:var(--sea)}
+.nav-item .pill{
+  margin-left:auto;font-size:10.5px;color:rgba(255,255,255,0.55);
+  font-feature-settings:"tnum";letter-spacing:.04em;
+}
+
+.sidebar-foot{margin-top:auto;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06)}
+.bruce-card{display:flex;align-items:center;gap:11px;padding:8px 6px}
+.bruce-avatar{
+  width:32px;height:32px;border-radius:2px;flex-shrink:0;
+  background:rgba(123,174,158,0.18);display:grid;place-items:center;
+  color:var(--sea);font-family:var(--serif);font-size:18px;font-weight:400;
+  border:1px solid rgba(123,174,158,.25);
+}
+.bruce-name{font-size:13.5px;color:#fff;font-weight:500}
+.bruce-status{font-size:11px;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:6px;margin-top:1px}
+.bruce-dot{width:5px;height:5px;border-radius:50%;background:var(--sea)}
+
+/* main */
+.main{overflow:auto;display:flex;flex-direction:column;background:var(--paper)}
+.topbar{
+  display:flex;align-items:center;gap:18px;
+  padding:18px 40px;border-bottom:1px solid var(--line-soft);background:var(--paper);
+  position:sticky;top:0;z-index:10;
+}
+.crumb{font-family:var(--serif);font-size:18px;color:var(--hills);letter-spacing:-.01em}
+.crumb .sep{color:var(--stone-2);margin:0 10px;font-style:italic}
+.search{
+  margin-left:auto;display:flex;align-items:center;gap:9px;
+  border-bottom:1px solid var(--line);padding:6px 4px;width:280px;color:var(--stone);font-size:13px;
+  transition:border-color .25s var(--ease);
+}
+.search:focus-within{border-color:var(--hills)}
+.search input{background:none;border:0;outline:0;font:inherit;color:var(--ink);width:100%}
+.kbd{font-size:10px;color:var(--stone-2);font-family:var(--sans);letter-spacing:.04em}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 16px;border-radius:2px;font-weight:500;font-size:12.5px;
+  letter-spacing:.02em;
+  background:var(--hills);color:#fff;border:1px solid var(--hills);
+  transition:all var(--dur-med) var(--ease);
+}
+.btn:hover{background:var(--hills-2);border-color:var(--hills-2)}
+.btn.ghost{background:transparent;color:var(--hills);border-color:var(--line-strong)}
+.btn.ghost:hover{background:var(--hills);color:#fff;border-color:var(--hills)}
+.btn.quiet{background:transparent;color:var(--hills);border:0;padding:6px 0;border-bottom:1px solid var(--hills);border-radius:0}
+.btn.quiet:hover{color:var(--sea-2);border-color:var(--sea-2)}
+.btn.sm{padding:6px 11px;font-size:11.5px}
+
+.view{padding:38px 40px 100px;max-width:1480px}
+.view h1{
+  font-family:var(--serif);font-weight:400;font-size:54px;letter-spacing:-.02em;
+  margin:6px 0 14px;color:var(--hills);line-height:1.05;
+}
+.view h1 em{font-style:italic;color:var(--hills);font-weight:300}
+.view .lede{font-size:17px;color:var(--ink);margin:0 0 56px;max-width:60ch;line-height:1.55;font-weight:400}
+
+/* editorial intro for sub-sections */
+.section-eyebrow{margin-bottom:14px;display:flex;align-items:baseline;gap:14px}
+.section-eyebrow .num{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--stone)}
+
+/* SALES · pipeline (minimal) */
+.sales-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  margin-bottom:18px;
+}
+.sales-head .eyebrow{display:inline-block}
+.sales-meta-line{
+  margin-left:14px;font-family:var(--serif);font-style:italic;
+  font-size:14.5px;color:var(--stone);letter-spacing:0;
+}
+.sales-foot{margin-top:72px;max-width:780px}
+.pn{display:flex;flex-direction:column;gap:2px;text-align:left}
+.pn .v{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--hills);line-height:1;letter-spacing:-.01em}
+.pn .l{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:6px;font-weight:500}
+
+.pipeline{
+  display:grid;grid-template-columns:repeat(7,minmax(170px,1fr));
+  gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+#view-sales{padding-top:38px}
+.lane{
+  padding:18px 14px 22px;border-right:1px solid var(--line-soft);
+  display:flex;flex-direction:column;gap:8px;min-height:380px;
+}
+.lane:last-child{border-right:0}
+.lane-head{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;padding-bottom:14px;border-bottom:1px solid var(--line-soft)}
+.lane-name{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.lane-count{margin-left:auto;font-size:11px;color:var(--stone);font-family:var(--serif);font-style:italic;font-size:13px}
+
+.card{
+  background:var(--white);border:1px solid var(--line-soft);
+  padding:13px 14px 12px;cursor:pointer;
+  transition:border-color var(--dur-med) var(--ease), transform var(--dur-med) var(--ease);
+  display:flex;flex-direction:column;gap:8px;border-radius:2px;
+  text-align:left;
+}
+.card:hover{border-color:var(--hills);transform:translateY(-1px)}
+.card.active{border-color:var(--sea-2);box-shadow:inset 2px 0 0 var(--sea-2)}
+.card-name{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--hills);line-height:1.2;letter-spacing:-.005em}
+.card-sub{font-size:11.5px;color:var(--stone);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px;padding-top:9px;border-top:1px solid var(--line-soft)}
+.value{font-family:var(--serif);font-size:14px;color:var(--hills);font-weight:500;letter-spacing:-.005em}
+
+.avatars{display:flex}
+.avatar{
+  width:22px;height:22px;border-radius:50%;background:var(--sand);
+  border:1.5px solid var(--paper);display:grid;place-items:center;
+  font-size:9.5px;font-weight:500;color:var(--hills);margin-left:-6px;letter-spacing:.02em;
+}
+.avatar:first-child{margin-left:0}
+.avatar.bruce{background:var(--hills);color:var(--sea);font-family:var(--serif);font-size:12px;border-radius:3px}
+
+.tag{
+  display:inline-flex;align-items:center;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--stone);font-weight:500;
+}
+.tag::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--stone-2);margin-right:6px}
+.tag.warm::before{background:#C9A56B}
+.tag.hot::before{background:#C26A50}
+.tag.cool::before{background:var(--sea)}
+
+.empty-stage{margin:auto;color:var(--stone-2);font-family:var(--serif);font-style:italic;font-size:14px;text-align:center;padding:18px 6px}
+
+/* ─────────  split panels  ───────── */
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:56px}
+@media(max-width:1180px){.split{grid-template-columns:1fr;gap:48px}}
+
+.panel-head-ed{
+  display:flex;align-items:baseline;gap:14px;margin-bottom:24px;
+  padding-bottom:14px;border-bottom:1px solid var(--line);
+}
+.panel-head-ed h3{
+  margin:0;font-family:var(--serif);font-size:24px;font-weight:400;
+  color:var(--hills);letter-spacing:-.01em;
+}
+.panel-head-ed h3 em{font-style:italic;font-weight:300}
+.panel-head-ed .right{margin-left:auto}
+
+/* ─────────  agents  ───────── */
+.agents{display:grid;grid-template-columns:1fr;gap:0}
+.agent{
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;
+  padding:22px 4px;border-bottom:1px solid var(--line-soft);
+  align-items:flex-start;transition:background var(--dur-med) var(--ease);
+}
+.agent:hover{background:rgba(245,230,211,0.18)}
+.agent:last-child{border-bottom:0}
+.agent-icon{
+  width:34px;height:34px;border-radius:2px;
+  background:var(--bright);display:grid;place-items:center;color:var(--hills);
+  border:1px solid var(--line);
+}
+.agent-name{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--hills);line-height:1.2;letter-spacing:-.005em}
+.agent-role{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:5px;font-weight:500}
+.agent-desc{font-size:13.5px;color:var(--ink);margin-top:8px;line-height:1.55;max-width:52ch}
+.agent-meta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:9px;font-weight:500}
+.agent-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px;min-width:96px}
+.agent-status{
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--stone);font-weight:500;display:flex;align-items:center;gap:6px;
+}
+.agent-status::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--stone-2)}
+.agent-status.live{color:var(--sea-2)}
+.agent-status.live::before{background:var(--sea)}
+.agent-status.queued{color:#8C5A22}
+.agent-status.queued::before{background:#C9A56B}
+
+/* timeline */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.event{position:relative;padding-bottom:28px}
+.event:last-child{padding-bottom:0}
+.event::before{
+  content:"";position:absolute;left:-26px;top:7px;width:9px;height:9px;border-radius:50%;
+  background:var(--paper);border:1.5px solid var(--sea);
+}
+.event.bruce::before{border-color:var(--hills);background:var(--hills)}
+.event.team::before{border-color:var(--sand-2);background:var(--sand)}
+.event-head{
+  font-family:var(--serif);font-size:16.5px;font-weight:400;color:var(--hills);
+  letter-spacing:-.005em;line-height:1.3;
+}
+.event-time{
+  display:block;font-family:var(--sans);font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--stone);font-weight:500;margin-top:5px;
+}
+.event-body{font-size:13.5px;color:var(--ink);line-height:1.6;margin-top:8px;max-width:54ch}
+.event-quote{
+  margin-top:12px;padding:14px 18px 14px 20px;background:transparent;
+  border-left:2px solid var(--sand-2);
+  font-family:var(--serif);font-style:italic;font-size:17px;color:var(--hills);
+  line-height:1.4;letter-spacing:-.005em;max-width:48ch;
+}
+
+/* ─────────  KPIs  ───────── */
+.kpis{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  margin-bottom:64px;
+}
+@media(max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{
+  padding:32px 28px 30px;display:flex;flex-direction:column;gap:8px;
+  border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+}
+.kpi:nth-child(4n){border-right:0}
+.kpi:nth-last-child(-n+4){border-bottom:0}
+.kpi-label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.kpi-val{font-family:var(--serif);font-size:44px;font-weight:300;letter-spacing:-.02em;color:var(--hills);line-height:1;margin-top:4px}
+.kpi-val.compact{font-size:30px;font-weight:400}
+.kpi-trend{font-size:12px;color:var(--stone);font-style:italic;font-family:var(--serif);margin-top:6px}
+
+/* dashboard */
+.dash-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:56px}
+@media(max-width:1100px){.dash-grid{grid-template-columns:1fr;gap:40px}}
+.bar-chart{display:flex;align-items:flex-end;gap:18px;height:220px;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.bar-fill{width:100%;background:var(--hills);min-height:3px;transition:background var(--dur-med) var(--ease)}
+.bar:hover .bar-fill{background:var(--sea-2)}
+.bar-lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500;margin-top:4px}
+.bar-val{font-family:var(--serif);font-size:13px;color:var(--hills);font-weight:400}
+
+.stream{display:flex;align-items:baseline;gap:18px;padding:20px 0;border-bottom:1px solid var(--line-soft)}
+.stream:last-child{border-bottom:0}
+.stream-icon{
+  width:32px;height:32px;border-radius:2px;background:var(--bright);
+  display:grid;place-items:center;color:var(--hills);flex-shrink:0;align-self:center;
+}
+.stream-name{font-family:var(--serif);font-size:17px;color:var(--hills);font-weight:400;letter-spacing:-.005em}
+.stream-meta{font-size:11.5px;color:var(--stone);margin-top:3px;line-height:1.4}
+.stream-val{margin-left:auto;font-family:var(--serif);font-size:20px;color:var(--hills);font-weight:400;align-self:center}
+
+/* table */
+.table{width:100%;border-collapse:collapse;font-size:13.5px}
+.table th{
+  text-align:left;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--stone);font-weight:500;padding:14px 18px 14px 0;border-bottom:1px solid var(--line);
+}
+.table th:first-child{padding-left:4px}
+.table td{padding:18px 18px 18px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.table td:first-child{padding-left:4px}
+.table tr:hover td{background:rgba(245,230,211,0.18)}
+.table .row-name{font-family:var(--serif);font-size:17px;color:var(--hills);font-weight:400;letter-spacing:-.005em}
+
+.db-meta{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  margin-bottom:48px;
+}
+.db-meta .pn{padding:24px 28px;border-right:1px solid var(--line-soft);text-align:left}
+.db-meta .pn:last-child{border-right:0}
+.db-meta .pn .v{font-family:var(--serif);font-size:38px;font-weight:300;color:var(--hills);line-height:1;letter-spacing:-.02em;display:block}
+.db-meta .pn .l{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:10px;font-weight:500;display:block}
+
+.tabs{display:flex;gap:32px;border-bottom:1px solid var(--line);margin-bottom:32px}
+.tab{
+  padding:12px 0 14px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  color:var(--stone);border-bottom:1px solid transparent;margin-bottom:-1px;
+  transition:color var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease);
+}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--hills);border-bottom-color:var(--hills)}
+
+/* client view (full page) */
+.back-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500;
+  margin-bottom:36px;padding:6px 0;border-bottom:1px solid transparent;
+  transition:color var(--dur-med) var(--ease);
+}
+.back-link:hover{color:var(--hills)}
+.back-link svg{transform:rotate(180deg);opacity:.6}
+
+.client-head{
+  display:grid;grid-template-columns:1fr auto;align-items:end;gap:36px;
+  padding-bottom:34px;border-bottom:1px solid var(--line);margin-bottom:0;
+}
+.client-name{
+  font-family:var(--serif);font-size:54px;font-weight:300;letter-spacing:-.025em;
+  color:var(--hills);line-height:1.02;margin:14px 0 22px;
+}
+.client-meta{display:flex;flex-wrap:wrap;gap:6px 36px;color:var(--stone);font-size:12.5px}
+.client-meta b{color:var(--ink);font-weight:500;font-family:var(--sans)}
+.client-meta .label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone-2);margin-right:8px;font-weight:500}
+.client-team-strip{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.client-team-strip .l{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.client-team-strip .avs{display:flex}
+
+/* drawer-stage class still used in client-head */
+.drawer-stage{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sea-2);font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.drawer-stage::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sea)}
+
+.client-tabs{display:flex;gap:36px;border-bottom:1px solid var(--line);margin-top:36px;margin-bottom:36px}
+.ctab{
+  padding:14px 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  color:var(--stone);border-bottom:1px solid transparent;margin-bottom:-1px;
+  transition:color var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease);
+}
+.ctab:hover{color:var(--ink)}
+.ctab.active{color:var(--hills);border-bottom-color:var(--hills)}
+
+.client-body{max-width:880px}
+.client-body .section-title{margin-bottom:24px}
+.agents-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 36px}
+@media(max-width:880px){.agents-grid{grid-template-columns:1fr;gap:0}}
+
+.section-title{
+  font-family:var(--serif);font-size:13px;font-weight:400;font-style:italic;color:var(--stone);
+  margin:0 0 22px;letter-spacing:.02em;
+}
+
+/* files */
+.file{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.file:first-of-type{border-top:1px solid var(--line-soft)}
+.file-icon{width:32px;height:32px;border-radius:2px;background:var(--bright);display:grid;place-items:center;color:var(--hills);flex-shrink:0;border:1px solid var(--line)}
+.file-name{font-family:var(--serif);font-size:16px;color:var(--hills);font-weight:400;letter-spacing:-.005em}
+.file-meta{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:4px;font-weight:500}
+.file-act{margin-left:auto}
+
+/* actions */
+.action{
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;
+  padding:20px 0;border-bottom:1px solid var(--line-soft);align-items:flex-start;
+}
+.action:first-of-type{border-top:1px solid var(--line-soft)}
+.action-by{
+  width:30px;height:30px;border-radius:2px;background:var(--hills);color:var(--sea);
+  display:grid;place-items:center;font-family:var(--serif);font-size:14px;flex-shrink:0;
+}
+.action-title{font-family:var(--serif);font-size:17px;color:var(--hills);font-weight:400;letter-spacing:-.005em;line-height:1.3}
+.action-why{font-size:13px;color:var(--ink);margin-top:6px;line-height:1.55;max-width:50ch}
+.action-run{align-self:center}
+
+/* team */
+.team-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.team-row:first-child{border-top:1px solid var(--line-soft)}
+.team-av{width:38px;height:38px;border-radius:50%;background:var(--sand);display:grid;place-items:center;font-family:var(--serif);font-size:15px;color:var(--hills);font-weight:400}
+.team-av.bruce{background:var(--hills);color:var(--sea);border-radius:3px}
+.team-name{font-family:var(--serif);font-size:17px;color:var(--hills);font-weight:400;letter-spacing:-.005em}
+.team-role{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:4px;font-weight:500}
+.team-load{margin-left:auto;font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--stone)}
+
+/* compliance */
+.cstatus{display:inline-flex;align-items:center;gap:8px;font-family:var(--serif);font-size:24px;font-weight:400;color:var(--hills)}
+.cstatus::before{content:"";width:6px;height:6px;border-radius:50%}
+.cstatus.ok::before{background:var(--sea)}
+.cstatus.warn::before{background:#C9A56B}
+.cstatus.due::before{background:#C26A50}
+.cstatus-row{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.cstatus-row::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--stone-2)}
+.cstatus-row.ok::before{background:var(--sea)}
+.cstatus-row.warn::before{background:#C9A56B}
+
+/* editorial top moment for sales */
+.intro{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:end;margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+@media(max-width:900px){.intro{grid-template-columns:1fr;gap:24px}}
+.intro-text p{margin:0;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.4;color:var(--hills);letter-spacing:-.005em;font-weight:300;max-width:38ch}
+.intro-stat{text-align:right}
+.intro-stat .v{font-family:var(--serif);font-size:64px;font-weight:300;letter-spacing:-.03em;color:var(--hills);line-height:1}
+.intro-stat .l{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:10px;font-weight:500}
+
+/* reminders board */
+.rem-board{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--line);border-left:1px solid var(--line-soft);
+}
+@media(max-width:1100px){.rem-board{grid-template-columns:repeat(2,1fr)}}
+.rem-col{
+  border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line);
+  padding:24px 22px 32px;display:flex;flex-direction:column;gap:14px;min-height:480px;
+}
+.rem-col-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;padding-bottom:18px;border-bottom:1px solid var(--line-soft)}
+.rem-av{width:34px;height:34px;border-radius:50%;background:var(--sand);display:grid;place-items:center;font-family:var(--serif);font-size:15px;color:var(--hills);font-weight:400}
+.rem-av.bruce{background:var(--hills);color:var(--sea);border-radius:3px}
+.rem-name{font-family:var(--serif);font-size:19px;color:var(--hills);font-weight:400;letter-spacing:-.005em}
+.rem-load{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:3px;font-weight:500}
+.rem-card{
+  background:var(--white);border:1px solid var(--line-soft);padding:14px 14px 13px;
+  border-radius:2px;display:flex;flex-direction:column;gap:8px;
+  transition:border-color var(--dur-med) var(--ease);
+}
+.rem-card:hover{border-color:var(--hills)}
+.rem-card.urgent{border-left:2px solid #C26A50}
+.rem-card.bruce-card{background:rgba(245,230,211,0.4);border-color:rgba(44,74,62,.1)}
+.rem-when{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.rem-when.due{color:#C26A50}
+.rem-title{font-family:var(--serif);font-size:16.5px;color:var(--hills);line-height:1.25;letter-spacing:-.005em;font-weight:400}
+.rem-body{font-size:12.5px;color:var(--ink);line-height:1.5}
+.rem-client{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);font-weight:500}
+
+/* agents tab inside drawer */
+.drw-agent{
+  display:grid;grid-template-columns:auto 1fr auto;gap:14px;
+  padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:flex-start;
+}
+.drw-agent:first-of-type{border-top:1px solid var(--line-soft)}
+.drw-agent-icon{width:32px;height:32px;border-radius:2px;background:var(--bright);display:grid;place-items:center;color:var(--hills);border:1px solid var(--line)}
+.drw-agent-name{font-family:var(--serif);font-size:16.5px;color:var(--hills);font-weight:400;letter-spacing:-.005em}
+.drw-agent-role{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:4px;font-weight:500}
+.drw-agent-foot{margin-top:8px;display:flex;gap:14px;align-items:center;font-size:11.5px;color:var(--stone)}
+.drw-agent-foot .upload{color:var(--sea-2);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;cursor:pointer;font-style:italic;font-family:var(--serif);font-size:13px}
+
+/* agent chat modal */
+.modal-scrim{
+  position:fixed;inset:0;background:rgba(31,52,41,.4);
+  opacity:0;pointer-events:none;transition:opacity var(--dur-med) var(--ease);z-index:70;
+  display:grid;place-items:center;padding:40px 24px;
+}
+.modal-scrim.open{opacity:1;pointer-events:auto}
+.chat{
+  width:min(640px,100%);max-height:min(720px,calc(100vh - 80px));
+  background:var(--paper);border:1px solid var(--line);border-radius:2px;
+  display:flex;flex-direction:column;
+  box-shadow:0 32px 80px -32px rgba(31,52,41,.32);
+  transform:translateY(12px);opacity:0;
+  transition:transform var(--dur-med) var(--ease), opacity var(--dur-med) var(--ease);
+}
+.modal-scrim.open .chat{transform:none;opacity:1}
+
+.chat-head{padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
+.chat-icon{width:38px;height:38px;border-radius:2px;background:var(--hills);color:var(--sea);display:grid;place-items:center;flex-shrink:0;font-family:var(--serif);font-size:20px;font-weight:400}
+.chat-title{font-family:var(--serif);font-size:22px;color:var(--hills);font-weight:400;letter-spacing:-.01em;line-height:1.1}
+.chat-context{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:5px;font-weight:500}
+.chat-context em{font-family:var(--serif);font-style:italic;letter-spacing:0;text-transform:none;font-size:13px;color:var(--hills);margin-left:6px}
+.chat-close{margin-left:auto;width:30px;height:30px;display:grid;place-items:center;color:var(--stone);transition:color var(--dur-med) var(--ease)}
+.chat-close:hover{color:var(--ink)}
+
+.chat-thread{flex:1;overflow:auto;padding:24px 28px}
+.msg{display:flex;gap:12px;margin-bottom:22px;align-items:flex-start}
+.msg-av{width:28px;height:28px;border-radius:2px;flex-shrink:0;display:grid;place-items:center;font-family:var(--serif);font-size:14px;font-weight:400;background:var(--hills);color:var(--sea)}
+.msg-av.you{background:var(--sand);color:var(--hills);border-radius:50%;font-size:11px;font-weight:600;font-family:var(--sans);letter-spacing:.04em}
+.msg-body{flex:1;min-width:0}
+.msg-meta{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500;margin-bottom:4px}
+.msg-text{font-size:14px;color:var(--ink);line-height:1.55}
+.msg-text p{margin:0 0 8px}
+.msg-text p:last-child{margin:0}
+
+.msg.typing .msg-text{color:var(--stone);font-style:italic;font-family:var(--serif);font-size:15px}
+.msg.typing .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--stone);margin-right:4px;animation:bounce 1.2s infinite}
+.msg.typing .dot:nth-child(2){animation-delay:.15s}
+.msg.typing .dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-2px)}}
+
+.result-card{
+  margin-top:8px;border:1px solid var(--line);border-left:2px solid var(--sea);
+  padding:14px 16px 16px;background:var(--white);
+}
+.result-card .rl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--sea-2);font-weight:500;margin-bottom:6px}
+.result-card .rt{font-family:var(--serif);font-size:18px;color:var(--hills);font-weight:400;letter-spacing:-.005em;margin-bottom:8px;line-height:1.25}
+.result-card .rb{font-size:13px;color:var(--ink);line-height:1.55}
+.result-card .rb b{font-weight:500;color:var(--hills);font-family:var(--serif);font-size:14px}
+.result-foot{display:flex;gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft);align-items:center}
+.result-foot .l{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);font-weight:500}
+
+.chat-input{
+  border-top:1px solid var(--line);padding:14px 18px 14px 18px;
+  display:flex;align-items:center;gap:10px;background:var(--white);
+}
+.chat-input button.up{
+  width:32px;height:32px;display:grid;place-items:center;color:var(--stone);
+  border:1px solid var(--line);border-radius:2px;
+  transition:color var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease);
+}
+.chat-input button.up:hover{color:var(--hills);border-color:var(--hills)}
+.chat-input input{
+  flex:1;border:0;background:transparent;outline:0;
+  font:inherit;font-size:14px;color:var(--ink);padding:8px 4px;
+}
+.chat-input input::placeholder{color:var(--stone-2)}
+.chat-send{
+  width:36px;height:36px;display:grid;place-items:center;
+  background:var(--hills);color:#fff;border-radius:2px;
+}
+.chat-send:hover{background:var(--hills-2)}
+
+.suggested{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.suggested button{
+  font-size:12px;color:var(--hills);padding:6px 12px;
+  border:1px solid var(--line-strong);border-radius:2px;
+  background:var(--white);transition:all var(--dur-med) var(--ease);
+}
+.suggested button:hover{background:var(--hills);color:#fff;border-color:var(--hills)}
+
+.nav-item.quiet{font-size:12.5px;color:rgba(255,255,255,.5);padding:8px 12px;margin:6px 0 14px;border-top:1px solid rgba(255,255,255,.08);border-radius:0;padding-top:14px}
+.nav-item.quiet .ico{opacity:.5}
+.nav-item.quiet:hover{color:rgba(255,255,255,.85);background:transparent}
+.nav-item.quiet.active{background:transparent;color:#fff}
+.nav-item.quiet.active .ico{opacity:1;color:var(--sea)}
+
+/* property log */
+.prop-bar{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.prop-paste{flex:1;display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:2px;background:var(--white)}
+.prop-paste svg{color:var(--sea-2);flex-shrink:0}
+.prop-paste input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:var(--ink)}
+.prop-paste input::placeholder{color:var(--stone-2);font-style:italic;font-family:var(--serif);font-size:14.5px}
+.prop-search{display:flex;align-items:center;gap:8px;padding:11px 14px;border:1px solid var(--line);border-radius:2px;background:var(--white);width:280px}
+.prop-search svg{color:var(--stone)}
+.prop-search input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:13px;color:var(--ink)}
+.prop-search input::placeholder{color:var(--stone-2)}
+
+.prop-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);padding:6px 12px;border:1px solid var(--line);border-radius:2px;background:var(--white);transition:all var(--dur-med) var(--ease);font-weight:500}
+.chip .ct{font-family:var(--serif);font-style:italic;color:var(--stone);font-size:12.5px;font-weight:400}
+.chip:hover{border-color:var(--hills);color:var(--hills)}
+.chip.active{background:var(--hills);color:#fff;border-color:var(--hills)}
+.chip.active .ct{color:rgba(255,255,255,.7)}
+.prop-sort{margin-left:auto;display:flex;align-items:center;gap:8px}
+.sort-label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.prop-sort select{font:inherit;font-size:13px;color:var(--hills);background:transparent;border:0;border-bottom:1px solid var(--line-strong);padding:4px 16px 4px 4px;outline:0;font-family:var(--serif);font-style:italic;cursor:pointer}
+
+.prop-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:22px}
+.prop-card{background:var(--white);border:1px solid var(--line);border-radius:2px;overflow:hidden;cursor:pointer;transition:transform var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease)}
+.prop-card:hover{transform:translateY(-2px);box-shadow:0 16px 40px -24px rgba(31,52,41,.22);border-color:var(--line-strong)}
+.prop-img{aspect-ratio:4/3;background:var(--bright-grey);position:relative;overflow:hidden}
+.prop-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--dur-slow) var(--ease)}
+.prop-card:hover .prop-img img{transform:scale(1.03)}
+.prop-tag{position:absolute;top:10px;left:10px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--hills);background:rgba(255,255,255,.92);padding:5px 9px;border-radius:2px;font-weight:500}
+.prop-tag.match{background:var(--hills);color:#fff}
+.prop-tag.match::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--sea);margin-right:6px;vertical-align:middle}
+.prop-body{padding:14px 16px 16px}
+.prop-suburb{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-bottom:5px;font-weight:500}
+.prop-addr{font-family:var(--serif);font-size:17px;color:var(--hills);font-weight:400;letter-spacing:-.005em;line-height:1.25;margin-bottom:8px}
+.prop-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.prop-guide{font-family:var(--serif);font-size:18px;color:var(--hills);font-weight:400}
+.prop-spec{font-size:12px;color:var(--stone);font-style:italic;font-family:var(--serif);font-size:13px}
+.prop-foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--stone);padding-top:10px;border-top:1px solid var(--line-soft)}
+.prop-added{letter-spacing:.04em}
+.prop-source{font-style:italic;font-family:var(--serif);font-size:12.5px}
+
+.ct-pill{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:500;background:var(--sea);color:var(--hills);border-radius:999px;padding:1px 7px;margin-left:6px;letter-spacing:.04em;vertical-align:1px}
+.ctab.active .ct-pill{background:var(--hills);color:var(--sea)}
+
+.hero-match{
+  display:flex;gap:18px;align-items:stretch;margin-bottom:28px;
+  background:var(--white);border:1px solid var(--line);border-left:2px solid var(--sea);
+  border-radius:2px;overflow:hidden;
+}
+.hero-match .hm-img{width:240px;flex-shrink:0;background:var(--bright-grey);overflow:hidden}
+.hero-match .hm-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-match .hm-body{flex:1;padding:18px 22px 18px;display:flex;flex-direction:column;justify-content:center}
+.hero-match .hm-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sea-2);font-weight:500;margin-bottom:6px}
+.hero-match .hm-eyebrow::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--sea);margin-right:8px;vertical-align:middle}
+.hero-match .hm-title{font-family:var(--serif);font-size:22px;color:var(--hills);font-weight:400;letter-spacing:-.01em;margin-bottom:4px}
+.hero-match .hm-sub{font-size:12px;color:var(--stone);margin-bottom:10px;font-style:italic;font-family:var(--serif);font-size:13.5px}
+.hero-match .hm-why{font-size:13.5px;color:var(--ink);line-height:1.55;margin-bottom:12px}
+.hero-match .hm-foot{display:flex;gap:10px}
+
+.prop-card .prop-why{
+  font-size:12.5px;color:var(--ink);line-height:1.5;
+  padding:10px 0 0;margin-top:10px;border-top:1px solid var(--line-soft);
+  font-style:italic;font-family:var(--serif);font-size:13.5px;color:var(--hills)
+}
+.prop-card .prop-actions{display:flex;gap:8px;margin-top:10px}
+
+.hidden{display:none !important}
+
+/* reveal */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+}
+
+/* doc-nav (matches the rest of the proposal) */
+.top-nav-wrap{flex-shrink:0;background:#fff;box-shadow:0 1px 0 var(--sand)}
+.top-band{height:6px;background:var(--hills);width:100%}
+.doc-nav{background:#fff;border-bottom:1px solid var(--sand)}
+.doc-nav-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr 1fr}
+.doc-nav a{display:block;padding:14px 22px 16px;text-decoration:none;color:var(--stone);border-right:1px solid var(--sand);border-bottom:3px solid transparent;transition:background .15s ease}
+.doc-nav a:last-child{border-right:none}
+.doc-nav a:hover{background:#FBF6EE;color:var(--hills)}
+.doc-nav a.current{background:#FBF6EE;border-bottom-color:var(--hills);color:var(--hills)}
+.doc-nav .doc-label{font-family:'Aeonik',var(--sans);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--stone);display:block;margin-bottom:4px}
+.doc-nav a.current .doc-label{color:var(--hills)}
+.doc-nav .doc-name{font-family:'MinervaModern',var(--serif);font-size:17px;color:var(--hills);line-height:1.15;display:block;margin-bottom:3px;letter-spacing:-.01em}
+.doc-nav .doc-desc{font-family:'Aeonik',var(--sans);font-size:11px;color:var(--stone);line-height:1.4;display:block}
+.doc-nav a.current .doc-desc{color:var(--ink)}
+
+/* indicative-only controls */
+.indicative{opacity:.55;cursor:not-allowed !important;pointer-events:none}
+.indicative:hover{background:inherit !important;color:inherit !important}
+
+/* skinny scrollbar */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.08);border-radius:0;border:0}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,0.16)}
+</style>
+</head>
+<body>
+
+<div class="top-nav-wrap">
+<div class="top-band"></div>
+<nav class="doc-nav">
+  <div class="doc-nav-inner">
+    <a href="compass-os-proposal.html">
+      <span class="doc-label">01 · Proposal</span>
+      <span class="doc-name">Why this works</span>
+      <span class="doc-desc">Vision, value, ROI, investment.</span>
+    </a>
+    <a href="compass-os-sow.html">
+      <span class="doc-label">02 · Statement of Work</span>
+      <span class="doc-name">What we commit to</span>
+      <span class="doc-desc">Architecture, milestones, payment, risks.</span>
+    </a>
+    <a href="compass-os-weekly-plan.html">
+      <span class="doc-label">03 · Delivery Plan</span>
+      <span class="doc-name">How it gets built</span>
+      <span class="doc-desc">16 weeks, ticket by ticket.</span>
+    </a>
+    <a href="compass-os-prototype.html" class="current">
+      <span class="doc-label">04 · Prototype</span>
+      <span class="doc-name">A look at the OS</span>
+      <span class="doc-desc">Indicative click-through, not the final flow.</span>
+    </a>
+  </div>
+</nav>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-sales" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></symbol>
+    <symbol id="i-mkt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2-7-9-4z"/></symbol>
+    <symbol id="i-dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="9" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h6"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-12 7l-5 1 1-5a8 8 0 1116-3z"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6L8 22H2v-6L14 4z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1112 0c0 7 3 8 3 8H3s3-1 3-8z"/><path d="M10 21a2 2 0 004 0"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name">Compass</div>
+      <div class="brand-sub">OS</div>
+    </div>
+
+    <div class="nav-label">Workspace</div>
+    <button class="nav-item active" data-view="dashboard"><svg class="ico"><use href="#i-dash"/></svg> Dashboard</button>
+    <button class="nav-item" data-view="sales"><svg class="ico"><use href="#i-sales"/></svg> Sales <span class="pill">12</span></button>
+    <button class="nav-item" data-view="properties"><svg class="ico"><use href="#i-home"/></svg> Property Log <span class="pill">31</span></button>
+    <button class="nav-item" data-view="marketing"><svg class="ico"><use href="#i-mkt"/></svg> Marketing</button>
+    <button class="nav-item" data-view="databases"><svg class="ico"><use href="#i-db"/></svg> Past clients</button>
+
+    <div class="nav-label">Inbox</div>
+    <button class="nav-item indicative" title="Indicative only"><svg class="ico"><use href="#i-msg"/></svg> WhatsApp <span class="pill">3</span></button>
+    <button class="nav-item" data-view="reminders"><svg class="ico"><use href="#i-bell"/></svg> Reminders <span class="pill">11</span></button>
+
+    <div class="sidebar-foot">
+      <button class="nav-item quiet" data-view="compliance"><svg class="ico"><use href="#i-shield"/></svg> Compliance</button>
+      <div class="bruce-card">
+        <div class="bruce-avatar">B</div>
+        <div>
+          <div class="bruce-name">Bruce</div>
+          <div class="bruce-status"><span class="bruce-dot"></span>Online · WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="crumb"><span style="color:var(--stone)">Workspace</span><span class="sep">/</span><b id="crumb-page">Dashboard</b></div>
+      <div class="search indicative" title="Indicative only">
+        <svg width="14" height="14"><use href="#i-search"/></svg>
+        <input placeholder="Search clients, properties, briefs" disabled />
+        <span class="kbd">⌘K</span>
+      </div>
+      <button class="btn ghost indicative" title="Indicative only"><svg width="14" height="14"><use href="#i-msg"/></svg> Ask Bruce</button>
+      <button class="btn indicative" title="Indicative only"><svg width="14" height="14"><use href="#i-plus"/></svg> New client</button>
+    </header>
+
+    <!-- ===== SALES ===== -->
+    <section class="view hidden" id="view-sales">
+      <div class="sales-head">
+        <div>
+          <span class="eyebrow">Sales journey</span>
+          <span class="sales-meta-line">12 active · 4 this week · 68% proposal → CAF</span>
+        </div>
+      </div>
+
+      <div class="pipeline" id="pipeline"></div>
+
+      <div class="sales-foot">
+        <div class="panel-head-ed">
+          <div><span class="eyebrow">All clients</span><h3>Recent <em>activity</em></h3></div>
+        </div>
+        <div class="timeline">
+          <div class="event bruce">
+            <div class="event-head">Bruce captured a brief from Marlow Hayes</div>
+            <span class="event-time">14 min ago</span>
+            <div class="event-body">Voice note over WhatsApp. Brief structured and stored. Proposal queued for review.</div>
+            <div class="event-quote">"Family of four, two-year window, must have ocean walk and a yard for the dog. Up to 4.6."</div>
+          </div>
+          <div class="event">
+            <div class="event-head">Proposal sent to Sienna &amp; Tom Wallace</div>
+            <span class="event-time">2 hours ago</span>
+            <div class="event-body">Branded link generated. Open tracking on. Reminder set for 48 hours.</div>
+          </div>
+          <div class="event team">
+            <div class="event-head">Chris ran a discovery call with the Lefroys</div>
+            <span class="event-time">Yesterday</span>
+            <div class="event-body">Bruce stitched the call notes into a draft brief. Awaiting Chris's review before send.</div>
+          </div>
+          <div class="event bruce">
+            <div class="event-head">Bruce flagged a dormant client</div>
+            <span class="event-time">Yesterday</span>
+            <div class="event-body">Patel family went quiet nine weeks ago. Their saved brief matches a new off-market in Suffolk Park.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MARKETING ===== -->
+    <section class="view hidden" id="view-marketing">
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-label">Newsletter open rate</span><span class="kpi-val">42.6%</span><span class="kpi-trend">+3.1 vs last send</span></div>
+        <div class="kpi"><span class="kpi-label">SEO impressions, 30d</span><span class="kpi-val">38.2k</span><span class="kpi-trend">+12.4%</span></div>
+        <div class="kpi"><span class="kpi-label">Top 10 keywords</span><span class="kpi-val">27</span><span class="kpi-trend">Four new this month</span></div>
+        <div class="kpi"><span class="kpi-label">Posts in queue</span><span class="kpi-val">6</span><span class="kpi-trend">Three ready for review</span></div>
+      </div>
+
+      <div class="split">
+        <div>
+          <div class="panel-head-ed"><div><span class="eyebrow">Marketing stream</span><h3>Agents <em>at work</em></h3></div></div>
+          <div class="agents" id="agents-marketing"></div>
+        </div>
+        <div>
+          <div class="panel-head-ed"><div><span class="eyebrow">In flight</span><h3>Content <em>queue</em></h3></div></div>
+          <div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-pen"/></svg></div><div><div class="stream-name">Why Byron's hinterland is outpacing the coast</div><div class="stream-meta">SEO Agent · drafted · awaiting Chris</div></div><div class="stream-val">Ready</div></div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-msg"/></svg></div><div><div class="stream-name">May newsletter, three off-markets and one settled</div><div class="stream-meta">Newsletter Agent · drafted from this month's wins</div></div><div class="stream-val">Ready</div></div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-home"/></svg></div><div><div class="stream-name">New service page, Tweed Heads buyers agent</div><div class="stream-meta">Website Editor · staged on preview</div></div><div class="stream-val">Review</div></div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-doc"/></svg></div><div><div class="stream-name">Suburb deep-dive, Suffolk Park</div><div class="stream-meta">SEO Agent · researching, 70%</div></div><div class="stream-val">In flight</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="view" id="view-dashboard">
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-label">Active engagements</span><span class="kpi-val">12</span><span class="kpi-trend">+2 this week</span></div>
+        <div class="kpi"><span class="kpi-label">Proposal → CAF</span><span class="kpi-val">68%</span><span class="kpi-trend">+11 pts vs Q1</span></div>
+        <div class="kpi"><span class="kpi-label">Discovery → live</span><span class="kpi-val">9 min</span><span class="kpi-trend">Target ≤ 10</span></div>
+        <div class="kpi"><span class="kpi-label">Pipeline value</span><span class="kpi-val">$8.4M</span><span class="kpi-trend">+$1.2M MoM</span></div>
+        <div class="kpi"><span class="kpi-label">Off-markets logged</span><span class="kpi-val">214</span><span class="kpi-trend">+38 this month</span></div>
+        <div class="kpi"><span class="kpi-label">Dormant resurrected</span><span class="kpi-val">4</span><span class="kpi-trend">Two back to discovery</span></div>
+        <div class="kpi"><span class="kpi-label">Compliance</span><span class="kpi-val compact">Audit-ready</span><span class="kpi-trend">REBAA · QLD · NSW</span></div>
+        <div class="kpi"><span class="kpi-label">Time saved, est.</span><span class="kpi-val">61h</span><span class="kpi-trend">Past 30 days</span></div>
+      </div>
+
+      <div class="dash-grid">
+        <div>
+          <div class="panel-head-ed"><div><span class="eyebrow">Last six months</span><h3>Settled <em>deals</em></h3></div></div>
+          <div class="bar-chart" id="bar-chart"></div>
+        </div>
+        <div>
+          <div class="panel-head-ed"><div><span class="eyebrow">By stream</span><h3>The <em>shape</em> of it</h3></div></div>
+          <div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-sales"/></svg></div><div><div class="stream-name">Sales</div><div class="stream-meta">12 active · 4 this week</div></div><div class="stream-val">$8.4M</div></div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-mkt"/></svg></div><div><div class="stream-name">Marketing</div><div class="stream-meta">SEO and newsletter on autopilot</div></div><div class="stream-val">42.6%</div></div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-shield"/></svg></div><div><div class="stream-name">Compliance</div><div class="stream-meta">All three jurisdictions current</div></div><div class="stream-val">100%</div></div>
+            <div class="stream"><div class="stream-icon"><svg width="15" height="15"><use href="#i-db"/></svg></div><div><div class="stream-name">Property log</div><div class="stream-meta">Off-markets indexed by Bruce</div></div><div class="stream-val">214</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DATABASES ===== -->
+    <section class="view hidden" id="view-databases">
+      <div class="db-meta">
+        <div class="pn"><span class="v">87</span><span class="l">Settled, all time</span></div>
+        <div class="pn"><span class="v">$248M</span><span class="l">Secured, all time</span></div>
+        <div class="pn"><span class="v">14</span><span class="l">Suburbs</span></div>
+        <div class="pn"><span class="v">31%</span><span class="l">Repeat or referral</span></div>
+      </div>
+
+      <table class="table" id="db-table">
+        <thead><tr></tr></thead>
+        <tbody id="db-body"></tbody>
+      </table>
+    </section>
+
+    <!-- ===== PROPERTY LOG ===== -->
+    <section class="view hidden" id="view-properties">
+      <div class="prop-bar">
+        <div class="prop-paste">
+          <svg width="14" height="14"><use href="#i-link"/></svg>
+          <input id="prop-link" placeholder="Paste a realestate.com.au link · Bruce will pull the details" />
+          <button class="btn sm" id="prop-add">Add to log</button>
+        </div>
+        <div class="prop-search">
+          <svg width="13" height="13"><use href="#i-search"/></svg>
+          <input id="prop-search" placeholder="Search suburb, street, vendor agent" />
+        </div>
+      </div>
+
+      <div class="prop-filters" id="prop-filters">
+        <button class="chip active" data-filter="all">All <span class="ct">31</span></button>
+        <button class="chip" data-filter="match">Matched <span class="ct">4</span></button>
+        <button class="chip" data-filter="off">Off-market <span class="ct">9</span></button>
+        <button class="chip" data-filter="recent">Last 7 days <span class="ct">8</span></button>
+        <button class="chip" data-filter="byron">Byron Shire <span class="ct">12</span></button>
+        <button class="chip" data-filter="goldcoast">Gold Coast <span class="ct">7</span></button>
+        <button class="chip" data-filter="tweed">Tweed <span class="ct">6</span></button>
+        <div class="prop-sort">
+          <span class="sort-label">Sort</span>
+          <select id="prop-sort">
+            <option value="added">Date added</option>
+            <option value="price">Guide, high to low</option>
+            <option value="suburb">Suburb</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="prop-grid" id="prop-grid"></div>
+    </section>
+
+    <!-- ===== CLIENT (full page) ===== -->
+    <section class="view hidden" id="view-client">
+      <button class="back-link" id="client-back"><svg width="14" height="14"><use href="#i-arrow"/></svg> Back to sales</button>
+
+      <div class="client-head">
+        <div>
+          <span id="cli-stage-pill" class="drawer-stage">Proposal sent</span>
+          <h1 class="client-name" id="cli-name">Sienna &amp; Tom Wallace</h1>
+          <div class="client-meta">
+            <div><span class="label">Budget</span><b id="cli-budget">$3.8M</b></div>
+            <div><span class="label">Area</span><b id="cli-area">Suffolk Park</b></div>
+            <div><span class="label">Window</span><b id="cli-window">6–9 months</b></div>
+            <div><span class="label">Source</span><b id="cli-source">Referral, Lee</b></div>
+          </div>
+        </div>
+        <div class="client-team-strip" id="cli-team-strip"></div>
+      </div>
+
+      <div class="client-tabs">
+        <button class="ctab active" data-tab="activity">Activity</button>
+        <button class="ctab" data-tab="matches">Matches <span class="ct-pill" id="cli-matches-count">3</span></button>
+        <button class="ctab" data-tab="files">Files</button>
+        <button class="ctab" data-tab="actions">Next</button>
+        <button class="ctab" data-tab="agents">Agents</button>
+        <button class="ctab" data-tab="team">Team</button>
+      </div>
+
+      <div class="client-body">
+        <div data-cpane="activity">
+          <div id="cli-hero-match"></div>
+          <div class="section-title">Timeline</div>
+          <div class="timeline" id="cli-timeline"></div>
+        </div>
+        <div data-cpane="matches" class="hidden">
+          <div class="section-title">Property log <em style="font-style:italic;font-family:var(--serif);color:var(--stone);font-size:14px;margin-left:6px">· cross-referenced against this brief</em></div>
+          <div id="cli-matches" class="prop-grid"></div>
+        </div>
+        <div data-cpane="files" class="hidden">
+          <div class="section-title">Files</div>
+          <div id="cli-files"></div>
+        </div>
+        <div data-cpane="actions" class="hidden">
+          <div class="section-title">Bruce suggests</div>
+          <div id="cli-actions"></div>
+        </div>
+        <div data-cpane="agents" class="hidden">
+          <div class="section-title">Run on this client</div>
+          <div id="cli-agents" class="agents-grid"></div>
+        </div>
+        <div data-cpane="team" class="hidden">
+          <div class="section-title">Working on this client</div>
+          <div id="cli-team"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPLIANCE ===== -->
+    <section class="view hidden" id="view-compliance">
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-label">REBAA</span><span class="kpi-val compact">Current</span><span class="kpi-trend">Renewed Mar 2026</span></div>
+        <div class="kpi"><span class="kpi-label">QLD Fair Trading</span><span class="kpi-val compact">Current</span><span class="kpi-trend">Lodged Apr 2026</span></div>
+        <div class="kpi"><span class="kpi-label">NSW Fair Trading</span><span class="kpi-val compact">Due 60d</span><span class="kpi-trend">Bruce will draft</span></div>
+        <div class="kpi"><span class="kpi-label">Files missing</span><span class="kpi-val">0</span><span class="kpi-trend">Of 87 client folders</span></div>
+      </div>
+
+      <div class="panel-head-ed">
+        <div><span class="eyebrow">Last 14 days</span><h3>Audit <em>log</em></h3></div>
+        <button class="btn ghost sm right">Export</button>
+      </div>
+      <div class="timeline">
+        <div class="event bruce"><div class="event-head">Bruce filed CAF for Sienna &amp; Tom Wallace</div><span class="event-time">Two days ago</span><div class="event-body">DocuSign envelope received, parsed, filed under /clients/wallace/2026/. Audit row added.</div></div>
+        <div class="event"><div class="event-head">Quarterly REBAA self-audit complete</div><span class="event-time">Five days ago</span><div class="event-body">87 folders scanned. Zero gaps.</div></div>
+        <div class="event bruce"><div class="event-head">Bruce reconciled Xero invoices to engagement records</div><span class="event-time">Eight days ago</span><div class="event-body">All 14 May invoices matched to a signed CAF. Two flagged for follow-up, both resolved.</div></div>
+      </div>
+    </section>
+
+    <!-- ===== REMINDERS ===== -->
+    <section class="view hidden" id="view-reminders">
+      <div class="rem-board" id="rem-board"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===== AGENT CHAT MODAL ===== -->
+<div class="modal-scrim" id="agent-chat-scrim" aria-hidden="true">
+  <div class="chat" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+    <div class="chat-head">
+      <div class="chat-icon" id="chat-icon"><svg width="18" height="18"><use href="#i-msg" id="chat-icon-use"/></svg></div>
+      <div>
+        <div class="chat-title" id="chat-title">Brief Extractor</div>
+        <div class="chat-context">Running on <em id="chat-client">Sienna &amp; Tom Wallace</em></div>
+      </div>
+      <button class="chat-close" id="chat-close" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2 L12 12 M12 2 L2 12"/></svg>
+      </button>
+    </div>
+    <div class="chat-thread" id="chat-thread"></div>
+    <div class="chat-input">
+      <button class="up" aria-label="Upload a file" title="Upload a file">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 2v10 M2 7h10"/></svg>
+      </button>
+      <input id="chat-input-field" placeholder="Ask, paste, or upload to give Bruce more context…" />
+      <button class="chat-send" id="chat-send" aria-label="Send">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10 M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const stages = [
+  {key:"enquiry",   name:"Enquiry"},
+  {key:"discovery", name:"Discovery"},
+  {key:"proposal",  name:"Proposal"},
+  {key:"engaged",   name:"Engaged"},
+  {key:"searching", name:"Searching"},
+  {key:"negotiating",name:"Negotiating"},
+  {key:"settled",   name:"Settled"},
+];
+const stagePillCopy = {
+  enquiry:"New enquiry", discovery:"Discovery booked", proposal:"Proposal sent",
+  engaged:"Engaged · CAF signed", searching:"Searching", negotiating:"Offer in", settled:"Settled"
+};
+const initials = n => n.split(/[ &]+/).filter(Boolean).slice(0,2).map(s=>s[0]).join("").toUpperCase();
+
+const clients = [
+  {id:"c1", name:"Marlow Hayes",          stage:"enquiry",    area:"Tweed Heads",         budget:"$1.6M",     window:"3–6 mo",  team:["chris","bruce"], temp:"warm", source:"Website form"},
+  {id:"c2", name:"Atkinson family",       stage:"enquiry",    area:"Kingscliff",          budget:"$2.1M",     window:"6 mo",    team:["lee","bruce"],   temp:"cool", source:"Newsletter"},
+  {id:"c3", name:"Lefroy household",      stage:"discovery",  area:"Bangalow",            budget:"$3.4M",     window:"6 mo",    team:["chris","bruce"], temp:"warm", source:"Referral, Nick"},
+  {id:"c4", name:"Sienna & Tom Wallace",  stage:"proposal",   area:"Suffolk Park",        budget:"$3.8M",     window:"6–9 mo",  team:["nick","chris","bruce"], temp:"hot", source:"Referral, Lee"},
+  {id:"c5", name:"James Okafor",          stage:"proposal",   area:"Mermaid Beach",       budget:"$4.4M",     window:"4 mo",    team:["nick","bruce"],  temp:"warm", source:"LinkedIn"},
+  {id:"c6", name:"Whitfield trust",       stage:"engaged",    area:"Casuarina",           budget:"$5M+",      window:"12 mo",   team:["chris","lee","bruce"], temp:"hot", source:"Past client"},
+  {id:"c7", name:"Rana & Ashwin Patel",   stage:"engaged",    area:"Suffolk Park",        budget:"$2.9M",     window:"now",     team:["chris","bruce"], temp:"warm", source:"Past client"},
+  {id:"c8", name:"Decoy Holdings",        stage:"searching",  area:"Burleigh Hinterland", budget:"$4.0M",     window:"now",     team:["nick","bruce"],  temp:"hot", source:"Referral, Chris"},
+  {id:"c9", name:"Eli & Frances Shaw",    stage:"searching",  area:"Lennox Head",         budget:"$3.0M",     window:"now",     team:["lee","bruce"],   temp:"warm", source:"Instagram"},
+  {id:"c10",name:"Ngata family",          stage:"negotiating",area:"Kingscliff",          budget:"$2.6M",     window:"now",     team:["chris","bruce"], temp:"hot", source:"Past client"},
+  {id:"c11",name:"Marin & Pia Holst",     stage:"settled",    area:"Byron Bay",           budget:"$4.9M",     window:"closed",  team:["nick","chris","bruce"], temp:"cool", source:"Referral"},
+  {id:"c12",name:"Cassidy household",     stage:"settled",    area:"Brunswick Heads",     budget:"$2.4M",     window:"closed",  team:["lee","bruce"],   temp:"cool", source:"Website"},
+];
+
+const team = {
+  nick:  {name:"Nick",  role:"Director · Buyer's Advocate"},
+  chris: {name:"Chris", role:"Lead Buyer's Advocate"},
+  lee:   {name:"Lee",   role:"Buyer's Advocate"},
+  bruce: {name:"Bruce", role:"AI Orchestrator", isBruce:true},
+};
+
+const agentsSales = [
+  {n:"Brief Extractor",  icon:"i-msg",   status:"live",   role:"Voice & chat → brief",          desc:"Listens to discovery calls and WhatsApp threads, hands back a brief Chris can edit in thirty seconds.",         meta:"3 briefs · this week"},
+  {n:"Proposal Writer",  icon:"i-pen",   status:"live",   role:"Branded proposal at one URL",   desc:"Pulls the brief, picks the comparable wins, generates a live link. No PDFs to chase.",                          meta:"2 sent · 1 in draft"},
+  {n:"Property Parser",  icon:"i-link",  status:"live",   role:"Listing capture",               desc:"Drop a link in WhatsApp. Bruce returns suburb, beds, price guide, and tags it against open briefs.",             meta:"31 listings · 7 days"},
+  {n:"Property Matcher", icon:"i-bolt",  status:"live",   role:"Brief × shortlist",             desc:"Cross-references every active brief against the property log. Fires alerts the moment something fits.",         meta:"4 matches · open"},
+  {n:"Compliance Filer", icon:"i-shield",status:"live",   role:"REBAA · QLD · NSW",             desc:"Files every CAF, invoice and signed doc to the right folder. One-click audit export.",                         meta:"0 gaps · 87 folders"},
+  {n:"Reminders Engine", icon:"i-bell",  status:"queued", role:"Quiet nudges",                  desc:"Resurrects dormant clients and prompts follow-ups before they slip.",                                              meta:"Launches Month 4"},
+];
+
+const agentsMarketing = [
+  {n:"SEO Agent",        icon:"i-mkt",   status:"live", role:"Content & on-page",  desc:"Drafts suburb deep-dives, watches rankings, flags pages that need a refresh.",                meta:"+12% impressions"},
+  {n:"Newsletter Agent", icon:"i-msg",   status:"live", role:"Monthly send",       desc:"Builds the next newsletter from the month's wins, off-markets and articles. You approve and send.", meta:"42.6% open rate"},
+  {n:"Website Editor",   icon:"i-home",  status:"live", role:"Sanity-backed edits",desc:"Edits live on a preview branch. You merge when you're happy. Never breaks the site.",         meta:"3 edits · staged"},
+];
+
+const filesDefault = [
+  {name:"Discovery brief, Wallace",       meta:"Brief Extractor · 3 days ago",          icon:"i-doc"},
+  {name:"Proposal, Suffolk Park",         meta:"Proposal Writer · 2 days ago · opened 4×", icon:"i-link"},
+  {name:"Comparable settlements",         meta:"Compass research · attached",           icon:"i-doc"},
+  {name:"CAF · Wallace",                  meta:"DocuSign · awaiting signature",         icon:"i-doc"},
+];
+
+const timelineDefault = [
+  {who:"bruce", head:"Bruce sent the proposal",                  time:"2 hours ago",  body:"Branded link generated and shared. Open tracking on. Reminder set for forty-eight hours."},
+  {who:"team",  head:"Chris approved the draft proposal",        time:"Yesterday",    body:"Two small edits. Added the Lennox comparable, softened the close."},
+  {who:"bruce", head:"Bruce drafted the proposal",               time:"Yesterday",    body:"Pulled three comparable wins from the past twelve months. Used Tom's quoted phrase as the opener."},
+  {who:"bruce", head:"Bruce extracted the brief",                time:"3 days ago",   body:"Discovery call captured by WhatsApp voice note. Brief structured in ninety seconds.", quote:"\"It needs to feel like the place we already wished we lived in.\""},
+  {who:"team",  head:"Chris ran the discovery call",             time:"3 days ago",   body:"Forty minutes. Lee joined for the second half."},
+  {who:"team",  head:"Enquiry received via Lee",                 time:"5 days ago",   body:"Warm referral. Lee has known Tom for years."},
+];
+
+const actionsDefault = [
+  {by:"B", title:"Send a 48-hour follow-up to the Wallaces",  why:"Proposal opened four times across two days. No reply. A short, low-pressure check-in is the play."},
+  {by:"B", title:"Draft a Suffolk Park off-market shortlist", why:"Three logged properties match the brief within five percent. Bruce can package them as a private shortlist."},
+  {by:"B", title:"Schedule a Lennox comparable walk-through", why:"Tom asked about settlement velocity. A walk-through of 12B Pacific is the cleanest answer."},
+  {by:"B", title:"File the discovery recording",              why:"Audit hygiene. Two minutes."},
+];
+
+/* render */
+function pipelineRender(){
+  const root = document.getElementById("pipeline");
+  root.innerHTML = "";
+  stages.forEach(stage => {
+    const inLane = clients.filter(c => c.stage === stage.key);
+    const lane = document.createElement("div");
+    lane.className = "lane";
+    lane.innerHTML = `<div class="lane-head"><span class="lane-name">${stage.name}</span><span class="lane-count">${inLane.length}</span></div>`;
+    if(!inLane.length){
+      const e = document.createElement("div");
+      e.className = "empty-stage";
+      e.textContent = "Quiet here";
+      lane.appendChild(e);
+    } else {
+      inLane.forEach(c => lane.appendChild(cardEl(c)));
+    }
+    root.appendChild(lane);
+  });
+}
+
+function cardEl(c){
+  const el = document.createElement("button");
+  el.className = "card";
+  const tempLabel = c.temp === "hot" ? "Hot" : c.temp === "warm" ? "Warm" : "Cool";
+  const teamHtml = c.team.map(t => {
+    const m = team[t];
+    return `<span class="avatar ${m.isBruce?"bruce":""}" title="${m.name}">${m.isBruce?"B":initials(m.name)}</span>`;
+  }).join("");
+  el.innerHTML = `
+    <div class="card-name">${c.name}</div>
+    <div class="card-sub"><span>${c.area}</span><span class="tag ${c.temp}">${tempLabel}</span></div>
+    <div class="card-meta">
+      <div class="avatars">${teamHtml}</div>
+      <span class="value">${c.budget}</span>
+    </div>
+  `;
+  el.addEventListener("click", () => { lastView = "sales"; openClient(c); });
+  return el;
+}
+
+function agentEl(a){
+  const el = document.createElement("div");
+  el.className = "agent";
+  el.innerHTML = `
+    <div class="agent-icon"><svg width="16" height="16"><use href="#${a.icon}"/></svg></div>
+    <div>
+      <div class="agent-name">${a.n}</div>
+      <div class="agent-role">${a.role}</div>
+      <div class="agent-desc">${a.desc}</div>
+      <div class="agent-meta">${a.meta}</div>
+    </div>
+    <div class="agent-side">
+      <span class="agent-status ${a.status}">${a.status === "live" ? "Live" : "Soon"}</span>
+      <button class="btn quiet sm">Run</button>
+    </div>
+  `;
+  return el;
+}
+
+function renderAgents(){
+  const m = document.getElementById("agents-marketing");
+  agentsMarketing.forEach(a => m.appendChild(agentEl(a)));
+}
+
+function drawerAgentEl(a){
+  const el = document.createElement("div");
+  el.className = "drw-agent";
+  el.innerHTML = `
+    <div class="drw-agent-icon"><svg width="15" height="15"><use href="#${a.icon}"/></svg></div>
+    <div>
+      <div class="drw-agent-name">${a.n}</div>
+      <div class="drw-agent-role">${a.role}</div>
+      <div class="drw-agent-foot">
+        <span class="upload">Upload a file</span>
+        <span style="color:var(--stone-2)">·</span>
+        <span>Or run on the brief</span>
+      </div>
+    </div>
+    <button class="btn ghost sm run-agent">Run</button>
+  `;
+  el.querySelector(".run-agent").addEventListener("click", () => openAgentChat(a));
+  return el;
+}
+
+function renderBars(){
+  const data = [
+    {m:"Dec", v:3, l:"$2.1M"}, {m:"Jan", v:5, l:"$4.4M"}, {m:"Feb", v:4, l:"$3.0M"},
+    {m:"Mar", v:6, l:"$5.6M"}, {m:"Apr", v:5, l:"$4.8M"}, {m:"May", v:7, l:"$6.2M"},
+  ];
+  const max = Math.max(...data.map(d=>d.v));
+  const root = document.getElementById("bar-chart");
+  root.innerHTML = "";
+  data.forEach(d => {
+    const w = document.createElement("div");
+    w.className = "bar";
+    w.innerHTML = `<div class="bar-val">${d.l}</div><div class="bar-fill" style="height:${(d.v/max)*150}px"></div><div class="bar-lbl">${d.m}</div>`;
+    root.appendChild(w);
+  });
+}
+
+const dbClients = [
+  ["Holst, Marin & Pia",       "Byron Bay",        "Apr 2026", "$4.9M",  "Coastal home, family",       "Referral"],
+  ["Cassidy household",         "Brunswick Heads",  "Mar 2026", "$2.4M",  "Weekender",                  "Website"],
+  ["Donnelly trust",            "Casuarina",        "Feb 2026", "$5.6M",  "Investment + family",        "Past client"],
+  ["Beck & Saunders",           "Lennox Head",      "Jan 2026", "$3.2M",  "First home in the area",     "Referral, Lee"],
+  ["Whitlock family",           "Bangalow",         "Dec 2025", "$2.9M",  "Hinterland acreage",         "Newsletter"],
+  ["Saxon Holdings",            "Mermaid Beach",    "Nov 2025", "$4.1M",  "Penthouse, off-market",      "Referral"],
+  ["Pereira family",            "Suffolk Park",     "Oct 2025", "$3.6M",  "Renovator, ocean walk",      "Instagram"],
+  ["Mahoney trust",             "Kingscliff",       "Sep 2025", "$2.2M",  "Holiday rental",             "Website"],
+  ["Linden & Carrigan",         "Newrybar",         "Aug 2025", "$5.8M",  "Hinterland estate",          "Past client"],
+  ["Ortega family",             "Tweed Heads",      "Jul 2025", "$1.9M",  "Family home",                "Referral, Chris"],
+  ["Gallagher household",       "Wategos",          "Jun 2025", "$7.4M",  "Beachfront, off-market",     "Past client"],
+  ["Pettifer trust",            "Bilinga",          "May 2025", "$3.1M",  "Beachfront unit",            "Referral, Nick"],
+  ["Ashby & Lin",               "Lennox Head",      "Apr 2025", "$2.7M",  "First-home in the village",  "Website"],
+  ["Crowley family",            "Bangalow",         "Mar 2025", "$4.3M",  "Country home, paddocks",     "Newsletter"],
+];
+const dbColumns = ["Client","Suburb","Settled","Price","Brief","Source",""];
+
+const reminders = [
+  {who:"nick", load:"5 active",
+    items:[
+      {when:"Today",       title:"Approve Wallace proposal v3",      body:"Bruce's draft is sitting in Notion. Two paragraphs to review.",     client:"Sienna & Tom Wallace", urgent:true,  bruce:true},
+      {when:"Today",       title:"Call Dean at McGrath",             body:"He's holding back a Suffolk Park off-market for forty-eight hours.", client:"Decoy Holdings",       urgent:false, bruce:false},
+      {when:"Tomorrow",    title:"Walk-through, 12B Pacific Avenue", body:"Lennox Head, 9:30am. Frances Shaw confirmed.",                       client:"Eli & Frances Shaw",   urgent:false, bruce:false},
+    ]},
+  {who:"chris", load:"4 active",
+    items:[
+      {when:"Today · due", title:"Review Lefroy brief from Bruce",   body:"Discovery captured yesterday. Bruce stitched the notes. Two-minute review.", client:"Lefroy household", urgent:true,  bruce:true},
+      {when:"Today",       title:"Send Ngata counter-offer",         body:"Bruce drafted at $2.58M. Vendor agent expects a response by 4pm.",   client:"Ngata family",          urgent:true,  bruce:true},
+      {when:"Tomorrow",    title:"Discovery call with Marlow Hayes", body:"Tweed Heads. Bruce will join the WhatsApp thread.",                  client:"Marlow Hayes",          urgent:false, bruce:false},
+      {when:"This week",   title:"Whitfield trust shortlist review", body:"Three off-markets queued. Bruce flagged the top match.",             client:"Whitfield trust",       urgent:false, bruce:true},
+    ]},
+  {who:"lee", load:"3 active",
+    items:[
+      {when:"Today",       title:"Follow up with Atkinson family",   body:"Bruce drafted a low-pressure check-in. Awaiting your sign-off.",     client:"Atkinson family",       urgent:false, bruce:true},
+      {when:"This week",   title:"Open inspection, 6 Marvell St",    body:"Byron Bay, Saturday 10:30am. Notify two active briefs.",             client:"Eli & Frances Shaw",    urgent:false, bruce:false},
+      {when:"This week",   title:"Re-engage the Patels",             body:"Bruce flagged a strong off-market match against their saved brief.", client:"Rana & Ashwin Patel",   urgent:false, bruce:true},
+    ]},
+  {who:"bruce", load:"Quietly running",
+    items:[
+      {when:"Now",         title:"Drafting Suffolk Park deep-dive",  body:"SEO Agent · 70% complete · ready for Chris's review by Thursday.",   client:"Marketing",             urgent:false, bruce:true},
+      {when:"Now",         title:"Watching the Wallace proposal",    body:"Open tracking on. Will nudge Nick at the 48-hour mark.",             client:"Sienna & Tom Wallace",  urgent:false, bruce:true},
+      {when:"Today",       title:"Logged 4 new off-markets",         body:"Burleigh, Casuarina, Lennox, Suffolk Park. Two match active briefs.", client:"Property log",         urgent:false, bruce:true},
+    ]},
+];
+
+function renderReminders(){
+  const root = document.getElementById("rem-board");
+  root.innerHTML = "";
+  reminders.forEach(col => {
+    const m = team[col.who];
+    const wrap = document.createElement("div");
+    wrap.className = "rem-col";
+    wrap.innerHTML = `
+      <div class="rem-col-head">
+        <div class="rem-av ${m.isBruce?"bruce":""}">${m.isBruce?"B":initials(m.name)}</div>
+        <div>
+          <div class="rem-name">${m.name}</div>
+          <div class="rem-load">${col.load}</div>
+        </div>
+      </div>
+    `;
+    col.items.forEach(it => {
+      const card = document.createElement("div");
+      card.className = `rem-card ${it.urgent?"urgent":""} ${it.bruce && col.who!=="bruce"?"bruce-card":""}`;
+      card.innerHTML = `
+        <div class="rem-when ${it.when.includes("due")?"due":""}">${it.when}${it.bruce && col.who!=="bruce" ? " · drafted by Bruce":""}</div>
+        <div class="rem-title">${it.title}</div>
+        <div class="rem-body">${it.body}</div>
+        <div class="rem-client">${it.client}</div>
+      `;
+      wrap.appendChild(card);
+    });
+    root.appendChild(wrap);
+  });
+}
+
+function renderDb(){
+  const head = document.querySelector("#db-table thead tr");
+  head.innerHTML = dbColumns.map(c=>`<th>${c}</th>`).join("");
+  const body = document.getElementById("db-body");
+  body.innerHTML = dbClients.map(r => `
+    <tr>
+      <td><div class="row-name">${r[0]}</div></td>
+      <td>${r[1]}</td>
+      <td>${r[2]}</td>
+      <td><span class="value" style="font-family:var(--serif);font-size:15px;color:var(--hills)">${r[3]}</span></td>
+      <td style="color:var(--stone);font-style:italic;font-family:var(--serif);font-size:14px">${r[4]}</td>
+      <td>${r[5]}</td>
+      <td style="text-align:right"><button class="btn quiet sm">Open</button></td>
+    </tr>
+  `).join("");
+}
+
+let lastView = "sales";
+let currentClient = null;
+
+function openClient(c){
+  currentClient = c;
+  document.getElementById("cli-name").textContent = c.name;
+  document.getElementById("cli-budget").textContent = c.budget;
+  document.getElementById("cli-area").textContent = c.area;
+  document.getElementById("cli-window").textContent = c.window;
+  document.getElementById("cli-source").textContent = c.source;
+  document.getElementById("cli-stage-pill").textContent = stagePillCopy[c.stage] || c.stage;
+
+  document.getElementById("cli-team-strip").innerHTML = `
+    <div class="l">Working on this client</div>
+    <div class="avs">${c.team.map(t => {
+      const m = team[t];
+      return `<span class="avatar ${m.isBruce?"bruce":""}" title="${m.name}">${m.isBruce?"B":initials(m.name)}</span>`;
+    }).join("")}</div>
+  `;
+
+  document.getElementById("cli-timeline").innerHTML = timelineDefault.map(e => `
+    <div class="event ${e.who}">
+      <div class="event-head">${e.head}</div>
+      <span class="event-time">${e.time}</span>
+      ${e.body ? `<div class="event-body">${e.body}</div>`:""}
+      ${e.quote ? `<div class="event-quote">${e.quote}</div>`:""}
+    </div>
+  `).join("");
+
+  document.getElementById("cli-files").innerHTML = filesDefault.map(f => `
+    <div class="file">
+      <div class="file-icon"><svg width="15" height="15"><use href="#${f.icon}"/></svg></div>
+      <div>
+        <div class="file-name">${f.name}</div>
+        <div class="file-meta">${f.meta}</div>
+      </div>
+      <button class="btn quiet sm file-act">Open</button>
+    </div>
+  `).join("");
+
+  document.getElementById("cli-actions").innerHTML = actionsDefault.map(a => `
+    <div class="action">
+      <div class="action-by">${a.by}</div>
+      <div>
+        <div class="action-title">${a.title}</div>
+        <div class="action-why">${a.why}</div>
+      </div>
+      <button class="btn ghost sm action-run">Run</button>
+    </div>
+  `).join("");
+
+  const matches = clientMatches[c.id] || [];
+  document.getElementById("cli-matches-count").textContent = matches.length || 0;
+  const matchEl = document.getElementById("cli-matches");
+  matchEl.innerHTML = matches.map(m => {
+    const p = properties[m.idx]; if(!p) return "";
+    return `
+      <div class="prop-card">
+        <div class="prop-img">
+          <img src="${p.img}" alt="${p.addr}, ${p.suburb}" loading="lazy" />
+          <span class="prop-tag match">Match · brief</span>
+        </div>
+        <div class="prop-body">
+          <div class="prop-suburb">${p.suburb}</div>
+          <div class="prop-addr">${p.addr}</div>
+          <div class="prop-meta">
+            <span class="prop-guide">${p.guide}</span>
+            <span class="prop-spec">${p.beds} bed · ${p.baths} bath</span>
+          </div>
+          <div class="prop-foot">
+            <span class="prop-added">Added ${p.added}</span>
+            <span class="prop-source">${p.source}</span>
+          </div>
+          <div class="prop-why">${m.why}</div>
+          <div class="prop-actions">
+            <button class="btn sm">Send to client</button>
+            <button class="btn ghost sm">Add to proposal</button>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+  if(matches.length === 0){
+    matchEl.innerHTML = `<div style="grid-column:1/-1;padding:40px 0;text-align:center;color:var(--stone);font-style:italic;font-family:var(--serif);font-size:15px">Bruce hasn't found a fit yet. Watching the log.</div>`;
+  }
+
+  const heroEl = document.getElementById("cli-hero-match");
+  const hero = matches[0];
+  if(hero){
+    const p = properties[hero.idx];
+    heroEl.innerHTML = `
+      <div class="hero-match">
+        <div class="hm-img"><img src="${p.img}" alt="" /></div>
+        <div class="hm-body">
+          <div class="hm-eyebrow">Bruce found a strong fit</div>
+          <div class="hm-title">${p.addr}, ${p.suburb}</div>
+          <div class="hm-sub">${p.guide} · ${p.beds} bed · ${p.baths} bath · ${p.source}</div>
+          <div class="hm-why">${hero.why}</div>
+          <div class="hm-foot">
+            <button class="btn sm">Send to client</button>
+            <button class="btn ghost sm" data-jump-tab="matches">See all matches</button>
+          </div>
+        </div>
+      </div>`;
+    const jump = heroEl.querySelector("[data-jump-tab]");
+    if(jump) jump.addEventListener("click", () => document.querySelector('.ctab[data-tab="matches"]').click());
+  } else {
+    heroEl.innerHTML = "";
+  }
+
+  const ag = document.getElementById("cli-agents");
+  ag.innerHTML = "";
+  const stageAgents = {
+    enquiry:     ["Brief Extractor", "Property Parser"],
+    discovery:   ["Brief Extractor", "Proposal Writer"],
+    proposal:    ["Proposal Writer", "Reminders Engine"],
+    engaged:     ["Property Matcher", "Compliance Filer"],
+    searching:   ["Property Matcher", "Property Parser"],
+    negotiating: ["Compliance Filer", "Reminders Engine"],
+    settled:     ["Compliance Filer"]
+  };
+  const relevant = (stageAgents[c.stage] || []).map(n => agentsSales.find(a => a.n === n)).filter(Boolean);
+  relevant.forEach(a => ag.appendChild(drawerAgentEl(a)));
+
+  document.getElementById("cli-team").innerHTML = c.team.map(t => {
+    const m = team[t];
+    const load = m.isBruce ? "Available, always" : (t === "chris" ? "Four active" : t === "nick" ? "Five active" : "Three active");
+    return `
+      <div class="team-row">
+        <div class="team-av ${m.isBruce?"bruce":""}">${m.isBruce?"B":initials(m.name)}</div>
+        <div>
+          <div class="team-name">${m.name}</div>
+          <div class="team-role">${m.role}</div>
+        </div>
+        <div class="team-load">${load}</div>
+      </div>
+    `;
+  }).join("");
+
+  document.querySelectorAll(".ctab").forEach(x => x.classList.toggle("active", x.dataset.tab === "activity"));
+  document.querySelectorAll("[data-cpane]").forEach(p => p.classList.toggle("hidden", p.dataset.cpane !== "activity"));
+
+  document.querySelectorAll(".view").forEach(s => s.classList.toggle("hidden", s.id !== "view-client"));
+  document.getElementById("crumb-page").textContent = c.name;
+  document.querySelector(".main").scrollTop = 0;
+}
+
+function showView(v){
+  document.querySelectorAll(".nav-item[data-view]").forEach(b => b.classList.toggle("active", b.dataset.view === v));
+  document.querySelectorAll(".view").forEach(s => s.classList.toggle("hidden", s.id !== `view-${v}`));
+  const labels = {sales:"Sales",marketing:"Marketing",dashboard:"Dashboard",databases:"Past clients",properties:"Property Log",compliance:"Compliance",reminders:"Reminders"};
+  document.getElementById("crumb-page").textContent = labels[v] || v;
+  // re-arm reveals
+  document.querySelectorAll(`#view-${v} .reveal`).forEach(el => { el.classList.remove("in"); io.observe(el); });
+}
+
+document.querySelectorAll(".nav-item[data-view]").forEach(b => b.addEventListener("click", () => showView(b.dataset.view)));
+document.getElementById("client-back").addEventListener("click", () => showView(lastView));
+document.addEventListener("keydown", e => { if(e.key === "Escape" && !document.getElementById("view-client").classList.contains("hidden")) showView(lastView); });
+
+document.querySelectorAll(".ctab").forEach(t => t.addEventListener("click", () => {
+  document.querySelectorAll(".ctab").forEach(x => x.classList.toggle("active", x === t));
+  document.querySelectorAll("[data-cpane]").forEach(p => p.classList.toggle("hidden", p.dataset.cpane !== t.dataset.tab));
+}));
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+
+/* ===== AGENT CHAT ===== */
+const agentScripts = {
+  "Brief Extractor": {
+    intro: c => `I've got the WhatsApp thread and the discovery call from ${c ? c.name : "this client"}. Want me to stitch them into a brief Chris can sign off in thirty seconds, or pull a specific angle first?`,
+    suggested: ["Stitch the brief", "What did they say about budget?", "Flag anything inconsistent"],
+    reply: c => ({
+      text: `Done. Brief is in the shape Chris reviews from. Tone matched, no em dashes, AU English. Two flags worth a glance, both minor.`,
+      card: {
+        label: "BRIEF · DRAFT v1",
+        title: c ? `${c.name} · ${c.area}` : "Buyer brief · v1",
+        body: `<p><b>Budget</b> · ${c ? c.budget : "$3.8M"} · stretch to 4.1M for the right home.</p><p><b>Window</b> · ${c ? c.window : "6–9 mo"}, no pressure either way.</p><p><b>Lifestyle</b> · ocean walk, family of four, prefers quiet streets, wants room for in-laws.</p><p><b>Watch-outs</b> · vague on bedrooms (3 vs 4), didn't commit on body corporate.</p>`,
+        foot: "Saved to client · Notify Chris"
+      }
+    })
+  },
+  "Proposal Writer": {
+    intro: c => `Brief is loaded for ${c ? c.name : "this client"}. I'll pull the comparable wins from the property log and put a branded proposal at one URL. Want a single property focus or the full shortlist?`,
+    suggested: ["Generate the live link", "Use last three Suffolk Park wins", "Tighten the intro paragraph"],
+    reply: c => ({
+      text: `Live link is up. Three comparable wins included, all from the past nine months. No PDFs to chase. I'll watch open tracking and nudge Nick at 48 hours if it's gone quiet.`,
+      card: {
+        label: "PROPOSAL · LIVE",
+        title: `compass.os/p/${c ? c.name.toLowerCase().replace(/[^a-z]+/g,"-") : "wallace"}`,
+        body: `<p><b>Three comparables</b> · 12B Pacific Ave · 6 Marvell St · 19 Beachcomber Drive.</p><p><b>Engagement</b> · CAF + scope of works embedded.</p><p><b>Tracking</b> · open + scroll depth on by default.</p>`,
+        foot: "Send to client · Copy link"
+      }
+    })
+  },
+  "Property Parser": {
+    intro: c => `Drop a listing link or paste an off-market in the input below. I'll pull suburb, beds, price guide, and tag it against ${c ? c.name + "'s" : "every active"} brief. If it's a strong match I'll flag it.`,
+    suggested: ["Tag against active briefs", "Just log it, don't tag", "Show me last week's matches"],
+    reply: c => ({
+      text: `Logged. Strong match on ${c ? c.name : "two active briefs"}. Suffolk Park, four-bed, 600m walk to Tallow Beach. Vendor agent is Dean at McGrath, holding off-market for 48 hours.`,
+      card: {
+        label: "MATCH · STRONG",
+        title: "12 Pacific Avenue · Suffolk Park",
+        body: `<p><b>Guide</b> · $3.6M – $3.85M · 4 bed · 2 bath · 612m².</p><p><b>Why it fits</b> · ocean walk, family layout, quiet street, in-law studio at the rear.</p><p><b>Window</b> · off-market, 48 hours.</p>`,
+        foot: "Notify Chris · Open in log"
+      }
+    })
+  },
+  "Property Matcher": {
+    intro: c => `I'll cross-reference the property log against ${c ? c.name + "'s" : "every active"} brief and surface the strongest fits. Any filters you want to lock first?`,
+    suggested: ["Run it", "Coastal only", "Off-markets first"],
+    reply: c => ({
+      text: `Four matches. One is a clear front-runner. The other three are softer fits but worth keeping warm.`,
+      card: {
+        label: "SHORTLIST · 4 MATCHES",
+        title: "Top fit · 12 Pacific Avenue, Suffolk Park",
+        body: `<p><b>1.</b> 12 Pacific Avenue · Suffolk Park · off-market · strong.</p><p><b>2.</b> 6 Marvell Street · Byron Bay · listed · medium.</p><p><b>3.</b> 19 Beachcomber Drive · Lennox · listed · medium.</p><p><b>4.</b> 4 Coopers Shoot Rd · Newrybar · whisper · soft.</p>`,
+        foot: "Send to Chris · Add to proposal"
+      }
+    })
+  },
+  "Compliance Filer": {
+    intro: c => `I'll file every CAF, invoice and signed doc for ${c ? c.name : "this client"} into the right folder, REBAA / QLD / NSW splits handled. Want me to run an audit export now or just keep watching?`,
+    suggested: ["Run audit export", "Show me the gaps", "File the latest CAF"],
+    reply: c => ({
+      text: `All filed. Zero gaps across the active book. CAF, scope of works and ID are in the right folder. Audit export is ready as a single PDF if Nick wants to send it on.`,
+      card: {
+        label: "AUDIT · 0 GAPS",
+        title: "87 folders · all current",
+        body: `<p><b>CAFs</b> · 12 / 12 signed and filed.</p><p><b>Invoices</b> · 9 / 9 reconciled.</p><p><b>ID + funds</b> · 12 / 12 captured.</p>`,
+        foot: "Export PDF · Notify Nick"
+      }
+    })
+  },
+  "Reminders Engine": {
+    intro: c => `I quietly resurface dormant clients and prompt follow-ups before they slip. ${c ? `For ${c.name}, ` : ""}want me to suggest a next nudge or surface anyone gone quiet?`,
+    suggested: ["Suggest a next nudge", "Who's gone quiet?", "Draft a low-pressure check-in"],
+    reply: c => ({
+      text: `Drafted a low-pressure check-in. Tone is warm, not chasing. Reminder set for Thursday if no reply by then.`,
+      card: {
+        label: "DRAFT · CHECK-IN",
+        title: c ? `Note for ${c.name}` : "Check-in note",
+        body: `<p>"Hi ${c ? c.name.split(/[ &]/)[0] : "there"}, no pressure on a reply. Wanted to share two off-markets I think you'd like the look of. Happy to talk anytime, or sit on it for a bit."</p>`,
+        foot: "Send via WhatsApp · Reminder set"
+      }
+    })
+  }
+};
+
+function renderMsg(role, html, asResult){
+  const m = team[role === "you" ? null : "bruce"] || {};
+  const av = role === "you" ? `<div class="msg-av you">YOU</div>` : `<div class="msg-av">B</div>`;
+  const meta = role === "you" ? "You" : "Bruce";
+  const node = document.createElement("div");
+  node.className = "msg";
+  node.innerHTML = `${av}<div class="msg-body"><div class="msg-meta">${meta}</div><div class="msg-text">${html}</div></div>`;
+  return node;
+}
+
+function resultCardHTML(card){
+  return `
+    <div class="result-card">
+      <div class="rl">${card.label}</div>
+      <div class="rt">${card.title}</div>
+      <div class="rb">${card.body}</div>
+      <div class="result-foot"><span class="l">${card.foot}</span></div>
+    </div>`;
+}
+
+let activeAgent = null;
+
+function openAgentChat(agent){
+  activeAgent = agent;
+  const c = currentClient;
+  document.getElementById("chat-title").textContent = agent.n;
+  document.getElementById("chat-icon-use").setAttribute("href", `#${agent.icon}`);
+  document.getElementById("chat-client").textContent = c ? c.name : "the active book";
+  const thread = document.getElementById("chat-thread");
+  thread.innerHTML = "";
+
+  const script = agentScripts[agent.n];
+  if(script){
+    const intro = renderMsg("agent", `<p>${script.intro(c)}</p>
+      <div class="suggested">${script.suggested.map(s => `<button data-prompt="${s.replace(/"/g,'&quot;')}">${s}</button>`).join("")}</div>`);
+    thread.appendChild(intro);
+    intro.querySelectorAll(".suggested button").forEach(b => {
+      b.addEventListener("click", () => { document.getElementById("chat-input-field").value = b.dataset.prompt; sendChatMessage(); });
+    });
+  } else {
+    thread.appendChild(renderMsg("agent", `<p>I'm ${agent.n}. Tell me what you need.</p>`));
+  }
+
+  document.getElementById("agent-chat-scrim").classList.add("open");
+  setTimeout(() => document.getElementById("chat-input-field").focus(), 240);
+}
+
+function closeAgentChat(){
+  document.getElementById("agent-chat-scrim").classList.remove("open");
+  activeAgent = null;
+}
+
+function sendChatMessage(){
+  const field = document.getElementById("chat-input-field");
+  const text = field.value.trim();
+  if(!text || !activeAgent) return;
+  const thread = document.getElementById("chat-thread");
+  thread.appendChild(renderMsg("you", `<p>${text}</p>`));
+  field.value = "";
+  thread.scrollTop = thread.scrollHeight;
+
+  const typing = document.createElement("div");
+  typing.className = "msg typing";
+  typing.innerHTML = `<div class="msg-av">B</div><div class="msg-body"><div class="msg-meta">Bruce</div><div class="msg-text"><span class="dot"></span><span class="dot"></span><span class="dot"></span> thinking</div></div>`;
+  thread.appendChild(typing);
+  thread.scrollTop = thread.scrollHeight;
+
+  setTimeout(() => {
+    typing.remove();
+    const script = agentScripts[activeAgent.n];
+    if(script){
+      const r = script.reply(currentClient);
+      const node = renderMsg("agent", `<p>${r.text}</p>${resultCardHTML(r.card)}`);
+      thread.appendChild(node);
+    } else {
+      thread.appendChild(renderMsg("agent", `<p>Done.</p>`));
+    }
+    thread.scrollTop = thread.scrollHeight;
+  }, 950);
+}
+
+document.getElementById("chat-close").addEventListener("click", closeAgentChat);
+document.getElementById("agent-chat-scrim").addEventListener("click", e => { if(e.target.id === "agent-chat-scrim") closeAgentChat(); });
+document.getElementById("chat-send").addEventListener("click", sendChatMessage);
+document.getElementById("chat-input-field").addEventListener("keydown", e => { if(e.key === "Enter") sendChatMessage(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && document.getElementById("agent-chat-scrim").classList.contains("open")) closeAgentChat(); });
+
+/* ===== PROPERTY LOG ===== */
+const properties = [
+  {addr:"12 Pacific Avenue",      suburb:"Suffolk Park",      beds:4, baths:2, guide:"$3.6M – $3.85M", added:"2 hours ago",  source:"Off-market · McGrath", region:["byron"], match:true,  off:true,  img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80"},
+  {addr:"6 Marvell Street",        suburb:"Byron Bay",         beds:3, baths:2, guide:"$4.2M",          added:"Yesterday",    source:"Realestate.com.au",    region:["byron"], match:true,  off:false, img:"https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80"},
+  {addr:"19 Beachcomber Drive",    suburb:"Lennox Head",       beds:4, baths:3, guide:"$3.0M – $3.2M",  added:"Yesterday",    source:"Realestate.com.au",    region:["byron"], match:true,  off:false, img:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80"},
+  {addr:"4 Coopers Shoot Road",    suburb:"Newrybar",          beds:5, baths:3, guide:"$5.4M",          added:"2 days ago",   source:"Whisper · agent DM",    region:["byron"], match:true,  off:true,  img:"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80"},
+  {addr:"42 Hastings Road",        suburb:"Casuarina",         beds:5, baths:4, guide:"$5.1M",          added:"3 days ago",   source:"Off-market · Ray White",region:["tweed"], match:false, off:true,  img:"https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80"},
+  {addr:"2 Bilinga Avenue",        suburb:"Bilinga",           beds:3, baths:2, guide:"$3.1M",          added:"3 days ago",   source:"Realestate.com.au",    region:["goldcoast"], match:false, off:false, img:"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80"},
+  {addr:"118 Tallow Beach Road",   suburb:"Suffolk Park",      beds:4, baths:2, guide:"$3.9M",          added:"4 days ago",   source:"Realestate.com.au",    region:["byron"], match:false, off:false, img:"https://images.unsplash.com/photo-1582268611958-ebfd161df9d8?w=600&q=80"},
+  {addr:"17 Hinterland Way",       suburb:"Bangalow",          beds:5, baths:3, guide:"$4.6M",          added:"5 days ago",   source:"Off-market · Atlas",   region:["byron"], match:false, off:true,  img:"https://images.unsplash.com/photo-1505843513577-22bb7d21e455?w=600&q=80"},
+  {addr:"8 Ocean Street",          suburb:"Mermaid Beach",     beds:3, baths:2, guide:"$4.4M",          added:"6 days ago",   source:"Realestate.com.au",    region:["goldcoast"], match:false, off:false, img:"https://images.unsplash.com/photo-1600566753086-00f18fe6ba48?w=600&q=80"},
+  {addr:"23 Sunrise Boulevard",    suburb:"Kingscliff",        beds:4, baths:3, guide:"$2.4M",          added:"7 days ago",   source:"Realestate.com.au",    region:["tweed"], match:false, off:false, img:"https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80"},
+  {addr:"5 Wategos Lane",          suburb:"Wategos",           beds:5, baths:4, guide:"$8.4M",          added:"9 days ago",   source:"Off-market · DM",       region:["byron"], match:false, off:true,  img:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80"},
+  {addr:"77 Burleigh Street",      suburb:"Burleigh Heads",    beds:3, baths:2, guide:"$3.2M",          added:"11 days ago",  source:"Realestate.com.au",    region:["goldcoast"], match:false, off:false, img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80"},
+];
+const regionLabel = {byron:"Byron Shire", goldcoast:"Gold Coast", tweed:"Tweed"};
+
+const clientMatches = {
+  c1:  [{idx:9, why:"Tweed Heads, family home, sub-$2.5M. Strong fit on every line of the brief."}, {idx:5, why:"Coastal corridor option. Slightly above budget but worth a look."}],
+  c2:  [{idx:9, why:"Kingscliff, family layout, well inside the budget window."}],
+  c3:  [{idx:7, why:"Bangalow proper. Hinterland feel, room for the kids, clean renovation."}, {idx:3, why:"Newrybar acreage. Stretch on price but the brief is open to it."}],
+  c4:  [{idx:0, why:"Suffolk Park, ocean walk, in-law studio at the rear. Off-market window of 48 hours."}, {idx:1, why:"Byron Bay alternative. Smaller block, walking distance to town."}, {idx:6, why:"Tallow Beach Road. Listed, slightly above the brief but worth a walk-through."}],
+  c5:  [{idx:8, why:"Mermaid Beach proper. On-market, beachside block, fits the budget cleanly."}, {idx:11, why:"Burleigh option. Slightly under budget, leaves room for renovation."}],
+  c6:  [{idx:4, why:"Casuarina, off-market, the kind of investment + family setup the trust is after."}, {idx:3, why:"Newrybar hinterland estate. Long-hold play."}],
+  c7:  [{idx:0, why:"Suffolk Park, ocean walk, ready to move on. Vendor agent open to a quick offer."}, {idx:6, why:"Tallow Beach Road. Listed alternative if the off-market doesn't land."}],
+  c8:  [{idx:7, why:"Bangalow hinterland. Acreage, paddocks, fits the brief on lifestyle."}, {idx:3, why:"Newrybar. Bigger play, off-market whisper from a known agent."}],
+  c9:  [{idx:2, why:"Lennox Head proper. On-market, four-bed, walking distance to the headland."}, {idx:0, why:"Suffolk Park alternative if Lennox doesn't land. Off-market window is short."}],
+  c10: [{idx:9, why:"Kingscliff, the home they're already negotiating on. Counter at $2.58M ready to send."}],
+  c11: [],
+  c12: [],
+};
+
+let propFilter = "all";
+let propSort = "added";
+let propQuery = "";
+
+function renderProperties(){
+  const grid = document.getElementById("prop-grid");
+  if(!grid) return;
+  let list = properties.slice();
+  if(propFilter === "match") list = list.filter(p => p.match);
+  else if(propFilter === "off") list = list.filter(p => p.off);
+  else if(propFilter === "recent") list = list.filter(p => /hour|day/.test(p.added) && !/9 days|11 days/.test(p.added));
+  else if(["byron","goldcoast","tweed"].includes(propFilter)) list = list.filter(p => p.region.includes(propFilter));
+  if(propQuery){
+    const q = propQuery.toLowerCase();
+    list = list.filter(p => (p.addr+" "+p.suburb+" "+p.source).toLowerCase().includes(q));
+  }
+  if(propSort === "price") list.sort((a,b) => parseFloat(b.guide.replace(/[^\d.]/g,"")) - parseFloat(a.guide.replace(/[^\d.]/g,"")));
+  else if(propSort === "suburb") list.sort((a,b) => a.suburb.localeCompare(b.suburb));
+
+  grid.innerHTML = list.map(p => `
+    <div class="prop-card">
+      <div class="prop-img">
+        <img src="${p.img}" alt="${p.addr}, ${p.suburb}" loading="lazy" />
+        <span class="prop-tag ${p.match?"match":""}">${p.match ? "Match · brief" : (p.off ? "Off-market" : "Listed")}</span>
+      </div>
+      <div class="prop-body">
+        <div class="prop-suburb">${p.suburb}</div>
+        <div class="prop-addr">${p.addr}</div>
+        <div class="prop-meta">
+          <span class="prop-guide">${p.guide}</span>
+          <span class="prop-spec">${p.beds} bed · ${p.baths} bath</span>
+        </div>
+        <div class="prop-foot">
+          <span class="prop-added">Added ${p.added}</span>
+          <span class="prop-source">${p.source}</span>
+        </div>
+      </div>
+    </div>
+  `).join("");
+  if(list.length === 0){
+    grid.innerHTML = `<div style="grid-column:1/-1;padding:60px 0;text-align:center;color:var(--stone);font-style:italic;font-family:var(--serif);font-size:16px">No properties match this view yet. Bruce will keep watching.</div>`;
+  }
+}
+
+document.querySelectorAll("#prop-filters .chip").forEach(c => {
+  c.addEventListener("click", () => {
+    document.querySelectorAll("#prop-filters .chip").forEach(x => x.classList.toggle("active", x === c));
+    propFilter = c.dataset.filter;
+    renderProperties();
+  });
+});
+document.getElementById("prop-sort").addEventListener("change", e => { propSort = e.target.value; renderProperties(); });
+document.getElementById("prop-search").addEventListener("input", e => { propQuery = e.target.value; renderProperties(); });
+document.getElementById("prop-add").addEventListener("click", () => {
+  const v = document.getElementById("prop-link").value.trim();
+  if(!v) return;
+  properties.unshift({addr:"New listing pending", suburb:"Bruce parsing…", beds:0, baths:0, guide:"…", added:"Just now", source:v.includes("realestate") ? "Realestate.com.au" : "Pasted link", region:["byron"], match:false, off:false, img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80"});
+  document.getElementById("prop-link").value = "";
+  propFilter = "all";
+  document.querySelectorAll("#prop-filters .chip").forEach(x => x.classList.toggle("active", x.dataset.filter === "all"));
+  renderProperties();
+});
+
+pipelineRender();
+renderAgents();
+renderBars();
+renderDb();
+renderReminders();
+renderProperties();
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compass OS · Delivery Plan</title>
+<style>
+  @font-face { font-family: 'MinervaModern'; src: url('fonts/MinervaModern-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'MinervaModern'; src: url('fonts/MinervaModern-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+  :root {
+    --hills: #2C4A3E;
+    --hills-light: #4A6B5F;
+    --hills-deep: #1F3329;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --bright-grey: #F5F5F5;
+    --sea: #7BAE9E;
+    --sea-soft: #B8D4CB;
+    --sea-tint: #E5EFEA;
+    --sand: #F5E6D3;
+    --sand-light: #FBF6EE;
+    --sand-deep: #EBD7B8;
+    --stone: #8B7E74;
+    --stone-light: #D9D3CC;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    color: var(--ink);
+    background: var(--white);
+    font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* STICKY NAV */
+  .top-nav-wrap {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    box-shadow: 0 1px 0 var(--sand);
+  }
+  .top-band { height: 6px; background: var(--hills); width: 100%; }
+  .doc-nav { background: var(--white); padding: 0; border-bottom: 1px solid var(--sand); }
+  .doc-nav-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .doc-nav a {
+    display: block; padding: 16px 28px 18px;
+    text-decoration: none; color: var(--stone);
+    border-right: 1px solid var(--sand);
+    border-bottom: 3px solid transparent;
+    transition: background 0.15s ease;
+  }
+  .doc-nav a:last-child { border-right: none; }
+  .doc-nav a:hover { background: var(--sand-light); color: var(--hills); }
+  .doc-nav a.current {
+    background: var(--sand-light);
+    border-bottom-color: var(--hills);
+    color: var(--hills);
+  }
+  .doc-nav .doc-label {
+    font-family: 'Aeonik', sans-serif; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+    color: var(--stone); display: block; margin-bottom: 4px;
+  }
+  .doc-nav a.current .doc-label { color: var(--hills); }
+  .doc-nav .doc-name {
+    font-family: 'MinervaModern', serif; font-size: 14pt;
+    color: var(--hills); line-height: 1.15; display: block; margin-bottom: 3px;
+    letter-spacing: -0.01em;
+  }
+  .doc-nav .doc-desc {
+    font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
+    color: var(--stone); line-height: 1.4; display: block;
+  }
+  .doc-nav a.current .doc-desc { color: var(--ink-soft); }
+
+  /* SECTION-BASED LAYOUT — full-bleed backgrounds, content constrained */
+  .container { max-width: 880px; margin: 0 auto; padding: 0 56px; }
+
+  .page-hero { background: var(--white); padding: 72px 0 16px; }
+  .page-hero .container { padding-bottom: 8px; }
+
+  section.seq {
+    padding: 64px 0;
+    border-top: 1px solid var(--sand);
+  }
+  section.seq:first-of-type { border-top: none; }
+  section.seq.bg-white { background: var(--white); }
+  section.seq.bg-sand { background: var(--sand-light); }
+  section.seq.bg-grey { background: var(--bright-grey); }
+  section.seq.bg-dark { background: var(--hills-deep); color: var(--white); }
+  section.seq.bg-dark h2, section.seq.bg-dark h3, section.seq.bg-dark h4,
+  section.seq.bg-dark p, section.seq.bg-dark .invest-note { color: var(--white); }
+  section.seq.bg-dark h2 .num { color: var(--sand); }
+  section.seq.bg-dark h2::before { background: var(--sand); }
+  section.seq.bg-dark .invest-stat .num { color: var(--white); }
+  section.seq.bg-dark .invest-stat h4 { color: var(--sand); }
+  section.seq.bg-dark th { color: var(--sand); border-bottom-color: rgba(255,255,255,0.3); }
+  section.seq.bg-dark td { border-bottom-color: rgba(255,255,255,0.15); }
+
+  /* TYPOGRAPHY */
+  h1, h2, h3, h4 { font-family: 'MinervaModern', Georgia, serif; color: var(--hills); letter-spacing: -0.02em; }
+  h1 { font-size: 44pt; line-height: 1.05; margin: 0 0 16px; font-weight: 500; }
+  h2 { font-size: 24pt; line-height: 1.15; margin: 0 0 18px; font-weight: 600; position: relative; }
+  h2::before { content: ''; display: block; width: 40px; height: 2px; background: var(--hills); margin-bottom: 22px; }
+  h2 .num {
+    color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em;
+    display: block; text-transform: uppercase; margin-bottom: 12px;
+    font-family: 'Aeonik', sans-serif; font-weight: 600;
+  }
+  h3 { font-size: 14pt; margin: 32px 0 10px; font-weight: 600; }
+  h4 {
+    font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
+    margin: 24px 0 10px; color: var(--stone); font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .lead {
+    color: var(--hills); font-size: 17pt; margin: 0 0 8px; font-weight: 500;
+    line-height: 1.4; font-family: 'MinervaModern', serif; letter-spacing: -0.01em;
+  }
+  .meta {
+    color: var(--stone); font-size: 9pt; margin: 0 0 32px;
+    line-height: 1.55; letter-spacing: 0.01em;
+  }
+  p { margin: 10px 0 14px; color: var(--ink); line-height: 1.65; }
+  .narrow { max-width: 640px; }
+
+  /* HERO HEADER BLOCK */
+  .header-block {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px; margin: 24px 0 32px; padding: 24px 0;
+    border-top: 1px solid var(--stone-light);
+    border-bottom: 1px solid var(--stone-light);
+  }
+  .header-block .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt;
+    margin-bottom: 6px; font-weight: 600;
+  }
+  .header-block .item .value {
+    color: var(--ink); font-weight: 500; font-size: 12pt;
+    font-family: 'MinervaModern', serif; line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  /* COMPANION LINK */
+  .companion-link {
+    background: var(--sand); padding: 22px 28px;
+    margin: 32px 0 0; border-radius: 3px;
+    border-left: 4px solid var(--hills);
+    color: var(--ink); font-size: 10pt; line-height: 1.7;
+  }
+  .companion-link strong { color: var(--hills); }
+  .companion-link a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* CARDS — distinct purposes, distinct colours */
+  .card { padding: 22px 26px; margin: 24px 0; border-radius: 3px; background: var(--bright-grey); }
+  .card.sand { background: var(--sand); }
+  .card.nick { background: var(--sea-tint); border-left: 3px solid var(--sea); padding-left: 28px; }
+  .card.nick strong.tag { color: var(--hills); letter-spacing: 0.22em; text-transform: uppercase; font-size: 7.5pt; font-weight: 700; display: block; margin-bottom: 10px; }
+
+  /* OUTCOMES */
+  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 44px; margin: 32px 0; }
+  .outcome { padding: 0; }
+  .outcome .num { color: var(--stone); font-family: 'MinervaModern', serif; font-size: 11pt; letter-spacing: 0.05em; margin-bottom: 8px; display: block; font-weight: 500; }
+  .outcome .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 18pt; margin: 0 0 12px; line-height: 1.2; letter-spacing: -0.018em; }
+  .outcome p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.65; }
+
+  /* BRUCE BLOCK */
+  .bruce-block { margin: 32px 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 44px; align-items: start; }
+  .bruce-text p { font-size: 10pt; line-height: 1.7; }
+  .bruce-visual { background: var(--white); padding: 32px 28px; border-radius: 4px; text-align: center; border: 1px solid var(--stone-light); }
+  .bruce-orch { font-family: 'MinervaModern', serif; color: var(--white); background: var(--hills); display: inline-block; padding: 16px 36px; border-radius: 999px; font-size: 17pt; letter-spacing: -0.01em; font-weight: 500; }
+  .bruce-orch-label { display: block; font-family: 'Aeonik', sans-serif; color: var(--sea-soft); font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+  .bruce-agents { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
+  .bruce-agent { background: var(--sand); color: var(--hills); padding: 6px 13px; border-radius: 999px; font-size: 8pt; font-weight: 600; }
+
+  /* SKILLS ROLLOUT */
+  .rollout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin: 32px 0; }
+  .rollout-col { background: var(--white); padding: 22px; border-radius: 3px; border-top: 3px solid var(--hills); }
+  .rollout-col h4 { color: var(--hills); border-bottom: none; padding-bottom: 0; margin: 0 0 14px; font-size: 8.5pt; }
+  .rollout-col ul { list-style: none; padding: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
+  .rollout-col ul li { margin: 8px 0; padding-left: 12px; position: relative; }
+  .rollout-col ul li::before { content: '→'; position: absolute; left: 0; color: var(--sea); font-weight: 600; }
+  .rollout-col ul li strong { color: var(--hills); }
+
+  /* SURFACES */
+  .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 32px 0; }
+  .surface { padding: 0; }
+  .surface .num { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .surface .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 16pt; margin: 8px 0 10px; line-height: 1.2; letter-spacing: -0.015em; }
+  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.65; }
+
+  /* MONTHLY CARDS (proposal) */
+  .months { display: flex; flex-direction: column; gap: 14px; margin: 32px 0; }
+  .month-card { background: var(--white); padding: 28px 32px; border-radius: 3px; border-left: 4px solid var(--hills); display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: start; box-shadow: 0 1px 0 var(--stone-light); }
+  .month-card .month-num { font-family: 'MinervaModern', serif; font-size: 34pt; color: var(--hills); font-weight: 500; line-height: 1; }
+  .month-card .month-body { padding-top: 4px; }
+  .month-card .month-body .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .month-card .month-body h3 { margin: 4px 0 8px; font-size: 19pt; color: var(--hills); font-weight: 600; }
+  .month-card .month-body .theme { font-family: 'MinervaModern', serif; font-style: italic; color: var(--hills-light); font-size: 12pt; margin-bottom: 12px; }
+  .month-card .month-body p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.65; }
+  .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
+  .month-card .month-side .checkpoint { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--hills); font-weight: 500; line-height: 1; }
+  .month-card .month-side .checkpoint-label { font-size: 7.5pt; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
+  .month-card.optional { background: var(--bright-grey); border-left-color: var(--stone); }
+  .month-card.optional .month-num, .month-card.optional .month-body h3, .month-card.optional .month-side .checkpoint { color: var(--stone); }
+
+  /* OWNERSHIP */
+  .own-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; margin: 28px 0; }
+  .own-item { background: var(--white); padding: 18px 22px; border-radius: 3px; font-size: 10pt; color: var(--ink); line-height: 1.55; border-left: 3px solid var(--sea); }
+
+  /* ROI */
+  .roi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin: 28px 0; }
+  .roi-item { background: var(--white); padding: 22px; border-radius: 3px; border-top: 3px solid var(--sea); }
+  .roi-item h4 { margin: 0 0 8px; }
+  .roi-item p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
+  .roi-item p strong { color: var(--hills); }
+
+  /* INVESTMENT — dark hero panel */
+  .invest-block { padding: 0; margin: 28px 0; }
+  .invest-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .invest-stat .num { font-family: 'MinervaModern', serif; font-size: 44pt; line-height: 1; font-weight: 500; }
+  .invest-stat h4 { margin: 12px 0 8px; }
+  .invest-stat p { margin: 0; font-size: 9.5pt; line-height: 1.6; opacity: 0.9; }
+  .invest-note { margin-top: 28px; font-size: 9.5pt; line-height: 1.65; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.2); opacity: 0.95; }
+
+  /* OPEN QUESTION */
+  .open-question { background: #FFF1D6; padding: 22px 28px; border-radius: 3px; border-left: 4px solid #C68A2E; margin: 28px 0; font-size: 10pt; line-height: 1.65; }
+  .open-question .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; display: block; margin-bottom: 8px; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 9.5pt; }
+  th, td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--stone-light); }
+  th { color: var(--hills); font-weight: 700; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; border-bottom: 2px solid var(--hills); padding-top: 12px; padding-bottom: 12px; }
+  td.title { font-weight: 600; color: var(--ink); width: 26%; font-size: 10pt; }
+
+  /* PILLS */
+  .pill { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pill-web, .stream-A { background: var(--sea-tint); color: var(--hills); }
+  .pill-bruce, .stream-B { background: #DDEBE6; color: #1F5D4F; }
+  .pill-agent, .stream-C { background: #EAE0CF; color: #6B5A48; }
+  .pill-manual, .stream-Compass, .stream-All { background: var(--bright-grey); color: var(--stone); }
+  .effort { font-weight: 700; color: var(--hills); }
+
+  /* LISTS */
+  ul.compact { margin: 12px 0 0 22px; padding: 0; }
+  ul.compact li { margin: 6px 0; line-height: 1.65; }
+
+  /* ROLES (plan) */
+  .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 36px; margin: 22px 0; }
+  .role { padding: 8px 0; }
+  .role .name { font-weight: 600; color: var(--hills); font-size: 11.5pt; font-family: 'MinervaModern', serif; letter-spacing: -0.005em; margin-bottom: 4px; }
+  .role .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
+
+  /* SUMMARY TABLE */
+  .summary-table th, .summary-table td { font-size: 9.5pt; }
+
+  /* FLOW TABLE (SOW) */
+  .flow-table th, .flow-table td { font-size: 9.5pt; padding: 12px 16px 12px 0; }
+  .flow-table .phase { background: transparent; color: var(--hills); font-family: 'MinervaModern', serif; font-weight: 600; font-size: 15pt; padding: 32px 0 12px; border-bottom: 1.5px solid var(--hills); letter-spacing: -0.018em; }
+  .flow-table .phase-num { font-size: 7.5pt; letter-spacing: 0.22em; color: var(--stone); text-transform: uppercase; font-weight: 700; margin-right: 14px; font-family: 'Aeonik', sans-serif; }
+  .flow-table tr:first-child .phase { padding-top: 12px; }
+
+  /* LEGEND */
+  .legend { font-size: 9pt; color: var(--stone); margin: 12px 0 18px; }
+  .legend .pill { margin-right: 8px; }
+
+  /* COMMITMENT GRID (SOW) */
+  .commitment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+  .commitment-grid .item { padding: 22px 26px; background: var(--white); border-radius: 3px; border-top: 3px solid var(--hills); }
+  .commitment-grid .item .qty { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 20pt; letter-spacing: -0.018em; line-height: 1.1; }
+  .commitment-grid .item .desc { font-size: 9.5pt; color: var(--ink); margin-top: 10px; line-height: 1.6; }
+
+  /* TOTAL BAND */
+  .total-band { background: var(--hills); color: var(--white); padding: 24px 32px; border-radius: 3px; margin: 18px 0 32px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 22px; }
+  .total-band .label { font-size: 9.5pt; opacity: 0.9; line-height: 1.6; }
+  .total-band .num { font-family: 'MinervaModern', serif; font-size: 28pt; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+
+  /* INVOICE GRID (SOW) */
+  .invoice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 28px 0; }
+  .invoice { background: var(--white); padding: 26px; border-radius: 3px; border-top: 3px solid var(--hills); }
+  .invoice .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .invoice .num { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 500; font-size: 32pt; margin: 10px 0 0; letter-spacing: -0.02em; line-height: 1; }
+  .invoice .terms { font-size: 8.5pt; color: var(--stone); margin: 4px 0 14px; letter-spacing: 0.04em; }
+  .invoice .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
+
+  /* RISK */
+  .risk { background: #FFF1D6; padding: 24px 28px; margin: 16px 0; border-radius: 3px; border-left: 4px solid #C68A2E; }
+  .risk .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .risk .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 15pt; margin: 8px 0 12px; letter-spacing: -0.015em; }
+  .risk .handle { background: var(--white); padding: 16px 20px; margin-top: 14px; border-radius: 3px; font-size: 9.5pt; color: var(--ink); line-height: 1.65; }
+
+  /* RUNNING COSTS */
+  .running-costs table td:nth-child(2) { text-align: right; font-weight: 500; color: var(--hills); white-space: nowrap; font-family: 'MinervaModern', serif; font-size: 13pt; letter-spacing: -0.01em; }
+
+  /* PLAN SPECIFIC */
+  .stage-banner { margin: 56px 0 22px; padding: 32px 0 16px; border-top: 2px solid var(--hills); background: transparent; }
+  .stage-banner .label { color: var(--stone); font-size: 8pt; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; display: block; }
+  .stage-banner .title { font-family: 'MinervaModern', serif; font-size: 26pt; color: var(--hills); font-weight: 600; letter-spacing: -0.022em; line-height: 1.1; }
+  .milestone-block { background: var(--white); padding: 32px 36px; margin: 28px 0 32px; border-radius: 3px; border-left: 4px solid var(--hills); box-shadow: 0 1px 0 var(--stone-light); }
+  .milestone-block .head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 28px; margin-bottom: 14px; }
+  .milestone-block .head .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .milestone-block .head .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 20pt; margin: 8px 0; letter-spacing: -0.018em; line-height: 1.15; }
+  .milestone-block .head .when { font-size: 9.5pt; color: var(--stone); font-style: italic; font-family: 'MinervaModern', serif; line-height: 1.45; }
+  .milestone-block .price { background: var(--sand); padding: 18px 22px; border-radius: 3px; text-align: right; min-width: 180px; }
+  .milestone-block .price .num { font-family: 'MinervaModern', serif; font-size: 24pt; color: var(--hills); font-weight: 500; line-height: 1; letter-spacing: -0.02em; }
+  .milestone-block .price .terms { font-size: 8pt; color: var(--stone); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 18px 0; padding: 16px 0; border-top: 1px solid var(--sand); font-size: 9.5pt; }
+  .meta-row .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; margin-bottom: 4px; font-weight: 700; }
+
+  .stream-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  .stream-mini { background: var(--sand-light); padding: 20px; border-radius: 3px; font-size: 9.5pt; border-top: 3px solid var(--sea); }
+  .stream-mini .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7pt; font-weight: 700; }
+  .stream-mini .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 13pt; margin: 6px 0 12px; letter-spacing: -0.012em; line-height: 1.2; }
+  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink); }
+  .stream-mini ul li { margin: 4px 0; line-height: 1.55; }
+
+  .gate, .milestone { background: var(--hills); color: var(--white); padding: 22px 28px; border-radius: 3px; margin: 20px 0 32px; font-size: 10pt; line-height: 1.65; }
+  .gate .label, .milestone .label { font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-size: 7.5pt; opacity: 0.9; margin-bottom: 12px; display: block; font-family: 'Aeonik', sans-serif; }
+
+  .stream { background: var(--white); padding: 26px 30px; margin: 18px 0; border-radius: 3px; border-left: 3px solid var(--sea); box-shadow: 0 1px 0 var(--stone-light); }
+  .stream .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .stream .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 19pt; margin: 6px 0 14px; letter-spacing: -0.018em; line-height: 1.15; }
+  .stream ul { margin: 14px 0 0 18px; padding: 0; font-size: 10pt; color: var(--ink); }
+  .stream ul li { margin: 6px 0; line-height: 1.6; }
+  .stream .note { background: var(--sand-light); padding: 16px 20px; margin-top: 18px; font-size: 9.5pt; border-radius: 3px; color: var(--ink); line-height: 1.65; }
+
+  /* FOOTER */
+  .page-footer { background: var(--bright-grey); padding: 40px 0 36px; }
+  .page-footer .container { color: var(--stone); font-size: 8.5pt; line-height: 1.7; letter-spacing: 0.01em; }
+  .page-footer a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* PRINT */
+  @page { size: A4; margin: 18mm 16mm; }
+  @media print {
+    .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
+    body { font-size: 9.5pt; }
+    .container { padding: 0; }
+    section.seq { padding: 28px 0; border-top: 1px solid var(--stone-light); page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+    .month-card, .roi-item, .own-item, .surface, .outcome, .milestone-block, .invoice, .risk, .gate, .milestone, .card { page-break-inside: avoid; }
+    .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid, .roi-grid, .own-grid { page-break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav-wrap">
+<div class="top-band"></div>
+<nav class="doc-nav">
+  <div class="doc-nav-inner">
+    <a href="compass-os-proposal.html">
+      <span class="doc-label">01 · Proposal</span>
+      <span class="doc-name">Why this works</span>
+      <span class="doc-desc">Vision, value, ROI, investment.</span>
+    </a>
+    <a href="compass-os-sow.html">
+      <span class="doc-label">02 · Statement of Work</span>
+      <span class="doc-name">What we commit to</span>
+      <span class="doc-desc">Architecture, milestones, payment, risks.</span>
+    </a>
+    <a href="compass-os-weekly-plan.html" class="current">
+      <span class="doc-label">03 · Delivery Plan</span>
+      <span class="doc-name">How it gets built</span>
+      <span class="doc-desc">16 weeks, ticket by ticket.</span>
+    </a>
+    <a href="compass-os-prototype.html">
+      <span class="doc-label">04 · Prototype</span>
+      <span class="doc-name">A look at the OS</span>
+      <span class="doc-desc">Indicative click-through, not the final flow.</span>
+    </a>
+  </div>
+</nav>
+</div>
+<header class="page-hero"><div class="container"><h1>Compass OS · Delivery Plan</h1>
+<p class="lead">Week-by-week breakdown of the Stage 1 Statement of Work.</p>
+<p class="meta">Compass Buyers Agency · 4 months · $50,000 + GST · Three streams · Four monthly milestones · Prepared by Dan for Nick and Chris</p>
+
+<div class="companion-link">
+  <strong>You are reading the Delivery Plan.</strong> 16 weeks, ticket by ticket.<br>
+  Two companion documents: <a href="compass-os-proposal.html"><strong>Proposal</strong></a> for why this works, <a href="compass-os-sow.html"><strong>Statement of Work</strong></a> for what we commit to.
+</div>
+
+<div class="card sand">
+  <strong>What's in this plan.</strong>
+  <ul class="compact">
+    <li>16 weeks, ticket by ticket. Grouped by stream: Web app (A), Bruce on WhatsApp (B), Agent space (C).</li>
+    <li>What Compass does each week. Most weeks: a 30-minute Monday catch-up and a 5-minute Friday Loom.</li>
+    <li>Three milestone gates: M1, M2, M3. Each one carries an acceptance test, taken straight from the SOW.</li>
+    <li>Week 0: account and environment setup. Every account, every brand asset, every decision Compass locks in before week 1.</li>
+  </ul>
+</div></div></header>
+<section class="seq bg-white"><div class="container"><h2>Who builds this</h2>
+<p>Same team the SOW describes. Three of us on the build, plus a small specialised agent set behind us for drafting and scaffolding. Agents draft, we review, then it ships.</p>
+
+<h4>Roles you'll see on tickets</h4>
+<div class="roles-grid">
+  <div class="role"><div class="name">Delivery Lead (Dan)</div><div class="desc">Plans the work, briefs the team, runs the Monday catch-ups, owns every sign-off.</div></div>
+  <div class="role"><div class="name">Engineer</div><div class="desc">Writes the code. Builds the database, the web app, Bruce, the agent space. Every change reviewed before it ships.</div></div>
+  <div class="role"><div class="name">Frontend Designer</div><div class="desc">Layout, type, spacing, motion. Makes every screen look like Compass.</div></div>
+  <div class="role"><div class="name">Copywriter</div><div class="desc">Every word in the app and in Bruce's mouth. Tuned to Compass's voice. Never ships raw.</div></div>
+  <div class="role"><div class="name">DevOps</div><div class="desc">Hosting, deployment, security, monitoring, the WhatsApp plumbing. The bits that keep everything running.</div></div>
+  <div class="role"><div class="name">Tester</div><div class="desc">Tries to break the build before clients do. Walks the end-to-end flow before each milestone.</div></div>
+</div></div></section>
+<section class="seq bg-sand"><div class="container"><h2>Compass's time at a glance</h2>
+<p>About 15 hours total, across four months. A 30-minute Monday catch-up plus a 5-minute Friday Loom each week. One demo per month. Email when something needs deciding. Compass watches the build, doesn't sit in it.</p>
+<table class="summary-table">
+  <thead><tr><th>Week</th><th>What Compass does</th><th>Active time</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Week 0</strong></td><td>Account and environment setup. Async, before week 1 starts. Brand assets shared. Joint decisions confirmed.</td><td>~2 hrs</td></tr>
+    <tr><td><strong>1</strong></td><td>Monday catch-up. Friday Loom.</td><td>~35 min</td></tr>
+    <tr><td><strong>2</strong></td><td>Monday catch-up. Friday Loom.</td><td>~35 min</td></tr>
+    <tr><td><strong>3</strong></td><td>Monday catch-up. Friday Loom.</td><td>~35 min</td></tr>
+    <tr><td><strong>4</strong></td><td>Monday catch-up. Friday Loom. <strong>M1 demo (30 min, recorded). Compliance and Foundation.</strong></td><td>~1 hr</td></tr>
+    <tr><td><strong>5-7</strong></td><td>Monday catch-up. Friday Loom each week.</td><td>~35 min × 3</td></tr>
+    <tr><td><strong>8</strong></td><td>Monday catch-up. Friday Loom. <strong>M2 demo (30 min, recorded). The Sales Engine.</strong></td><td>~1 hr</td></tr>
+    <tr><td><strong>9-11</strong></td><td>Monday catch-up. Friday Loom each week. Property links shared in DMs as they come up (your normal work, no extra time).</td><td>~35 min × 3</td></tr>
+    <tr><td><strong>12</strong></td><td>Monday catch-up. Friday Loom. <strong>M3 demo (30 min, recorded). Property Log + The Close.</strong></td><td>~1 hr</td></tr>
+    <tr><td><strong>13-15</strong></td><td>Monday catch-up. Friday Loom each week.</td><td>~35 min × 3</td></tr>
+    <tr><td><strong>16</strong></td><td>Monday catch-up. <strong>UAT across the team (~3 hrs distributed)</strong>. <strong>M4 demo + handover walkthrough (30 min, recorded). Growth Engine + Handover.</strong></td><td>~4 hrs</td></tr>
+  </tbody>
+</table>
+<p><strong>Total across four months:</strong> about 15 hours. Four monthly demos. Same number the SOW commits to.</p>
+
+<div class="card">
+  <strong>How to read the weekly tables.</strong> Every row is one ticket. Each carries a stream, a role, an effort (S = under half a day, M = half to two days, L = two to five days), and an acceptance test. The yellow box at the top of each week lists what we need from Compass. The plan is grouped into four monthly stages, each closing with a milestone demo and acceptance gate.
+</div>
+
+<!-- WEEK 0 -->
+<div class="stage-banner first">
+  <div class="label">Week 0</div>
+  <div class="title">Account and environment setup</div>
+</div>
+<p>Two hours of Compass's time, async, before week 1 starts. Every account opened in Compass's name. Brand assets shared. Joint decisions locked. Nothing to migrate later.</p>
+
+<h3>Accounts to open</h3>
+<p>Compass owns and pays for every account from day one. I'll go on each as admin, and a second Compass person as backup, so nothing's bonded to one set of hands.</p>
+<table>
+  <thead><tr><th>Account</th><th>Why we need it</th><th>What Compass does</th></tr></thead>
+  <tbody>
+    <tr><td class="title">GitHub repository</td><td>Where the source code lives. Compass owns the codebase from Day 1.</td><td>Use existing or create a new GitHub organisation. Invite Dan as Owner. Create a private repo named <em>compass-os</em>.</td></tr>
+    <tr><td class="title">Supabase (Sydney)</td><td>The database, login system, file storage. Australian data residency for buyer and client records.</td><td>Create a Supabase organisation under Compass billing. Region = Sydney. Invite Dan as Owner.</td></tr>
+    <tr><td class="title">Vercel</td><td>Hosts the web app. Every push gets a preview link Compass can poke at any time.</td><td>Create a Vercel team under Compass billing (Pro plan). Invite Dan as Owner. Connect to the GitHub org.</td></tr>
+    <tr><td class="title">Anthropic workspace</td><td>The brain behind every agent. Bruce orchestrator and the six sub-agents all run here.</td><td>Compass logs in to Anthropic, creates a workspace, adds payment, sets a monthly spend cap (Dan will recommend a starting figure). Invite Dan as Owner.</td></tr>
+    <tr><td class="title">WhatsApp Business number</td><td>Bruce's channel. Bonded to Compass's verified business in Meta. Approval can take 1-2 weeks, so kick this off on Day 1.</td><td>Apply for WhatsApp Business through Meta with Compass as the verified business. Dan will provide the application content. Compass owns the number.</td></tr>
+    <tr><td class="title">Bruce hosting (cloud server)</td><td>The Compass-owned cloud server that runs Bruce. Self-hosted so the WhatsApp number stays Compass's, the message log stays Compass's, the operational logs stay Compass's.</td><td>Dan provisions the server under a Compass-owned cloud account (Hetzner, DigitalOcean, or similar). Account billed to Compass.</td></tr>
+    <tr><td class="title">DocuSign</td><td>CAF e-signature in the closed-loop onboarding flow.</td><td>Use existing Compass DocuSign account, or sign up. Add Dan as a user with API access.</td></tr>
+    <tr><td class="title">Notion workspace</td><td>The shared project board. Every ticket in this plan lives there. Status visible at all times.</td><td>Create a Compass OS workspace, or add a project page to Compass's existing workspace. Invite Dan and second admin as full members.</td></tr>
+    <tr><td class="title">Monitoring + transcription</td><td>Uptime alerts on Bruce, voice-note transcription, error logs across the stack.</td><td>Dan sets these up under Compass billing during Week 1. Compass approves the choices in the kick-off catch-up.</td></tr>
+  </tbody>
+</table>
+
+<h3>Brand and content pack</h3>
+<p>The raw material we use to make the system sound like Compass. The web app, Bruce, the proposals, the emails. The more we get on day one, the more "Compass" the system feels from the first week.</p>
+<table>
+  <thead><tr><th>Item</th><th>Why we need it</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Logo files (SVG + high-res PNG)</td><td>Web app, proposals, emails, exports.</td></tr>
+    <tr><td class="title">Brand fonts and colours</td><td>Tokenised in the design system so every screen and proposal is on-brand.</td></tr>
+    <tr><td class="title">Tone-of-voice guide (or a 30-min conversation)</td><td>Drives Bruce's persona and the Proposal Writer's drafting tone.</td></tr>
+    <tr><td class="title">5-10 sample emails Compass has sent to past clients</td><td>Tunes Bruce and the Proposal Writer to sound like Compass already sounds.</td></tr>
+    <tr><td class="title">5-10 anonymised past briefs and proposals</td><td>Drives the brief schema, the proposal template, and the demo data.</td></tr>
+    <tr><td class="title">Existing FAQs, brochures, website copy</td><td>Source for Bruce's knowledge base and the Proposal Writer's reference material.</td></tr>
+    <tr><td class="title">Compass team list (names, emails, roles)</td><td>Drives who gets login accounts and at what permission level.</td></tr>
+    <tr><td class="title">Historical archive pointers</td><td>Where the 2.5 years of WhatsApp + email + Drive folders live, so we can ingest archive-grade in M2.</td></tr>
+  </tbody>
+</table>
+
+<h3>Joint decisions (lock in before Week 1)</h3>
+<table>
+  <thead><tr><th>Decision</th><th>Default if not raised</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Hosting region</td><td>Sydney (Supabase + Vercel routing).</td></tr>
+    <tr><td class="title">Auth method for the team</td><td>Email + magic link, MFA on at launch.</td></tr>
+    <tr><td class="title">Primary comms channel between Compass and Dan</td><td>WhatsApp for quick things, email for sign-offs, Notion comments for ticket-specific feedback.</td></tr>
+    <tr><td class="title">Out-of-office handling</td><td>5 business days' notice for planned leave on either side. Backup contacts named.</td></tr>
+    <tr><td class="title">Data retention</td><td>Hold for the life of the relationship plus 7 years (matches REBAA + state Fair Trading record-keeping).</td></tr>
+  </tbody>
+</table>
+
+<div class="milestone"><span class="label">Week 0 complete when</span>Accounts created with Dan admin. Brand pack received. WhatsApp Business application submitted to Meta. Joint decisions locked. Week 1 starts on the next Monday.</div>
+
+<!-- STAGE 1 / M1 -->
+<div class="stage-banner">
+  <div class="label">Month 1 · Milestone 1 · Weeks 1-4</div>
+  <div class="title">Compliance and Foundation</div>
+</div>
+<p>Sleep at night. Every past client, audit-ready. By the end of week 4, the OS is live, every past client has a folder, Bruce is in team WhatsApp DMs capturing today's work, and the first Claude skills are in the team's hands. The dashboard shows real numbers from week one. Compass becomes audit-defensible the day this ships.</p>
+
+<h3>Week 1: Provisioning and scaffolding</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li>Confirm week 0 setup is complete (any leftover account invites, brand assets).</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Monorepo scaffold + CI</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>React + Vite + TypeScript app skeleton building cleanly. Lint and format hooks in CI. Vercel preview deploy live.</td></tr>
+    <tr><td class="title">Supabase project provisioned (Sydney)</td><td><span class="pill stream-A">A</span></td><td>DevOps</td><td class="effort">S</td><td>Project live in Sydney region. Connection string in Compass-owned secret store. Dan has admin.</td></tr>
+    <tr><td class="title">Compass design tokens (colour, type, spacing)</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">M</td><td>Tokens drawn from Compass brand assets. Storybook running. Reviewed against Compass's existing materials.</td></tr>
+    <tr><td class="title">Bruce server provisioned in Compass cloud</td><td><span class="pill stream-B">B</span></td><td>DevOps</td><td class="effort">M</td><td>Cloud server running. Process manager configured. Server billed to Compass. Dan has admin.</td></tr>
+    <tr><td class="title">Bruce paired to Compass WhatsApp number</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Bruce paired and listening. Test message round-trips. Re-pair procedure documented.</td></tr>
+    <tr><td class="title">Anthropic workspace stood up + first orchestrator prompt</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Workspace live under Compass billing. Bruce orchestrator skeleton prompt deployed. Engineering agent operational on the build itself.</td></tr>
+    <tr><td class="title">Open Compass OS Notion board</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Tickets imported. Views by week, stream, status. Compass invited.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 2: Schema, auth, persona</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li>Sign off Bruce's persona one-pager (15-min review).</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Core schema with tenant_id and RLS</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">L</td><td>Tables for client, brief, property, document, message, user. RLS scoped to tenant on every table. Cross-tenant reads provably blocked.</td></tr>
+    <tr><td class="title">Magic-link sign-in</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>Sign-in works. Users land in the right tenant. Sessions persist.</td></tr>
+    <tr><td class="title">Bruce DM workflow (inbound + outbound)</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Team can DM Bruce. Bruce replies. Inbound persists to Supabase as append-only event log. Idempotent on retries.</td></tr>
+    <tr><td class="title">Bruce persona + capture rules v1</td><td><span class="pill stream-B">B</span></td><td>Copywriter</td><td class="effort">S</td><td>One-pager: tone (no chatty, no fluff), capture do's and don'ts, escalation triggers. Reviewed by Compass.</td></tr>
+    <tr><td class="title">Bruce orchestrator wired to Supabase</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Bruce reads/writes through the orchestrator with persona-consistent replies. DB writes go through one path.</td></tr>
+    <tr><td class="title">Brief Extractor sub-agent live</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Given meeting context (text or transcript), Brief Extractor returns a structured brief. Saved to client.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 3: Pipeline shell, voice notes, proposal drafting</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li>Live demo (10 min): sign in, see the pipeline shell, send Bruce a brief in DM.</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Dashboard shell + pipeline view stub</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">M</td><td>Logged-in shell. Pipeline view shows the four phases as columns. Compass design tokens applied.</td></tr>
+    <tr><td class="title">Client + brief models surfaced in UI</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>New client appears in pipeline. Brief readable on click-through.</td></tr>
+    <tr><td class="title">Voice notes accepted by Bruce + stored</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Voice notes upload to Supabase storage. Linked to the message in the event log. Transcription wired in Week 5.</td></tr>
+    <tr><td class="title">Persona tuning round 1</td><td><span class="pill stream-B">B</span></td><td>Copywriter</td><td class="effort">S</td><td>Real DMs reviewed. Persona tightened. Compass-approved.</td></tr>
+    <tr><td class="title">Proposal Writer sub-agent live (HTML drafts)</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Given a structured brief, Proposal Writer returns a polished HTML proposal. Compass-branded template. One canonical live-link URL.</td></tr>
+    <tr><td class="title">Outbound proposal email path</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">S</td><td>Live-link URL sends to nominated agent inbox via Compass-owned email infrastructure.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 4: End-to-end wire-up + M1 demo</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li><strong>M1 demo (30 min, recorded).</strong> Either Nick or Chris attends.</li>
+    <li>M1 sign-off in writing. Triggers Invoice 1 (already paid at kick-off; sign-off triggers M2 work to begin).</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">End-to-end wire-up: DM → Brief → Proposal → Email</td><td><span class="pill stream-All">All</span></td><td>Engineer</td><td class="effort">M</td><td>Bruce takes a brief in DM. Brief Extractor structures it. Proposal Writer drafts the HTML. Live link emailed to the agent. Client appears in the pipeline.</td></tr>
+    <tr><td class="title">Persona + capture rules locked</td><td><span class="pill stream-B">B</span></td><td>Copywriter</td><td class="effort">S</td><td>Compass signs off Bruce's persona, capture rules, and escalation triggers.</td></tr>
+    <tr><td class="title">Engineering agent runbook v1</td><td><span class="pill stream-C">C</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Engineering agent's prompts and how-to-extend notes captured in the repo.</td></tr>
+    <tr><td class="title">M1 demo run-through</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Demo script written. End-to-end rehearsed. Recording saved to Notion.</td></tr>
+  </tbody>
+</table>
+
+<div class="milestone">
+  <span class="label">M1 acceptance gate</span>
+  Every past client has a folder. Records produce in under a minute. Bruce captures today's work. The dashboard shows it happening. The first skills (proposal drafter, brief extractor, listing capture, SEO audit) are in the team's hands. Compass signs off in writing.
+</div>
+
+<!-- STAGE 2 / M2 -->
+<div class="stage-banner">
+  <div class="label">Month 2 · Milestone 2 · Weeks 5-8</div>
+  <div class="title">The Sales Engine</div>
+</div>
+<p>Discovery to live proposal. Hours, not days. By the end of week 8, a real Compass client receives a real proposal generated by Bruce, the team iterates it through chat, and it goes out the same day. Match-making, compliance summary, and newsletter drafter skills join the team's stack.</p>
+
+<h3>Week 5: Full pipeline view + voice transcription</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Full sales pipeline view (all 4 phases populated)</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>Cards move between phases. Phase metadata visible. Pipeline filters by agent and date.</td></tr>
+    <tr><td class="title">Phase transitions emit events to event log</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">S</td><td>Every phase change recorded. Reversible. Audit trail readable from the client view.</td></tr>
+    <tr><td class="title">Voice notes transcribed and filed</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Voice notes auto-transcribe (transcription provider in Compass cloud). Transcript appended to the message. Searchable.</td></tr>
+    <tr><td class="title">Meeting-context tool ingesting transcripts</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Discovery call transcripts (Otter/Fireflies/Krisp export, or paste) feed the Brief Extractor cleanly.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 6: Property log + photo filing</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Property log browser (search + filter)</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">L</td><td>Searchable by suburb, type, beds, price band. Sortable. Filters persist in URL.</td></tr>
+    <tr><td class="title">Photos auto-filed to client + property</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Photo dropped in DM is identified to a client/property by context. Stored in Supabase storage. Visible from both views.</td></tr>
+    <tr><td class="title">Property Parser sub-agent live</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Realestate.com.au and Domain links parsed into structured property records (address, type, beds, baths, price guide, photos). Saved to property log.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 7: Per-client compliance UI + email ingestion</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Per-client compliance file UI</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">M</td><td>Per client: brief, CAF, proposal, contracts, correspondence visible in one place. Tagged by REBAA + state Fair Trading categories.</td></tr>
+    <tr><td class="title">Forwarded emails ingested via Bruce inbox</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Compass team forwards client emails to Bruce's inbox. They land on the right client thread. Attachments preserved.</td></tr>
+    <tr><td class="title">Compliance Filer sub-agent live</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Forwarded artefacts routed to the right client with correct compliance tag. Audit trail visible.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 8: M2 demo. Real client through the sales engine.</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li><strong>M2 demo (30 min, recorded).</strong> A real client receives a Bruce-drafted proposal, iterated in chat, sent same day.</li>
+    <li>M2 sign-off in writing.</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Real-client end-to-end (sales engine)</td><td><span class="pill stream-All">All</span></td><td>Tester</td><td class="effort">M</td><td>One real Compass client travels: brief in DM, Bruce drafts proposal, agent iterates by chat, live-link out, version log captured.</td></tr>
+    <tr><td class="title">Sales velocity dashboard polish</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">S</td><td>Dashboard v1 final pass. Turnaround time, out vs signed, versions per deal visible.</td></tr>
+    <tr><td class="title">M2 demo run-through</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Demo script. Real-client walkthrough rehearsed. Recording saved to Notion.</td></tr>
+  </tbody>
+</table>
+
+<div class="milestone">
+  <span class="label">M2 acceptance gate</span>
+  A real Compass client receives a real proposal generated by Bruce. The team iterates it through chat. It goes out the same day. Sales velocity is visible on the dashboard. Compass signs off in writing.
+</div>
+
+<!-- STAGE 3 / M3 -->
+<div class="stage-banner">
+  <div class="label">Month 3 · Milestone 3 · Weeks 9-12</div>
+  <div class="title">The Property Log + The Close</div>
+</div>
+<p>The moat starts compounding. Off-market properties surface to the right clients in minutes. Discovery to engaged is one automated flow. By the end of week 12, a property entered the log this morning pings a client by lunch, and a new client has gone from proposal to signed CAF to engaged without a manual handoff.</p>
+
+<h3>Week 9: Property log browser + Property Parser live</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li>Nominate one real client to travel the full flow during weeks 9-12 (zero extra time, your normal client work).</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Embedded agent panel in web app</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">M</td><td>Side panel pipes into the agent space without leaving the page. Used on client view.</td></tr>
+    <tr><td class="title">Client-group silent-observer mode</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>When Bruce is added to a client group, listens silently. Captures messages and attachments. Does not respond unless DM'd directly.</td></tr>
+    <tr><td class="title">DocuSign CAF auto-population, first cut</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Brief data populates a CAF template via DocuSign API. Draft sendable from the client view. Send action gated on Compass review.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 10: DocuSign round-trip + Proposal Editor</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Pipeline + property log polish</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">M</td><td>Compass design language applied across both views. Type and spacing reviewed.</td></tr>
+    <tr><td class="title">Bruce pings agent + listing agents on matches</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>When Property Matcher finds a hit, Bruce notifies the lead agent. Optional: pre-drafted enquiry message to the listing agent for the agent to send.</td></tr>
+    <tr><td class="title">DocuSign full round-trip</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>CAF sent. Client signs. Status returns to Compass OS. Document filed under client compliance with audit metadata.</td></tr>
+    <tr><td class="title">Proposal Editor sub-agent live</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Agent iterates on a proposal in DM with Bruce. Proposal Editor refines and re-publishes the live link. Version history retained.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 11: Historical archive ingestion + close-phase capture</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Compliance UI hardening</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>Bulk actions: download all, tag retroactively, mark complete. Audit trail on every change.</td></tr>
+    <tr><td class="title">Bruce captures close-phase outcomes</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Phase 4 events captured: offer made, outcome, settlement date. Reminders fire on settlement-5d and pest+building.</td></tr>
+    <tr><td class="title">Historical archive ingestion (archive-grade)</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>2.5 years of WhatsApp + email + Drive folders ingested. Filed by client. Searchable. Retrievable. Defensible if audited. Structured parsing remains Phase 2.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 12: M3 demo. Property + close end-to-end.</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li><strong>M3 demo (30 min, recorded).</strong> Either Nick or Chris attends. A property logged this morning pings a client by lunch. A new client goes proposal to signed CAF to engaged.</li>
+    <li>M3 sign-off in writing.</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Real-client end-to-end (Compass workflow)</td><td><span class="pill stream-All">All</span></td><td>Tester</td><td class="effort">M</td><td>One real Compass client travels: discovery captured, brief structured, proposal sent, CAF signed, sourcing fires, match surfaced, link dropped, photos filed, compliance file populates.</td></tr>
+    <tr><td class="title">Mid-build polish pass</td><td><span class="pill stream-All">All</span></td><td>Frontend Designer</td><td class="effort">M</td><td>UI inconsistencies cleaned. Loading and empty states reviewed. Mobile-on-the-side check.</td></tr>
+    <tr><td class="title">M2 demo run-through</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Demo script. Real-client walkthrough rehearsed. Recording saved to Notion.</td></tr>
+  </tbody>
+</table>
+
+<div class="milestone">
+  <span class="label">M3 acceptance gate</span>
+  A property entered the log this morning pings a client by lunch. A new client goes from proposal to signed CAF to engaged without a manual handoff. Property log surfaces matches in real time. Historical archive searchable across every prior client. Compass signs off in writing.
+</div>
+
+<!-- STAGE 4 / M4 -->
+<div class="stage-banner">
+  <div class="label">Month 4 · Milestone 4 · Weeks 13-16</div>
+  <div class="title">Growth Engine + Handover</div>
+</div>
+<p>Marketing on autopilot. Full BI. Compass owns the lot. SEO, newsletter, and website editor agents come online. Reminders engine wires into Bruce. Dashboards reach v3 with full BI. UAT, training, Playbook, handover. By the end of week 16, Compass OS is in daily use across the team and the 30-day support window starts.</p>
+
+<h3>Week 13: SEO agent + Newsletter agent live</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Dashboards v3: full BI</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">L</td><td>Pipeline + funnel, MRR + retention, dormant count, organic traffic, newsletter CTR, suburb report opens. Live data, role-scoped views.</td></tr>
+    <tr><td class="title">Reminders engine wired into Bruce</td><td><span class="pill stream-B">B</span></td><td>Engineer</td><td class="effort">M</td><td>Pest + building, settlement -5d, follow-up cadence. Configurable per client. Bruce sends reminders in DM.</td></tr>
+    <tr><td class="title">SEO Agent productised</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Keyword tracking live. On-page audits run automatically. Content briefs generated for the website editor.</td></tr>
+    <tr><td class="title">Newsletter Agent productised</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">M</td><td>Drafts the monthly buyer brief from property log + market data. Reviewed by Compass before send.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 14: Website Editor + dormant flags + mobile pass</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact"><li>30-min Monday catch-up. 5-min Friday Loom.</li></ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Mobile-responsive pass</td><td><span class="pill stream-A">A</span></td><td>Frontend Designer</td><td class="effort">L</td><td>Every view walked on mobile. Pipeline, property log, client view, compliance file all work cleanly on iPhone-class devices.</td></tr>
+    <tr><td class="title">Dormant-client flags + re-engagement</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>Clients with no contact in N days are flagged. Bruce surfaces re-engagement triggers to the lead agent.</td></tr>
+    <tr><td class="title">Operational monitoring + alerting on Bruce</td><td><span class="pill stream-B">B</span></td><td>DevOps</td><td class="effort">M</td><td>Heartbeat checks. Alerts on session drop, rate-limit, queue lag. Re-pair runbook documented and tested.</td></tr>
+    <tr><td class="title">Website Editor Agent productised</td><td><span class="pill stream-C">C</span></td><td>Engineer</td><td class="effort">L</td><td>Drafts blog and area-page content. Pushes drafts into Sanity for Compass review. Topic brief in, draft out.</td></tr>
+    <tr><td class="title">Build agents (engineering + frontend) finalised</td><td><span class="pill stream-C">C</span></td><td>Delivery Lead</td><td class="effort">M</td><td>Both build agents handed over with prompts, runbooks, and how-to-extend instructions. Compass can drive them post-handover.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 15: UAT + Playbook + sub-agent prompts</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up. 5-min Friday Loom.</li>
+    <li>UAT begins (~3 hrs distributed across Nick, Chris, and the team across the week).</li>
+    <li>Review user guides (15 min).</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">UAT: Compass team uses system in real work</td><td><span class="pill stream-All">All</span></td><td>Tester</td><td class="effort">L</td><td>Findings logged with severity. P0/P1 tracked daily. Zero P0 by end of week.</td></tr>
+    <tr><td class="title">User guides (buyer, agent, admin)</td><td><span class="pill stream-All">All</span></td><td>Copywriter</td><td class="effort">M</td><td>Three guides written. Reviewed by Compass. Embedded in the app and in Notion.</td></tr>
+    <tr><td class="title">Compass OS Playbook drafted</td><td><span class="pill stream-C">C</span></td><td>Delivery Lead</td><td class="effort">L</td><td>Architecture decisions, runbooks, how-to-extend, on-call procedure. Reviewed by the engineer.</td></tr>
+  </tbody>
+</table>
+
+<h3>Week 16: Polish, training, handover, M4 acceptance</h3>
+<div class="card nick">
+  <strong class="tag">Compass this week</strong>
+  <ul class="compact">
+    <li>30-min Monday catch-up.</li>
+    <li><strong>M4 demo + handover walkthrough (30 min, recorded).</strong> Either Nick or Chris attends.</li>
+    <li>Final UAT sign-off in writing. Triggers Invoice 3 (if on the 3-invoice cadence) and starts the 30-day support window.</li>
+  </ul>
+</div>
+<table>
+  <thead><tr><th>Title</th><th>Stream</th><th>Role</th><th>Effort</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td class="title">Clear all UAT P0/P1 findings</td><td><span class="pill stream-All">All</span></td><td>Engineer</td><td class="effort">M</td><td>Every P0/P1 closed. P2/P3 logged for post-launch backlog.</td></tr>
+    <tr><td class="title">Performance + accessibility pass</td><td><span class="pill stream-A">A</span></td><td>Engineer</td><td class="effort">M</td><td>LCP under 2.5s on 4G. Bruce p95 reply under 5s. Keyboard navigation works on every key view.</td></tr>
+    <tr><td class="title">Repo admin transferred + credentials handover</td><td><span class="pill stream-Compass">Compass</span></td><td>DevOps</td><td class="effort">S</td><td>Compass takes Owner of GitHub, Vercel, Supabase, Anthropic. Dan switches to read-only for the support window.</td></tr>
+    <tr><td class="title">Quarterly health-check schedule set</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Four async health-checks scheduled across the 12 months post-handover. Calendar invites sent.</td></tr>
+    <tr><td class="title">M3 demo + handover walkthrough</td><td><span class="pill stream-Compass">Compass</span></td><td>Delivery Lead</td><td class="effort">S</td><td>Demo recorded. Playbook walked. Compass signs M3 acceptance.</td></tr>
+  </tbody>
+</table>
+
+<div class="milestone">
+  <span class="label">M4 acceptance gate</span>
+  Compass OS in productive daily use across the team. Marketing agents live (SEO, newsletter, website editor). Dashboards v3 live with real data. Mobile-responsive. Playbook delivered. Both build agents handed over with prompts and runbooks. Repo admin transferred. 30-day support window starts. Compass signs off in writing.
+</div>
+
+<!-- Pointer back to SOW for strategic content --></div></section>
+<section class="seq bg-white"><div class="container"><h2>What's in the other documents</h2>
+<p>To keep this plan focused on the week-by-week build, the rest of the story sits in the other two documents.</p>
+<ul class="compact">
+  <li><strong><a href="compass-os-proposal.html">Proposal</a>:</strong> the four outcomes, Bruce + sub-agents at a glance, the Skills rollout, three surfaces, monthly checkpoints overview, ROI math, investment with the 3-vs-4 cadence options, how it gets better, longer view.</li>
+  <li><strong><a href="compass-os-sow.html">Statement of Work</a>:</strong> the sales flow (14 stages), three streams in technical detail, monthly milestones with deliverables and acceptance gates, payment terms with tax framing, risks, after handover, running costs, governance.</li>
+  <li><strong>This Delivery Plan:</strong> 16 weeks, ticket by ticket. The build itself.</li>
+</ul></div></section>
+<footer class="page-footer"><div class="container">Compass OS · Delivery Plan · 16 weeks across M1, M2, M3 · Companion to the Statement of Work<br>
+  Prepared by Dan for Nick and Chris, Compass Buyers Agency · May 2026</div></footer>
+</body>
+</html>
