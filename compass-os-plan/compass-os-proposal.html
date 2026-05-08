@@ -13,118 +13,47 @@
   @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
 
   :root {
-    --hills: #2C4A3E; --hills-light: #4A6B5F; --ink: #1A1A1A; --ink-soft: #4A4A4A;
-    --bright-grey: #F5F5F5; --sea: #7BAE9E; --sand: #F5E6D3; --sand-light: #FBF6EE;
-    --stone: #8B7E74; --stone-light: #D9D3CC; --white: #FFFFFF;
+    --hills: #2C4A3E;
+    --hills-light: #4A6B5F;
+    --hills-deep: #1F3329;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --bright-grey: #F5F5F5;
+    --sea: #7BAE9E;
+    --sea-soft: #B8D4CB;
+    --sea-tint: #E5EFEA;
+    --sand: #F5E6D3;
+    --sand-light: #FBF6EE;
+    --sand-deep: #EBD7B8;
+    --stone: #8B7E74;
+    --stone-light: #D9D3CC;
+    --white: #FFFFFF;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; color: var(--ink); background: var(--white); font-family: 'Aeonik', -apple-system, sans-serif; font-size: 10.5pt; line-height: 1.65; font-weight: 400; -webkit-font-smoothing: antialiased; }
-.page { max-width: 880px; margin: 0 auto; padding: 64px 56px 40px; }
-  h1, h2, h3 { font-family: 'MinervaModern', Georgia, serif; color: var(--hills); letter-spacing: -0.018em; }
-  h1 { font-size: 42pt; line-height: 1.05; margin: 0 0 16px; font-weight: 400; }
-  h2 { font-size: 22pt; line-height: 1.2; margin: 56px 0 14px; font-weight: 500; }
-  h2 .num { color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em; display: block; text-transform: uppercase; margin-bottom: 10px; font-family: 'Aeonik', sans-serif; font-weight: 500; }
-  h3 { font-size: 14pt; margin: 24px 0 8px; font-weight: 500; }
-  h4 { font-family: 'Aeonik', sans-serif; font-size: 8.5pt; margin: 20px 0 8px; color: var(--stone); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; }
-  .lead { color: var(--hills); font-size: 16pt; margin: 0 0 6px; font-weight: 400; line-height: 1.4; font-family: 'MinervaModern', serif; letter-spacing: -0.01em; }
-  .meta { color: var(--stone); font-size: 9pt; margin: 0 0 36px; line-height: 1.55; }
-  p { margin: 8px 0 14px; color: var(--ink); line-height: 1.65; }
-  .narrow { max-width: 640px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    color: var(--ink);
+    background: var(--white);
+    font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
 
-  .header-block { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 18px 0 36px; padding: 22px 0; border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone); }
-  .header-block .item { font-size: 9pt; }
-  .header-block .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.18em; font-size: 7.5pt; margin-bottom: 6px; font-weight: 500; }
-  .header-block .item .value { color: var(--ink); font-weight: 400; font-size: 11pt; font-family: 'MinervaModern', serif; line-height: 1.35; }
-
-  .companion-link { background: var(--bright-grey); padding: 18px 24px; margin: 24px 0 36px; border-radius: 2px; font-size: 10pt; border-left: 3px solid var(--hills); color: var(--ink); }
-  .companion-link a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-
-  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 44px; margin: 28px 0 40px; }
-  .outcome { padding: 0; }
-  .outcome .num { color: var(--stone); font-family: 'MinervaModern', serif; font-size: 11pt; letter-spacing: 0.05em; margin-bottom: 8px; display: block; font-weight: 400; }
-  .outcome .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 500; font-size: 17pt; margin: 0 0 10px; line-height: 1.2; letter-spacing: -0.015em; }
-  .outcome p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
-
-  .bruce-block { margin: 28px 0 40px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
-  .bruce-text p { font-size: 10pt; line-height: 1.7; }
-  .bruce-visual { background: var(--sand); padding: 28px; border-radius: 4px; text-align: center; }
-  .bruce-orch { font-family: 'MinervaModern', serif; color: var(--white); background: var(--hills); display: inline-block; padding: 14px 32px; border-radius: 999px; font-size: 16pt; letter-spacing: -0.01em; }
-  .bruce-orch-label { display: block; font-family: 'Aeonik', sans-serif; color: var(--sand); font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 4px; font-weight: 500; }
-  .bruce-agents { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-  .bruce-agent { background: var(--white); color: var(--hills); padding: 5px 12px; border-radius: 999px; font-size: 8pt; font-weight: 500; border: 1px solid var(--stone-light); }
-
-  .rollout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 28px 0 32px; }
-  .rollout-col h4 { color: var(--hills); border-bottom: 1.5px solid var(--stone); padding-bottom: 8px; margin: 0 0 12px; }
-  .rollout-col ul { margin: 0; padding-left: 16px; font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
-  .rollout-col ul li { margin: 6px 0; }
-  .rollout-col ul li strong { color: var(--hills); }
-
-  .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 24px 0 40px; }
-  .surface .num { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600; }
-  .surface .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 500; font-size: 15pt; margin: 8px 0 10px; line-height: 1.2; }
-  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
-
-  .months { display: flex; flex-direction: column; gap: 16px; margin: 24px 0 32px; }
-  .month-card { background: var(--sand); padding: 24px 28px; border-radius: 3px; border-left: 4px solid var(--hills); display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start; }
-  .month-card .month-num { font-family: 'MinervaModern', serif; font-size: 30pt; color: var(--hills); font-weight: 400; line-height: 1; }
-  .month-card .month-body { padding-top: 4px; }
-  .month-card .month-body .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600; }
-  .month-card .month-body h3 { margin: 4px 0 6px; font-size: 18pt; color: var(--hills); font-weight: 500; }
-  .month-card .month-body .theme { font-family: 'MinervaModern', serif; font-style: italic; color: var(--hills-light); font-size: 12pt; margin-bottom: 10px; }
-  .month-card .month-body p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
-  .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
-  .month-card .month-side .checkpoint { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--hills); font-weight: 400; line-height: 1; }
-  .month-card .month-side .checkpoint-label { font-size: 8pt; color: var(--stone); letter-spacing: 0.05em; margin-top: 4px; }
-  .month-card.optional { background: var(--bright-grey); border-left-color: var(--stone); }
-  .month-card.optional .month-num, .month-card.optional .month-body h3, .month-card.optional .month-side .checkpoint { color: var(--stone); }
-
-  .own-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; margin: 24px 0 36px; }
-  .own-item { background: var(--sand-light); padding: 16px 20px; border-radius: 2px; font-size: 10pt; color: var(--ink); line-height: 1.5; }
-
-  .roi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin: 24px 0 32px; }
-  .roi-item { background: var(--sand); padding: 20px; border-radius: 2px; border-left: 3px solid var(--sea); }
-  .roi-item h4 { margin: 0 0 6px; }
-  .roi-item p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.55; }
-  .roi-item p strong { color: var(--hills); }
-
-  .invest-block { background: var(--hills); color: var(--white); padding: 36px 40px; border-radius: 4px; margin: 28px 0 32px; }
-  .invest-block h3 { color: var(--white); margin: 0 0 24px; font-size: 24pt; font-weight: 400; }
-  .invest-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
-  .invest-stat .num { font-family: 'MinervaModern', serif; font-size: 38pt; line-height: 1; font-weight: 400; }
-  .invest-stat h4 { color: var(--sand); margin: 8px 0 6px; }
-  .invest-stat p { color: var(--white); opacity: 0.85; margin: 0; font-size: 9.5pt; line-height: 1.55; }
-  .invest-note { margin-top: 22px; font-size: 9.5pt; line-height: 1.55; color: var(--white); opacity: 0.9; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.18); }
-
-  .open-question { background: #FFF7E8; padding: 18px 22px; border-radius: 2px; border-left: 4px solid #C68A2E; margin: 18px 0 24px; font-size: 9.5pt; line-height: 1.6; }
-  .open-question .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600; display: block; margin-bottom: 6px; }
-
-  .footer { color: var(--stone); font-size: 8.5pt; margin-top: 64px; border-top: 1px solid var(--sand); padding-top: 22px; line-height: 1.7; letter-spacing: 0.01em; }
-
-  @page { size: A4; margin: 18mm 16mm; }
-  @media print { .top-band, .doc-nav { display: none; } body { font-size: 9.5pt; } .page { padding: 0; max-width: none; } h2 { page-break-after: avoid; } .month-card, .roi-item, .own-item, .surface, .outcome { page-break-inside: avoid; } }
-
-  /* Sticky nav with three-column descriptions */
+  /* STICKY NAV */
   .top-nav-wrap {
     position: sticky; top: 0; z-index: 100;
     background: var(--white);
     box-shadow: 0 1px 0 var(--sand);
   }
   .top-band { height: 6px; background: var(--hills); width: 100%; }
-  .doc-nav {
-    background: var(--white);
-    padding: 0;
-    border-bottom: 1px solid var(--sand);
-  }
+  .doc-nav { background: var(--white); padding: 0; border-bottom: 1px solid var(--sand); }
   .doc-nav-inner {
-    max-width: 880px; margin: 0 auto;
+    max-width: 1080px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
   }
   .doc-nav a {
-    display: block;
-    padding: 14px 24px 16px;
-    text-decoration: none;
-    color: var(--stone);
+    display: block; padding: 16px 28px 18px;
+    text-decoration: none; color: var(--stone);
     border-right: 1px solid var(--sand);
     border-bottom: 3px solid transparent;
     transition: background 0.15s ease;
@@ -137,77 +66,292 @@
     color: var(--hills);
   }
   .doc-nav .doc-label {
-    font-family: 'Aeonik', sans-serif;
-    font-size: 7.5pt;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--stone);
-    display: block;
-    margin-bottom: 2px;
+    font-family: 'Aeonik', sans-serif; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+    color: var(--stone); display: block; margin-bottom: 4px;
   }
   .doc-nav a.current .doc-label { color: var(--hills); }
   .doc-nav .doc-name {
-    font-family: 'MinervaModern', serif;
-    font-size: 14pt;
-    color: var(--hills);
-    line-height: 1.15;
-    display: block;
-    margin-bottom: 2px;
+    font-family: 'MinervaModern', serif; font-size: 14pt;
+    color: var(--hills); line-height: 1.15; display: block; margin-bottom: 3px;
     letter-spacing: -0.01em;
   }
   .doc-nav .doc-desc {
-    font-family: 'Aeonik', sans-serif;
-    font-size: 8.5pt;
-    color: var(--stone);
-    line-height: 1.4;
-    display: block;
+    font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
+    color: var(--stone); line-height: 1.4; display: block;
   }
   .doc-nav a.current .doc-desc { color: var(--ink-soft); }
 
+  /* SECTION-BASED LAYOUT — full-bleed backgrounds, content constrained */
+  .container { max-width: 880px; margin: 0 auto; padding: 0 56px; }
+
+  .page-hero { background: var(--white); padding: 72px 0 16px; }
+  .page-hero .container { padding-bottom: 8px; }
+
+  section.seq {
+    padding: 64px 0;
+    border-top: 1px solid var(--sand);
+  }
+  section.seq:first-of-type { border-top: none; }
+  section.seq.bg-white { background: var(--white); }
+  section.seq.bg-sand { background: var(--sand-light); }
+  section.seq.bg-grey { background: var(--bright-grey); }
+  section.seq.bg-dark { background: var(--hills-deep); color: var(--white); }
+  section.seq.bg-dark h2, section.seq.bg-dark h3, section.seq.bg-dark h4,
+  section.seq.bg-dark p, section.seq.bg-dark .invest-note { color: var(--white); }
+  section.seq.bg-dark h2 .num { color: var(--sand); }
+  section.seq.bg-dark h2::before { background: var(--sand); }
+  section.seq.bg-dark .invest-stat .num { color: var(--white); }
+  section.seq.bg-dark .invest-stat h4 { color: var(--sand); }
+  section.seq.bg-dark th { color: var(--sand); border-bottom-color: rgba(255,255,255,0.3); }
+  section.seq.bg-dark td { border-bottom-color: rgba(255,255,255,0.15); }
+
+  /* TYPOGRAPHY */
+  h1, h2, h3, h4 { font-family: 'MinervaModern', Georgia, serif; color: var(--hills); letter-spacing: -0.02em; }
+  h1 { font-size: 44pt; line-height: 1.05; margin: 0 0 16px; font-weight: 500; }
+  h2 { font-size: 24pt; line-height: 1.15; margin: 0 0 18px; font-weight: 600; position: relative; }
+  h2::before { content: ''; display: block; width: 40px; height: 2px; background: var(--hills); margin-bottom: 22px; }
+  h2 .num {
+    color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em;
+    display: block; text-transform: uppercase; margin-bottom: 12px;
+    font-family: 'Aeonik', sans-serif; font-weight: 600;
+  }
+  h3 { font-size: 14pt; margin: 32px 0 10px; font-weight: 600; }
+  h4 {
+    font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
+    margin: 24px 0 10px; color: var(--stone); font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .lead {
+    color: var(--hills); font-size: 17pt; margin: 0 0 8px; font-weight: 500;
+    line-height: 1.4; font-family: 'MinervaModern', serif; letter-spacing: -0.01em;
+  }
+  .meta {
+    color: var(--stone); font-size: 9pt; margin: 0 0 32px;
+    line-height: 1.55; letter-spacing: 0.01em;
+  }
+  p { margin: 10px 0 14px; color: var(--ink); line-height: 1.65; }
+  .narrow { max-width: 640px; }
+
+  /* HERO HEADER BLOCK */
+  .header-block {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px; margin: 24px 0 32px; padding: 24px 0;
+    border-top: 1px solid var(--stone-light);
+    border-bottom: 1px solid var(--stone-light);
+  }
+  .header-block .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt;
+    margin-bottom: 6px; font-weight: 600;
+  }
+  .header-block .item .value {
+    color: var(--ink); font-weight: 500; font-size: 12pt;
+    font-family: 'MinervaModern', serif; line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  /* COMPANION LINK */
+  .companion-link {
+    background: var(--sand); padding: 22px 28px;
+    margin: 32px 0 0; border-radius: 3px;
+    border-left: 4px solid var(--hills);
+    color: var(--ink); font-size: 10pt; line-height: 1.7;
+  }
+  .companion-link strong { color: var(--hills); }
+  .companion-link a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* CARDS — distinct purposes, distinct colours */
+  .card { padding: 22px 26px; margin: 24px 0; border-radius: 3px; background: var(--bright-grey); }
+  .card.sand { background: var(--sand); }
+  .card.nick { background: var(--sea-tint); border-left: 3px solid var(--sea); padding-left: 28px; }
+  .card.nick strong.tag { color: var(--hills); letter-spacing: 0.22em; text-transform: uppercase; font-size: 7.5pt; font-weight: 700; display: block; margin-bottom: 10px; }
+
+  /* OUTCOMES */
+  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 44px; margin: 32px 0; }
+  .outcome { padding: 0; }
+  .outcome .num { color: var(--stone); font-family: 'MinervaModern', serif; font-size: 11pt; letter-spacing: 0.05em; margin-bottom: 8px; display: block; font-weight: 500; }
+  .outcome .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 18pt; margin: 0 0 12px; line-height: 1.2; letter-spacing: -0.018em; }
+  .outcome p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.65; }
+
+  /* BRUCE BLOCK */
+  .bruce-block { margin: 32px 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 44px; align-items: start; }
+  .bruce-text p { font-size: 10pt; line-height: 1.7; }
+  .bruce-visual { background: var(--white); padding: 32px 28px; border-radius: 4px; text-align: center; border: 1px solid var(--stone-light); }
+  .bruce-orch { font-family: 'MinervaModern', serif; color: var(--white); background: var(--hills); display: inline-block; padding: 16px 36px; border-radius: 999px; font-size: 17pt; letter-spacing: -0.01em; font-weight: 500; }
+  .bruce-orch-label { display: block; font-family: 'Aeonik', sans-serif; color: var(--sea-soft); font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+  .bruce-agents { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
+  .bruce-agent { background: var(--sand); color: var(--hills); padding: 6px 13px; border-radius: 999px; font-size: 8pt; font-weight: 600; }
+
+  /* SKILLS ROLLOUT */
+  .rollout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin: 32px 0; }
+  .rollout-col { background: var(--white); padding: 22px; border-radius: 3px; border-top: 3px solid var(--hills); }
+  .rollout-col h4 { color: var(--hills); border-bottom: none; padding-bottom: 0; margin: 0 0 14px; font-size: 8.5pt; }
+  .rollout-col ul { list-style: none; padding: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
+  .rollout-col ul li { margin: 8px 0; padding-left: 12px; position: relative; }
+  .rollout-col ul li::before { content: '→'; position: absolute; left: 0; color: var(--sea); font-weight: 600; }
+  .rollout-col ul li strong { color: var(--hills); }
+
+  /* SURFACES */
+  .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 32px 0; }
+  .surface { padding: 0; }
+  .surface .num { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .surface .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 16pt; margin: 8px 0 10px; line-height: 1.2; letter-spacing: -0.015em; }
+  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.65; }
+
+  /* MONTHLY CARDS (proposal) */
+  .months { display: flex; flex-direction: column; gap: 14px; margin: 32px 0; }
+  .month-card { background: var(--white); padding: 28px 32px; border-radius: 3px; border-left: 4px solid var(--hills); display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: start; box-shadow: 0 1px 0 var(--stone-light); }
+  .month-card .month-num { font-family: 'MinervaModern', serif; font-size: 34pt; color: var(--hills); font-weight: 500; line-height: 1; }
+  .month-card .month-body { padding-top: 4px; }
+  .month-card .month-body .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .month-card .month-body h3 { margin: 4px 0 8px; font-size: 19pt; color: var(--hills); font-weight: 600; }
+  .month-card .month-body .theme { font-family: 'MinervaModern', serif; font-style: italic; color: var(--hills-light); font-size: 12pt; margin-bottom: 12px; }
+  .month-card .month-body p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.65; }
+  .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
+  .month-card .month-side .checkpoint { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--hills); font-weight: 500; line-height: 1; }
+  .month-card .month-side .checkpoint-label { font-size: 7.5pt; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
+  .month-card.optional { background: var(--bright-grey); border-left-color: var(--stone); }
+  .month-card.optional .month-num, .month-card.optional .month-body h3, .month-card.optional .month-side .checkpoint { color: var(--stone); }
+
+  /* OWNERSHIP */
+  .own-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; margin: 28px 0; }
+  .own-item { background: var(--white); padding: 18px 22px; border-radius: 3px; font-size: 10pt; color: var(--ink); line-height: 1.55; border-left: 3px solid var(--sea); }
+
+  /* ROI */
+  .roi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin: 28px 0; }
+  .roi-item { background: var(--white); padding: 22px; border-radius: 3px; border-top: 3px solid var(--sea); }
+  .roi-item h4 { margin: 0 0 8px; }
+  .roi-item p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
+  .roi-item p strong { color: var(--hills); }
+
+  /* INVESTMENT — dark hero panel */
+  .invest-block { padding: 0; margin: 28px 0; }
+  .invest-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .invest-stat .num { font-family: 'MinervaModern', serif; font-size: 44pt; line-height: 1; font-weight: 500; }
+  .invest-stat h4 { margin: 12px 0 8px; }
+  .invest-stat p { margin: 0; font-size: 9.5pt; line-height: 1.6; opacity: 0.9; }
+  .invest-note { margin-top: 28px; font-size: 9.5pt; line-height: 1.65; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.2); opacity: 0.95; }
+
+  /* OPEN QUESTION */
+  .open-question { background: #FFF1D6; padding: 22px 28px; border-radius: 3px; border-left: 4px solid #C68A2E; margin: 28px 0; font-size: 10pt; line-height: 1.65; }
+  .open-question .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; display: block; margin-bottom: 8px; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 9.5pt; }
+  th, td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--stone-light); }
+  th { color: var(--hills); font-weight: 700; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; border-bottom: 2px solid var(--hills); padding-top: 12px; padding-bottom: 12px; }
+  td.title { font-weight: 600; color: var(--ink); width: 26%; font-size: 10pt; }
+
+  /* PILLS */
+  .pill { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pill-web, .stream-A { background: var(--sea-tint); color: var(--hills); }
+  .pill-bruce, .stream-B { background: #DDEBE6; color: #1F5D4F; }
+  .pill-agent, .stream-C { background: #EAE0CF; color: #6B5A48; }
+  .pill-manual, .stream-Compass, .stream-All { background: var(--bright-grey); color: var(--stone); }
+  .effort { font-weight: 700; color: var(--hills); }
+
+  /* LISTS */
+  ul.compact { margin: 12px 0 0 22px; padding: 0; }
+  ul.compact li { margin: 6px 0; line-height: 1.65; }
+
+  /* ROLES (plan) */
+  .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 36px; margin: 22px 0; }
+  .role { padding: 8px 0; }
+  .role .name { font-weight: 600; color: var(--hills); font-size: 11.5pt; font-family: 'MinervaModern', serif; letter-spacing: -0.005em; margin-bottom: 4px; }
+  .role .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
+
+  /* SUMMARY TABLE */
+  .summary-table th, .summary-table td { font-size: 9.5pt; }
+
+  /* FLOW TABLE (SOW) */
+  .flow-table th, .flow-table td { font-size: 9.5pt; padding: 12px 16px 12px 0; }
+  .flow-table .phase { background: transparent; color: var(--hills); font-family: 'MinervaModern', serif; font-weight: 600; font-size: 15pt; padding: 32px 0 12px; border-bottom: 1.5px solid var(--hills); letter-spacing: -0.018em; }
+  .flow-table .phase-num { font-size: 7.5pt; letter-spacing: 0.22em; color: var(--stone); text-transform: uppercase; font-weight: 700; margin-right: 14px; font-family: 'Aeonik', sans-serif; }
+  .flow-table tr:first-child .phase { padding-top: 12px; }
+
+  /* LEGEND */
+  .legend { font-size: 9pt; color: var(--stone); margin: 12px 0 18px; }
+  .legend .pill { margin-right: 8px; }
+
+  /* COMMITMENT GRID (SOW) */
+  .commitment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+  .commitment-grid .item { padding: 22px 26px; background: var(--white); border-radius: 3px; border-top: 3px solid var(--hills); }
+  .commitment-grid .item .qty { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 20pt; letter-spacing: -0.018em; line-height: 1.1; }
+  .commitment-grid .item .desc { font-size: 9.5pt; color: var(--ink); margin-top: 10px; line-height: 1.6; }
+
+  /* TOTAL BAND */
+  .total-band { background: var(--hills); color: var(--white); padding: 24px 32px; border-radius: 3px; margin: 18px 0 32px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 22px; }
+  .total-band .label { font-size: 9.5pt; opacity: 0.9; line-height: 1.6; }
+  .total-band .num { font-family: 'MinervaModern', serif; font-size: 28pt; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+
+  /* INVOICE GRID (SOW) */
+  .invoice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 28px 0; }
+  .invoice { background: var(--white); padding: 26px; border-radius: 3px; border-top: 3px solid var(--hills); }
+  .invoice .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .invoice .num { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 500; font-size: 32pt; margin: 10px 0 0; letter-spacing: -0.02em; line-height: 1; }
+  .invoice .terms { font-size: 8.5pt; color: var(--stone); margin: 4px 0 14px; letter-spacing: 0.04em; }
+  .invoice .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
+
+  /* RISK */
+  .risk { background: #FFF1D6; padding: 24px 28px; margin: 16px 0; border-radius: 3px; border-left: 4px solid #C68A2E; }
+  .risk .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .risk .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 15pt; margin: 8px 0 12px; letter-spacing: -0.015em; }
+  .risk .handle { background: var(--white); padding: 16px 20px; margin-top: 14px; border-radius: 3px; font-size: 9.5pt; color: var(--ink); line-height: 1.65; }
+
+  /* RUNNING COSTS */
+  .running-costs table td:nth-child(2) { text-align: right; font-weight: 500; color: var(--hills); white-space: nowrap; font-family: 'MinervaModern', serif; font-size: 13pt; letter-spacing: -0.01em; }
+
+  /* PLAN SPECIFIC */
+  .stage-banner { margin: 56px 0 22px; padding: 32px 0 16px; border-top: 2px solid var(--hills); background: transparent; }
+  .stage-banner .label { color: var(--stone); font-size: 8pt; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; display: block; }
+  .stage-banner .title { font-family: 'MinervaModern', serif; font-size: 26pt; color: var(--hills); font-weight: 600; letter-spacing: -0.022em; line-height: 1.1; }
+  .milestone-block { background: var(--white); padding: 32px 36px; margin: 28px 0 32px; border-radius: 3px; border-left: 4px solid var(--hills); box-shadow: 0 1px 0 var(--stone-light); }
+  .milestone-block .head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 28px; margin-bottom: 14px; }
+  .milestone-block .head .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .milestone-block .head .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 20pt; margin: 8px 0; letter-spacing: -0.018em; line-height: 1.15; }
+  .milestone-block .head .when { font-size: 9.5pt; color: var(--stone); font-style: italic; font-family: 'MinervaModern', serif; line-height: 1.45; }
+  .milestone-block .price { background: var(--sand); padding: 18px 22px; border-radius: 3px; text-align: right; min-width: 180px; }
+  .milestone-block .price .num { font-family: 'MinervaModern', serif; font-size: 24pt; color: var(--hills); font-weight: 500; line-height: 1; letter-spacing: -0.02em; }
+  .milestone-block .price .terms { font-size: 8pt; color: var(--stone); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 18px 0; padding: 16px 0; border-top: 1px solid var(--sand); font-size: 9.5pt; }
+  .meta-row .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; margin-bottom: 4px; font-weight: 700; }
+
+  .stream-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  .stream-mini { background: var(--sand-light); padding: 20px; border-radius: 3px; font-size: 9.5pt; border-top: 3px solid var(--sea); }
+  .stream-mini .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7pt; font-weight: 700; }
+  .stream-mini .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 13pt; margin: 6px 0 12px; letter-spacing: -0.012em; line-height: 1.2; }
+  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink); }
+  .stream-mini ul li { margin: 4px 0; line-height: 1.55; }
+
+  .gate, .milestone { background: var(--hills); color: var(--white); padding: 22px 28px; border-radius: 3px; margin: 20px 0 32px; font-size: 10pt; line-height: 1.65; }
+  .gate .label, .milestone .label { font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-size: 7.5pt; opacity: 0.9; margin-bottom: 12px; display: block; font-family: 'Aeonik', sans-serif; }
+
+  .stream { background: var(--white); padding: 26px 30px; margin: 18px 0; border-radius: 3px; border-left: 3px solid var(--sea); box-shadow: 0 1px 0 var(--stone-light); }
+  .stream .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .stream .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 19pt; margin: 6px 0 14px; letter-spacing: -0.018em; line-height: 1.15; }
+  .stream ul { margin: 14px 0 0 18px; padding: 0; font-size: 10pt; color: var(--ink); }
+  .stream ul li { margin: 6px 0; line-height: 1.6; }
+  .stream .note { background: var(--sand-light); padding: 16px 20px; margin-top: 18px; font-size: 9.5pt; border-radius: 3px; color: var(--ink); line-height: 1.65; }
+
+  /* FOOTER */
+  .page-footer { background: var(--bright-grey); padding: 40px 0 36px; }
+  .page-footer .container { color: var(--stone); font-size: 8.5pt; line-height: 1.7; letter-spacing: 0.01em; }
+  .page-footer a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* PRINT */
+  @page { size: A4; margin: 18mm 16mm; }
   @media print {
     .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
+    body { font-size: 9.5pt; }
+    .container { padding: 0; }
+    section.seq { padding: 28px 0; border-top: 1px solid var(--stone-light); page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+    .month-card, .roi-item, .own-item, .surface, .outcome, .milestone-block, .invoice, .risk, .gate, .milestone, .card { page-break-inside: avoid; }
+    .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid, .roi-grid, .own-grid { page-break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
   }
-
-  /* Contrast lift across cards and panels */
-  .card { background: var(--sand); }
-  .card.sand { background: var(--sand); }
-
-  /* Stronger heading colour and tighter tracking */
-  h1 { font-weight: 500; letter-spacing: -0.022em; }
-  h2 { font-weight: 600; letter-spacing: -0.02em; }
-  h3 { font-weight: 600; }
-
-  /* Lead paragraph more presence */
-  .lead { font-weight: 500; }
-
-  /* Add visual rhythm: subtle separator above each h2 */
-  h2 {
-    position: relative;
-  }
-  h2::before {
-    content: '';
-    display: block;
-    width: 32px; height: 2px;
-    background: var(--hills);
-    margin-bottom: 18px;
-  }
-
-  /* Outcome name weight up */
-  .outcome .name { font-weight: 600; }
-
-  /* Surface name weight up */
-  .surface .name { font-weight: 600; }
-
-  /* Stream name weight up */
-  .stream .name { font-weight: 600; }
-
-  /* Milestone block name weight up */
-  .milestone-block .head .name { font-weight: 600; }
-
-  /* Footer link weight */
-  .footer a { font-weight: 600; }
-
 </style>
 </head>
 <body>
@@ -234,9 +378,7 @@
   </div>
 </nav>
 </div>
-<div class="page">
-
-<h1>An operating system Compass owns.</h1>
+<header class="page-hero"><div class="container"><h1>An operating system Compass owns.</h1>
 <p class="lead">Built around how the team already works.</p>
 <p class="meta">Captures everything passively, keeps the agency audit-ready, and lifts the admin and proposal load off the team. Compass owns it outright at handover.</p>
 
@@ -248,10 +390,10 @@
 </div>
 
 <div class="companion-link">
-  <strong>You are reading the proposal.</strong> Vision, value, architecture at a glance, ROI, investment. The <a href="compass-os-sow.html">Statement of Work</a> takes over for the contractual detail (technical architecture, monthly deliverables, payment terms, risks, governance). The <a href="compass-os-weekly-plan.html">Delivery Plan</a> covers the week-by-week build. Read in that order.
-</div>
-
-<h2><span class="num">01 · Why this works</span>Four outcomes from one build.</h2>
+  <strong>You are reading the Proposal.</strong> Vision, value, ROI, investment.<br>
+  Two companion documents: <a href="compass-os-sow.html"><strong>Statement of Work</strong></a> for what we commit to, <a href="compass-os-weekly-plan.html"><strong>Delivery Plan</strong></a> for how it gets built.
+</div></div></header>
+<section class="seq bg-white"><div class="container"><h2><span class="num">01 · Why this works</span>Four outcomes from one build.</h2>
 <p>Stage 1 is built around four outcomes that compound. Everything in scope serves at least one. Anything that doesn't is out.</p>
 <div class="outcome-grid">
   <div class="outcome">
@@ -274,9 +416,8 @@
     <div class="name">Closed-loop onboarding</div>
     <p>Brief signed off, CAF auto-populated and sent via DocuSign, signed, client engaged, property sourcing fires. The manual handoffs that exist today collapse to one approval per stage.</p>
   </div>
-</div>
-
-<h2><span class="num">02 · Meet Bruce</span>One agent the team talks to. Specialists behind him.</h2>
+</div></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">02 · Meet Bruce</span>One agent the team talks to. Specialists behind him.</h2>
 <div class="bruce-block">
   <div class="bruce-text">
     <p>Bruce is one entity, one number, in WhatsApp with the team. Direct. No fluff. Confirms action, not intent. No emojis, no "happy to help".</p>
@@ -298,9 +439,8 @@
       <div class="bruce-agent">Reminders</div>
     </div>
   </div>
-</div>
-
-<h2><span class="num">03 · Ship early. Iterate.</span>Skills in the team's hands, ahead of the OS.</h2>
+</div></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">03 · Ship early. Iterate.</span>Skills in the team's hands, ahead of the OS.</h2>
 <p class="narrow">Every capability ships as a Claude skill in Compass's own workspace first. The first batch is in the team's hands inside three weeks. The team uses it, gives feedback, we refine. The proven version gets wired into the OS later. By month four, the dashboard is a tidy version of tools the team already trusts.</p>
 <div class="rollout">
   <div class="rollout-col">
@@ -337,9 +477,8 @@
     </ul>
   </div>
 </div>
-<p class="narrow" style="font-size: 9.5pt; color: var(--stone); margin-top: 16px;">The OS doesn't replace these skills. It connects them to Compass's data, automates the handoffs, and organises everything in one place.</p>
-
-<h2><span class="num">04 · How the team works in it</span>Three surfaces. One system.</h2>
+<p class="narrow" style="font-size: 9.5pt; color: var(--stone); margin-top: 16px;">The OS doesn't replace these skills. It connects them to Compass's data, automates the handoffs, and organises everything in one place.</p></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">04 · How the team works in it</span>Three surfaces. One system.</h2>
 <div class="surface-grid">
   <div class="surface">
     <div class="num">Surface 01</div>
@@ -356,9 +495,8 @@
     <div class="name">Email</div>
     <p>Bruce's outbound channel. Proposals, briefings, client comms. Finished and on-brand.</p>
   </div>
-</div>
-
-<h2><span class="num">05 · Four months, four checkpoints</span>Each month earns its keep.</h2>
+</div></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">05 · Four months, four checkpoints</span>Each month earns its keep.</h2>
 <p class="narrow">One core capability per month. Each is its own earned stage with sign-off before the next begins. Skills land in the team's hands first, get used and refined, then get folded into the OS. No three-month black box.</p>
 <div class="months">
   <div class="month-card">
@@ -431,9 +569,8 @@
 <div class="open-question">
   <span class="label">One open question for Compass</span>
   <strong>Stripe payment integration is sitting outside the MVP until we understand how Compass takes payments today.</strong> We know the team uses Xero for invoicing. Question: is Xero linked to Stripe for electronic payments, or do clients pay another way? If Stripe is already in the flow, we wire it into the closed-loop onboarding in M3. If not, we keep payment manual in v1 and pick it up post-launch. Worth a 10-minute conversation.
-</div>
-
-<h2><span class="num">06 · The math</span>Pays itself back inside year one. On savings alone.</h2>
+</div></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">06 · The math</span>Pays itself back inside year one. On savings alone.</h2>
 <p class="narrow">Before we count a single extra deal, the OS absorbs costs Compass already pays. Year-one savings cover most of the build. Year two and beyond, those savings keep stacking.</p>
 
 <h4>Hard, recurring savings</h4>
@@ -480,9 +617,8 @@
     <p>Dormant resurrection and zero dropped balls. <strong>Each saved retainer = $48k/year.</strong></p>
   </div>
 </div>
-<p class="narrow" style="font-size: 9.5pt; color: var(--stone); margin-top: 16px;">And the system itself. A productised OS Compass owns outright. Sellable, licensable, or franchised across states.</p>
-
-<h2><span class="num">07 · Investment</span>$50,000. Four months. Four delivery milestones.</h2>
+<p class="narrow" style="font-size: 9.5pt; color: var(--stone); margin-top: 16px;">And the system itself. A productised OS Compass owns outright. Sellable, licensable, or franchised across states.</p></div></section>
+<section class="seq bg-dark"><div class="container"><h2><span class="num">07 · Investment</span>$50,000. Four months. Four delivery milestones.</h2>
 <div class="invest-block">
   <div class="invest-grid">
     <div class="invest-stat">
@@ -522,9 +658,8 @@
   </tbody>
 </table>
 
-<p style="margin-top: 14px; font-size: 9.5pt; color: var(--stone);"><strong>Optional Month 5 (+$12,500).</strong> Available if the M4 review surfaces a clear next outcome. Engaged by mutual agreement, not assumed.</p>
-
-<h2><span class="num">08 · How it gets better over time</span>The system improves itself, with Compass in the driver's seat.</h2>
+<p style="margin-top: 14px; font-size: 9.5pt; color: var(--stone);"><strong>Optional Month 5 (+$12,500).</strong> Available if the M4 review surfaces a clear next outcome. Engaged by mutual agreement, not assumed.</p></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">08 · How it gets better over time</span>The system improves itself, with Compass in the driver's seat.</h2>
 <p class="narrow">Stage 1 is built so the OS gets sharper the more the team uses it. Not magic. Just an architecture that learns from outcomes and a workspace where new agents can be slotted in cleanly when Compass spots a job worth automating.</p>
 <div class="outcome-grid">
   <div class="outcome">
@@ -557,18 +692,12 @@
     <div class="name">Quarterly health-checks keep us honest</div>
     <p>Four quarterly reviews across the 12 months after handover, included. Async. We look at the system, flag anything drifting, suggest tweaks. Compass decides what to act on. No upsell motion attached.</p>
   </div>
-</div>
-
-<h2><span class="num">09 · A note for the longer view</span>A replicable environment, as a byproduct.</h2>
+</div></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">09 · A note for the longer view</span>A replicable environment, as a byproduct.</h2>
 <p class="narrow">What we're building is a complete environment. The OS, the agents, the proven processes, all in one workspace. Once it's working for Compass, the same environment can be duplicated for a second branch, a JV, or a franchise across the state. New tenant by configuration, not rebuild.</p>
-<p class="narrow">That isn't the purpose of this project. It's a byproduct of building it properly the first time. Worth flagging because the architectural decisions we make in month one are what make it possible later.</p>
-
-<div class="footer">
-  Compass OS · Proposal · Stage 1 of 3<br>
+<p class="narrow">That isn't the purpose of this project. It's a byproduct of building it properly the first time. Worth flagging because the architectural decisions we make in month one are what make it possible later.</p></div></section>
+<footer class="page-footer"><div class="container">Compass OS · Proposal · Stage 1 of 3<br>
   Prepared by Dan for Nick and Chris, Compass Buyers Agency · May 2026<br><br>
-  <strong>Next:</strong> the <a href="compass-os-sow.html" style="color: var(--hills);">Statement of Work</a> for the contractual detail, then the <a href="compass-os-weekly-plan.html" style="color: var(--hills);">Delivery Plan</a> for the week-by-week build.
-</div>
-
-</div>
+  <strong>Next:</strong> the <a href="compass-os-sow.html" style="color: var(--hills);">Statement of Work</a> for the contractual detail, then the <a href="compass-os-weekly-plan.html" style="color: var(--hills);">Delivery Plan</a> for the week-by-week build.</div></footer>
 </body>
 </html>

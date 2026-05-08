@@ -5,66 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Compass OS · Statement of Work · Stage 1</title>
 <style>
-  @font-face {
-    font-family: 'MinervaModern';
-    src: url('fonts/MinervaModern-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'MinervaModern';
-    src: url('fonts/MinervaModern-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('fonts/Aeonik-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('fonts/Aeonik-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('fonts/Aeonik-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Aeonik';
-    src: url('fonts/Aeonik-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
+  @font-face { font-family: 'MinervaModern'; src: url('fonts/MinervaModern-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'MinervaModern'; src: url('fonts/MinervaModern-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Aeonik'; src: url('fonts/Aeonik-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
 
   :root {
     --hills: #2C4A3E;
     --hills-light: #4A6B5F;
+    --hills-deep: #1F3329;
     --ink: #1A1A1A;
     --ink-soft: #4A4A4A;
     --bright-grey: #F5F5F5;
     --sea: #7BAE9E;
     --sea-soft: #B8D4CB;
+    --sea-tint: #E5EFEA;
     --sand: #F5E6D3;
     --sand-light: #FBF6EE;
+    --sand-deep: #EBD7B8;
     --stone: #8B7E74;
     --stone-light: #D9D3CC;
     --white: #FFFFFF;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
-    margin: 0; padding: 0;
     color: var(--ink);
     background: var(--white);
     font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -72,499 +38,22 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
-  .page { max-width: 880px; margin: 0 auto; padding: 64px 56px 40px; }
-  h1, h2, h3 {
-    font-family: 'MinervaModern', Georgia, serif;
-    color: var(--hills);
-    letter-spacing: -0.018em;
-    
-  }
-  h1 { font-size: 38pt; line-height: 1.05; margin: 0 0 14px; font-weight: 400; }
-  h2 {
-    font-size: 19pt; line-height: 1.2;
-    margin: 56px 0 12px; padding: 0;
-    border: none; font-weight: 500;
-  }
-  h2 .num {
-    color: var(--stone); font-size: 8.5pt;
-    letter-spacing: 0.22em; display: block;
-    text-transform: uppercase; margin-bottom: 10px;
-    font-family: 'Aeonik', sans-serif; font-weight: 500;
-  }
-  h3 { font-size: 13pt; margin: 32px 0 8px; font-weight: 500; }
-  h4 {
-    font-family: 'Aeonik', sans-serif;
-    font-size: 8.5pt; margin: 20px 0 8px;
-    color: var(--stone); font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase;
-  }
-  .lead {
-    color: var(--hills); font-size: 14pt;
-    margin: 0 0 6px; font-weight: 400;
-    line-height: 1.45;
-    font-family: 'MinervaModern', serif;
-    font-style: normal;
-    letter-spacing: -0.01em;
-  }
-  .meta {
-    color: var(--stone); font-size: 9pt;
-    margin: 0 0 36px; letter-spacing: 0.01em;
-    line-height: 1.55;
-  }
-  p { margin: 8px 0 14px; color: var(--ink); line-height: 1.65; }
 
-  /* Header info block (SOW) */
-  .header-block {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 18px; margin: 18px 0 36px; padding: 22px 0;
-    background: transparent;
-    border-top: 1px solid var(--stone);
-    border-bottom: 1px solid var(--stone);
-    border-left: none; border-radius: 0;
-  }
-  .header-block .item { font-size: 9pt; }
-  .header-block .item .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.18em; font-size: 7.5pt;
-    margin-bottom: 6px; font-weight: 500;
-  }
-  .header-block .item .value {
-    color: var(--ink); font-weight: 400; font-size: 10.5pt;
-    font-family: 'MinervaModern', serif;
-    letter-spacing: -0.005em;
-    line-height: 1.35;
-  }
-
-  /* Cards */
-  .card {
-    background: var(--sand);
-    border-left: none;
-    padding: 18px 22px; margin: 18px 0 26px;
-    border-radius: 2px;
-  }
-  .card.sand { background: var(--sand); }
-  .card.nick {
-    background: var(--bright-grey);
-    border-left: 2px solid var(--sea);
-    padding-left: 20px;
-  }
-  .card.nick strong.tag {
-    color: var(--hills); letter-spacing: 0.22em;
-    text-transform: uppercase; font-size: 7.5pt;
-    font-weight: 600;
-    display: block; margin-bottom: 8px;
-  }
-
-  /* Companion link */
-  .companion-link {
-    background: var(--bright-grey); padding: 18px 24px;
-    margin: 24px 0 36px; border-radius: 2px; font-size: 10pt;
-    border-left: 3px solid var(--hills);
-    color: var(--ink);
-  }
-  .companion-link a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-
-  /* Outcome / surface grids */
-  .outcome-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 36px 44px; margin: 28px 0 40px;
-  }
-  .outcome { padding: 0; background: transparent; border: none; }
-  .outcome .num {
-    color: var(--stone); font-family: 'MinervaModern', serif;
-    font-style: normal; font-size: 11pt;
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
-    display: block;
-    background: transparent; padding: 0;
-    font-weight: 400;
-  }
-  .outcome .name {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 16pt;
-    margin: 0 0 10px; line-height: 1.2;
-    letter-spacing: -0.015em;
-  }
-  .outcome p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
-
-  .surface-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 32px; margin: 24px 0 40px;
-  }
-  .surface { padding: 0; background: transparent; border: none; }
-  .surface .num {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
-  }
-  .surface .name {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 15pt;
-    margin: 8px 0 10px; letter-spacing: -0.015em; line-height: 1.2;
-  }
-  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
-
-  /* Streams */
-  .stream {
-    background: var(--sand-light); padding: 24px 28px;
-    margin: 16px 0; border-radius: 2px;
-    border-left: 3px solid var(--sea);
-  }
-  .stream .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
-  }
-  .stream .name {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 18pt;
-    margin: 6px 0 12px; letter-spacing: -0.015em; line-height: 1.15;
-  }
-  .stream ul {
-    margin: 14px 0 0 18px; padding: 0;
-    font-size: 10pt; color: var(--ink);
-  }
-  .stream ul li { margin: 5px 0; line-height: 1.55; }
-  .stream .note {
-    background: var(--white); padding: 14px 18px;
-    margin-top: 16px; font-size: 9.5pt;
-    border-radius: 2px;
-    color: var(--ink); line-height: 1.6;
-    border-left: 2px solid var(--stone-light);
-  }
-
-  /* Stage banner */
-  .stage-banner {
-    margin: 64px 0 18px; padding: 28px 0 14px;
-    border-top: 1px solid var(--sand);
-    background: transparent;
-    color: var(--hills);
-    border-radius: 0;
-  }
-  .stage-banner .label {
-    color: var(--stone); font-size: 8pt;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    font-weight: 500; margin-bottom: 10px;
-    opacity: 1;
-  }
-  .stage-banner .title {
-    font-family: 'MinervaModern', serif; font-size: 24pt;
-    color: var(--hills); font-weight: 400;
-    letter-spacing: -0.022em; line-height: 1.1;
-  }
-
-  /* Milestone block (SOW) */
-  .milestone-block {
-    background: var(--sand);
-    padding: 32px 36px; margin: 28px 0 36px; border-radius: 3px;
-    border-left: 4px solid var(--hills);
-  }
-  .milestone-block .head {
-    display: grid; grid-template-columns: 1fr auto;
-    align-items: start; gap: 28px; margin-bottom: 14px;
-  }
-  .milestone-block .head .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
-  }
-  .milestone-block .head .name {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 500; font-size: 19pt;
-    margin: 8px 0 8px; letter-spacing: -0.018em; line-height: 1.15;
-  }
-  .milestone-block .head .when {
-    font-size: 9.5pt; color: var(--stone); font-style: italic;
-    font-family: 'MinervaModern', serif; line-height: 1.45;
-  }
-  .milestone-block .price {
-    background: var(--white); padding: 16px 20px;
-    border-radius: 2px; text-align: right; min-width: 170px;
-    color: var(--hills);
-  }
-  .milestone-block .price .num {
-    font-family: 'MinervaModern', serif; font-size: 22pt;
-    color: var(--hills); font-weight: 400; line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .milestone-block .price .terms {
-    font-size: 8pt; color: var(--stone); margin-top: 6px;
-    letter-spacing: 0.05em; opacity: 1;
-  }
-
-  /* Meta row in milestone */
-  .meta-row {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 28px; margin: 16px 0 18px;
-    padding: 14px 0;
-    border-top: 1px solid var(--sand);
-    font-size: 9.5pt;
-  }
-  .meta-row .item .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.18em; font-size: 7.5pt;
-    margin-bottom: 4px; font-weight: 500;
-  }
-
-  /* Stream mini cards in milestones */
-  .stream-row {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 18px; margin-top: 18px;
-  }
-  .stream-mini {
-    background: var(--white); padding: 18px 20px;
-    border-radius: 2px; font-size: 9.5pt;
-    border-top: 3px solid var(--sea);
-  }
-  .stream-mini .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.18em; font-size: 7pt;
-    font-weight: 600;
-  }
-  .stream-mini .name {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 13pt;
-    margin: 6px 0 10px; letter-spacing: -0.012em; line-height: 1.2;
-  }
-  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink); }
-  .stream-mini ul li { margin: 3px 0; line-height: 1.55; }
-
-  /* Acceptance gate */
-  .gate, .milestone {
-    background: var(--hills); color: var(--white);
-    padding: 20px 24px; border-radius: 2px;
-    margin: 18px 0 32px; font-size: 10pt;
-    line-height: 1.6;
-  }
-  .gate .label, .milestone .label {
-    font-weight: 600; letter-spacing: 0.22em;
-    text-transform: uppercase; font-size: 7.5pt;
-    opacity: 0.85; margin-bottom: 10px; display: block;
-    font-family: 'Aeonik', sans-serif;
-  }
-
-  /* Tables */
-  table {
-    width: 100%; border-collapse: collapse;
-    margin: 12px 0 24px; font-size: 9.5pt;
-  }
-  th, td {
-    text-align: left; vertical-align: top;
-    padding: 12px 14px 12px 0;
-    border-bottom: 1px solid var(--stone-light);
-  }
-  th {
-    background: transparent; color: var(--hills);
-    font-weight: 600; font-size: 7.5pt;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    border-bottom: 1.5px solid var(--stone);
-    padding-top: 10px; padding-bottom: 10px;
-  }
-  td.title {
-    font-weight: 500; color: var(--ink); width: 26%;
-    font-size: 10pt;
-  }
-
-  /* Pills */
-  .pill {
-    display: inline-block; padding: 2px 10px;
-    border-radius: 999px; font-size: 7.5pt;
-    font-weight: 600; letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .pill-web, .stream-A { background: #E5EFEA; color: var(--hills); }
-  .pill-bruce, .stream-B { background: #DDEBE6; color: #1F5D4F; }
-  .pill-agent, .stream-C { background: #EAE0CF; color: #6B5A48; }
-  .pill-manual, .stream-Compass { background: var(--bright-grey); color: var(--stone); }
-  .stream-All { background: var(--bright-grey); color: var(--stone); }
-
-  .effort { font-weight: 600; color: var(--hills); }
-
-  /* Lists */
-  ul.compact { margin: 10px 0 0 20px; padding: 0; }
-  ul.compact li { margin: 5px 0; line-height: 1.6; }
-
-  /* Roles grid */
-  .roles-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 22px 36px; margin: 18px 0 28px;
-  }
-  .role { padding: 6px 0; border: none; }
-  .role:first-child, .role:nth-child(2) { border-top: none; }
-  .role .name {
-    font-weight: 500; color: var(--hills); font-size: 11pt;
-    font-family: 'MinervaModern', serif; letter-spacing: -0.005em;
-    margin-bottom: 4px;
-  }
-  .role .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
-
-  /* Summary table */
-  .summary-table th, .summary-table td { font-size: 9.5pt; }
-
-  /* Flow table */
-  .flow-table th, .flow-table td { font-size: 9.5pt; padding: 10px 14px 10px 0; }
-  .flow-table .phase {
-    background: transparent; color: var(--hills);
-    font-family: 'MinervaModern', serif; font-weight: 400;
-    font-size: 14pt; padding: 28px 0 10px;
-    border-bottom: 1px solid var(--sand);
-    letter-spacing: -0.015em;
-  }
-  .flow-table .phase-num {
-    font-size: 7.5pt; letter-spacing: 0.22em;
-    color: var(--stone); text-transform: uppercase;
-    font-weight: 600; margin-right: 14px;
-    font-family: 'Aeonik', sans-serif;
-  }
-  .flow-table tr:first-child .phase { padding-top: 10px; }
-
-  /* Legend */
-  .legend {
-    font-size: 8.5pt; color: var(--stone);
-    margin: 10px 0 16px;
-  }
-  .legend .pill { margin-right: 8px; }
-
-  /* Commitment grid */
-  .commitment-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 18px; margin: 18px 0 24px;
-  }
-  .commitment-grid .item {
-    padding: 18px 22px; background: var(--sand);
-    border-radius: 2px;
-  }
-  .commitment-grid .item .qty {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 18pt;
-    letter-spacing: -0.015em; line-height: 1.1;
-  }
-  .commitment-grid .item .desc {
-    font-size: 9.5pt; color: var(--ink);
-    margin-top: 8px; line-height: 1.55;
-  }
-
-  /* Total band */
-  .total-band {
-    background: var(--hills); color: var(--white);
-    padding: 22px 28px; border-radius: 2px;
-    margin: 14px 0 32px;
-    display: grid; grid-template-columns: 1fr auto;
-    align-items: center; gap: 20px;
-  }
-  .total-band .label { font-size: 9.5pt; opacity: 0.85; line-height: 1.55; }
-  .total-band .num {
-    font-family: 'MinervaModern', serif; font-size: 26pt;
-    font-weight: 400; letter-spacing: -0.02em; line-height: 1;
-  }
-
-  /* Invoice grid */
-  .invoice-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 18px; margin: 24px 0 32px;
-  }
-  .invoice {
-    background: var(--sand); padding: 24px;
-    border-radius: 2px;
-    border-top: 3px solid var(--hills);
-  }
-  .invoice .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
-  }
-  .invoice .num {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 32pt;
-    margin: 8px 0 0; letter-spacing: -0.025em; line-height: 1;
-  }
-  .invoice .terms {
-    font-size: 8.5pt; color: var(--stone);
-    margin: 4px 0 14px; letter-spacing: 0.05em;
-  }
-  .invoice .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
-
-  /* Risk */
-  .risk {
-    background: #FFF7E8; padding: 24px 28px;
-    margin: 16px 0; border-radius: 2px;
-    border-left: 4px solid #C68A2E;
-  }
-  .risk .label {
-    color: var(--stone); text-transform: uppercase;
-    letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600;
-  }
-  .risk .name {
-    font-family: 'MinervaModern', serif; color: var(--hills);
-    font-weight: 400; font-size: 15pt;
-    margin: 8px 0 10px; letter-spacing: -0.015em;
-  }
-  .risk .handle {
-    background: var(--white); padding: 14px 18px;
-    margin-top: 14px; border-radius: 2px;
-    font-size: 9.5pt; color: var(--ink); line-height: 1.6;
-  }
-
-  /* Running costs */
-  .running-costs table td:nth-child(2) {
-    text-align: right; font-weight: 400;
-    color: var(--hills); white-space: nowrap;
-    font-family: 'MinervaModern', serif; font-size: 12pt;
-    letter-spacing: -0.01em;
-  }
-
-  /* Footer */
-  .footer {
-    color: var(--stone); font-size: 8.5pt;
-    margin-top: 64px; border-top: 1px solid var(--sand);
-    padding-top: 22px; line-height: 1.7;
-    letter-spacing: 0.01em;
-  }
-
-  /* Print */
-  @page { size: A4; margin: 18mm 16mm; }
-  @media print {
-    body { font-size: 9.5pt; }
-    .page { padding: 0; max-width: none; }
-    .stage-banner { page-break-before: always; }
-    .stage-banner.first, h2:first-of-type { page-break-before: auto; }
-    table, .card, .risk, .stream, .milestone-block, .gate, .milestone {
-      page-break-inside: avoid;
-    }
-    h2, h3 { page-break-after: avoid; }
-    .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid {
-      page-break-inside: avoid;
-    }
-    a { color: inherit; text-decoration: none; }
-  }
-.rollout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 28px 0 32px; }
-  .rollout-col h4 { color: var(--hills); border-bottom: 1.5px solid var(--stone); padding-bottom: 8px; margin: 0 0 12px; }
-  .rollout-col ul { margin: 0; padding-left: 16px; font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
-  .rollout-col ul li { margin: 6px 0; }
-  .rollout-col ul li strong { color: var(--hills); }
-
-  .open-question { background: #FFF7E8; padding: 18px 22px; border-radius: 2px; border-left: 4px solid #C68A2E; margin: 18px 0 24px; font-size: 9.5pt; line-height: 1.6; }
-  .open-question .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 600; display: block; margin-bottom: 6px; }
-
-
-  /* Sticky nav with three-column descriptions */
+  /* STICKY NAV */
   .top-nav-wrap {
     position: sticky; top: 0; z-index: 100;
     background: var(--white);
     box-shadow: 0 1px 0 var(--sand);
   }
   .top-band { height: 6px; background: var(--hills); width: 100%; }
-  .doc-nav {
-    background: var(--white);
-    padding: 0;
-    border-bottom: 1px solid var(--sand);
-  }
+  .doc-nav { background: var(--white); padding: 0; border-bottom: 1px solid var(--sand); }
   .doc-nav-inner {
-    max-width: 880px; margin: 0 auto;
+    max-width: 1080px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
   }
   .doc-nav a {
-    display: block;
-    padding: 14px 24px 16px;
-    text-decoration: none;
-    color: var(--stone);
+    display: block; padding: 16px 28px 18px;
+    text-decoration: none; color: var(--stone);
     border-right: 1px solid var(--sand);
     border-bottom: 3px solid transparent;
     transition: background 0.15s ease;
@@ -577,77 +66,292 @@
     color: var(--hills);
   }
   .doc-nav .doc-label {
-    font-family: 'Aeonik', sans-serif;
-    font-size: 7.5pt;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--stone);
-    display: block;
-    margin-bottom: 2px;
+    font-family: 'Aeonik', sans-serif; font-size: 7.5pt;
+    letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+    color: var(--stone); display: block; margin-bottom: 4px;
   }
   .doc-nav a.current .doc-label { color: var(--hills); }
   .doc-nav .doc-name {
-    font-family: 'MinervaModern', serif;
-    font-size: 14pt;
-    color: var(--hills);
-    line-height: 1.15;
-    display: block;
-    margin-bottom: 2px;
+    font-family: 'MinervaModern', serif; font-size: 14pt;
+    color: var(--hills); line-height: 1.15; display: block; margin-bottom: 3px;
     letter-spacing: -0.01em;
   }
   .doc-nav .doc-desc {
-    font-family: 'Aeonik', sans-serif;
-    font-size: 8.5pt;
-    color: var(--stone);
-    line-height: 1.4;
-    display: block;
+    font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
+    color: var(--stone); line-height: 1.4; display: block;
   }
   .doc-nav a.current .doc-desc { color: var(--ink-soft); }
 
+  /* SECTION-BASED LAYOUT — full-bleed backgrounds, content constrained */
+  .container { max-width: 880px; margin: 0 auto; padding: 0 56px; }
+
+  .page-hero { background: var(--white); padding: 72px 0 16px; }
+  .page-hero .container { padding-bottom: 8px; }
+
+  section.seq {
+    padding: 64px 0;
+    border-top: 1px solid var(--sand);
+  }
+  section.seq:first-of-type { border-top: none; }
+  section.seq.bg-white { background: var(--white); }
+  section.seq.bg-sand { background: var(--sand-light); }
+  section.seq.bg-grey { background: var(--bright-grey); }
+  section.seq.bg-dark { background: var(--hills-deep); color: var(--white); }
+  section.seq.bg-dark h2, section.seq.bg-dark h3, section.seq.bg-dark h4,
+  section.seq.bg-dark p, section.seq.bg-dark .invest-note { color: var(--white); }
+  section.seq.bg-dark h2 .num { color: var(--sand); }
+  section.seq.bg-dark h2::before { background: var(--sand); }
+  section.seq.bg-dark .invest-stat .num { color: var(--white); }
+  section.seq.bg-dark .invest-stat h4 { color: var(--sand); }
+  section.seq.bg-dark th { color: var(--sand); border-bottom-color: rgba(255,255,255,0.3); }
+  section.seq.bg-dark td { border-bottom-color: rgba(255,255,255,0.15); }
+
+  /* TYPOGRAPHY */
+  h1, h2, h3, h4 { font-family: 'MinervaModern', Georgia, serif; color: var(--hills); letter-spacing: -0.02em; }
+  h1 { font-size: 44pt; line-height: 1.05; margin: 0 0 16px; font-weight: 500; }
+  h2 { font-size: 24pt; line-height: 1.15; margin: 0 0 18px; font-weight: 600; position: relative; }
+  h2::before { content: ''; display: block; width: 40px; height: 2px; background: var(--hills); margin-bottom: 22px; }
+  h2 .num {
+    color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em;
+    display: block; text-transform: uppercase; margin-bottom: 12px;
+    font-family: 'Aeonik', sans-serif; font-weight: 600;
+  }
+  h3 { font-size: 14pt; margin: 32px 0 10px; font-weight: 600; }
+  h4 {
+    font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
+    margin: 24px 0 10px; color: var(--stone); font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .lead {
+    color: var(--hills); font-size: 17pt; margin: 0 0 8px; font-weight: 500;
+    line-height: 1.4; font-family: 'MinervaModern', serif; letter-spacing: -0.01em;
+  }
+  .meta {
+    color: var(--stone); font-size: 9pt; margin: 0 0 32px;
+    line-height: 1.55; letter-spacing: 0.01em;
+  }
+  p { margin: 10px 0 14px; color: var(--ink); line-height: 1.65; }
+  .narrow { max-width: 640px; }
+
+  /* HERO HEADER BLOCK */
+  .header-block {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px; margin: 24px 0 32px; padding: 24px 0;
+    border-top: 1px solid var(--stone-light);
+    border-bottom: 1px solid var(--stone-light);
+  }
+  .header-block .item .label {
+    color: var(--stone); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 7.5pt;
+    margin-bottom: 6px; font-weight: 600;
+  }
+  .header-block .item .value {
+    color: var(--ink); font-weight: 500; font-size: 12pt;
+    font-family: 'MinervaModern', serif; line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  /* COMPANION LINK */
+  .companion-link {
+    background: var(--sand); padding: 22px 28px;
+    margin: 32px 0 0; border-radius: 3px;
+    border-left: 4px solid var(--hills);
+    color: var(--ink); font-size: 10pt; line-height: 1.7;
+  }
+  .companion-link strong { color: var(--hills); }
+  .companion-link a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* CARDS — distinct purposes, distinct colours */
+  .card { padding: 22px 26px; margin: 24px 0; border-radius: 3px; background: var(--bright-grey); }
+  .card.sand { background: var(--sand); }
+  .card.nick { background: var(--sea-tint); border-left: 3px solid var(--sea); padding-left: 28px; }
+  .card.nick strong.tag { color: var(--hills); letter-spacing: 0.22em; text-transform: uppercase; font-size: 7.5pt; font-weight: 700; display: block; margin-bottom: 10px; }
+
+  /* OUTCOMES */
+  .outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 44px; margin: 32px 0; }
+  .outcome { padding: 0; }
+  .outcome .num { color: var(--stone); font-family: 'MinervaModern', serif; font-size: 11pt; letter-spacing: 0.05em; margin-bottom: 8px; display: block; font-weight: 500; }
+  .outcome .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 18pt; margin: 0 0 12px; line-height: 1.2; letter-spacing: -0.018em; }
+  .outcome p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.65; }
+
+  /* BRUCE BLOCK */
+  .bruce-block { margin: 32px 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 44px; align-items: start; }
+  .bruce-text p { font-size: 10pt; line-height: 1.7; }
+  .bruce-visual { background: var(--white); padding: 32px 28px; border-radius: 4px; text-align: center; border: 1px solid var(--stone-light); }
+  .bruce-orch { font-family: 'MinervaModern', serif; color: var(--white); background: var(--hills); display: inline-block; padding: 16px 36px; border-radius: 999px; font-size: 17pt; letter-spacing: -0.01em; font-weight: 500; }
+  .bruce-orch-label { display: block; font-family: 'Aeonik', sans-serif; color: var(--sea-soft); font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+  .bruce-agents { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
+  .bruce-agent { background: var(--sand); color: var(--hills); padding: 6px 13px; border-radius: 999px; font-size: 8pt; font-weight: 600; }
+
+  /* SKILLS ROLLOUT */
+  .rollout { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin: 32px 0; }
+  .rollout-col { background: var(--white); padding: 22px; border-radius: 3px; border-top: 3px solid var(--hills); }
+  .rollout-col h4 { color: var(--hills); border-bottom: none; padding-bottom: 0; margin: 0 0 14px; font-size: 8.5pt; }
+  .rollout-col ul { list-style: none; padding: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
+  .rollout-col ul li { margin: 8px 0; padding-left: 12px; position: relative; }
+  .rollout-col ul li::before { content: '→'; position: absolute; left: 0; color: var(--sea); font-weight: 600; }
+  .rollout-col ul li strong { color: var(--hills); }
+
+  /* SURFACES */
+  .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 32px 0; }
+  .surface { padding: 0; }
+  .surface .num { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .surface .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 16pt; margin: 8px 0 10px; line-height: 1.2; letter-spacing: -0.015em; }
+  .surface p { margin: 0; font-size: 9.5pt; color: var(--ink); line-height: 1.65; }
+
+  /* MONTHLY CARDS (proposal) */
+  .months { display: flex; flex-direction: column; gap: 14px; margin: 32px 0; }
+  .month-card { background: var(--white); padding: 28px 32px; border-radius: 3px; border-left: 4px solid var(--hills); display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: start; box-shadow: 0 1px 0 var(--stone-light); }
+  .month-card .month-num { font-family: 'MinervaModern', serif; font-size: 34pt; color: var(--hills); font-weight: 500; line-height: 1; }
+  .month-card .month-body { padding-top: 4px; }
+  .month-card .month-body .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .month-card .month-body h3 { margin: 4px 0 8px; font-size: 19pt; color: var(--hills); font-weight: 600; }
+  .month-card .month-body .theme { font-family: 'MinervaModern', serif; font-style: italic; color: var(--hills-light); font-size: 12pt; margin-bottom: 12px; }
+  .month-card .month-body p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.65; }
+  .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
+  .month-card .month-side .checkpoint { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--hills); font-weight: 500; line-height: 1; }
+  .month-card .month-side .checkpoint-label { font-size: 7.5pt; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
+  .month-card.optional { background: var(--bright-grey); border-left-color: var(--stone); }
+  .month-card.optional .month-num, .month-card.optional .month-body h3, .month-card.optional .month-side .checkpoint { color: var(--stone); }
+
+  /* OWNERSHIP */
+  .own-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; margin: 28px 0; }
+  .own-item { background: var(--white); padding: 18px 22px; border-radius: 3px; font-size: 10pt; color: var(--ink); line-height: 1.55; border-left: 3px solid var(--sea); }
+
+  /* ROI */
+  .roi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin: 28px 0; }
+  .roi-item { background: var(--white); padding: 22px; border-radius: 3px; border-top: 3px solid var(--sea); }
+  .roi-item h4 { margin: 0 0 8px; }
+  .roi-item p { margin: 0; font-size: 10pt; color: var(--ink); line-height: 1.6; }
+  .roi-item p strong { color: var(--hills); }
+
+  /* INVESTMENT — dark hero panel */
+  .invest-block { padding: 0; margin: 28px 0; }
+  .invest-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .invest-stat .num { font-family: 'MinervaModern', serif; font-size: 44pt; line-height: 1; font-weight: 500; }
+  .invest-stat h4 { margin: 12px 0 8px; }
+  .invest-stat p { margin: 0; font-size: 9.5pt; line-height: 1.6; opacity: 0.9; }
+  .invest-note { margin-top: 28px; font-size: 9.5pt; line-height: 1.65; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.2); opacity: 0.95; }
+
+  /* OPEN QUESTION */
+  .open-question { background: #FFF1D6; padding: 22px 28px; border-radius: 3px; border-left: 4px solid #C68A2E; margin: 28px 0; font-size: 10pt; line-height: 1.65; }
+  .open-question .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; display: block; margin-bottom: 8px; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 9.5pt; }
+  th, td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--stone-light); }
+  th { color: var(--hills); font-weight: 700; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; border-bottom: 2px solid var(--hills); padding-top: 12px; padding-bottom: 12px; }
+  td.title { font-weight: 600; color: var(--ink); width: 26%; font-size: 10pt; }
+
+  /* PILLS */
+  .pill { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pill-web, .stream-A { background: var(--sea-tint); color: var(--hills); }
+  .pill-bruce, .stream-B { background: #DDEBE6; color: #1F5D4F; }
+  .pill-agent, .stream-C { background: #EAE0CF; color: #6B5A48; }
+  .pill-manual, .stream-Compass, .stream-All { background: var(--bright-grey); color: var(--stone); }
+  .effort { font-weight: 700; color: var(--hills); }
+
+  /* LISTS */
+  ul.compact { margin: 12px 0 0 22px; padding: 0; }
+  ul.compact li { margin: 6px 0; line-height: 1.65; }
+
+  /* ROLES (plan) */
+  .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 36px; margin: 22px 0; }
+  .role { padding: 8px 0; }
+  .role .name { font-weight: 600; color: var(--hills); font-size: 11.5pt; font-family: 'MinervaModern', serif; letter-spacing: -0.005em; margin-bottom: 4px; }
+  .role .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
+
+  /* SUMMARY TABLE */
+  .summary-table th, .summary-table td { font-size: 9.5pt; }
+
+  /* FLOW TABLE (SOW) */
+  .flow-table th, .flow-table td { font-size: 9.5pt; padding: 12px 16px 12px 0; }
+  .flow-table .phase { background: transparent; color: var(--hills); font-family: 'MinervaModern', serif; font-weight: 600; font-size: 15pt; padding: 32px 0 12px; border-bottom: 1.5px solid var(--hills); letter-spacing: -0.018em; }
+  .flow-table .phase-num { font-size: 7.5pt; letter-spacing: 0.22em; color: var(--stone); text-transform: uppercase; font-weight: 700; margin-right: 14px; font-family: 'Aeonik', sans-serif; }
+  .flow-table tr:first-child .phase { padding-top: 12px; }
+
+  /* LEGEND */
+  .legend { font-size: 9pt; color: var(--stone); margin: 12px 0 18px; }
+  .legend .pill { margin-right: 8px; }
+
+  /* COMMITMENT GRID (SOW) */
+  .commitment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+  .commitment-grid .item { padding: 22px 26px; background: var(--white); border-radius: 3px; border-top: 3px solid var(--hills); }
+  .commitment-grid .item .qty { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 20pt; letter-spacing: -0.018em; line-height: 1.1; }
+  .commitment-grid .item .desc { font-size: 9.5pt; color: var(--ink); margin-top: 10px; line-height: 1.6; }
+
+  /* TOTAL BAND */
+  .total-band { background: var(--hills); color: var(--white); padding: 24px 32px; border-radius: 3px; margin: 18px 0 32px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 22px; }
+  .total-band .label { font-size: 9.5pt; opacity: 0.9; line-height: 1.6; }
+  .total-band .num { font-family: 'MinervaModern', serif; font-size: 28pt; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+
+  /* INVOICE GRID (SOW) */
+  .invoice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 28px 0; }
+  .invoice { background: var(--white); padding: 26px; border-radius: 3px; border-top: 3px solid var(--hills); }
+  .invoice .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .invoice .num { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 500; font-size: 32pt; margin: 10px 0 0; letter-spacing: -0.02em; line-height: 1; }
+  .invoice .terms { font-size: 8.5pt; color: var(--stone); margin: 4px 0 14px; letter-spacing: 0.04em; }
+  .invoice .desc { font-size: 9.5pt; color: var(--ink); line-height: 1.6; }
+
+  /* RISK */
+  .risk { background: #FFF1D6; padding: 24px 28px; margin: 16px 0; border-radius: 3px; border-left: 4px solid #C68A2E; }
+  .risk .label { color: #8a5e1d; text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .risk .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 15pt; margin: 8px 0 12px; letter-spacing: -0.015em; }
+  .risk .handle { background: var(--white); padding: 16px 20px; margin-top: 14px; border-radius: 3px; font-size: 9.5pt; color: var(--ink); line-height: 1.65; }
+
+  /* RUNNING COSTS */
+  .running-costs table td:nth-child(2) { text-align: right; font-weight: 500; color: var(--hills); white-space: nowrap; font-family: 'MinervaModern', serif; font-size: 13pt; letter-spacing: -0.01em; }
+
+  /* PLAN SPECIFIC */
+  .stage-banner { margin: 56px 0 22px; padding: 32px 0 16px; border-top: 2px solid var(--hills); background: transparent; }
+  .stage-banner .label { color: var(--stone); font-size: 8pt; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; display: block; }
+  .stage-banner .title { font-family: 'MinervaModern', serif; font-size: 26pt; color: var(--hills); font-weight: 600; letter-spacing: -0.022em; line-height: 1.1; }
+  .milestone-block { background: var(--white); padding: 32px 36px; margin: 28px 0 32px; border-radius: 3px; border-left: 4px solid var(--hills); box-shadow: 0 1px 0 var(--stone-light); }
+  .milestone-block .head { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 28px; margin-bottom: 14px; }
+  .milestone-block .head .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .milestone-block .head .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 20pt; margin: 8px 0; letter-spacing: -0.018em; line-height: 1.15; }
+  .milestone-block .head .when { font-size: 9.5pt; color: var(--stone); font-style: italic; font-family: 'MinervaModern', serif; line-height: 1.45; }
+  .milestone-block .price { background: var(--sand); padding: 18px 22px; border-radius: 3px; text-align: right; min-width: 180px; }
+  .milestone-block .price .num { font-family: 'MinervaModern', serif; font-size: 24pt; color: var(--hills); font-weight: 500; line-height: 1; letter-spacing: -0.02em; }
+  .milestone-block .price .terms { font-size: 8pt; color: var(--stone); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 18px 0; padding: 16px 0; border-top: 1px solid var(--sand); font-size: 9.5pt; }
+  .meta-row .item .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; margin-bottom: 4px; font-weight: 700; }
+
+  .stream-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  .stream-mini { background: var(--sand-light); padding: 20px; border-radius: 3px; font-size: 9.5pt; border-top: 3px solid var(--sea); }
+  .stream-mini .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7pt; font-weight: 700; }
+  .stream-mini .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 13pt; margin: 6px 0 12px; letter-spacing: -0.012em; line-height: 1.2; }
+  .stream-mini ul { margin: 6px 0 0 16px; padding: 0; color: var(--ink); }
+  .stream-mini ul li { margin: 4px 0; line-height: 1.55; }
+
+  .gate, .milestone { background: var(--hills); color: var(--white); padding: 22px 28px; border-radius: 3px; margin: 20px 0 32px; font-size: 10pt; line-height: 1.65; }
+  .gate .label, .milestone .label { font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-size: 7.5pt; opacity: 0.9; margin-bottom: 12px; display: block; font-family: 'Aeonik', sans-serif; }
+
+  .stream { background: var(--white); padding: 26px 30px; margin: 18px 0; border-radius: 3px; border-left: 3px solid var(--sea); box-shadow: 0 1px 0 var(--stone-light); }
+  .stream .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
+  .stream .name { font-family: 'MinervaModern', serif; color: var(--hills); font-weight: 600; font-size: 19pt; margin: 6px 0 14px; letter-spacing: -0.018em; line-height: 1.15; }
+  .stream ul { margin: 14px 0 0 18px; padding: 0; font-size: 10pt; color: var(--ink); }
+  .stream ul li { margin: 6px 0; line-height: 1.6; }
+  .stream .note { background: var(--sand-light); padding: 16px 20px; margin-top: 18px; font-size: 9.5pt; border-radius: 3px; color: var(--ink); line-height: 1.65; }
+
+  /* FOOTER */
+  .page-footer { background: var(--bright-grey); padding: 40px 0 36px; }
+  .page-footer .container { color: var(--stone); font-size: 8.5pt; line-height: 1.7; letter-spacing: 0.01em; }
+  .page-footer a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* PRINT */
+  @page { size: A4; margin: 18mm 16mm; }
   @media print {
     .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
+    body { font-size: 9.5pt; }
+    .container { padding: 0; }
+    section.seq { padding: 28px 0; border-top: 1px solid var(--stone-light); page-break-inside: avoid; }
+    h2 { page-break-after: avoid; }
+    .month-card, .roi-item, .own-item, .surface, .outcome, .milestone-block, .invoice, .risk, .gate, .milestone, .card { page-break-inside: avoid; }
+    .outcome-grid, .surface-grid, .invoice-grid, .stream-row, .commitment-grid, .roi-grid, .own-grid { page-break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
   }
-
-  /* Contrast lift across cards and panels */
-  .card { background: var(--sand); }
-  .card.sand { background: var(--sand); }
-
-  /* Stronger heading colour and tighter tracking */
-  h1 { font-weight: 500; letter-spacing: -0.022em; }
-  h2 { font-weight: 600; letter-spacing: -0.02em; }
-  h3 { font-weight: 600; }
-
-  /* Lead paragraph more presence */
-  .lead { font-weight: 500; }
-
-  /* Add visual rhythm: subtle separator above each h2 */
-  h2 {
-    position: relative;
-  }
-  h2::before {
-    content: '';
-    display: block;
-    width: 32px; height: 2px;
-    background: var(--hills);
-    margin-bottom: 18px;
-  }
-
-  /* Outcome name weight up */
-  .outcome .name { font-weight: 600; }
-
-  /* Surface name weight up */
-  .surface .name { font-weight: 600; }
-
-  /* Stream name weight up */
-  .stream .name { font-weight: 600; }
-
-  /* Milestone block name weight up */
-  .milestone-block .head .name { font-weight: 600; }
-
-  /* Footer link weight */
-  .footer a { font-weight: 600; }
-
 </style>
 </head>
 <body>
@@ -674,9 +378,7 @@
   </div>
 </nav>
 </div>
-<div class="page">
-
-<h1>Statement of Work</h1>
+<header class="page-hero"><div class="container"><h1>Statement of Work</h1>
 <p class="lead">Compass Buyers Agency · Stage 1 of Compass OS</p>
 <p class="meta">The build plan. Four months. $50,000 + GST. A web app, Bruce on WhatsApp, and a working agent layer behind both. Built into Compass-owned infrastructure, in Compass's name from Day 1.</p>
 
@@ -688,10 +390,10 @@
 </div>
 
 <div class="companion-link">
-  <strong>You are reading the Statement of Work.</strong> The contractual detail: technical architecture, monthly deliverables, payment terms, risks, governance. The <a href="compass-os-proposal.html">Proposal</a> covers vision, value, the four outcomes, Bruce + sub-agents at a glance, the Skills rollout, ROI, and the longer view. The <a href="compass-os-weekly-plan.html">Delivery Plan</a> covers the week-by-week build. Read the proposal first.
-</div>
-
-<h2><span class="num">00 · Who builds this</span>A small team. Compass deals with one person.</h2>
+  <strong>You are reading the Statement of Work.</strong> Architecture, milestones, payment, risks.<br>
+  Two companion documents: <a href="compass-os-proposal.html"><strong>Proposal</strong></a> for why this works, <a href="compass-os-weekly-plan.html"><strong>Delivery Plan</strong></a> for how it gets built.
+</div></div></header>
+<section class="seq bg-white"><div class="container"><h2><span class="num">00 · Who builds this</span>A small team. Compass deals with one person.</h2>
 <p>Three of us on the build: me, a local engineer, and a small specialised agent set we lean on for drafting and scaffolding work. Compass deals with me. That's the whole hierarchy on our side.</p>
 <div class="surface-grid" style="grid-template-columns: 1fr 1fr 1fr;">
   <div class="surface">
@@ -710,9 +412,8 @@
     <p>Tuned over previous projects we've run. One writes code. Another designs screens. Another drafts copy. Another runs tests. They draft, we review, then it ships.</p>
   </div>
 </div>
-<p style="font-size: 10pt; color: var(--ink-soft);">Agents handle the heavy lifting. Humans handle the thinking. That's how we keep the pace up without losing care on what reaches production.</p>
-
-<h2><span class="num">01 · The sales flow</span>How a deal moves through the system.</h2>
+<p style="font-size: 10pt; color: var(--ink-soft);">Agents handle the heavy lifting. Humans handle the thinking. That's how we keep the pace up without losing care on what reaches production.</p></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">01 · The sales flow</span>How a deal moves through the system.</h2>
 <p>Four phases, fourteen stages. Most stages are driven by Bruce in WhatsApp or by automation in the web app. The stages that should stay manual (negotiation, judgement calls, client conversations) stay manual. Bruce captures, never replaces.</p>
 <div class="legend">
   <span class="pill pill-web">Web app</span>
@@ -749,9 +450,8 @@
     <tr><td>Final inspection -5 days reminder</td><td><span class="pill pill-bruce">Bruce on WhatsApp</span></td></tr>
     <tr><td>Compliance export ready any time</td><td><span class="pill pill-web">Web app</span></td></tr>
   </tbody>
-</table>
-
-<h2><span class="num">02 · The build, in three streams</span>Three workstreams in parallel. Convergence in the middle.</h2>
+</table></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">02 · The build, in three streams</span>Three workstreams in parallel. Convergence in the middle.</h2>
 <p>The web app, Bruce on WhatsApp, and the agent space build in parallel. Each stream stands up on its own. Then they wire together through the convergence phase. Then we polish, test, train, and hand over.</p>
 
 <div class="stream">
@@ -803,9 +503,8 @@
     <li>Engineering + frontend agents that build the OS, handed over with prompts and runbooks</li>
   </ul>
   <div class="note"><strong>Quick note on the workspace.</strong> Anthropic workspace = Compass's own login at Anthropic (the company behind Claude), billed and controlled by Compass. The orchestrator is Bruce's brain. Sub-agents are the specialists he hands work to.</div>
-</div>
-
-<h2><span class="num">03 · The plan, month by month</span>Four monthly checkpoints. Each earns the next.</h2>
+</div></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">03 · The plan, month by month</span>Four monthly checkpoints. Each earns the next.</h2>
 <p>One core capability per month. Each month is its own earned stage with sign-off before the next begins. Deliverables are grouped by stream so the build can run in parallel.</p>
 
 <div class="milestone-block">
@@ -1026,9 +725,8 @@
 
 <div class="card">
   <strong>Explicitly not in Stage 1.</strong> Semantic property matching (pgvector). External property enrichment (CoreLogic, PriceFinder). Bruce in client groups by default (still silent-observer-when-added only in Stage 1). Daily briefings (needs more than four weeks of data). Conversion optimisation agent. Suburb reports as a productised agent (the skill version is in the team's hands from the first three weeks). Multi-tenant activation for franchise #2. Historical structured parsing. All scoped separately as Phase 2 or Phase 3 when Compass is ready, or available via the optional Month 5.
-</div>
-
-<h2><span class="num">04 · What we need from Compass</span>A weekly rhythm that keeps everyone in check.</h2>
+</div></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">04 · What we need from Compass</span>A weekly rhythm that keeps everyone in check.</h2>
 <p>Compass watches the build happen rather than sitting in it. The cadence is light but consistent: a 30-minute Monday catch-up, a 5-minute Friday Loom, and email correspondence as decisions come up.</p>
 <h4>Active time</h4>
 <div class="commitment-grid">
@@ -1045,9 +743,8 @@
   <div class="item"><div class="qty">As needed</div><div class="desc">Email correspondence on decisions, blockers, scope nudges.</div></div>
   <div class="item"><div class="qty">Live</div><div class="desc">Notion board open at all times. Every ticket, every status, every decision.</div></div>
   <div class="item"><div class="qty">Weekly</div><div class="desc">Preview deploys updated. Poke at the build any time.</div></div>
-</div>
-
-<h2><span class="num">05 · How payment works</span>$50,000 total. Tax-aligned by default. Cadence is yours to set.</h2>
+</div></div></section>
+<section class="seq bg-dark"><div class="container"><h2><span class="num">05 · How payment works</span>$50,000 total. Tax-aligned by default. Cadence is yours to set.</h2>
 
 <div class="card sand"><strong>One thing to flag up front.</strong> The default 3-invoice cadence is structured so payments fall across two financial years if the project kicks off late in the financial year. Compass can claim around $40,000 across two FY periods that way. <em>Not financial advice. Compass's accountant will confirm what makes sense.</em></div>
 
@@ -1090,9 +787,8 @@
   </div>
 </div>
 
-<div class="card"><strong>If something goes wrong.</strong> Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback. If a milestone isn't accepted, the next invoice doesn't issue and the work continues until it is.</div>
-
-<h2><span class="num">06 · How we de-risk delivery</span>The three things that could slow this down. Named first.</h2>
+<div class="card"><strong>If something goes wrong.</strong> Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback. If a milestone isn't accepted, the next invoice doesn't issue and the work continues until it is.</div></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">06 · How we de-risk delivery</span>The three things that could slow this down. Named first.</h2>
 <p>No build is risk-free. Naming the risks honestly is how we keep them small. Here are the three real ones, and how we handle each.</p>
 <div class="risk">
   <div class="label">Risk 01</div>
@@ -1111,9 +807,8 @@
   <div class="name">Scope grows mid-build</div>
   <p>The team will see the build and have ideas. Real client work will surface patterns the original spec didn't catch. Saying yes to everything blows the timeline. Saying no to everything stops Compass shaping its own system.</p>
   <div class="handle"><strong>How we handle it.</strong> Anything inside the existing scope gets reordered in real time, no paperwork. Anything outside scope gets a one-page change note: impact, cost, knock-on. Compass decides in writing. No surprises either way.</div>
-</div>
-
-<h2><span class="num">07 · After handover</span>Day 31 onwards. What Compass owns and how it keeps running.</h2>
+</div></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">07 · After handover</span>Day 31 onwards. What Compass owns and how it keeps running.</h2>
 <p>When the 30-day support window ends, Compass owns a system that doesn't go to mush. Here's what that looks like.</p>
 <table class="summary-table">
   <thead><tr><th>Item</th><th>What Compass gets</th></tr></thead>
@@ -1126,9 +821,8 @@
     <tr><td class="title">Support window</td><td>30 days from M3 acceptance. Bug fixes and small tweaks at no extra cost. After that, support is by separate agreement only if Compass wants it.</td></tr>
     <tr><td class="title">What's next</td><td>Phase 2 (semantic matching, dormant resurrection, daily briefings, historical structuring) and Phase 3 (Marketing OS, franchise activation) are scoped separately when Compass is ready. Nothing committed. Nothing priced. The architecture is ready for both.</td></tr>
   </tbody>
-</table>
-
-<h2><span class="num">08 · What it costs to run</span>Ongoing monthly costs after handover.</h2>
+</table></div></section>
+<section class="seq bg-white"><div class="container"><h2><span class="num">08 · What it costs to run</span>Ongoing monthly costs after handover.</h2>
 <p>Compass OS sits on a small handful of paid services, each in Compass's name. These are the running costs once Stage 1 is live. They scale with usage, not with team size, so the band shifts mostly with how much the agents are doing.</p>
 <table class="running-costs">
   <thead><tr><th>Service</th><th>Monthly band</th></tr></thead>
@@ -1141,9 +835,8 @@
     <tr><td><strong>Monitoring + transcription</strong><br><span style="color: var(--stone); font-size: 9.5pt;">Uptime alerts on Bruce, voice-note transcription, error logs.</span></td><td>$30-$80/mo</td></tr>
   </tbody>
 </table>
-<div class="total-band"><div class="label">Realistic monthly range. Lower end while volume is normal. Upper end during heavy months. Most months sit in the middle. Every account paid by Compass directly.</div><div class="num">$300-$900/mo</div></div>
-
-<h2><span class="num">09 · How we work together</span>Verbal go-ahead. Eyes on it. Quiet delivery.</h2>
+<div class="total-band"><div class="label">Realistic monthly range. Lower end while volume is normal. Upper end during heavy months. Most months sit in the middle. Every account paid by Compass directly.</div><div class="num">$300-$900/mo</div></div></div></section>
+<section class="seq bg-sand"><div class="container"><h2><span class="num">09 · How we work together</span>Verbal go-ahead. Eyes on it. Quiet delivery.</h2>
 <table class="summary-table">
   <tbody>
     <tr><td class="title" style="width: 28%;">Verbal agreement, written record</td><td>This SOW is the spec. Once Nick and Chris say yes, we start. No formal signature required to begin. The doc gets emailed and acknowledged. The Notion board opens. Kick-off begins.</td></tr>
@@ -1151,13 +844,8 @@
     <tr><td class="title">Change control</td><td>Inside scope, we adjust order in real time. Outside scope, a one-page change note with impact, cost, knock-on. Compass confirms in writing. Nothing binding until then.</td></tr>
     <tr><td class="title">Termination</td><td>Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback.</td></tr>
   </tbody>
-</table>
-
-<div class="footer">
-  Compass OS · Statement of Work · Stage 1 · v0.4<br>
-  Prepared by Dan for Nick and Chris, Compass Buyers Agency · May 2026
-</div>
-
-</div>
+</table></div></section>
+<footer class="page-footer"><div class="container">Compass OS · Statement of Work · Stage 1 · v0.4<br>
+  Prepared by Dan for Nick and Chris, Compass Buyers Agency · May 2026</div></footer>
 </body>
 </html>
