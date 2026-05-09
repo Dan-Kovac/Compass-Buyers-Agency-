@@ -1,7 +1,6 @@
 import React from "react";
 import AreasHero from "@/components/regions/AreasHero";
 import ShireFeature from "@/components/regions/ShireFeature";
-import RegionLinksGrid from "@/components/regions/RegionLinksGrid";
 import CTASection from "@/components/shared/CTASection.jsx";
 import ImageBand from "@/components/shared/ImageBand";
 import { createPageUrl } from "@/utils";
@@ -212,10 +211,7 @@ export default function Areas() {
           index={i + 2}
         />
       ))}
-      {/* Section 8: Landing pages grid */}
-      <RegionLinksGrid />
-
-      {/* Section 9: CTA */}
+      {/* Section 8: CTA */}
       <CTASection
         heading="Looking to buy in the Northern Rivers or Gold Coast?"
         buttonText="Start a Conversation"
