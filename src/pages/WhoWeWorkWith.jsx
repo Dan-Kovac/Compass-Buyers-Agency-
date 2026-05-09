@@ -23,8 +23,8 @@ const fallbackSegments = [
       "Private and off-market access via our agent network",
       "End-to-end guidance from inspections to settlement",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1512916206820-73b4f7ae252a?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Couple buying first home",
+    imageUrl: "/images/landing/tweed-heads.jpg",
+    imageAlt: "Tweed Heads coastline at golden hour",
   },
   {
     id: "downsizers",
@@ -91,8 +91,8 @@ const fallbackSegments = [
       "On-the-ground access to pre-market options",
       "Local network of trades and professionals to support your move",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Interstate move planning",
+    imageUrl: "/images/landing/southern-gold-coast.jpg",
+    imageAlt: "Southern Gold Coast aerial coastline",
   },
   {
     id: "international",
