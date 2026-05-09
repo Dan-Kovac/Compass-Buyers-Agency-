@@ -164,34 +164,59 @@ export default function ShireFeature({
               {description || fallbackDescription}
             </p>
 
-            {/* Suburb list */}
+            {/* Suburb chips */}
             <div style={{ marginTop: "clamp(1rem, 2vw, 1.5rem)" }}>
-              {suburbs.map((suburb, i) => {
-                const isLast = i === suburbs.length - 1;
-                return (
-                  <div
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: "var(--font-body-medium)",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "var(--stone)",
+                  marginBottom: "0.875rem",
+                }}
+              >
+                {suburbs.length} key suburbs we focus on
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "0.5rem",
+                }}
+              >
+                {suburbs.map((suburb) => (
+                  <span
                     key={suburb.name}
                     style={{
-                      padding: `var(--suburb-row-py) 0`,
-                      borderBottom: isLast ? "none" : "1px solid var(--bright-grey)",
-                      minHeight: "44px",
-                      display: "flex",
-                      alignItems: "center",
+                      fontFamily: "var(--font-body)",
+                      fontWeight: "var(--font-body-medium)",
+                      fontSize: "0.8125rem",
+                      color: "var(--ink)",
+                      background: "var(--bright-grey)",
+                      padding: "0.375rem 0.75rem",
+                      borderRadius: "var(--radius-badge)",
+                      lineHeight: 1.4,
                     }}
                   >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontWeight: "var(--font-body-medium)",
-                        fontSize: "clamp(0.875rem, 1vw, 0.9375rem)",
-                        color: "var(--ink)",
-                      }}
-                    >
-                      {suburb.name}
-                    </span>
-                  </div>
-                );
-              })}
+                    {suburb.name}
+                  </span>
+                ))}
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: "var(--font-body-light)",
+                  fontStyle: "italic",
+                  fontSize: "0.8125rem",
+                  lineHeight: 1.65,
+                  color: "var(--stone)",
+                  margin: "0.875rem 0 0 0",
+                }}
+              >
+                Plus many more. We service the entire region, so wherever you're looking, we'll know it.
+              </p>
             </div>
 
             {surroundingAreas.length > 0 && (
