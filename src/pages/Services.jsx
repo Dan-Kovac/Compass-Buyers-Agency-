@@ -2,7 +2,7 @@ import React from "react";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import ProcessSteps from "../components/services/ProcessSteps";
-import ServiceStats from "../components/services/ServiceStats";
+import TrustBar from "../components/home/TrustBar";
 import SegmentsNav from "../components/who/SegmentsNav";
 import SegmentSection from "../components/who/SegmentSection";
 import ImageBand from "../components/shared/ImageBand";
@@ -101,17 +101,8 @@ export default function Services() {
         index={1}
       />
 
-      {/* Dark stats break — contrast section between segment pairs */}
-      <ServiceStats
-        eyebrow="By the Numbers"
-        bg="bg-editorial-dark"
-        items={[
-          { value: "70+", label: "Properties Secured" },
-          { value: "42%", label: "Off-Market Deals" },
-          { value: "~5.5%", label: "Avg. Saving Below Asking" },
-          { value: "100%", label: "Buyer-Only Focus" },
-        ]}
-      />
+      {/* Dark stats break — mirrors homepage TrustBar */}
+      <TrustBar eyebrow="By the Numbers" />
 
       {/* Segment 3 — white, image right */}
       <SegmentSection
