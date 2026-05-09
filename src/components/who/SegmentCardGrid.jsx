@@ -30,8 +30,12 @@ function SegmentExpandPanel({ segment, onClose }) {
 
   useEffect(() => {
     if (panelRef.current) {
-      panelRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
       panelRef.current.focus({ preventScroll: true });
+      // Defer scroll so the slide-fade animation begins before viewport adjusts
+      const t = setTimeout(() => {
+        panelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 120);
+      return () => clearTimeout(t);
     }
   }, [segment.id]);
 
@@ -77,8 +81,24 @@ function SegmentExpandPanel({ segment, onClose }) {
       role="region"
       aria-labelledby={`segment-title-${segment.id}`}
       tabIndex={-1}
-      style={{ position: "relative", outline: "none" }}
+      style={{
+        position: "relative",
+        outline: "none",
+        animation: "segmentPanelReveal 480ms cubic-bezier(0.22, 1, 0.36, 1) both",
+      }}
     >
+      <style>{`
+        @keyframes segmentPanelReveal {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes segmentPanelReveal {
+            from { opacity: 1; transform: none; }
+            to   { opacity: 1; transform: none; }
+          }
+        }
+      `}</style>
       {/* Close button */}
       <button
         className="segment-expand-panel__close"
