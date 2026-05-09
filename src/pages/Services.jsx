@@ -94,7 +94,7 @@ export default function Services() {
           "Local insights and detailed property comparables",
           "Shortlists refined to your brief with clear trade-offs",
         ]}
-        image="/images/services/portfolio-strategy.webp"
+        image="/images/landing/southern-gold-coast.jpg"
         imageAlt="Aerial view of Northern Rivers waterfront properties"
         imageLeft
         bg="bg-sand-wash"
@@ -128,8 +128,8 @@ export default function Services() {
           "Experienced on-the-day bidding and vendor negotiation",
           "Sharp negotiation on price and terms that protect you",
         ]}
-        image="https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop"
-        imageAlt="Auction planning and representation"
+        image="/images/landing/tweed-heads.jpg"
+        imageAlt="Tweed coastline at golden hour"
         imageLeft={false}
         bg="bg-white"
         index={2}
@@ -150,8 +150,8 @@ export default function Services() {
           "Modelled returns, rental demand and risk assessment",
           "Buy rules and review cadence to keep you on track",
         ]}
-        image="/images/services/portfolio-strategy.webp"
-        imageAlt="Compass buyers agent on a call reviewing a portfolio strategy"
+        image="/images/landing/northern-rivers.jpg"
+        imageAlt="Northern Rivers hinterland at dawn"
         imageLeft
         bg="bg-sand-wash"
         index={3}
@@ -159,8 +159,8 @@ export default function Services() {
 
       {/* Image band — atmospheric break before process */}
       <ImageBand
-        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop"
-        alt="Coastal property interior"
+        src="/images/landing/brunswick-heads.jpg"
+        alt="Brunswick Heads coastline"
         height="280px"
         overlay
       />
