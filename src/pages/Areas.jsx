@@ -3,9 +3,7 @@ import AreasHero from "@/components/regions/AreasHero";
 import ShireFeature from "@/components/regions/ShireFeature";
 import RegionLinksGrid from "@/components/regions/RegionLinksGrid";
 import CTASection from "@/components/shared/CTASection.jsx";
-import SectionHeader from "@/components/shared/SectionHeader";
 import ImageBand from "@/components/shared/ImageBand";
-import ScrollReveal from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 import SEOHead from "../components/shared/SEOHead";
 
@@ -128,10 +126,10 @@ const fallbackShires = [
 
 /* ── Shire layout config ──────────────────────────────────────────────── */
 const shireLayout = [
-  { imageLeft: false, bg: "bg-white" },    // Tweed Coast
-  { imageLeft: true, bg: "bg-sand-wash" }, // Gold Coast
-  { imageLeft: false, bg: "bg-white" },    // Byron Shire
-  { imageLeft: true, bg: "bg-sand-wash" }, // Ballina Shire
+  { imageLeft: false, bg: "bg-sand-wash" }, // Tweed Coast (carries warm tone from hero)
+  { imageLeft: true, bg: "bg-white" },      // Gold Coast
+  { imageLeft: false, bg: "bg-sand-wash" }, // Byron Shire
+  { imageLeft: true, bg: "bg-white" },      // Ballina Shire
 ];
 export default function Areas() {
   const shires = fallbackShires;
@@ -172,24 +170,7 @@ export default function Areas() {
         subtitle="Four shires, dozens of suburbs, one focus: finding you the right property at the right price."
       />
 
-      {/* Section 2: Region intro */}
-      <section
-        className="bg-white"
-        style={{ padding: "var(--section-padding) 0" }}
-      >
-        <div className="site-container">
-          <ScrollReveal>
-            <SectionHeader
-              eyebrow="Our Region"
-              heading="From the Hinterland to the Coast"
-              subtitle="The Northern Rivers stretches from the Gold Coast border through Byron Bay and south to Ballina. Each shire has its own character, its own market, and its own opportunities."
-              align="center"
-              divider={true}
-            />
-          </ScrollReveal>
-        </div>
-      </section>
-      {/* Sections 3-4: First pair of shires (Byron + Tweed) */}
+      {/* Sections 2-3: First pair of shires (Tweed + Gold Coast) */}
       {firstPair.map((shire, i) => (
         <ShireFeature
           key={shire.title}
@@ -213,7 +194,6 @@ export default function Areas() {
         height="340px"
         mobileHeight="200px"
         overlay
-        parallax={true}
       />
 
       {/* Sections 6-7: Second pair of shires (Ballina + Gold Coast) */}
