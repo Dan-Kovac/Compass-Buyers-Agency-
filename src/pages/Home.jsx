@@ -24,8 +24,6 @@ export default function Home() {
       />
       <HomeHero backgroundVideoUrl="/videos/compass-hero.mp4" />
 
-      <WhoWeHelpGrid />
-
       <TrustBar />
 
       <ServicesAccordionShowcase />
@@ -42,6 +40,8 @@ export default function Home() {
       <RecentAcquisitionsStrip />
 
       <TestimonialSection />
+
+      <WhoWeHelpGrid />
 
       <InvestmentAndRelationship />
 
