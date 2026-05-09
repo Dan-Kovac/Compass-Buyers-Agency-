@@ -13,7 +13,7 @@ import SEOHead from "../components/shared/SEOHead";
 const fallbackShires = [
   {
     title: "Tweed Coast",
-    image: "/images/areas/tweed-shire.jpg",
+    image: "/images/landing/tweed-heads.jpg",
     stat: "100+ properties acquired",
     description:
       "Our number one focus. Kingscliff to Pottsville along the coast, through Banora Point, Terranora and Bilambil in the hinterland, then inland to Murwillumbah and the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
@@ -48,7 +48,7 @@ const fallbackShires = [
   },
   {
     title: "Gold Coast",
-    image: "/images/areas/gold-coast.jpg",
+    image: "/images/landing/gold-coast.jpg",
     description:
       "Coolangatta to Broadbeach, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
     suburbs: [
@@ -76,7 +76,7 @@ const fallbackShires = [
   },
   {
     title: "Byron Shire",
-    image: "/images/areas/byron-shire.jpg",
+    image: "/images/landing/byron-bay.jpg",
     description:
       "Byron Bay medians sit above $2.4M and 40% of stock moves off-market. Bangalow, Suffolk Park and the hinterland each have distinct pricing and character. We know which streets hold value and which carry risk.",
     suburbs: [
@@ -103,7 +103,7 @@ const fallbackShires = [
   },
   {
     title: "Ballina Shire",
-    image: "/images/areas/ballina-shire.jpg",
+    image: "/images/landing/northern-rivers.jpg",
     description:
       "Lennox Head draws Byron-priced-out families, while Ballina and Cumbalum offer entry points from $850K. Richmond River frontage, strong school catchments and 15 minutes to Byron make this the shire most buyers underestimate.",
     suburbs: [
@@ -208,7 +208,7 @@ export default function Areas() {
 
       {/* Section 5: Image band -- atmospheric breathing room */}
       <ImageBand
-        src="/images/areas/mid-band.jpg"
+        src="/images/landing/brunswick-heads.jpg"
         alt="Northern Rivers coastline"
         height="340px"
         mobileHeight="200px"
