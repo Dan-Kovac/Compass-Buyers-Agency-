@@ -161,10 +161,10 @@ export default function Services() {
 
       {/* CTA — dark variant */}
       <CTASection
-        heading="Thinking about buying in the Northern Rivers or Gold Coast?"
+        heading="Thinking about buying between Byron Bay and the Southern Gold Coast?"
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
-        supportingText="Free consultation. No obligation. We'll give you honest advice on your situation."
+        supportingText="Free consultation, no obligation. Honest advice on your situation."
         variant="dark"
       />
 
