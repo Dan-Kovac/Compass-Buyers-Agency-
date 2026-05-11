@@ -90,13 +90,11 @@
   .matrix-headers .h-stage .name { font-size: 13pt; line-height: 1.2; font-weight: 600; letter-spacing: -0.012em; }
 
   .matrix-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-bottom: 1px solid var(--stone-light); }
-  .matrix-row.compliance { background: var(--sea-tint); }
   .matrix-row.proposed { background: var(--sand-light); }
 
   .lever-cell { padding: 22px 18px; border-right: 1px solid var(--stone-light); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
   .lever-cell .lever-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 14pt; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 6px; }
   .lever-cell .lever-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 700; }
-  .matrix-row.compliance .lever-cell .lever-tag { color: #1F5D4F; }
   .matrix-row.proposed .lever-cell .lever-tag { color: #8a5e1d; }
 
   .stage-cell { padding: 22px 14px; border-right: 1px solid var(--stone-light); font-size: 9pt; line-height: 1.5; color: var(--ink); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
@@ -113,31 +111,16 @@
   .gate-row .gate-cell:last-child { border-right: none; }
   .gate-row .gate-cell .gate-label { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 8px; }
   .gate-row .gate-cell .paid { font-family: 'MinervaModern', serif; font-size: 22pt; line-height: 1; font-weight: 500; color: var(--white); margin-bottom: 12px; letter-spacing: -0.02em; }
-  .gate-row .gate-cell .keep { font-size: 8.5pt; line-height: 1.55; color: rgba(255,255,255,0.9); }
+  .gate-row .gate-cell .status-head { font-family: 'MinervaModern', serif; font-size: 11pt; color: var(--sand); font-weight: 600; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.005em; }
+  .gate-row .gate-cell .status-list { list-style: none; padding: 0; margin: 0; }
+  .gate-row .gate-cell .status-list li { font-size: 8.5pt; line-height: 1.5; color: rgba(255,255,255,0.92); padding-left: 14px; position: relative; margin: 4px 0; }
+  .gate-row .gate-cell .status-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sea-soft); font-weight: 700; font-size: 8.5pt; }
   .gate-row .gate-cell .first-label { font-family: 'MinervaModern', serif; font-size: 13pt; line-height: 1.25; color: var(--sand); font-weight: 500; letter-spacing: -0.012em; }
 
-  /* OFF-RAMP CALLOUT */
-  .stop-anywhere { background: var(--sand); padding: 32px 36px; border-radius: 3px; border-left: 4px solid var(--hills); margin: 0; }
-  .stop-anywhere .label { color: var(--hills); font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
-  .stop-anywhere .head { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 18pt; font-weight: 600; line-height: 1.25; margin-bottom: 12px; letter-spacing: -0.015em; }
-  .stop-anywhere p { font-size: 10.5pt; line-height: 1.7; color: var(--ink); margin: 0; }
-
-  /* OPTIONAL M5 */
-  .month-card { background: var(--white); padding: 26px 30px; border-radius: 3px; border-left: 4px solid var(--stone); display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: start; margin: 0; }
-  .month-card .month-num { font-family: 'MinervaModern', serif; font-size: 32pt; color: var(--stone); font-weight: 500; line-height: 1; }
-  .month-card .month-body .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
-  .month-card .month-body h3 { margin: 4px 0 8px; font-size: 17pt; color: var(--stone); font-weight: 600; }
-  .month-card .month-body p { margin: 0; font-size: 10pt; line-height: 1.65; }
-  .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
-  .month-card .month-side .price { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--stone); font-weight: 500; line-height: 1; }
-  .month-card .month-side .price-label { font-size: 7.5pt; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
-
-  /* BEYOND SCOPE */
-  .beyond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 36px; margin: 0; }
-  .beyond-item { padding: 18px 0; border-bottom: 1px solid var(--stone-light); }
-  .beyond-item .beyond-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sea); font-weight: 700; margin-bottom: 6px; }
-  .beyond-item .beyond-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 14pt; font-weight: 600; letter-spacing: -0.012em; line-height: 1.2; margin-bottom: 6px; }
-  .beyond-item .beyond-desc { font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
+  /* BEYOND SCOPE — simple list */
+  .beyond-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 48px; }
+  .beyond-list li { padding: 10px 0 10px 18px; position: relative; font-size: 10.5pt; line-height: 1.55; color: var(--ink); border-bottom: 1px solid var(--stone-light); break-inside: avoid; }
+  .beyond-list li::before { content: '+'; position: absolute; left: 0; color: var(--sea); font-weight: 700; }
 
   /* FOOTER */
   .page-footer { background: var(--bright-grey); padding: 40px 0 36px; }
@@ -165,8 +148,7 @@
     section.seq { padding: 40px 0; }
     .matrix-headers { display: none; }
     .matrix-row, .gate-row { grid-template-columns: 1fr; border-bottom: none; margin-bottom: 28px; background: var(--sand-light); padding: 6px 0; border-radius: 4px; }
-    .matrix-row.compliance { background: var(--sea-tint); }
-    .matrix-row.proposed { background: var(--sand); }
+      .matrix-row.proposed { background: var(--sand); }
     .lever-cell { padding: 16px 18px 8px; border-right: none; border-bottom: 1px solid var(--stone-light); }
     .stage-cell { padding: 14px 18px; border-right: none; border-bottom: 1px dashed var(--stone-light); font-size: 9pt; }
     .stage-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 6px; }
@@ -174,14 +156,14 @@
     .gate-row .gate-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 18px 22px; }
     .gate-row .gate-cell:first-child { padding: 18px 22px; }
     .gate-row .gate-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 6px; opacity: 0.8; }
-    .beyond-grid { grid-template-columns: 1fr; gap: 12px; }
+    .beyond-list { columns: 1; }
   }
   @media print {
     .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
     body { font-size: 8.5pt; }
     .container, .container-narrow { padding: 0; max-width: 100%; }
     section.seq { padding: 24px 0; }
-    .matrix-row, .gate-row, .month-card, .beyond-item, .stop-anywhere { page-break-inside: avoid; }
+    .matrix-row, .gate-row, .beyond-list li { page-break-inside: avoid; }
     .stage-cell { font-size: 7.5pt; padding: 12px 8px; }
   }
 </style>
@@ -244,9 +226,9 @@
         <div class="h-stage"><span class="num">M4 · Weeks 13-16</span><span class="name">Growth + Handover</span></div>
       </div>
 
-      <div class="matrix-row compliance">
+      <div class="matrix-row">
         <div class="lever-cell">
-          <div class="lever-tag">Lever 01 · The moat</div>
+          <div class="lever-tag">Lever 01</div>
           <div class="lever-name">Compliance &amp; audit-readiness</div>
         </div>
         <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
@@ -547,131 +529,78 @@
 
       <div class="gate-row">
         <div class="gate-cell">
-          <div class="first-label">After sign-off, what's paid &amp; what you keep</div>
+          <div class="first-label">Core status &amp; cost at each milestone sign-off</div>
         </div>
         <div class="gate-cell" data-stage="M1">
-          <div class="gate-label">After M1</div>
+          <div class="gate-label">After M1 · Weeks 1-4</div>
           <div class="paid">$19,500 paid</div>
-          <div class="keep">Audit-defensible from day one. Every past client filed. Bruce capturing today's work. Team using the first Claude skills.</div>
+          <div class="status-head">Compliance + Foundation complete</div>
+          <ul class="status-list">
+            <li>Audit-defensible from day one</li>
+            <li>Every past client filed</li>
+            <li>Bruce capturing today's work</li>
+            <li>First Claude skills in the team's hands</li>
+          </ul>
         </div>
         <div class="gate-cell" data-stage="M2">
-          <div class="gate-label">After M2</div>
+          <div class="gate-label">After M2 · Weeks 5-8</div>
           <div class="paid">$39,000 paid</div>
-          <div class="keep">Sales Engine live. Proposals drafted in chat, going out same day. Sales velocity on the dashboard.</div>
+          <div class="status-head">Sales Engine complete</div>
+          <ul class="status-list">
+            <li>Proposals drafted in chat, same-day out</li>
+            <li>Sales velocity on the dashboard</li>
+            <li>One canonical live-link per client</li>
+            <li>All M1 deliverables remain in production</li>
+          </ul>
         </div>
         <div class="gate-cell" data-stage="M3">
-          <div class="gate-label">After M3</div>
+          <div class="gate-label">After M3 · Weeks 9-12</div>
           <div class="paid">$39,000 paid</div>
-          <div class="keep">Property log compounding. Matches firing in real time. Closed-loop onboarding. Client portal live.</div>
+          <div class="status-head">Property Log + Close complete</div>
+          <ul class="status-list">
+            <li>Property log compounding, matches firing in real time</li>
+            <li>Closed-loop onboarding live (CAF → signed → engaged)</li>
+            <li>Client portal live (Phase 1, read-only)</li>
+            <li>All M1, M2 deliverables remain in production</li>
+          </ul>
         </div>
         <div class="gate-cell" data-stage="M4">
-          <div class="gate-label">After M4</div>
+          <div class="gate-label">After M4 · Weeks 13-16</div>
           <div class="paid">$50,000 paid</div>
-          <div class="keep">Marketing on autopilot. Full BI. Every account in Compass's name. 30-day support window starts.</div>
+          <div class="status-head">Growth + Handover complete</div>
+          <ul class="status-list">
+            <li>Marketing agents publishing on autopilot</li>
+            <li>Full BI live</li>
+            <li>Every account in Compass's name, 30-day support starts</li>
+            <li>All M1, M2, M3 deliverables remain in production</li>
+          </ul>
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
 
 <section class="seq bg-sand">
   <div class="container-narrow">
-    <h2><span class="num">02 · The off-ramp</span>Step off at any milestone boundary.</h2>
-    <div class="stop-anywhere">
-      <div class="label">From the Statement of Work</div>
-      <div class="head">"Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback."</div>
-      <p>Each milestone earns the next. Sign-off at every boundary. If a milestone isn't accepted, the next invoice doesn't issue and the work continues until it is. The strongest commercial off-ramp is at M2 sign-off, $39,000 in: you've got the audit foundation plus the Sales Engine in the team's hands. M3 and M4 only commit Compass to the final $11,000 once you've seen M2 land.</p>
-    </div>
+    <h2><span class="num">02 · Beyond scope</span>Available later, not part of the $50k.</h2>
+    <ul class="beyond-list">
+      <li>Optional Month 5 extension (by mutual agreement at the M4 review)</li>
+      <li>Multi-tenant activation for franchise #2 (architecture already built in M1)</li>
+      <li>Semantic property matching (pgvector, learns from feedback)</li>
+      <li>External property enrichment (CoreLogic, PriceFinder)</li>
+      <li>Historical structured parsing (every past WhatsApp + email turned to structured data)</li>
+      <li>Daily briefings (auto team standup, needs &gt;4 weeks of data)</li>
+      <li>Conversion optimisation agent (A/B tests the sales motion)</li>
+      <li>Bruce in client groups (Stage 1 keeps Bruce as silent observer only)</li>
+      <li>Suburb reports productised (Stage 1 has the skill version only)</li>
+      <li>White-label Compass OS (license to other buyers agencies)</li>
+      <li>Voice-first interface (call Bruce, don't just message)</li>
+    </ul>
   </div>
 </section>
 
-<section class="seq bg-grey">
-  <div class="container-narrow">
-    <h2><span class="num">03 · Optional Month 5</span>By mutual agreement, not assumed.</h2>
-    <div class="month-card">
-      <div class="month-num">05</div>
-      <div class="month-body">
-        <div class="label">Month 5 · Optional</div>
-        <h3>Extension</h3>
-        <p>Engaged by mutual agreement at the M4 review. Reserved for residual scope or a Phase 2 capability brought forward. Hourly rate or monthly retainer scaled to what's actually needed, not a fixed block.</p>
-      </div>
-      <div class="month-side">
-        <div class="price">~$12.5k</div>
-        <div class="price-label">If engaged</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="seq">
-  <div class="container-narrow">
-    <h2><span class="num">04 · Beyond Stage 1</span>What's possible once the foundation is in.</h2>
-    <div class="beyond-grid">
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Franchise &amp; scale</div>
-        <div class="beyond-name">Multi-tenant activation</div>
-        <div class="beyond-desc">Architecture is multi-tenant from M1. Activating a second tenant (franchise, partnership, licensee) is a switch flip, not a rebuild.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 2</div>
-        <div class="beyond-name">Semantic matching</div>
-        <div class="beyond-desc">Beyond rule-based. The matcher learns from feedback and surfaces properties on intent, not just attributes. Built on pgvector.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 2</div>
-        <div class="beyond-name">External property enrichment</div>
-        <div class="beyond-desc">CoreLogic and PriceFinder data flowing into the log. Valuation history, ownership, comparable sales.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 2</div>
-        <div class="beyond-name">Historical structured parsing</div>
-        <div class="beyond-desc">Stage 1 ingests history as archive-grade. Phase 2 turns every past WhatsApp thread and email into structured data.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 2</div>
-        <div class="beyond-name">Daily briefings</div>
-        <div class="beyond-desc">Auto-generated team standup from the night's activity. Needs more than four weeks of data to be useful.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 2</div>
-        <div class="beyond-name">Conversion optimisation agent</div>
-        <div class="beyond-desc">A/B tests the sales motion. Learns which proposal angles convert, which framings close.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 2</div>
-        <div class="beyond-name">Bruce in client groups</div>
-        <div class="beyond-desc">Stage 1 keeps Bruce as silent observer when added to client groups. Phase 2 lets Bruce participate with clients directly.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 3</div>
-        <div class="beyond-name">Suburb reports, productised</div>
-        <div class="beyond-desc">Stage 1 has the skill version in the team's hands. Phase 3 turns it into a client-facing product Compass can publish, sell, or use as a lead magnet.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 3</div>
-        <div class="beyond-name">White-label Compass OS</div>
-        <div class="beyond-desc">License the system to other buyers agencies. Compass becomes the operating system for the category.</div>
-      </div>
-
-      <div class="beyond-item">
-        <div class="beyond-tag">Phase 3</div>
-        <div class="beyond-name">Voice-first interface</div>
-        <div class="beyond-desc">Call Bruce, don't just message. Driving between inspections, dictating a brief, asking for the next three matches — all voice.</div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <footer class="page-footer"><div class="container-narrow">
   Compass OS · Scope on a Page · Stage 1 · v0.3<br>
