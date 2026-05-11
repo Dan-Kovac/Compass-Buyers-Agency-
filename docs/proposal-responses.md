@@ -20,6 +20,12 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
 - Plan is a mid-weight engineer: senior enough to push back on architecture, not so senior that the rate breaks the model. Once they're locked in I'll send their CV through before they touch the project.
 - Worst case, if hiring slips, I cover that work myself. The timeline doesn't move.
 
+*After handover*
+
+- 30-day post-handover bug-fix window included free. Anything that breaks because of how we built it, we fix at no charge.
+- Beyond that, two options, Compass picks: a light support retainer (~$1.5k-$2k/mo for monitoring, model updates, light tweaks, priority response within one business day) or pay-per-incident on speed dial.
+- No 24/7 SLA in Stage 1. Business hours, best effort outside. Want to set that expectation cleanly up front.
+
 **2. Cost breakdown**
 
 - $50,000 + GST, fixed. Same number it's been since the first version of the proposal went to you. Optional Month 5 sits on top at +$12,500 and only triggers if the M4 review turns up something worth doing, by mutual agreement.
@@ -36,6 +42,7 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
   - Compliance + foundation: secure login, client records, file storage, audit log, per-client compliance folder structure
   - The Sales Engine: brief extraction from voice/chat, branded proposal templates, Bruce drafting proposals in WhatsApp, live shareable proposal link
 - If M3 + M4 don't feel right at that point, we have a scope conversation, not a sunk-cost one.
+- **If Compass needs to pause or exit mid-build:** IP is yours from day one, so whatever's been built stays with Compass. No code held hostage. No refund on signed-off milestones (sign-off is the gate). Up to 30 days pause for any reason, project resumes at the same rate. Contract is assignable if ownership changes.
 
 **Where scope could flex if we needed to tighten the build**
 
@@ -99,6 +106,16 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
   - You're not paying for an app. You're paying for an external opinion in your systems, someone who understands how agentic systems actually work and how to get quality outputs from them, someone with testing discipline who'll bring this to life in the team's hands, and a custom internal IP that lets Compass move quicker than any other agency.
   - The right benchmark isn't an AI app builder. It's the cost of being the only buyers agency in the market with this operating layer. There isn't a comparable.
 
+*How we measure if it worked*
+
+- Worth agreeing the scoreboard before kick-off so we both know what good looks like at M4.
+- Suggested core metrics, all live on a Dashboard v1 from M2 onwards (we measure as we go, not at the end):
+  - **Sales velocity:** time from discovery call to live proposal link (target: under 60 minutes)
+  - **Proposal output:** proposals sent per week, baseline now vs M4
+  - **Deals attributable to the build:** extra closes during the 16 weeks from faster proposal flow
+  - **Property log:** properties captured per week, matches surfaced, % converted
+  - **Compliance posture:** audit-readiness score, Chris signs off monthly, target 100% by M4
+
 **4. Pre-built vs custom**
 
 - Valid question. I've scoped this in depth before recommending custom.
@@ -132,6 +149,8 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
 
 - **Data:** Supabase is the database backbone. Top-tier infrastructure, frankly overkill for Stage 1, picked deliberately so we never need to migrate up. Full export available on demand, regular backups baked in. Compass owns the data outright.
 - **WhatsApp / messaging portability:** Bruce isn't tied to WhatsApp. Connecting Bruce to iMessage, SMS or any other channel is straightforward. The only operational constraint is the team committing to one channel at a time so message history doesn't fragment.
+- **WhatsApp Business vs personal WhatsApp:** for the build itself, we use the WhatsApp Business API via a Business Solution Provider (Twilio or 360dialog). Costs sit inside the ~$80/mo line already in the proposal. Compass owns the WhatsApp Business number, Bruce sits behind it. The team's personal WhatsApp on their phones stays untouched.
+- **Privacy and data handling (Australian Privacy Principles):** baked in by default. Supabase region is Sydney, so data stays in Australia. Explicit client consent at intake, right-to-access export, deletion-on-request workflow, encryption at rest and in transit, audit log on every record access. No data sold or shared with third parties. Anthropic processes inputs through the API but doesn't train on API traffic (contractual). I can provide a lightweight Data Processing Agreement if Compass needs one to give to its own clients.
 - **Compliance structure:** the architecture in the proposal is the starting frame. The detailed requirements get worked through with you and Chris inside M1, alongside the regulatory research I'll do in parallel. By M1 sign-off the compliance shape is locked, validated against how Compass actually operates day-to-day.
 
 **9. AI tooling stability and model risk**
@@ -142,6 +161,7 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
 - **Portability insurance is the file structure.** Agents, skills, training data, system architecture — all stored as files in a clean, deliberate structure. If a better model or platform appears in twelve months, we lift the file tree across. Not a rebuild.
 - Direct evidence I can point at: I'm building the same architecture pattern at Sportsbit right now for the product team. Same approach, different domain (graphic designers and developers instead of clients). Happy to walk you through the prototype to show the pattern in action.
 - The Sportsbit lesson worth knowing: at enterprise scale it always comes back to "each team needs its own custom operating system, its own interface, and bespoke tools layered on top." That's exactly what we're building for Compass.
+- **Model deprecation commitment:** Anthropic gives 12-month deprecation notice on production models, so it's never a sudden cliff. Migrations between Claude versions are usually trivial because of the file structure. My commitment: any deprecation-driven migration within 12 months of handover is on me, no extra charge. Beyond that it sits under the support retainer if engaged, or scoped as a small project.
 
 **10. Anything we've missed (and the client-login / front-end question)**
 
@@ -150,7 +170,18 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
   - **Step 2:** wrap the proven agents in a proper front-end built on Claude Code. Multi-tenant, compliance-grade, the lot.
 - On whether we even need the custom front-end: yes. Claude.ai and co-work host beautiful project environments, but they can't host the per-client compliance backlog, the multi-tenant audit log, the property log, or the structured client lifecycle. That layer has to be a real app on top.
 - Good news: the gap between "Claude.ai project" and "custom front-end on Claude Code" is much smaller than it used to be. Same engine, just a proper interface and database layer wrapped around it.
-- **Client login:** yes, in scope. Multi-tenant from day one. Each Compass client gets their own login surface to view their brief, matched properties, documents, and status.
+- **Client login surface (what they actually see):**
+  - Phase 1 (in M3 scope, read-only): brief, matched properties with thumbs up/down feedback feeding Bruce, document vault, key dates, status updates.
+  - Phase 2 (M4 or post-handover, interactive): upload documents directly, message Bruce inside the portal, update preferences inline.
+  - Ship read-only first. Layer interactivity once we've watched real clients use it.
+- **Roles and permissions inside Compass:**
+  - **Admin (Chris as licensee):** full access, audit log, compliance export, financial visibility
+  - **Agent (team members like Lee, Nick):** own clients plus the shared property log, no compliance or financial controls
+  - **Client:** their own record only
+  - **Accountant / view-only:** read-only access for EOFY conversations
+  - Worth confirming the model with you and Chris in M1 so it matches how the team actually delegates.
+- **Front-end brand:** the OS uses the same Hills, Sand, Sea-Breeze palette and MinervaModern + Aeonik typography as the website. Clients see this layer, so it can't feel like a SaaS dashboard. Internal admin views can be more utilitarian, but anything client-facing matches the website.
+- **Team training:** built into M4. Two recorded live sessions (one with you and Chris on admin and compliance, one with the full team on daily workflows), a per-agent runbook (what it does, how to update its skills, what to do when it misbehaves), and Bruce itself as the in-app help system. Roughly 10-15 hours of my M4 time goes here. Already in scope, no extra cost.
 - **An ask back to you and the team:** please challenge my thinking. Tell me what I'm missing, what you're worried about, what you want to talk through. The whole point of going through these ten questions is to surface anything I haven't considered before we start, not after.
 
 ---
