@@ -90,12 +90,13 @@
   .matrix-headers .h-stage .name { font-size: 13pt; line-height: 1.2; font-weight: 600; letter-spacing: -0.012em; }
 
   .matrix-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-bottom: 1px solid var(--stone-light); }
-  .matrix-row.proposed { background: var(--sand-light); }
+  .matrix-row.added { background: var(--sand-light); }
 
   .lever-cell { padding: 22px 18px; border-right: 1px solid var(--stone-light); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
   .lever-cell .lever-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 14pt; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 6px; }
   .lever-cell .lever-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 700; }
-  .matrix-row.proposed .lever-cell .lever-tag { color: #8a5e1d; }
+  .matrix-row.added .lever-cell .lever-tag { color: var(--hills); }
+  .matrix-row.added .lever-cell .lever-note { font-family: 'Aeonik', sans-serif; font-size: 8pt; font-style: italic; color: var(--ink-soft); line-height: 1.5; margin-top: 8px; }
 
   .stage-cell { padding: 22px 14px; border-right: 1px solid var(--stone-light); font-size: 9pt; line-height: 1.5; color: var(--ink); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
   .stage-cell:last-child { border-right: none; }
@@ -169,7 +170,7 @@
     .matrix-row { grid-template-columns: 1fr; border-bottom: none; margin-bottom: 28px; background: var(--sand-light); padding: 6px 0; border-radius: 4px; }
     .milestones-grid.project-grid, .milestones-grid.payment-grid { grid-template-columns: 1fr; }
     .milestones-head { flex-direction: column; align-items: flex-start; gap: 6px; }
-      .matrix-row.proposed { background: var(--sand); }
+      .matrix-row.added { background: var(--sand); }
     .lever-cell { padding: 16px 18px 8px; border-right: none; border-bottom: 1px solid var(--stone-light); }
     .stage-cell { padding: 14px 18px; border-right: none; border-bottom: 1px dashed var(--stone-light); font-size: 9pt; }
     .stage-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 6px; }
@@ -518,10 +519,11 @@
         </div>
       </div>
 
-      <div class="matrix-row proposed">
+      <div class="matrix-row added">
         <div class="lever-cell">
-          <div class="lever-tag">Lever 09 · Proposed addition</div>
+          <div class="lever-tag">Lever 09 · Added to scope</div>
           <div class="lever-name">Client environment</div>
+          <div class="lever-note">Added by Dan during this round of scoping. Vital to how the agency will engage clients and a key part of the proposed system.</div>
         </div>
         <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
           <ul>
