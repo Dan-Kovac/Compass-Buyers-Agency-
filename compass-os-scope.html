@@ -122,6 +122,10 @@
   .ms-card .ms-list { list-style: none; padding: 0; margin: 0; }
   .ms-card .ms-list li { font-size: 9pt; line-height: 1.55; color: rgba(255,255,255,0.95); padding-left: 14px; position: relative; margin: 5px 0; }
   .ms-card .ms-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sea-soft); font-weight: 700; }
+  .ms-card .ms-carryover { font-family: 'Aeonik', sans-serif; font-size: 8pt; color: rgba(245,230,211,0.8); font-style: italic; padding: 8px 0 0; margin-bottom: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
+  .ms-card .ms-section-head { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 700; margin: 2px 0 10px; }
+  .ms-card .ms-standalone { margin-top: 18px; padding: 14px 16px; background: rgba(255,255,255,0.06); border-left: 2px solid var(--sand); border-radius: 2px; font-size: 9pt; line-height: 1.55; color: rgba(255,255,255,0.92); }
+  .ms-card .ms-standalone .ms-standalone-label { display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 6px; }
 
   .pay-card { background: var(--white); padding: 22px 24px 24px; border-radius: 3px; border-top: 4px solid var(--hills); min-width: 0; box-shadow: 0 1px 0 var(--stone-light); }
   .pay-card .pay-num { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 8px; }
@@ -548,51 +552,112 @@
       <div class="milestones-head">
         <span class="milestones-label">Delivery</span>
         <h3 class="milestones-title">Project milestones</h3>
-        <span class="milestones-sub">Four delivery checkpoints. Sign-off at each before the next begins.</span>
+        <span class="milestones-sub">Each milestone is tangible enough to stand alone. If the project ended at any sign-off gate, Compass keeps a complete, working system that's a success on its own. More successful with the full build.</span>
       </div>
       <div class="milestones-grid project-grid">
+
         <div class="ms-card">
           <div class="ms-num">M1</div>
           <div class="ms-window">Weeks 1-4</div>
           <div class="ms-name">Compliance + Foundation</div>
+          <div class="ms-section-head">What's live at sign-off</div>
           <ul class="ms-list">
-            <li>Audit-defensible from day one</li>
-            <li>Every past client filed</li>
-            <li>Bruce capturing today's work</li>
-            <li>First Claude skills in the team's hands</li>
+            <li>Secure multi-tenant OS app, login for every team member</li>
+            <li>Per-client compliance folders (REBAA, QLD + NSW Fair Trading)</li>
+            <li>Audit log on every action — who did what, when, on which client</li>
+            <li>One-click compliance export per client (v1 zip)</li>
+            <li>Every past Compass client filed in audit-ready structure</li>
+            <li>Bruce live in team WhatsApp DMs: voice notes, photos, forwards auto-filed</li>
+            <li>Dedicated bruce@compassbuyersagency.com.au inbox</li>
+            <li>Compass Anthropic workspace stood up</li>
+            <li>Brief Extractor + Compliance Filer agents live</li>
+            <li>First skills in the team's hands by week 3</li>
+            <li>Dashboard v0: active clients, files captured, archive coverage</li>
           </ul>
+          <div class="ms-standalone">
+            <span class="ms-standalone-label">If the project ended here</span>
+            Compass becomes audit-defensible from day one. Every past client filed. The licensee can sleep. PI insurers see a tighter operation.
+          </div>
         </div>
+
         <div class="ms-card">
           <div class="ms-num">M2</div>
           <div class="ms-window">Weeks 5-8</div>
           <div class="ms-name">The Sales Engine</div>
+          <div class="ms-carryover">+ All M1 deliverables remain in production</div>
+          <div class="ms-section-head">What's added at sign-off</div>
           <ul class="ms-list">
-            <li>Proposals drafted in chat, same-day out</li>
-            <li>Sales velocity on the dashboard</li>
-            <li>One canonical live-link per client</li>
+            <li>Sales pipeline view: every deal across the 4-phase flow, real-time</li>
+            <li>Client profile with proposal history + version log per client</li>
+            <li>Live proposal URL: one canonical link per client, refreshes on edit</li>
+            <li>Bruce drafts proposals in WhatsApp from voice notes or chat</li>
+            <li>Iterate proposals in DM ("redo the strategy section") — Bruce regenerates</li>
+            <li>Voice notes transcribed and filed automatically</li>
+            <li>Proposal Writer + Proposal Editor agents live</li>
+            <li>Match-making skill in the team's hands</li>
+            <li>Compliance summary skill in the team's hands</li>
+            <li>Dashboard v1: sales velocity, turnaround time, out vs signed</li>
           </ul>
+          <div class="ms-standalone">
+            <span class="ms-standalone-label">If the project ended here</span>
+            Discovery to live proposal in hours, not days. Same-day proposals. Conversion lifts. Sales velocity is a number on the dashboard, not a feeling.
+          </div>
         </div>
+
         <div class="ms-card">
           <div class="ms-num">M3</div>
           <div class="ms-window">Weeks 9-12</div>
-          <div class="ms-name">Property Log + Close</div>
+          <div class="ms-name">Property Log + The Close</div>
+          <div class="ms-carryover">+ All M1, M2 deliverables remain in production</div>
+          <div class="ms-section-head">What's added at sign-off</div>
           <ul class="ms-list">
-            <li>Property log compounding, matches firing in real time</li>
-            <li>Closed-loop onboarding (CAF → signed → engaged)</li>
-            <li>Client portal live (Phase 1, read-only)</li>
+            <li>Property log browser: search, filter, every property the team's heard of</li>
+            <li>Manual entry for off-market properties (photos, notes, source)</li>
+            <li>Property Parser live — drop a RE.com.au or Domain link, Bruce structures it</li>
+            <li>Property Matcher (rule-based v1): new brief scans log, new property scans briefs</li>
+            <li>Real-time match alerts to the team when there's a hit</li>
+            <li>Bruce captures close-phase outcomes (offers, negotiations, decisions)</li>
+            <li>Forwarded emails ingested via the Bruce inbox</li>
+            <li>Per-client compliance file UI in the app</li>
+            <li>CAF auto-population from brief → DocuSign → signed → engaged, zero manual handoff</li>
+            <li>Website editor + onboarding kit drafter skills in the team's hands</li>
+            <li>Client portal Phase 1 live (read-only): brief, matched properties, document vault, key dates</li>
+            <li>Dashboard v2: pipeline funnel, time-in-stage, match rate, intake-to-paid</li>
           </ul>
+          <div class="ms-standalone">
+            <span class="ms-standalone-label">If the project ended here</span>
+            The property log compounds. Matches surface in real time. Closed-loop onboarding eliminates manual handoffs. Compass's biggest piece of IP is captured systematically.
+          </div>
         </div>
+
         <div class="ms-card">
           <div class="ms-num">M4</div>
           <div class="ms-window">Weeks 13-16</div>
           <div class="ms-name">Growth + Handover</div>
+          <div class="ms-carryover">+ All M1, M2, M3 deliverables remain in production</div>
+          <div class="ms-section-head">What's added at sign-off</div>
           <ul class="ms-list">
-            <li>Marketing agents publishing on autopilot</li>
-            <li>Full BI live</li>
-            <li>Every account in Compass's name</li>
+            <li>SEO agent live: keyword tracking, on-page audits, content briefs, internal linking plans</li>
+            <li>Newsletter agent live: drafts the monthly buyer brief from log + market data</li>
+            <li>Website editor agent live: drafts and pushes blog and area-page content into Sanity</li>
+            <li>Reminders engine: pest + building, settlement, follow-ups</li>
+            <li>Dormant-client flags + re-engagement triggers</li>
+            <li>Client portal Phase 2 (interactive): uploads, in-portal Bruce messaging, preference updates</li>
+            <li>Compliance export at maturity — full per-client audit pack, one click</li>
+            <li>Dashboard v3: MRR, retention, dormant count, agent performance, organic traffic, newsletter CTR</li>
+            <li>Mobile-responsive pass complete</li>
+            <li>Hardening, monitoring, backups, security review</li>
+            <li>Bruce operational monitoring + alerting, re-pair runbook</li>
+            <li>Build agents (engineering + frontend) handed over with prompts + runbooks</li>
+            <li>Compass OS Playbook delivered</li>
             <li>30-day support window starts</li>
           </ul>
+          <div class="ms-standalone">
+            <span class="ms-standalone-label">If the project completes</span>
+            Marketing on autopilot. Full BI. Every account in Compass's name. The OS is licensable, franchisable, fully owned IP. Compass owns the lot.
+          </div>
         </div>
+
       </div>
     </div>
 
