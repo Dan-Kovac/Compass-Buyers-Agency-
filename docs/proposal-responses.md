@@ -107,3 +107,31 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
 Happy to walk through any of these in more depth on the call. Where I've flagged something as not-fully-answered, that's deliberate — better to talk it through than guess.
 
 Dan
+
+---
+
+## Planning notes (internal — for proposal update, NOT in email to Nick)
+
+**Cost stack as a percentage breakdown — for the eventual proposal pie chart**
+
+- Target shape of where the $50k goes:
+  - Dan's time + delivery margin: ~50-60% (target clear ~$25k+ after tax)
+  - Income tax on profit: ~15-25%
+  - Engineering (overseas mid-tier contractor, target rate $50-$70/hr AUD): ~10-15%
+  - Platform / tooling during build: ~5%
+  - Buffer / unknowns: residual
+- Dan's working assumption: ~15 hrs/week × 16 weeks = ~240 hrs at a target effective rate of $180+/hr.
+- Engineer working assumption: 5-10 hrs/week, fractional, overseas, $50-$70/hr AUD mid-tier (originally floated at $40, raised to $50-70 as more realistic for the integrations work required).
+- Net target: clear ~$25k minimum from the project after tax and costs.
+
+**Risk-of-overrun framing — needs to land in the proposal update (gently)**
+
+- There's inherent execution risk in fixed-price deliverables of this complexity. Timeframes may blow out.
+- Cost of any overrun is absorbed by Dan, not Compass. Fixed price means fixed.
+- We can't say this bluntly to Nick. Way to frame it in the proposal: lean on the "fixed scope, fixed price, scope changes only by mutual decision" language already in section 07 of the proposal, and add a line under that making the risk allocation explicit — something like "if the build takes longer than planned, that's on us, not on Compass."
+
+**What needs to change in the proposal itself once we've finished answering all 10 questions**
+
+- Add the percentage-share visual (pie chart or stacked bar) on the Investment page so the cost stack is legible.
+- Strengthen the fixed-price / risk-on-Dan framing under section 07.
+- Anything else that surfaces from Q3-Q10 that warrants an update.
