@@ -7,7 +7,7 @@ ACTUAL SENT VERSION (12:06pm, sent to Nick). Preserving Dan's final edits as the
 Hey mate, here's my answers below. Putting down quick bullets to speak to in-depth later on.
 
 
-TIME AND AVAILABILITY
+1. TIME AND AVAILABILITY
 
 - Roadmap Digital is wound down to a handful of legacy website hosting clients. No new project work there.
 - Compass OS and Sportsbet are the only two things on my plate for the full 16 weeks. Nothing else.
@@ -16,7 +16,7 @@ TIME AND AVAILABILITY
 - If the engineer can't continue mid-build: I cover their scope myself. Timeline doesn't move. I can do everything they do. I'm bringing them in to avoid being a bottleneck on the backend and to challenge my thinking when needed.
 
 
-COST BREAKDOWN AND PAYMENT STRUCTURE
+2. COST BREAKDOWN AND PAYMENT STRUCTURE
 
 Three buckets inside the $50k:
 
@@ -35,7 +35,7 @@ Payment timing assuming kick-off late May 2026:
 Month 5: agreed, no fixed $12.5k block. Hourly rate (~$180/hr) or a monthly retainer scaled to what's actually needed. We'll shape it at the M4 review.
 
 
-BUILD COST RATIONALISATION
+3. BUILD COST RATIONALISATION
 
 Reference points for your accountant:
 
@@ -46,7 +46,7 @@ Reference points for your accountant:
 - What you're paying for above a pure code spend: external operator opinion, agentic systems expertise, testing discipline, custom IP that's licensable beyond Stage 1.
 
 
-PRE-BUILT VS CUSTOM
+4. PRE-BUILT VS CUSTOM
 
 Pre-built components we reuse, not coded from scratch:
 
@@ -63,7 +63,7 @@ On 80%-there platforms: scoped hard. The closest candidates (HubSpot + Zapier, G
 OS is the CRM. Replaces what you've got. Not alongside.
 
 
-HOW MUCH CAN WE TRAIN AND EVOLVE THIS OURSELVES
+5. HOW MUCH CAN WE TRAIN AND EVOLVE THIS OURSELVES
 
 What the team controls without a developer:
 
@@ -88,7 +88,7 @@ Post-handover bugs and small fixes:
 - Self-healing built in: agents flag drift in their own outputs rather than failing silently. Most issues surface for review before they become problems.
 
 
-OFFBOARDING, SETTLEMENT COMPLIANCE AND AUTO-CAPTURE
+6. OFFBOARDING, SETTLEMENT COMPLIANCE AND AUTO-CAPTURE
 
 Core scope. Not an add-on.
 
@@ -107,7 +107,7 @@ Auto-capture sweep, yes, this is the right call:
 - Exactly where the compliance story tightens.
 
 
-DATA, STORAGE AND PORTABILITY
+7. DATA, STORAGE AND PORTABILITY
 
 - Supabase Sydney: enterprise-grade Postgres backend.
 - Backups: daily automated with 7-day point-in-time recovery on the Pro tier.
@@ -117,7 +117,7 @@ DATA, STORAGE AND PORTABILITY
 - Disaster recovery: documented runbook included in handover. Restore-to-working-state target under 4 hours.
 
 
-WHATSAPP RELIABILITY AND COMPLIANCE ARCHITECTURE
+8. WHATSAPP RELIABILITY AND COMPLIANCE ARCHITECTURE
 
 Two answers because there are two questions.
 
@@ -135,7 +135,7 @@ Compliance:
 - Your offer to assist here is exactly the right move.
 
 
-AI SHELF LIFE AND PRODUCTION EXPERIENCE
+9. AI SHELF LIFE AND PRODUCTION EXPERIENCE
 
 Architecture holding up 12-24 months:
 
@@ -155,7 +155,7 @@ Production experience:
 - Outside Sportsbet: smaller agentic systems for past clients. Compass OS is the most ambitious bespoke OS I've architected start-to-finish.
 
 
-TEAM SETUP ON CLAUDE AND BRAND EXECUTION
+10. TEAM SETUP ON CLAUDE AND BRAND EXECUTION
 
 Team setup on Claude:
 
@@ -174,13 +174,13 @@ Client-friendly login (yes, in scope):
 - Phase 2 (M4 or post-handover, interactive): clients upload directly, message Bruce inside the portal, update preferences.
 
 
-WHAT HAVE WE MISSED
+11. WHAT HAVE WE MISSED
 
 Gaps and risks worth flagging from my side:
 
 - Team adoption. The OS is only as valuable as how often the team uses it. M2-M3 needs heavy team engagement to bed it in. Worth planning a one-day workshop early in M2.
 - Property listing parser fragility. RE.com.au and Domain change their HTML occasionally. Parsers break. Monitoring + maintenance baked in, but this is the line that needs the most ongoing attention.
-- Brand identity (covered in Q10). If V2 brand is wanted alongside, scope it as parallel work — shouldn't be too much work though.
+- Brand identity (covered in section 10). If V2 brand is wanted alongside, scope it as parallel work — shouldn't be too much work though.
 - Historical email and WhatsApp data hygiene. Stage-triggered auto-capture works clean going forward. Historical sweep across years of past threads is a separate exercise, worth scoping if you want it.
 
 Franchise and multi-tenant architecture:
