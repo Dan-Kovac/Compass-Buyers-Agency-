@@ -4,7 +4,7 @@ ACTUAL SENT VERSION (12:06pm, sent to Nick). Preserving Dan's final edits as the
 
 ---
 
-Hey mate, here's my answers below. Putting down quick bulletpiints to speak to in-depth later on.
+Hey mate, here's my answers below. Putting down quick bullets to speak to in-depth later on.
 
 
 TIME AND AVAILABILITY
@@ -72,7 +72,7 @@ What the team controls without a developer:
 - Bruce's matching logic via real-time feedback (tell Bruce when a match is off, Bruce updates itself)
 - Reminder sequences and compliance checklists
 - New procedures or new team members = a skill file, not a build request
-- Bruch will take real-time feedback and learn from the team
+- Bruce will take real-time feedback and learn from the team
 
 What needs engineering:
 
@@ -180,7 +180,7 @@ Gaps and risks worth flagging from my side:
 
 - Team adoption. The OS is only as valuable as how often the team uses it. M2-M3 needs heavy team engagement to bed it in. Worth planning a one-day workshop early in M2.
 - Property listing parser fragility. RE.com.au and Domain change their HTML occasionally. Parsers break. Monitoring + maintenance baked in, but this is the line that needs the most ongoing attention.
-- Brand identity (covered in Q10). If V2 brand is wanted alongside, scope it as parallel work - shouldn't be too much wrk though
+- Brand identity (covered in Q10). If V2 brand is wanted alongside, scope it as parallel work — shouldn't be too much work though.
 - Historical email and WhatsApp data hygiene. Stage-triggered auto-capture works clean going forward. Historical sweep across years of past threads is a separate exercise, worth scoping if you want it.
 
 Franchise and multi-tenant architecture:
@@ -191,7 +191,7 @@ Franchise and multi-tenant architecture:
 
 A lot to talk about here but completely valid - can spend longer than the halfa allocated today if needed too.
 
-After out chat, I'll bake this all into the final proposal to ensure you're 100% everything you need to make the right call.
+After our chat, I'll bake this all into the final proposal to ensure you've got everything you need to make the right call.
 
 ---
 
