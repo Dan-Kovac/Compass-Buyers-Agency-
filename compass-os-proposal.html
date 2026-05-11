@@ -48,7 +48,7 @@
   .top-band { height: 6px; background: var(--hills); width: 100%; }
   .doc-nav { background: var(--white); padding: 0; border-bottom: 1px solid var(--sand); }
   .doc-nav-inner {
-    max-width: 1080px; margin: 0 auto;
+    max-width: 1180px; margin: 0 auto;
     display: grid; grid-template-columns: repeat(5, 1fr);
   }
   .doc-nav a {
@@ -115,13 +115,9 @@
   /* TYPOGRAPHY */
   h1, h2, h3, h4 { font-family: 'MinervaModern', Georgia, serif; color: var(--hills); letter-spacing: -0.02em; }
   h1 { font-size: 44pt; line-height: 1.05; margin: 0 0 16px; font-weight: 500; }
-  h2 { font-size: 24pt; line-height: 1.15; margin: 0 0 18px; font-weight: 600; position: relative; }
-  h2::before { content: ''; display: block; width: 40px; height: 2px; background: var(--hills); margin-bottom: 22px; }
-  h2 .num {
-    color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em;
-    display: block; text-transform: uppercase; margin-bottom: 12px;
-    font-family: 'Aeonik', sans-serif; font-weight: 600;
-  }
+  h2 { font-size: 21pt; line-height: 1.18; margin: 0 0 24px; font-weight: 500; position: relative; }
+  h2::before { content: ''; display: block; width: 32px; height: 1px; background: var(--hills); margin-bottom: 18px; opacity: 0.6; }
+  h2 .num { color: var(--stone); font-size: 7.5pt; letter-spacing: 0.22em; display: block; text-transform: uppercase; margin-bottom: 10px; font-family: 'Aeonik', sans-serif; font-weight: 600; }
   h3 { font-size: 14pt; margin: 32px 0 10px; font-weight: 600; }
   h4 {
     font-family: 'Aeonik', sans-serif; font-size: 8.5pt;
@@ -217,6 +213,9 @@
   .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
   .month-card .month-side .checkpoint { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--hills); font-weight: 500; line-height: 1; }
   .month-card .month-side .checkpoint-label { font-size: 7.5pt; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
+  .month-card .month-standalone { margin-top: 14px; padding: 12px 14px; background: var(--sand-light); border-left: 2px solid var(--sea); border-radius: 2px; font-size: 9pt; line-height: 1.55; color: var(--ink); }
+  .month-card .month-standalone .ms-label { display: inline-block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hills); font-weight: 700; margin-right: 8px; }
+  .month-card.optional .month-standalone { background: var(--bright-grey); border-left-color: var(--stone); }
   .month-card.optional { background: var(--bright-grey); border-left-color: var(--stone); }
   .month-card.optional .month-num, .month-card.optional .month-body h3, .month-card.optional .month-side .checkpoint { color: var(--stone); }
 
@@ -633,7 +632,8 @@
   </div>
 </div></div></section>
 <section class="seq bg-white"><div class="container"><h2><span class="num">05 · Four months, four checkpoints</span>Each month earns its keep.</h2>
-<p class="narrow">One core capability per month. Each is its own earned stage with sign-off before the next begins. Skills land in the team's hands first, get used and refined, then get folded into the OS. No three-month black box.</p>
+<p class="narrow" style="margin-bottom: 14px;"><span class="pill" style="background: var(--sand); color: var(--hills); margin-right: 8px;">Added to scope</span>Client environment now in scope — clients log in to see their brief, shortlisted properties, document vault and key dates. Phase 1 read-only in M3, interactive in M4. Vital to how the agency engages clients going forward.</p>
+<p class="narrow">One core capability per month. Each is its own earned stage with sign-off before the next begins. Skills land in the team's hands first, get used and refined, then get folded into the OS. No three-month black box. <strong>Each milestone is tangible enough to stand alone</strong> — if the project ended at any sign-off gate, Compass keeps a complete, working system that's a success on its own.</p>
 <div class="months">
   <div class="month-card">
     <div class="month-num">01</div>
@@ -642,6 +642,7 @@
       <h3>Compliance and Foundation</h3>
       <div class="theme">Sleep at night. Every past client, audit-ready.</div>
       <p>Compass OS app live. Per-client compliance folder structure across REBAA, QLD and NSW Fair Trading. Historical archive seeded for every past client. One-click compliance export. Bruce live in team WhatsApp DMs. Dashboard v0.</p>
+      <div class="month-standalone"><span class="ms-label">If we stopped here</span>Compass becomes audit-defensible from day one. Every past client filed. The licensee can sleep. PI insurers see a tighter operation.</div>
     </div>
     <div class="month-side">
       <div class="checkpoint">M1</div>
@@ -655,6 +656,7 @@
       <h3>The Sales Engine</h3>
       <div class="theme">Discovery to live proposal. Hours, not days.</div>
       <p>Brief extraction. Branded proposals drafted via Bruce. Single live-link URL. Iterate by chat. Client profile with proposal history. Dashboard v1: sales velocity.</p>
+      <div class="month-standalone"><span class="ms-label">If we stopped here</span>Discovery to live proposal in hours, not days. Same-day proposals. Conversion lifts. Sales velocity is a number on the dashboard, not a feeling.</div>
     </div>
     <div class="month-side">
       <div class="checkpoint">M2</div>
@@ -667,7 +669,8 @@
       <div class="label">Month 3</div>
       <h3>The Property Log + The Close</h3>
       <div class="theme">The moat starts compounding. Clients sign and onboard.</div>
-      <p>Property log: parse realestate and domain links. Off-market manual entry. Rule-based brief and property matching. Real-time match alerts. Client intake into DocuSign CAF auto-population. Dashboard v2: pipeline funnel and match rate.</p>
+      <p>Property log: parse realestate and domain links. Off-market manual entry. Rule-based brief and property matching. Real-time match alerts. Client intake into DocuSign CAF auto-population. <strong>Client portal Phase 1 live (read-only):</strong> clients log in to see their brief, matched properties, document vault, key dates. Dashboard v2: pipeline funnel and match rate.</p>
+      <div class="month-standalone"><span class="ms-label">If we stopped here</span>The property log compounds, matches surface in real time, closed-loop onboarding eliminates manual handoffs. Compass's biggest piece of IP is captured systematically.</div>
     </div>
     <div class="month-side">
       <div class="checkpoint">M3</div>
@@ -680,7 +683,8 @@
       <div class="label">Month 4</div>
       <h3>Growth Engine + Handover</h3>
       <div class="theme">Marketing on autopilot. Full BI. Compass owns the lot.</div>
-      <p>SEO agent, newsletter agent, website editor agent, reminders engine. Dormant-client flags. Dashboard v3: full BI on sales, ops, growth. Hardening, monitoring, training, full handover. Compliance export at maturity.</p>
+      <p>SEO agent, newsletter agent, website editor agent, reminders engine. Dormant-client flags. <strong>Client portal Phase 2 (interactive):</strong> clients upload, message Bruce in-portal, update preferences. Dashboard v3: full BI on sales, ops, growth. Hardening, monitoring, training, full handover. Compliance export at maturity.</p>
+      <div class="month-standalone"><span class="ms-label">Project complete</span>Marketing on autopilot. Full BI. Every account in Compass's name. The OS is licensable, franchisable, fully owned IP. Compass owns the lot.</div>
     </div>
     <div class="month-side">
       <div class="checkpoint">M4</div>
@@ -693,10 +697,10 @@
       <div class="label">Month 5 (optional)</div>
       <h3>Extension</h3>
       <div class="theme">Engaged only if the M4 review surfaces a clear next outcome.</div>
-      <p>Reserved for residual scope from the M4 review, a Phase 2 capability (semantic matching, daily briefings), or historical structured-data parsing brought forward. Joint go/no-go.</p>
+      <p>Reserved for residual scope from the M4 review, a Phase 2 capability (semantic matching, daily briefings), or historical structured-data parsing brought forward. Joint go/no-go. <strong>Hourly rate or monthly retainer, scaled to what's actually needed — not a fixed block.</strong></p>
     </div>
     <div class="month-side">
-      <div class="checkpoint">+$12.5k</div>
+      <div class="checkpoint">Hourly / retainer</div>
       <div class="checkpoint-label">If engaged</div>
     </div>
   </div>
@@ -705,6 +709,10 @@
 <div class="open-question">
   <span class="label">One open question for Compass</span>
   <strong>Stripe payment integration is sitting outside the MVP until we understand how Compass takes payments today.</strong> We know the team uses Xero for invoicing. Question: is Xero linked to Stripe for electronic payments, or do clients pay another way? If Stripe is already in the flow, we wire it into the closed-loop onboarding in M3. If not, we keep payment manual in v1 and pick it up post-launch. Worth a 10-minute conversation.
+</div>
+
+<div class="companion-link" style="margin-top: 24px;">
+  <strong>Want the full milestone-by-milestone scope?</strong> The <a href="compass-os-scope.html">Scope page</a> maps nine levers across the four milestones, the project + payment milestone split, and a Beyond Scope list of future ideas for prioritisation (multi-tenant activation, semantic matching, external property enrichment, and more).
 </div></div></section>
 <section class="seq bg-sand"><div class="container"><h2><span class="num">06 · The math</span>Pays itself back inside year one. On savings alone.</h2>
 <p class="narrow">Before we count a single extra deal, the OS absorbs costs Compass already pays. Year-one savings cover most of the build. Year two and beyond, those savings keep stacking.</p>
