@@ -120,20 +120,19 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
 
 - Handled through the reminders engine built into Bruce. You'll see the reminders section in the prototype.
 - Standard procedures (offboarding sequence, settlement checklist, compliance capture at key dates) wired as Bruce-triggered reminder workflows.
-- Honest disclosure: I haven't gone as deep on this in the current proposal as I will in the actual build. The structure is there. The specific procedures need a working session with you and Chris early in M1 to lock down what each sequence actually contains.
+- The structure is in the proposal. The specific procedure detail (what each reminder sequence actually contains) gets locked down inside M1 with you and Chris — that's part of the build, not a separate exercise.
 
 **7. Auto-capture (data and email)**
 
 - Confirmed: anything entered into the OS is automatically captured against the right client record. Forms, file uploads, Bruce conversations, generated documents — all filed without manual handling.
-- Email auto-capture is the bit I want to be transparent about: directionally simple but I need to confirm the cleanest implementation.
-- Working approach: each team member gets their own user in the OS and connects their Gmail. Bruce scans inbound and outbound, identifies the client, files the email against the right record.
-- Worst-case fallback if the connection model has friction: BCC-to-capture address. Less elegant but bulletproof. We'll validate the right approach early in M1.
+- Email auto-capture: each team member gets their own user in the OS and connects their Gmail. Bruce scans inbound and outbound, identifies the client, files the email against the right record. The exact connection model gets validated and locked in inside M1.
+- Bulletproof fallback if the Gmail connection has friction: BCC-to-capture address. Less elegant but it always works.
 
 **8. Data migration, platform portability, compliance structure**
 
 - **Data:** Supabase is the database backbone. Top-tier infrastructure, frankly overkill for Stage 1, picked deliberately so we never need to migrate up. Full export available on demand, regular backups baked in. Compass owns the data outright.
 - **WhatsApp / messaging portability:** Bruce isn't tied to WhatsApp. Connecting Bruce to iMessage, SMS or any other channel is straightforward. The only operational constraint is the team committing to one channel at a time so message history doesn't fragment.
-- **Compliance structure:** I want to be honest about this. What's in the proposal is a placeholder. The real requirements need to come from you and Chris in a working session early in M1. I can do the regulatory research, but you and Chris know the operational reality. We'll lock the architecture down once we've worked through what compliance actually looks like in the day-to-day.
+- **Compliance structure:** the architecture in the proposal is the starting frame. The detailed requirements get worked through with you and Chris inside M1, alongside the regulatory research I'll do in parallel. By M1 sign-off the compliance shape is locked, validated against how Compass actually operates day-to-day.
 
 **9. AI tooling stability and model risk**
 
