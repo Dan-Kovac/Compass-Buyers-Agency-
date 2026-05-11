@@ -8,6 +8,8 @@ Based on Dan's 12:06pm sent version with typos fixed and section numbers restore
 Hey mate, here's my answers below. Putting down quick bullets to speak to in-depth later on.
 
 
+ 
+
 1. TIME AND AVAILABILITY
 
 • Roadmap Digital is wound down to a handful of legacy website hosting clients. No new project work there.
@@ -16,6 +18,8 @@ Hey mate, here's my answers below. Putting down quick bullets to speak to in-dep
 • Engineer is a mid-weight overseas contractor, backend and integrations focus. Handles platform foundation, integration plumbing, backend architecture, and testing. Not yet locked in. CV through to you before they touch the project.
 • If the engineer can't continue mid-build: I cover their scope myself. Timeline doesn't move. I can do everything they do. I'm bringing them in to avoid being a bottleneck on the backend and to challenge my thinking when needed.
 
+
+ 
 
 2. COST BREAKDOWN AND PAYMENT STRUCTURE
 
@@ -36,6 +40,8 @@ Payment timing assuming kick-off late May 2026:
 Month 5: agreed, no fixed $12.5k block. Hourly rate (~$180/hr) or a monthly retainer scaled to what's actually needed. We'll shape it at the M4 review.
 
 
+ 
+
 3. BUILD COST RATIONALISATION
 
 Reference points for your accountant:
@@ -46,6 +52,8 @@ Reference points for your accountant:
 • $50k sits deliberately between the AI app builder floor and the traditional dev shop ceiling. Made possible because Claude Code accelerates the build without sacrificing quality.
 • What you're paying for above a pure code spend: external operator opinion, agentic systems expertise, testing discipline, custom IP that's licensable beyond Stage 1.
 
+
+ 
 
 4. PRE-BUILT VS CUSTOM
 
@@ -63,6 +71,8 @@ On 80%-there platforms: scoped hard. The closest candidates (HubSpot + Zapier, G
 
 OS is the CRM. Replaces what you've got. Not alongside.
 
+
+ 
 
 5. HOW MUCH CAN WE TRAIN AND EVOLVE THIS OURSELVES
 
@@ -89,6 +99,8 @@ Post-handover bugs and small fixes:
 • Self-healing built in: agents flag drift in their own outputs rather than failing silently. Most issues surface for review before they become problems.
 
 
+ 
+
 6. OFFBOARDING, SETTLEMENT COMPLIANCE AND AUTO-CAPTURE
 
 Core scope. Not an add-on.
@@ -108,6 +120,8 @@ Auto-capture sweep, yes, this is the right call:
 • Exactly where the compliance story tightens.
 
 
+ 
+
 7. DATA, STORAGE AND PORTABILITY
 
 • Supabase Sydney: enterprise-grade Postgres backend.
@@ -117,6 +131,8 @@ Auto-capture sweep, yes, this is the right call:
 • Migration if needed: data is standard Postgres. Full SQL export anytime. Any Postgres-compatible host can take it.
 • Disaster recovery: documented runbook included in handover. Restore-to-working-state target under 4 hours.
 
+
+ 
 
 8. WHATSAPP RELIABILITY AND COMPLIANCE ARCHITECTURE
 
@@ -135,6 +151,8 @@ Compliance:
 • Once we've worked through what audit-ready actually means in the day-to-day, the structure is legally defensible.
 • Your offer to assist here is exactly the right move.
 
+
+ 
 
 9. AI SHELF LIFE AND PRODUCTION EXPERIENCE
 
@@ -156,6 +174,8 @@ Production experience:
 • Outside Sportsbet: smaller agentic systems for past clients. Compass OS is the most ambitious bespoke OS I've architected start-to-finish.
 
 
+ 
+
 10. TEAM SETUP ON CLAUDE AND BRAND EXECUTION
 
 Team setup on Claude:
@@ -174,6 +194,8 @@ Client-friendly login (yes, in scope):
 • Phase 1 (M3, read-only): client sees their brief, matched properties with thumbs up/down feedback, document vault, key dates, status. Same shape as the Google Sheet you use now, plus document access.
 • Phase 2 (M4 or post-handover, interactive): clients upload directly, message Bruce inside the portal, update preferences.
 
+
+ 
 
 11. WHAT HAVE WE MISSED
 
