@@ -86,21 +86,73 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
 
 - Happy to move to a retainer model from Month 5 onwards if that suits how you want to keep evolving the OS. We can shape that closer to handover once we know what's actually useful to keep building.
 
-**3.** _[awaiting Dan's verbalised answer]_
+**3. Scope, milestone value, and how to benchmark this**
 
-**4.** _[awaiting Dan's verbalised answer]_
+- Each milestone delivers something Compass uses immediately. You're not waiting until Month 4 to see the build pay back.
+  - **M1 sign-off:** the foundation is live. Compliance file structure, audit log, secure login, every client filed correctly. Sleep-at-night value from week four.
+  - **M2 sign-off:** the Sales Engine is in the team's hands. Bruce drafting proposals in WhatsApp, branded templates, live shareable links. Faster closes start happening during the build.
+  - **M3 sign-off:** property log feeding deals + closed-loop onboarding. The moat starts compounding. Off-market intel gets captured instead of lost in WhatsApp threads.
+  - **M4 sign-off:** growth layer live. SEO agent, newsletter agent, suburb reports, dashboards, full handover.
+- Personal aim of mine: this project should pay itself off before it's even live. Faster proposals plus the new website plus Google ads bringing more leads should mean more closed deals during the 16 weeks. ROI starts compounding mid-build, not after.
+- On how to benchmark this internally — fair question, worth saying clearly:
+  - You could look at this and say "an AI app might cost $15k to $20k in 2026." That framing misses what you're paying for.
+  - You're not paying for an app. You're paying for an external opinion in your systems, someone who understands how agentic systems actually work and how to get quality outputs from them, someone with testing discipline who'll bring this to life in the team's hands, and a custom internal IP that lets Compass move quicker than any other agency.
+  - The right benchmark isn't an AI app builder. It's the cost of being the only buyers agency in the market with this operating layer. There isn't a comparable.
 
-**5.** _[awaiting Dan's verbalised answer]_
+**4. Pre-built vs custom**
 
-**6.** _[awaiting Dan's verbalised answer]_
+- Valid question. I've scoped this in depth before recommending custom.
+- Off-the-shelf systems fail Compass in three predictable ways:
+  - **Too much** (HubSpot, GoHighLevel): bloated, complex, the team doesn't use them. You've already lived this with the previous setup.
+  - **Too little:** don't cover compliance file structure, the property log, or the agentic layer. You'd still need to build half of it.
+  - **Wrong shape:** not built around how you actually operate (WhatsApp-first, voice-note briefs, off-market intel arriving by phone call).
+- Custom means the system bends around how the team works, not the other way around. That's the whole game.
 
-**7.** _[awaiting Dan's verbalised answer]_
+**5. Training, evolution, and self-improvement**
 
-**8.** _[awaiting Dan's verbalised answer]_
+- Once built, the OS tunes itself with Compass in the driver's seat. No developer ticket required to evolve it.
+- **File-managed skills layer:** each agent has a folder of skills and reference files you (or anyone on the team) can edit. Update the file, the agent updates its behaviour. Live.
+- **Feedback loop on Bruce:** when Bruce surfaces a property match that's off, you tell Bruce why. Bruce updates its own matching logic. Self-learning.
+- Same pattern across all the agents (SEO, newsletter, property log, website editor).
+- Net effect: the longer the team uses it, the sharper it gets. New procedure or new team member becomes a skill file, not a build request.
 
-**9.** _[awaiting Dan's verbalised answer]_
+**6. Offboarding, settlement, compliance capture**
 
-**10.** _[awaiting Dan's verbalised answer — incl. client-login sub-question]_
+- Handled through the reminders engine built into Bruce. You'll see the reminders section in the prototype.
+- Standard procedures (offboarding sequence, settlement checklist, compliance capture at key dates) wired as Bruce-triggered reminder workflows.
+- Honest disclosure: I haven't gone as deep on this in the current proposal as I will in the actual build. The structure is there. The specific procedures need a working session with you and Chris early in M1 to lock down what each sequence actually contains.
+
+**7. Auto-capture (data and email)**
+
+- Confirmed: anything entered into the OS is automatically captured against the right client record. Forms, file uploads, Bruce conversations, generated documents — all filed without manual handling.
+- Email auto-capture is the bit I want to be transparent about: directionally simple but I need to confirm the cleanest implementation.
+- Working approach: each team member gets their own user in the OS and connects their Gmail. Bruce scans inbound and outbound, identifies the client, files the email against the right record.
+- Worst-case fallback if the connection model has friction: BCC-to-capture address. Less elegant but bulletproof. We'll validate the right approach early in M1.
+
+**8. Data migration, platform portability, compliance structure**
+
+- **Data:** Supabase is the database backbone. Top-tier infrastructure, frankly overkill for Stage 1, picked deliberately so we never need to migrate up. Full export available on demand, regular backups baked in. Compass owns the data outright.
+- **WhatsApp / messaging portability:** Bruce isn't tied to WhatsApp. Connecting Bruce to iMessage, SMS or any other channel is straightforward. The only operational constraint is the team committing to one channel at a time so message history doesn't fragment.
+- **Compliance structure:** I want to be honest about this. What's in the proposal is a placeholder. The real requirements need to come from you and Chris in a working session early in M1. I can do the regulatory research, but you and Chris know the operational reality. We'll lock the architecture down once we've worked through what compliance actually looks like in the day-to-day.
+
+**9. AI tooling stability and model risk**
+
+- Real risk and one I've felt myself. Worth being honest about.
+- Where the market sits in May 2026: Claude Code (Anthropic) is the world-class backend for serious commercial builds. Tools like Base44 and Lovable have a place for prototypes, not for systems your business runs on.
+- Building on Claude Code on a real codebase is the stable, portable, future-proof choice.
+- **Portability insurance is the file structure.** Agents, skills, training data, system architecture — all stored as files in a clean, deliberate structure. If a better model or platform appears in twelve months, we lift the file tree across. Not a rebuild.
+- Direct evidence I can point at: I'm building the same architecture pattern at Sportsbit right now for the product team. Same approach, different domain (graphic designers and developers instead of clients). Happy to walk you through the prototype to show the pattern in action.
+- The Sportsbit lesson worth knowing: at enterprise scale it always comes back to "each team needs its own custom operating system, its own interface, and bespoke tools layered on top." That's exactly what we're building for Compass.
+
+**10. Anything we've missed (and the client-login / front-end question)**
+
+- The build sequence answers the front-end question directly:
+  - **Step 1:** stand up Claude Business Account for Compass. Everyone on the team gets Claude.ai with co-work access. We deploy a starter set of skills (proposal creation, custom property searches, etc) so the team gets immediate value and starts stress-testing each agent we'll productise into the OS.
+  - **Step 2:** wrap the proven agents in a proper front-end built on Claude Code. Multi-tenant, compliance-grade, the lot.
+- On whether we even need the custom front-end: yes. Claude.ai and co-work host beautiful project environments, but they can't host the per-client compliance backlog, the multi-tenant audit log, the property log, or the structured client lifecycle. That layer has to be a real app on top.
+- Good news: the gap between "Claude.ai project" and "custom front-end on Claude Code" is much smaller than it used to be. Same engine, just a proper interface and database layer wrapped around it.
+- **Client login:** yes, in scope. Multi-tenant from day one. Each Compass client gets their own login surface to view their brief, matched properties, documents, and status.
+- **An ask back to you and the team:** please challenge my thinking. Tell me what I'm missing, what you're worried about, what you want to talk through. The whole point of going through these ten questions is to surface anything I haven't considered before we start, not after.
 
 ---
 
