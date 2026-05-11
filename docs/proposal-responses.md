@@ -53,33 +53,21 @@ Thanks for these. Rather than write essays, I've put short bullets under each so
   - Stripe integration — already flagged as outside MVP pending the Xero question
 - My recommendation: keep the full $50k scope. The M4 growth layer is where a lot of the recurring-savings ROI lives (SEO retainer replacement alone is ~$15k/year). But if budget pressure is real, we have a clear conversation about what stays and what slides.
 
-**Inside the $50k: where the time and money actually go**
+**Inside the $50k: how the build resources itself**
 
-- Full transparency on how I'm thinking about the internals. Numbers are estimates, not contractual line items, but they should answer the "what am I really paying for" question.
+- I'm not pricing this against an hourly ledger. The $50k is priced against the outcome: a productised OS that Compass owns outright, recurring savings inside year one, and a foundation that's licensable or franchisable beyond Stage 1. That framing matters because what we're charging for is the system, not a timesheet.
+- That said, here's the honest shape of the team and the cost stack so you know what you're actually getting.
 
-*Engineering allocation (the contractor sitting alongside me)*
+*The engineer sitting alongside me*
 
 - Profile: mid-weight full-stack contractor with a backend / integrations bias. Comfortable with Postgres + multi-tenant data modelling, auth and RBAC, API plumbing across WhatsApp, DocuSign, Anthropic, Xero/Stripe, plus parser pipelines for RE.com.au and Domain. Testing discipline non-negotiable.
 - Engagement shape: fractional across the 16 weeks, not full-time. Heaviest in M1 (foundation, multi-tenant schema, auth, file storage, audit log) and M3 (property log parsing, matching engine, DocuSign + CAF flow). Lighter in M2 and M4.
-- Where the engineer plugs in specifically — these are the four areas where I want a second pair of hands rather than risk being the bottleneck:
+- The four areas where they plug in — these are the specific zones where I want a second pair of hands rather than risk being the bottleneck:
   - Wiring the integrations end-to-end (WhatsApp, DocuSign, Anthropic, parsers, Xero/Stripe if it lands)
   - Standing up the platform foundation (DB, auth, multi-tenant, file storage, audit log)
   - Pressure-testing the backend architecture so it scales past Stage 1
   - Testing discipline across the agent pipelines
-- Rough envelope: ~220-280 hours across the build at AU mid-tier contractor rates. ≈ $25k-$32k sitting inside the $50k. The rest of the $50k covers my time, infrastructure, tooling, and the buffer for the moving parts that always show up.
-
-*My own time across the 16 weeks*
-
-- Working assumption: ~25-30 hours per week on Compass OS, ~450 hours total across the build. Sportsbit is the only other thing on my plate. Nothing else.
-- Rough bucket split (indicative, will shift as we go):
-  - Product, architecture, ticketing, milestone planning: ~60 hrs
-  - Agent design + prompt engineering (Bruce, SEO agent, newsletter agent, etc): ~90 hrs
-  - UI/UX and frontend implementation: ~100 hrs
-  - Integrations I lead personally (lighter wiring, webhooks, CMS): ~50 hrs
-  - Testing cycles with you, Chris and the team: ~40 hrs
-  - Weekly comms, demos, milestone sign-offs: ~30 hrs
-  - Handover documentation, training materials, runbooks: ~40 hrs
-  - Buffer for the unknowns: ~40 hrs
+- They sit inside the $50k. No extra invoice to Compass for their time.
 
 *Platform running costs (post-launch, paid by Compass directly)*
 
