@@ -34,7 +34,7 @@
     color: var(--ink);
     background: var(--white);
     font-family: 'Aeonik', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    font-size: 10.5pt; line-height: 1.7;
+    font-size: 10.5pt; line-height: 1.65;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
@@ -64,103 +64,90 @@
   .container { max-width: 1180px; margin: 0 auto; padding: 0 56px; }
   .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 56px; }
 
-  .page-hero { background: var(--white); padding: 88px 0 32px; }
+  .page-hero { background: var(--white); padding: 72px 0 24px; }
 
-  section.seq { padding: 80px 0; border-top: 1px solid var(--sand); }
+  section.seq { padding: 64px 0; border-top: 1px solid var(--sand); }
   section.seq:first-of-type { border-top: none; }
   section.seq.bg-sand { background: var(--sand-light); }
-  section.seq.bg-sea { background: var(--sea-tint); }
   section.seq.bg-grey { background: var(--bright-grey); }
-  section.seq.bg-dark { background: var(--hills-deep); color: var(--white); }
-  section.seq.bg-dark h2, section.seq.bg-dark h3, section.seq.bg-dark h4, section.seq.bg-dark p { color: var(--white); }
-  section.seq.bg-dark h2 .num { color: var(--sand); }
-  section.seq.bg-dark h2::before { background: var(--sand); }
 
   /* TYPOGRAPHY */
   h1, h2, h3, h4 { font-family: 'MinervaModern', Georgia, serif; color: var(--hills); letter-spacing: -0.02em; }
-  h1 { font-size: 48pt; line-height: 1.05; margin: 0 0 18px; font-weight: 500; }
-  h2 { font-size: 28pt; line-height: 1.15; margin: 0 0 22px; font-weight: 600; position: relative; }
-  h2::before { content: ''; display: block; width: 40px; height: 2px; background: var(--hills); margin-bottom: 24px; }
-  h2 .num { color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em; display: block; text-transform: uppercase; margin-bottom: 14px; font-family: 'Aeonik', sans-serif; font-weight: 600; }
-  h3 { font-size: 15pt; margin: 32px 0 12px; font-weight: 600; }
-  h4 { font-family: 'Aeonik', sans-serif; font-size: 8.5pt; margin: 24px 0 10px; color: var(--stone); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; }
-  .lead { color: var(--hills); font-size: 19pt; margin: 0 0 12px; font-weight: 500; line-height: 1.4; font-family: 'MinervaModern', serif; letter-spacing: -0.01em; }
-  .intro-p { color: var(--ink-soft); font-size: 12pt; margin: 0; line-height: 1.7; max-width: 680px; }
-  p { margin: 10px 0 14px; color: var(--ink); line-height: 1.7; }
+  h1 { font-size: 44pt; line-height: 1.05; margin: 0 0 16px; font-weight: 500; }
+  h2 { font-size: 24pt; line-height: 1.15; margin: 0 0 28px; font-weight: 600; position: relative; }
+  h2::before { content: ''; display: block; width: 40px; height: 2px; background: var(--hills); margin-bottom: 22px; }
+  h2 .num { color: var(--stone); font-size: 8.5pt; letter-spacing: 0.22em; display: block; text-transform: uppercase; margin-bottom: 12px; font-family: 'Aeonik', sans-serif; font-weight: 600; }
+  .lead { color: var(--hills); font-size: 17pt; margin: 0; font-weight: 500; line-height: 1.4; font-family: 'MinervaModern', serif; letter-spacing: -0.01em; }
+  p { margin: 10px 0 14px; color: var(--ink); line-height: 1.65; }
 
-  /* COMPLIANCE BLOCK — its own structure */
-  .compliance-tag { display: inline-block; background: var(--hills); color: var(--white); font-size: 7.5pt; padding: 5px 14px; border-radius: 999px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; }
-  .compliance-headline { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 32pt; font-weight: 600; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 18px; max-width: 760px; }
-  .compliance-sub { font-size: 12pt; color: var(--ink-soft); line-height: 1.7; max-width: 720px; margin: 0 0 40px; }
-  .compliance-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 12px; }
-  .comp-card { background: var(--white); padding: 30px 28px; border-radius: 4px; border-top: 4px solid var(--hills); display: flex; flex-direction: column; min-height: 180px; }
-  .comp-card .comp-label { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 8px; }
-  .comp-card .comp-stage { font-family: 'MinervaModern', serif; font-size: 14pt; color: var(--hills); font-weight: 600; letter-spacing: -0.015em; margin-bottom: 14px; line-height: 1.2; }
-  .comp-card .comp-outcome { font-size: 10pt; color: var(--ink); line-height: 1.6; }
+  /* MATRIX */
+  .matrix-wrap { margin: 0; }
+  .matrix-headers { display: grid; grid-template-columns: 220px repeat(4, 1fr); gap: 0; align-items: end; padding: 0 0 14px; border-bottom: 2px solid var(--hills); }
+  .matrix-headers .h-lever { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hills); font-weight: 700; padding: 0 16px 0 0; }
+  .matrix-headers .h-stage { font-family: 'MinervaModern', serif; color: var(--hills); padding: 0 14px; }
+  .matrix-headers .h-stage .num { display: block; font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 4px; font-weight: 700; }
+  .matrix-headers .h-stage .name { font-size: 13pt; line-height: 1.2; font-weight: 600; letter-spacing: -0.012em; }
 
-  /* MATRIX — 8 levers, outcome-focused, simplified */
-  .matrix-intro { font-size: 12pt; color: var(--ink-soft); line-height: 1.7; max-width: 720px; margin: 0 0 36px; }
-  .matrix-wrap { margin: 32px 0 0; }
-  .matrix-headers { display: grid; grid-template-columns: 240px repeat(4, 1fr); gap: 0; align-items: end; padding: 0 0 18px; border-bottom: 2px solid var(--hills); }
-  .matrix-headers .h-lever { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hills); font-weight: 700; padding: 0 20px 0 0; }
-  .matrix-headers .h-stage { font-family: 'MinervaModern', serif; color: var(--hills); padding: 0 18px; }
-  .matrix-headers .h-stage .num { display: block; font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 6px; font-weight: 700; }
-  .matrix-headers .h-stage .name { font-size: 14pt; line-height: 1.2; font-weight: 600; letter-spacing: -0.012em; }
-
-  .matrix-row { display: grid; grid-template-columns: 240px repeat(4, 1fr); gap: 0; border-bottom: 1px solid var(--stone-light); }
-  .matrix-row:last-child { border-bottom: none; }
+  .matrix-row { display: grid; grid-template-columns: 220px repeat(4, 1fr); gap: 0; border-bottom: 1px solid var(--stone-light); }
+  .matrix-row.compliance { background: var(--sea-tint); }
   .matrix-row.proposed { background: var(--sand-light); }
 
-  .lever-cell { padding: 28px 20px 28px 0; }
-  .lever-cell .lever-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 8px; }
-  .lever-cell .lever-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 17pt; font-weight: 600; line-height: 1.2; letter-spacing: -0.018em; }
+  .lever-cell { padding: 22px 18px 22px 0; border-right: 1px solid var(--stone-light); }
+  .lever-cell .lever-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 14pt; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 6px; }
+  .lever-cell .lever-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 700; }
+  .matrix-row.compliance .lever-cell .lever-tag { color: #1F5D4F; }
   .matrix-row.proposed .lever-cell .lever-tag { color: #8a5e1d; }
 
-  .stage-cell { padding: 28px 18px; font-size: 10pt; line-height: 1.6; color: var(--ink); }
+  .stage-cell { padding: 22px 14px; border-right: 1px solid var(--stone-light); font-size: 9pt; line-height: 1.5; color: var(--ink); }
+  .stage-cell:last-child { border-right: none; }
+  .stage-cell ul { list-style: none; padding: 0; margin: 0; }
+  .stage-cell ul li { padding-left: 12px; position: relative; margin: 5px 0; }
+  .stage-cell ul li::before { content: '→'; position: absolute; left: 0; color: var(--sea); font-weight: 600; }
+  .stage-cell .core-tag { display: inline-block; background: var(--hills); color: var(--white); font-size: 6.5pt; padding: 2px 7px; border-radius: 999px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
 
   /* COST + GATE FOOTER */
-  .gate-row { display: grid; grid-template-columns: 240px repeat(4, 1fr); gap: 0; margin-top: 0; }
-  .gate-row .gate-cell { padding: 28px 18px 32px; background: var(--hills); color: var(--white); }
-  .gate-row .gate-cell:first-child { background: var(--hills-deep); display: flex; align-items: center; padding: 28px 20px 28px 0; }
-  .gate-row .gate-cell .gate-label { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 10px; }
+  .gate-row { display: grid; grid-template-columns: 220px repeat(4, 1fr); gap: 0; margin-top: 0; }
+  .gate-row .gate-cell { padding: 24px 14px 28px; background: var(--hills); color: var(--white); border-right: 1px solid rgba(255,255,255,0.12); }
+  .gate-row .gate-cell:first-child { background: var(--hills-deep); display: flex; align-items: center; padding: 24px 18px 24px 0; }
+  .gate-row .gate-cell:last-child { border-right: none; }
+  .gate-row .gate-cell .gate-label { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 8px; }
   .gate-row .gate-cell .paid { font-family: 'MinervaModern', serif; font-size: 22pt; line-height: 1; font-weight: 500; color: var(--white); margin-bottom: 12px; letter-spacing: -0.02em; }
-  .gate-row .gate-cell .keep { font-size: 9pt; line-height: 1.55; color: rgba(255,255,255,0.9); }
-  .gate-row .gate-cell .first-label { font-family: 'MinervaModern', serif; font-size: 14pt; line-height: 1.25; color: var(--sand); font-weight: 500; letter-spacing: -0.012em; }
+  .gate-row .gate-cell .keep { font-size: 8.5pt; line-height: 1.55; color: rgba(255,255,255,0.9); }
+  .gate-row .gate-cell .first-label { font-family: 'MinervaModern', serif; font-size: 13pt; line-height: 1.25; color: var(--sand); font-weight: 500; letter-spacing: -0.012em; }
 
   /* OFF-RAMP CALLOUT */
-  .stop-anywhere { background: var(--sand); padding: 36px 40px; border-radius: 3px; border-left: 4px solid var(--hills); margin: 32px 0; }
-  .stop-anywhere .label { color: var(--hills); font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
-  .stop-anywhere .head { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 20pt; font-weight: 600; line-height: 1.25; margin-bottom: 14px; letter-spacing: -0.015em; }
-  .stop-anywhere p { font-size: 11pt; line-height: 1.7; color: var(--ink); margin: 0; }
+  .stop-anywhere { background: var(--sand); padding: 32px 36px; border-radius: 3px; border-left: 4px solid var(--hills); margin: 0; }
+  .stop-anywhere .label { color: var(--hills); font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .stop-anywhere .head { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 18pt; font-weight: 600; line-height: 1.25; margin-bottom: 12px; letter-spacing: -0.015em; }
+  .stop-anywhere p { font-size: 10.5pt; line-height: 1.7; color: var(--ink); margin: 0; }
 
   /* OPTIONAL M5 */
-  .month-card { background: var(--white); padding: 30px 32px; border-radius: 3px; border-left: 4px solid var(--stone); display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: start; margin: 24px 0; }
+  .month-card { background: var(--white); padding: 26px 30px; border-radius: 3px; border-left: 4px solid var(--stone); display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: start; margin: 0; }
   .month-card .month-num { font-family: 'MinervaModern', serif; font-size: 32pt; color: var(--stone); font-weight: 500; line-height: 1; }
   .month-card .month-body .label { color: var(--stone); text-transform: uppercase; letter-spacing: 0.22em; font-size: 7.5pt; font-weight: 700; }
-  .month-card .month-body h3 { margin: 4px 0 8px; font-size: 18pt; color: var(--stone); font-weight: 600; }
-  .month-card .month-body p { margin: 0; font-size: 10.5pt; line-height: 1.7; color: var(--ink); }
+  .month-card .month-body h3 { margin: 4px 0 8px; font-size: 17pt; color: var(--stone); font-weight: 600; }
+  .month-card .month-body p { margin: 0; font-size: 10pt; line-height: 1.65; }
   .month-card .month-side { text-align: right; padding-top: 4px; min-width: 110px; }
-  .month-card .month-side .price { font-family: 'MinervaModern', serif; font-size: 19pt; color: var(--stone); font-weight: 500; line-height: 1; }
+  .month-card .month-side .price { font-family: 'MinervaModern', serif; font-size: 18pt; color: var(--stone); font-weight: 500; line-height: 1; }
   .month-card .month-side .price-label { font-size: 7.5pt; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; font-weight: 600; }
 
   /* BEYOND SCOPE */
-  .beyond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; margin: 32px 0 0; }
-  .beyond-item { padding: 22px 0; border-bottom: 1px solid var(--stone-light); }
+  .beyond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 36px; margin: 0; }
+  .beyond-item { padding: 18px 0; border-bottom: 1px solid var(--stone-light); }
   .beyond-item .beyond-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sea); font-weight: 700; margin-bottom: 6px; }
-  .beyond-item .beyond-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 15pt; font-weight: 600; letter-spacing: -0.012em; line-height: 1.2; margin-bottom: 8px; }
-  .beyond-item .beyond-desc { font-size: 10pt; color: var(--ink); line-height: 1.6; }
+  .beyond-item .beyond-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 14pt; font-weight: 600; letter-spacing: -0.012em; line-height: 1.2; margin-bottom: 6px; }
+  .beyond-item .beyond-desc { font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
 
   /* FOOTER */
-  .page-footer { background: var(--bright-grey); padding: 44px 0 40px; }
+  .page-footer { background: var(--bright-grey); padding: 40px 0 36px; }
   .page-footer .container-narrow { color: var(--stone); font-size: 8.5pt; line-height: 1.7; letter-spacing: 0.01em; }
   .page-footer a { color: var(--hills); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
   @media (max-width: 1080px) {
     .matrix-headers, .matrix-row, .gate-row { grid-template-columns: 180px repeat(4, 1fr); }
-    .lever-cell .lever-name { font-size: 14pt; }
-    .stage-cell { font-size: 9.5pt; padding: 22px 12px; }
+    .lever-cell .lever-name { font-size: 12pt; }
+    .stage-cell { font-size: 8.5pt; padding: 18px 10px; }
     .gate-row .gate-cell .paid { font-size: 18pt; }
-    .compliance-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 820px) {
     .container, .container-narrow { padding: 0 22px; }
@@ -168,32 +155,31 @@
     .doc-nav-inner { display: none; grid-template-columns: 1fr !important; }
     .doc-nav.open .doc-nav-inner { display: grid; }
     .doc-nav a { padding: 14px 22px; border-right: none !important; border-bottom: 1px solid var(--sand); }
-    .page-hero { padding: 44px 0 16px; }
-    h1 { font-size: 30pt; line-height: 1.1; }
-    h2 { font-size: 20pt; }
-    .lead { font-size: 15pt; }
-    section.seq { padding: 48px 0; }
-    .compliance-grid { grid-template-columns: 1fr; }
-    .compliance-headline { font-size: 22pt; }
+    .page-hero { padding: 40px 0 12px; }
+    h1 { font-size: 28pt; line-height: 1.1; }
+    h2 { font-size: 18pt; }
+    .lead { font-size: 14pt; }
+    section.seq { padding: 40px 0; }
     .matrix-headers { display: none; }
     .matrix-row, .gate-row { grid-template-columns: 1fr; border-bottom: none; margin-bottom: 28px; background: var(--sand-light); padding: 6px 0; border-radius: 4px; }
+    .matrix-row.compliance { background: var(--sea-tint); }
     .matrix-row.proposed { background: var(--sand); }
-    .lever-cell { padding: 18px 20px 8px; border-bottom: 1px solid var(--stone-light); }
-    .stage-cell { padding: 14px 20px; border-bottom: 1px dashed var(--stone-light); font-size: 10pt; }
+    .lever-cell { padding: 16px 18px 8px; border-right: none; border-bottom: 1px solid var(--stone-light); }
+    .stage-cell { padding: 14px 18px; border-right: none; border-bottom: 1px dashed var(--stone-light); font-size: 9pt; }
     .stage-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 6px; }
     .stage-cell:last-child { border-bottom: none; }
-    .gate-row .gate-cell { border-bottom: 1px solid rgba(255,255,255,0.15); padding: 20px 22px; }
-    .gate-row .gate-cell:first-child { padding: 20px 22px; }
+    .gate-row .gate-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 18px 22px; }
+    .gate-row .gate-cell:first-child { padding: 18px 22px; }
     .gate-row .gate-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 6px; opacity: 0.8; }
     .beyond-grid { grid-template-columns: 1fr; gap: 12px; }
   }
   @media print {
     .top-nav-wrap, .top-band, .doc-nav { display: none !important; }
-    body { font-size: 9pt; }
+    body { font-size: 8.5pt; }
     .container, .container-narrow { padding: 0; max-width: 100%; }
-    section.seq { padding: 28px 0; }
-    .matrix-row, .gate-row, .comp-card, .month-card, .beyond-item { page-break-inside: avoid; }
-    .stage-cell { font-size: 8pt; padding: 16px 10px; }
+    section.seq { padding: 24px 0; }
+    .matrix-row, .gate-row, .month-card, .beyond-item, .stop-anywhere { page-break-inside: avoid; }
+    .stage-cell { font-size: 7.5pt; padding: 12px 8px; }
   }
 </style>
 </head>
@@ -231,7 +217,7 @@
     <a href="compass-os-scope.html" class="current">
       <span class="doc-label">05 · Scope</span>
       <span class="doc-name">Value at every stage</span>
-      <span class="doc-desc">Outcomes by lever, by milestone.</span>
+      <span class="doc-desc">Levers across milestones, on one page.</span>
     </a>
   </div>
 </nav>
@@ -240,152 +226,322 @@
 <header class="page-hero"><div class="container-narrow">
   <h1>Scope on a page.</h1>
   <p class="lead">Each milestone earns the next. Stop wherever, you keep what's built.</p>
-  <p class="intro-p">Outcomes by lever, by milestone. What Compass gets at each stage of the build, not what we technically deliver. Compliance is the foundation, so it sits first and on its own. Everything else stacks on top.</p>
 </div></header>
-
-<section class="seq bg-sea">
-  <div class="container-narrow">
-    <span class="compliance-tag">The Moat</span>
-    <h2 class="compliance-headline">Compliance, from day one.</h2>
-    <p class="compliance-sub">The licensee can sleep. The agency keeps trading through any audit. PI insurers see a tighter operation. This is the foundation everything else stands on, and it lands in M1, not M4.</p>
-
-    <div class="compliance-grid">
-      <div class="comp-card">
-        <div class="comp-label">After M1</div>
-        <div class="comp-stage">Audit-defensible</div>
-        <div class="comp-outcome">Every past Compass client filed in a regulator-ready folder structure. Records for any client produce in under a minute. The licensee can sleep at night from week four.</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-label">After M2</div>
-        <div class="comp-stage">On-demand</div>
-        <div class="comp-outcome">Any team member can pull a compliance snapshot for any client straight from chat. Nothing manual.</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-label">After M3</div>
-        <div class="comp-stage">Searchable</div>
-        <div class="comp-outcome">Chris has live compliance state for every client in the book. Two and a half years of history searchable in seconds.</div>
-      </div>
-      <div class="comp-card">
-        <div class="comp-label">After M4</div>
-        <div class="comp-stage">Audit-pack ready</div>
-        <div class="comp-outcome">One click pulls a full per-client audit pack. Ready for regulators or PI insurers, any time.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="seq">
   <div class="container">
-    <h2><span class="num">02 · The other levers</span>What Compass gets at each milestone.</h2>
-    <p class="matrix-intro">Eight more workstreams build out alongside compliance. Each row is a lever. Each column is a sign-off gate. Read down a column to see what's live by the end of that milestone. Read across a row to see how a capability builds out across the four months.</p>
 
     <div class="matrix-wrap">
 
       <div class="matrix-headers">
         <div class="h-lever">Lever</div>
-        <div class="h-stage"><span class="num">M1 · Weeks 1-4</span><span class="name">Foundation</span></div>
-        <div class="h-stage"><span class="num">M2 · Weeks 5-8</span><span class="name">Sales Engine</span></div>
+        <div class="h-stage"><span class="num">M1 · Weeks 1-4</span><span class="name">Compliance + Foundation</span></div>
+        <div class="h-stage"><span class="num">M2 · Weeks 5-8</span><span class="name">The Sales Engine</span></div>
         <div class="h-stage"><span class="num">M3 · Weeks 9-12</span><span class="name">Property Log + Close</span></div>
         <div class="h-stage"><span class="num">M4 · Weeks 13-16</span><span class="name">Growth + Handover</span></div>
       </div>
 
-      <!-- LEVER 1: PLATFORM -->
-      <div class="matrix-row">
+      <div class="matrix-row compliance">
         <div class="lever-cell">
-          <div class="lever-tag">Lever 01</div>
-          <div class="lever-name">The platform</div>
+          <div class="lever-tag">Lever 01 · The moat</div>
+          <div class="lever-name">Compliance &amp; audit-readiness</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">One source of truth for every client. No more files scattered across Drive, WhatsApp, and email.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">The whole pipeline visible at a glance. Sales velocity is a number, not a feeling.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Every deal, every property, every time-in-stage — visible in real time.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Full BI on the business: MRR, retention, agent performance, marketing ROI.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <span class="core-tag">Core delivery</span>
+          <ul>
+            <li>Per-client folder structure (REBAA, QLD, NSW Fair Trading)</li>
+            <li>Audit log on every action</li>
+            <li>One-click compliance export (v1)</li>
+            <li>Historical archive ingested, archive-grade</li>
+            <li>Compliance Filer agent live</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Compliance summary skill in the team's hands</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Per-client compliance file UI</li>
+            <li>Historical archive searchable across every prior client</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Compliance export at maturity (full per-client audit pack)</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 2: BRUCE -->
       <div class="matrix-row">
         <div class="lever-cell">
           <div class="lever-tag">Lever 02</div>
-          <div class="lever-name">Bruce + WhatsApp</div>
+          <div class="lever-name">The platform (web app)</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">Nothing said in WhatsApp gets lost. Voice notes, photos, forwards — auto-filed against the right client.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">A discovery call becomes a live branded proposal in under an hour, all from chat.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Off-market intel from DMs lands in the property log automatically. Matches fire back to the team in real time.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Nothing falls through the cracks. Settlement, pest+building, dormant flags — Bruce holds the calendar.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>OS app live, secure login, client records, file storage</li>
+            <li>Multi-tenant + RLS from Day 1</li>
+            <li>Dashboard v0: active clients, files, archive coverage</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Sales pipeline view (4 phases)</li>
+            <li>Client profile + proposal history</li>
+            <li>Live proposal URL infrastructure</li>
+            <li>Dashboard v1: sales velocity</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Property log browser + search + filter</li>
+            <li>Manual off-market entry UI</li>
+            <li>Dashboard v2: pipeline funnel, time-in-stage, match rate</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Dashboard v3: MRR, retention, dormant count, agent performance, organic, newsletter CTR</li>
+            <li>Mobile-responsive complete</li>
+            <li>Hardening, monitoring, backups, security review</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 3: CLAUDE -->
       <div class="matrix-row">
         <div class="lever-cell">
           <div class="lever-tag">Lever 03</div>
-          <div class="lever-name">Claude setup + skills</div>
+          <div class="lever-name">Bruce + WhatsApp</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">The team has Claude on tap from week one, with skills shipped for their actual work.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">Matching and compliance summaries are a chat away for anyone on the team.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Website edits and onboarding kits become a skill, not a project.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Marketing publishes itself: SEO, newsletter, suburb reports. Compass owns every prompt.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Bruce live in team WhatsApp DMs</li>
+            <li>Voice notes, photos, forwarded emails captured</li>
+            <li>bruce@compassbuyersagency.com.au inbox live</li>
+            <li>Persona + capture rules locked</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Brief in DM → Bruce returns drafted live-link proposal</li>
+            <li>Iterate via Bruce: "change the strategy section, regenerate"</li>
+            <li>Voice notes transcribed and filed</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Property links parsed when dropped in DM</li>
+            <li>Real-time match alerts to the team</li>
+            <li>Bruce captures close-phase outcomes</li>
+            <li>Forwarded emails ingested via Bruce inbox</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Reminders engine: pest + building, settlement, follow-ups</li>
+            <li>Dormant flags + re-engagement triggers</li>
+            <li>Operational monitoring + alerting</li>
+            <li>Re-pair runbook documented</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 4: SALES FLOW -->
       <div class="matrix-row">
         <div class="lever-cell">
           <div class="lever-tag">Lever 04</div>
-          <div class="lever-name">The sales flow</div>
+          <div class="lever-name">Claude setup + skills</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">Discovery call to structured brief, no manual write-up.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">Proposals go out same-day. Conversion lifts. One canonical link per client, no version chaos.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Signed CAF to engaged to property sourcing, zero manual handoffs.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Every step measured. Where deals stick, where they fly, where to invest.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Compass Anthropic workspace live</li>
+            <li>Bruce orchestrator + Brief Extractor + Compliance Filer live</li>
+            <li>First skills in the team's hands by week 3</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Match-making skill in the team's hands</li>
+            <li>Compliance summary skill in the team's hands</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Website editor skill in the team's hands</li>
+            <li>Onboarding kit drafter skill in the team's hands</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>All marketing agents productised</li>
+            <li>Build agents (engineering + frontend) finalised + handed over</li>
+            <li>Compass OS Playbook delivered</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 5: PROPERTY LOG -->
       <div class="matrix-row">
         <div class="lever-cell">
           <div class="lever-tag">Lever 05</div>
-          <div class="lever-name">The property log</div>
+          <div class="lever-name">Sales flow</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">Foundation laid for the IP.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">Off-market intel starts being captured systematically.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Every property the team hears about — captured, filed, matched against every open brief in real time. Compass's biggest piece of IP, built.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Match quality tracked over time. Dormant properties resurface when briefs change.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Brief Extractor live: meeting context to structured brief</li>
+            <li>Brief visible in dashboard</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <span class="core-tag">Core delivery</span>
+          <ul>
+            <li>Proposal Writer live (HTML drafts)</li>
+            <li>Proposal Editor live (DM iteration)</li>
+            <li>Live proposal URL: one canonical link, refreshes on edit</li>
+            <li>Sales velocity metric live</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>CAF auto-population from brief</li>
+            <li>DocuSign signed → engaged, no manual handoff</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Full BI on conversion + sales velocity</li>
+            <li>Proposal performance dashboard</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 6: PROPERTY BRIEF -->
       <div class="matrix-row">
         <div class="lever-cell">
           <div class="lever-tag">Lever 06</div>
-          <div class="lever-name">The property brief</div>
+          <div class="lever-name">Property log</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">Every client brief is structured and searchable. Not buried in a Word doc.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">The brief drives the proposal. Change the brief, the proposal updates.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Briefs and properties cross-check constantly. New brief scans the log. New property scans the briefs.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Patterns surface across the book. What buyers actually want, not what they say they want.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Schema in place</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Match-making skill preview in the team's hands</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <span class="core-tag">Core delivery</span>
+          <ul>
+            <li>Property log browser, manual off-market entry</li>
+            <li>Property Parser live (RE.com.au + Domain)</li>
+            <li>Property Matcher live (rule-based v1)</li>
+            <li>Real-time match alerts</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Match-rate analytics in dashboards</li>
+            <li>Dormant-property handling</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 7: AUTOMATIONS -->
       <div class="matrix-row">
         <div class="lever-cell">
           <div class="lever-tag">Lever 07</div>
+          <div class="lever-name">Property brief</div>
+        </div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Brief Extractor live</li>
+            <li>Brief schema in DB</li>
+            <li>Structured brief visible in dashboard</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Brief drives proposal generation</li>
+            <li>Brief version log against client</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Brief feeds the matching engine</li>
+            <li>Brief evolves as feedback comes in from the client</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Cross-book brief insights</li>
+            <li>Trend surfacing across the active book</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="matrix-row">
+        <div class="lever-cell">
+          <div class="lever-tag">Lever 08</div>
           <div class="lever-name">Automations</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">Everything that happens in the OS gets logged. Compliance is the byproduct.</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">Proposals don't get forgotten. Photos and emails get filed without thinking about it.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Deal stages trigger the right actions. The team focuses on judgement, not admin.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Marketing runs itself. Dormant clients get re-engaged. Reminders fire on time, every time.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Audit log on every action</li>
+            <li>Archive ingestion pipeline</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Proposal sent → follow-up reminders</li>
+            <li>Voice-note transcription pipeline</li>
+            <li>Photo and email auto-filing</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Property captured → match scan</li>
+            <li>Deal-stage change → close-out actions</li>
+            <li>CAF auto-populate from brief</li>
+            <li>Forwarded email ingestion</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <span class="core-tag">Core delivery</span>
+          <ul>
+            <li>Reminders engine (pest+building, settlement, follow-ups)</li>
+            <li>Dormant-client triggers</li>
+            <li>SEO, newsletter, website automation</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- LEVER 8: CLIENT ENVIRONMENT (PROPOSED) -->
       <div class="matrix-row proposed">
         <div class="lever-cell">
-          <div class="lever-tag">Lever 08 · Proposed addition</div>
+          <div class="lever-tag">Lever 09 · Proposed addition</div>
           <div class="lever-name">Client environment</div>
         </div>
-        <div class="stage-cell" data-stage="M1 · Foundation">Architecture supports it from day one (multi-tenant infra already in scope).</div>
-        <div class="stage-cell" data-stage="M2 · Sales Engine">Client invitation flow ready.</div>
-        <div class="stage-cell" data-stage="M3 · Property Log + Close">Each client logs in to see their brief, shortlist, documents, key dates. Same shape as your Google Sheets, but properly.</div>
-        <div class="stage-cell" data-stage="M4 · Growth + Handover">Clients upload directly, message Bruce inside the portal, update preferences themselves. Less admin for the team.</div>
+        <div class="stage-cell" data-stage="M1 · Compliance + Foundation">
+          <ul>
+            <li>Multi-tenant + RLS infrastructure provisioned (no extra cost)</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M2 · Sales Engine">
+          <ul>
+            <li>Client invitation flow (uses live proposal URL pattern)</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M3 · Property Log + Close">
+          <ul>
+            <li>Phase 1 read-only portal: brief, matched properties (thumbs up/down + comments), document vault, key dates, status</li>
+          </ul>
+        </div>
+        <div class="stage-cell" data-stage="M4 · Growth + Handover">
+          <ul>
+            <li>Phase 2 interactive: uploads, in-portal Bruce messaging, preference updates</li>
+          </ul>
+        </div>
       </div>
 
-      <!-- COST + GATE FOOTER -->
       <div class="gate-row">
         <div class="gate-cell">
           <div class="first-label">After sign-off, what's paid &amp; what you keep</div>
@@ -393,7 +549,7 @@
         <div class="gate-cell" data-stage="M1">
           <div class="gate-label">After M1</div>
           <div class="paid">$19,500 paid</div>
-          <div class="keep">Audit-defensible from day one. Bruce capturing daily work. Team using first Claude skills.</div>
+          <div class="keep">Audit-defensible from day one. Every past client filed. Bruce capturing today's work. Team using the first Claude skills.</div>
         </div>
         <div class="gate-cell" data-stage="M2">
           <div class="gate-label">After M2</div>
@@ -408,7 +564,7 @@
         <div class="gate-cell" data-stage="M4">
           <div class="gate-label">After M4</div>
           <div class="paid">$50,000 paid</div>
-          <div class="keep">Marketing on autopilot. Full BI. Every account in Compass's name. 30-day support starts.</div>
+          <div class="keep">Marketing on autopilot. Full BI. Every account in Compass's name. 30-day support window starts.</div>
         </div>
       </div>
 
@@ -418,8 +574,7 @@
 
 <section class="seq bg-sand">
   <div class="container-narrow">
-    <h2><span class="num">03 · The off-ramp</span>Step off at any milestone boundary.</h2>
-
+    <h2><span class="num">02 · The off-ramp</span>Step off at any milestone boundary.</h2>
     <div class="stop-anywhere">
       <div class="label">From the Statement of Work</div>
       <div class="head">"Compass can pull out at any milestone boundary with full ownership of everything delivered to that point. No further fees. No clawback."</div>
@@ -430,15 +585,13 @@
 
 <section class="seq bg-grey">
   <div class="container-narrow">
-    <h2><span class="num">04 · Optional Month 5</span>By mutual agreement, not assumed.</h2>
-    <p style="max-width: 720px; margin-bottom: 18px;">If the M4 review surfaces a clear next outcome, Month 5 is available. Hourly or monthly retainer, scaled to what's actually needed. No fixed block.</p>
-
+    <h2><span class="num">03 · Optional Month 5</span>By mutual agreement, not assumed.</h2>
     <div class="month-card">
       <div class="month-num">05</div>
       <div class="month-body">
         <div class="label">Month 5 · Optional</div>
         <h3>Extension</h3>
-        <p>Reserved for residual scope from the M4 review or a Phase 2 capability brought forward. Engaged only by joint go/no-go at M4 sign-off. Same rate, billed monthly or hourly, whichever suits.</p>
+        <p>Engaged by mutual agreement at the M4 review. Reserved for residual scope or a Phase 2 capability brought forward. Hourly rate or monthly retainer scaled to what's actually needed, not a fixed block.</p>
       </div>
       <div class="month-side">
         <div class="price">~$12.5k</div>
@@ -450,51 +603,49 @@
 
 <section class="seq">
   <div class="container-narrow">
-    <h2><span class="num">05 · Beyond Stage 1</span>What's possible once the foundation is in.</h2>
-    <p class="intro-p" style="margin-bottom: 8px;">None of this is in the $50k. The architecture is built so all of it can be added cleanly when Compass is ready. Scoped separately as Phase 2, Phase 3, or franchise activation, depending on the call.</p>
-
+    <h2><span class="num">04 · Beyond Stage 1</span>What's possible once the foundation is in.</h2>
     <div class="beyond-grid">
 
       <div class="beyond-item">
         <div class="beyond-tag">Franchise &amp; scale</div>
         <div class="beyond-name">Multi-tenant activation</div>
-        <div class="beyond-desc">The architecture is multi-tenant from M1. Activating a second tenant (franchise, partnership, licensee) is a switch flip, not a rebuild. The OS is ready when you are.</div>
+        <div class="beyond-desc">Architecture is multi-tenant from M1. Activating a second tenant (franchise, partnership, licensee) is a switch flip, not a rebuild.</div>
       </div>
 
       <div class="beyond-item">
         <div class="beyond-tag">Phase 2</div>
         <div class="beyond-name">Semantic matching</div>
-        <div class="beyond-desc">Beyond rule-based. The matching engine learns from feedback and surfaces properties on intent, not just attributes. Built on pgvector.</div>
+        <div class="beyond-desc">Beyond rule-based. The matcher learns from feedback and surfaces properties on intent, not just attributes. Built on pgvector.</div>
       </div>
 
       <div class="beyond-item">
         <div class="beyond-tag">Phase 2</div>
         <div class="beyond-name">External property enrichment</div>
-        <div class="beyond-desc">CoreLogic and PriceFinder data flowing into the log. Every property auto-enriched with valuation history, ownership, comparable sales.</div>
+        <div class="beyond-desc">CoreLogic and PriceFinder data flowing into the log. Valuation history, ownership, comparable sales.</div>
       </div>
 
       <div class="beyond-item">
         <div class="beyond-tag">Phase 2</div>
         <div class="beyond-name">Historical structured parsing</div>
-        <div class="beyond-desc">Stage 1 ingests the historical archive as archive-grade (searchable, retrievable). Phase 2 turns every past WhatsApp thread and email into structured data.</div>
+        <div class="beyond-desc">Stage 1 ingests history as archive-grade. Phase 2 turns every past WhatsApp thread and email into structured data.</div>
       </div>
 
       <div class="beyond-item">
         <div class="beyond-tag">Phase 2</div>
         <div class="beyond-name">Daily briefings</div>
-        <div class="beyond-desc">Auto-generated team standup from the night's activity. Needs more than four weeks of data to be useful, so post-launch.</div>
+        <div class="beyond-desc">Auto-generated team standup from the night's activity. Needs more than four weeks of data to be useful.</div>
       </div>
 
       <div class="beyond-item">
         <div class="beyond-tag">Phase 2</div>
         <div class="beyond-name">Conversion optimisation agent</div>
-        <div class="beyond-desc">A/B tests the sales motion. Learns which proposal angles convert, which intro lines land, which property framings close.</div>
+        <div class="beyond-desc">A/B tests the sales motion. Learns which proposal angles convert, which framings close.</div>
       </div>
 
       <div class="beyond-item">
         <div class="beyond-tag">Phase 2</div>
         <div class="beyond-name">Bruce in client groups</div>
-        <div class="beyond-desc">Stage 1 keeps Bruce as a silent observer in client groups when the team adds him. Phase 2 enables Bruce to participate directly with clients.</div>
+        <div class="beyond-desc">Stage 1 keeps Bruce as silent observer when added to client groups. Phase 2 lets Bruce participate with clients directly.</div>
       </div>
 
       <div class="beyond-item">
@@ -506,7 +657,7 @@
       <div class="beyond-item">
         <div class="beyond-tag">Phase 3</div>
         <div class="beyond-name">White-label Compass OS</div>
-        <div class="beyond-desc">License the system to other buyers agencies. Compass becomes the operating system for the category, not just a single agency.</div>
+        <div class="beyond-desc">License the system to other buyers agencies. Compass becomes the operating system for the category.</div>
       </div>
 
       <div class="beyond-item">
@@ -520,7 +671,7 @@
 </section>
 
 <footer class="page-footer"><div class="container-narrow">
-  Compass OS · Scope on a Page · Stage 1 · v0.2<br>
+  Compass OS · Scope on a Page · Stage 1 · v0.3<br>
   Prepared by Dan for Nick and Chris, Compass Buyers Agency · May 2026<br>
   Companions: <a href="compass-os-proposal.html">Proposal</a> · <a href="compass-os-sow.html">Statement of Work</a> · <a href="compass-os-weekly-plan.html">Delivery Plan</a> · <a href="compass-os-prototype.html">Prototype</a>
 </div></footer>
