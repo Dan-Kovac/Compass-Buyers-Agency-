@@ -121,11 +121,10 @@ WhatsApp fallback if Meta disrupts access:
 - Day-to-day operations don't stop. Team and clients get notified of the channel switch.
 - Recovery when WhatsApp comes back: minutes, not days.
 
-Compliance — being completely upfront:
-- What's in the current proposal is my interpretation of audit-ready, drawn from QLD and NSW Fair Trading guidance. It has not been reviewed by a compliance specialist.
-- For an existential layer like this, that's not good enough on its own.
-- Recommended approach: engage a compliance specialist in M1 to review and sign off on the structure. Cost can sit inside the build budget, or use the consultant Compass already trusts. Your offer to assist on this is exactly the right move.
-- Once a specialist signs off, the structure is legally defensible. That's the bar.
+Compliance:
+- Compliance shape gets locked in working directly with you and Chris early in M1. I'll do the regulatory research in parallel against QLD and NSW Fair Trading guidance, but the operational reality needs to come from the people running the agency.
+- Once we've worked through what audit-ready actually means in the day-to-day, the structure is legally defensible.
+- Your offer to assist here is exactly the right move.
 
 
 9. AI SHELF LIFE AND PRODUCTION EXPERIENCE
