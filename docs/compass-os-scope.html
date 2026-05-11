@@ -93,13 +93,13 @@
   .matrix-row.compliance { background: var(--sea-tint); }
   .matrix-row.proposed { background: var(--sand-light); }
 
-  .lever-cell { padding: 22px 18px; border-right: 1px solid var(--stone-light); }
+  .lever-cell { padding: 22px 18px; border-right: 1px solid var(--stone-light); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
   .lever-cell .lever-name { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 14pt; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 6px; }
   .lever-cell .lever-tag { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 700; }
   .matrix-row.compliance .lever-cell .lever-tag { color: #1F5D4F; }
   .matrix-row.proposed .lever-cell .lever-tag { color: #8a5e1d; }
 
-  .stage-cell { padding: 22px 14px; border-right: 1px solid var(--stone-light); font-size: 9pt; line-height: 1.5; color: var(--ink); }
+  .stage-cell { padding: 22px 14px; border-right: 1px solid var(--stone-light); font-size: 9pt; line-height: 1.5; color: var(--ink); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
   .stage-cell:last-child { border-right: none; }
   .stage-cell ul { list-style: none; padding: 0; margin: 0; }
   .stage-cell ul li { padding-left: 12px; position: relative; margin: 5px 0; }
@@ -108,7 +108,7 @@
 
   /* COST + GATE FOOTER */
   .gate-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 0; }
-  .gate-row .gate-cell { padding: 24px 14px 28px; background: var(--hills); color: var(--white); border-right: 1px solid rgba(255,255,255,0.12); }
+  .gate-row .gate-cell { padding: 24px 14px 28px; background: var(--hills); color: var(--white); border-right: 1px solid rgba(255,255,255,0.12); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
   .gate-row .gate-cell:first-child { background: var(--hills-deep); display: flex; align-items: center; padding: 24px 18px; }
   .gate-row .gate-cell:last-child { border-right: none; }
   .gate-row .gate-cell .gate-label { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 8px; }
