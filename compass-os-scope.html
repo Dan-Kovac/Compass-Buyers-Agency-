@@ -104,18 +104,32 @@
   .stage-cell ul li::before { content: '→'; position: absolute; left: 0; color: var(--sea); font-weight: 600; }
   .stage-cell .core-tag { display: inline-block; background: var(--hills); color: var(--white); font-size: 6.5pt; padding: 2px 7px; border-radius: 999px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
 
-  /* COST + GATE FOOTER */
-  .gate-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 0; }
-  .gate-row .gate-cell { padding: 24px 14px 28px; background: var(--hills); color: var(--white); border-right: 1px solid rgba(255,255,255,0.12); min-width: 0; overflow-wrap: break-word; word-break: break-word; }
-  .gate-row .gate-cell:first-child { background: var(--hills-deep); display: flex; align-items: center; padding: 24px 18px; }
-  .gate-row .gate-cell:last-child { border-right: none; }
-  .gate-row .gate-cell .gate-label { font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 8px; }
-  .gate-row .gate-cell .paid { font-family: 'MinervaModern', serif; font-size: 22pt; line-height: 1; font-weight: 500; color: var(--white); margin-bottom: 12px; letter-spacing: -0.02em; }
-  .gate-row .gate-cell .status-head { font-family: 'MinervaModern', serif; font-size: 11pt; color: var(--sand); font-weight: 600; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.005em; }
-  .gate-row .gate-cell .status-list { list-style: none; padding: 0; margin: 0; }
-  .gate-row .gate-cell .status-list li { font-size: 8.5pt; line-height: 1.5; color: rgba(255,255,255,0.92); padding-left: 14px; position: relative; margin: 4px 0; }
-  .gate-row .gate-cell .status-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sea-soft); font-weight: 700; font-size: 8.5pt; }
-  .gate-row .gate-cell .first-label { font-family: 'MinervaModern', serif; font-size: 13pt; line-height: 1.25; color: var(--sand); font-weight: 500; letter-spacing: -0.012em; }
+  /* MILESTONE BLOCKS — project + payment views */
+  .milestones-block { margin: 56px 0 0; }
+  .milestones-head { margin: 0 0 18px; padding: 0 0 14px; border-bottom: 1px solid var(--stone-light); display: flex; align-items: baseline; flex-wrap: wrap; gap: 14px; }
+  .milestones-label { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; }
+  .milestones-title { font-family: 'MinervaModern', serif; color: var(--hills); font-size: 22pt; font-weight: 600; line-height: 1.15; letter-spacing: -0.018em; margin: 0; }
+  .milestones-sub { font-size: 10pt; color: var(--ink-soft); line-height: 1.5; flex: 1 1 auto; }
+
+  .milestones-grid { display: grid; gap: 14px; }
+  .milestones-grid.project-grid { grid-template-columns: repeat(4, 1fr); }
+  .milestones-grid.payment-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .ms-card { background: var(--hills); color: var(--white); padding: 22px 22px 24px; border-radius: 3px; min-width: 0; }
+  .ms-card .ms-num { font-family: 'MinervaModern', serif; font-size: 26pt; font-weight: 500; line-height: 1; letter-spacing: -0.02em; }
+  .ms-card .ms-window { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin: 12px 0 6px; }
+  .ms-card .ms-name { font-family: 'MinervaModern', serif; font-size: 14pt; font-weight: 600; line-height: 1.25; color: var(--sand); letter-spacing: -0.012em; margin-bottom: 14px; }
+  .ms-card .ms-list { list-style: none; padding: 0; margin: 0; }
+  .ms-card .ms-list li { font-size: 9pt; line-height: 1.55; color: rgba(255,255,255,0.95); padding-left: 14px; position: relative; margin: 5px 0; }
+  .ms-card .ms-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sea-soft); font-weight: 700; }
+
+  .pay-card { background: var(--white); padding: 22px 24px 24px; border-radius: 3px; border-top: 4px solid var(--hills); min-width: 0; box-shadow: 0 1px 0 var(--stone-light); }
+  .pay-card .pay-num { font-family: 'Aeonik', sans-serif; font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 8px; }
+  .pay-card .pay-amount { font-family: 'MinervaModern', serif; font-size: 30pt; color: var(--hills); font-weight: 500; line-height: 1; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .pay-card .pay-trigger { font-family: 'MinervaModern', serif; font-size: 13pt; color: var(--hills); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .pay-card .pay-fy { font-size: 9pt; color: var(--ink-soft); line-height: 1.55; }
+
+  .payment-note { font-size: 9.5pt; color: var(--stone); line-height: 1.6; margin-top: 14px; padding: 12px 0 0; border-top: 1px dashed var(--stone-light); }
 
   /* BEYOND SCOPE — simple list */
   .beyond-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 48px; }
@@ -132,8 +146,9 @@
     .lever-cell .lever-name { font-size: 12pt; }
     .stage-cell { font-size: 8.5pt; padding: 18px 12px; }
     .lever-cell { padding: 18px 12px; }
-    .gate-row .gate-cell .paid { font-size: 18pt; }
-    .gate-row .gate-cell { padding: 20px 12px 24px; }
+    .pay-card .pay-amount { font-size: 24pt; }
+    .ms-card .ms-num { font-size: 22pt; }
+    .ms-card .ms-list li, .pay-card .pay-fy { font-size: 8.5pt; }
   }
   @media (max-width: 820px) {
     .container, .container-narrow, .container-wide { padding: 0 22px; }
@@ -147,15 +162,14 @@
     .lead { font-size: 14pt; }
     section.seq { padding: 40px 0; }
     .matrix-headers { display: none; }
-    .matrix-row, .gate-row { grid-template-columns: 1fr; border-bottom: none; margin-bottom: 28px; background: var(--sand-light); padding: 6px 0; border-radius: 4px; }
+    .matrix-row { grid-template-columns: 1fr; border-bottom: none; margin-bottom: 28px; background: var(--sand-light); padding: 6px 0; border-radius: 4px; }
+    .milestones-grid.project-grid, .milestones-grid.payment-grid { grid-template-columns: 1fr; }
+    .milestones-head { flex-direction: column; align-items: flex-start; gap: 6px; }
       .matrix-row.proposed { background: var(--sand); }
     .lever-cell { padding: 16px 18px 8px; border-right: none; border-bottom: 1px solid var(--stone-light); }
     .stage-cell { padding: 14px 18px; border-right: none; border-bottom: 1px dashed var(--stone-light); font-size: 9pt; }
     .stage-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: 6px; }
     .stage-cell:last-child { border-bottom: none; }
-    .gate-row .gate-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 18px 22px; }
-    .gate-row .gate-cell:first-child { padding: 18px 22px; }
-    .gate-row .gate-cell::before { content: attr(data-stage); display: block; font-family: 'Aeonik', sans-serif; font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); font-weight: 700; margin-bottom: 6px; opacity: 0.8; }
     .beyond-list { columns: 1; }
   }
   @media print {
@@ -163,7 +177,7 @@
     body { font-size: 8.5pt; }
     .container, .container-narrow { padding: 0; max-width: 100%; }
     section.seq { padding: 24px 0; }
-    .matrix-row, .gate-row, .beyond-list li { page-break-inside: avoid; }
+    .matrix-row, .ms-card, .pay-card, .beyond-list li { page-break-inside: avoid; }
     .stage-cell { font-size: 7.5pt; padding: 12px 8px; }
   }
 </style>
@@ -527,57 +541,93 @@
         </div>
       </div>
 
-      <div class="gate-row">
-        <div class="gate-cell">
-          <div class="first-label">Core status &amp; cost at each milestone sign-off</div>
-        </div>
-        <div class="gate-cell" data-stage="M1">
-          <div class="gate-label">After M1 · Weeks 1-4</div>
-          <div class="paid">$19,500 paid</div>
-          <div class="status-head">Compliance + Foundation complete</div>
-          <ul class="status-list">
+    </div>
+
+    <!-- PROJECT MILESTONES -->
+    <div class="milestones-block">
+      <div class="milestones-head">
+        <span class="milestones-label">Delivery</span>
+        <h3 class="milestones-title">Project milestones</h3>
+        <span class="milestones-sub">Four delivery checkpoints. Sign-off at each before the next begins.</span>
+      </div>
+      <div class="milestones-grid project-grid">
+        <div class="ms-card">
+          <div class="ms-num">M1</div>
+          <div class="ms-window">Weeks 1-4</div>
+          <div class="ms-name">Compliance + Foundation</div>
+          <ul class="ms-list">
             <li>Audit-defensible from day one</li>
             <li>Every past client filed</li>
             <li>Bruce capturing today's work</li>
             <li>First Claude skills in the team's hands</li>
           </ul>
         </div>
-        <div class="gate-cell" data-stage="M2">
-          <div class="gate-label">After M2 · Weeks 5-8</div>
-          <div class="paid">$39,000 paid</div>
-          <div class="status-head">Sales Engine complete</div>
-          <ul class="status-list">
+        <div class="ms-card">
+          <div class="ms-num">M2</div>
+          <div class="ms-window">Weeks 5-8</div>
+          <div class="ms-name">The Sales Engine</div>
+          <ul class="ms-list">
             <li>Proposals drafted in chat, same-day out</li>
             <li>Sales velocity on the dashboard</li>
             <li>One canonical live-link per client</li>
-            <li>All M1 deliverables remain in production</li>
           </ul>
         </div>
-        <div class="gate-cell" data-stage="M3">
-          <div class="gate-label">After M3 · Weeks 9-12</div>
-          <div class="paid">$39,000 paid</div>
-          <div class="status-head">Property Log + Close complete</div>
-          <ul class="status-list">
+        <div class="ms-card">
+          <div class="ms-num">M3</div>
+          <div class="ms-window">Weeks 9-12</div>
+          <div class="ms-name">Property Log + Close</div>
+          <ul class="ms-list">
             <li>Property log compounding, matches firing in real time</li>
-            <li>Closed-loop onboarding live (CAF → signed → engaged)</li>
+            <li>Closed-loop onboarding (CAF → signed → engaged)</li>
             <li>Client portal live (Phase 1, read-only)</li>
-            <li>All M1, M2 deliverables remain in production</li>
           </ul>
         </div>
-        <div class="gate-cell" data-stage="M4">
-          <div class="gate-label">After M4 · Weeks 13-16</div>
-          <div class="paid">$50,000 paid</div>
-          <div class="status-head">Growth + Handover complete</div>
-          <ul class="status-list">
+        <div class="ms-card">
+          <div class="ms-num">M4</div>
+          <div class="ms-window">Weeks 13-16</div>
+          <div class="ms-name">Growth + Handover</div>
+          <ul class="ms-list">
             <li>Marketing agents publishing on autopilot</li>
             <li>Full BI live</li>
-            <li>Every account in Compass's name, 30-day support starts</li>
-            <li>All M1, M2, M3 deliverables remain in production</li>
+            <li>Every account in Compass's name</li>
+            <li>30-day support window starts</li>
           </ul>
         </div>
       </div>
-
     </div>
+
+    <!-- PAYMENT MILESTONES -->
+    <div class="milestones-block">
+      <div class="milestones-head">
+        <span class="milestones-label">Payment</span>
+        <h3 class="milestones-title">Invoice milestones</h3>
+        <span class="milestones-sub">Three invoices (default, tax-aligned across two FYs). Separate from delivery milestones.</span>
+      </div>
+      <div class="milestones-grid payment-grid">
+        <div class="pay-card">
+          <div class="pay-num">Invoice 01</div>
+          <div class="pay-amount">$19,500</div>
+          <div class="pay-trigger">Issued at kick-off</div>
+          <div class="pay-fy">Pre-June 30 · Funds Month 1 build</div>
+        </div>
+        <div class="pay-card">
+          <div class="pay-num">Invoice 02</div>
+          <div class="pay-amount">$19,500</div>
+          <div class="pay-trigger">Issued after M2 acceptance</div>
+          <div class="pay-fy">New FY · Sales Engine sign-off</div>
+        </div>
+        <div class="pay-card">
+          <div class="pay-num">Invoice 03</div>
+          <div class="pay-amount">$11,000</div>
+          <div class="pay-trigger">Issued after M4 acceptance</div>
+          <div class="pay-fy">New FY · Project complete + handover</div>
+        </div>
+      </div>
+      <div class="payment-note">
+        Alternative 4-invoice cadence available: 4 × $12,500 monthly at kick-off, M1, M2, M3 acceptance. Same total, same scope, Compass picks.
+      </div>
+    </div>
+
   </div>
 </section>
 
