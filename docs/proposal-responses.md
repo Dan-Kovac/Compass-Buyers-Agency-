@@ -186,3 +186,89 @@ Dan
 - Add the percentage-share visual (pie chart or stacked bar) on the Investment page so the cost stack is legible.
 - Strengthen the fixed-price / risk-on-Dan framing under section 07.
 - Anything else that surfaces from Q3-Q10 that warrants an update.
+
+---
+
+## Brainstorm: gap-question answers (internal, not in email yet — for Dan to absorb and decide)
+
+These are first-cut best guesses on the gaps I flagged. Treat as a thinking tool. Push back, refine, drop the ones that aren't worth Nick's time.
+
+**1. What does a client actually see when they log in?**
+
+- Phase 1 (M3, default scope): read-only view. Their brief, matched properties (with thumbs up/down feedback that feeds Bruce), document vault, key dates, status updates.
+- Phase 2 (M4 or post-handover): interactive. Upload documents directly, message Bruce inside the portal, update preferences inline.
+- My call: ship read-only first, layer interactivity once we've watched real clients use it.
+
+**2. Permissions and roles**
+
+- **Admin (Chris as licensee):** everything. Full audit log, compliance export, financial visibility.
+- **Agent (team members like Lee, Nick):** own clients plus the shared property log. No compliance/financial controls.
+- **Client:** their own record only.
+- **Accountant/view-only:** read-only access for EOFY and tax conversations.
+- Worth confirming with Chris early in M1 that this role model matches how the team actually delegates.
+
+**3. Front-end brand and aesthetics**
+
+- Yes, the OS uses the same brand language as the website. Hills, Sand, Sea-Breeze palette. MinervaModern headings, Aeonik body. Same restraint, same coastal-luxury tone.
+- Reason: clients see this layer. Compass is a premium brand. The OS can't feel like a SaaS dashboard if it's the surface clients meet.
+- The internal admin views can be more utilitarian, but anything client-facing matches the website.
+
+**4. Support after handover**
+
+- 30-day post-handover bug-fix window included free. Anything that breaks because of how we built it, we fix at no charge.
+- Beyond that, two options, Compass picks:
+  - **Retainer:** ~$1.5k-$2k/mo. Covers monitoring, model updates, light tweaks, priority response within one business day. No 24/7. Business hours, best effort outside.
+  - **Pay-per-incident:** keep me on speed dial, charged as agreed when something comes up.
+- No 24/7 SLA in Stage 1. We're not running a NOC. Worth setting that expectation cleanly.
+
+**5. Training the team**
+
+- Built into M4 scope:
+  - Two live training sessions (one with Chris and Nick on the admin/compliance layer, one with the full team on the daily workflows). Both recorded.
+  - Per-agent runbook: what it does, how to update its skills, what to do when it misbehaves.
+  - Bruce itself doubles as the in-app help system: ask Bruce "how do I do X?" and Bruce answers.
+- Roughly 10-15 hours of my M4 time allocated here. Already in the build cost.
+
+**6. Success metrics**
+
+- Worth agreeing the scoreboard before kick-off so we both know what good looks like at M4.
+- Suggested core metrics:
+  - **Sales velocity:** time from discovery call to live proposal link (target: under 60 minutes).
+  - **Proposal output:** proposals sent per week (baseline now vs M4).
+  - **Deals attributable to build:** extra closes during the 16 weeks from faster proposals.
+  - **Property log:** properties captured per week, matches surfaced per week, % converted.
+  - **Compliance posture:** audit-readiness score (Chris signs off monthly, target 100% by M4).
+- These should sit on a Dashboard v1 that's live from M2 onwards. We measure as we go, not at the end.
+
+**7. Pause or exit mid-build**
+
+- **IP:** Compass owns everything from day one. If Compass exits, Compass keeps whatever's been built. No code held hostage.
+- **Refund:** no refund on signed-off milestones. Sign-off is the gate.
+- **Pause clause:** up to 30 days pause for any reason, project resumes at the same rate. Beyond 60 days, we renegotiate scope and timeline because my availability isn't guaranteed forever.
+- **Acquisition / change of ownership:** contract is assignable to the new entity with mutual consent.
+
+**8. Privacy and data handling**
+
+- **Region:** Supabase Sydney (ap-southeast-2). Data stays in Australia.
+- **APP compliance:** baked in. Explicit consent at client intake, right-to-access export, deletion-on-request workflow.
+- **Third parties:** no client data sold or shared. Anthropic processes inputs through the API but doesn't train on API traffic by default (this is contractual on their side).
+- **Encryption:** at rest and in transit. Audit log records every read/write against a client record.
+- **DPA:** I can provide a lightweight Data Processing Agreement if Compass needs one to give to its own clients.
+
+**9. WhatsApp Business vs personal WhatsApp**
+
+- Personal WhatsApp on business automation is a TOS violation. Not the path.
+- Recommendation: WhatsApp Business API via a Business Solution Provider (Twilio or 360dialog). Costs already inside the ~$80/mo line in the proposal.
+- Compass owns the WhatsApp Business number. Bruce sits behind it.
+- The team keeps using regular WhatsApp on their phones for everything else. Bruce only answers messages to the business number.
+
+**10. Model deprecation and migration risk**
+
+- Anthropic gives 12-month deprecation notice on production models. Not a sudden cliff.
+- Migrations between Claude versions are usually trivial if the file structure is clean (the whole reason we're building it that way).
+- My commitment: any deprecation-driven migration within 12 months of handover is on me, no extra charge.
+- Beyond 12 months: covered under the support retainer if engaged, otherwise scoped as a small project.
+
+**11. ??? (need the missing question)**
+
+- Original Nick email you pasted got truncated mid-sentence at "For a build at t..." so I never had the full list. Send me the rest of the email or tell me what Q11 actually asks and I'll draft it.
