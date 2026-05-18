@@ -106,7 +106,7 @@ export default function About() {
       {/* ── Section 1: FeatureSplit 1 ── bg-sand-wash (image right) ───────── */}
       <FeatureSplit
         eyebrow="What Local Expertise Means"
-        title="Eighty years of property experience, all walking the same streets"
+        title="Eighty Years of Property Experience, All Walking the Same Streets"
         description={"Our team carries more than 80 years of combined personal and professional property experience across the Northern Rivers and the Gold Coast. Every property is inspected in person, by us, before any recommendation. Selling agents are spoken to daily and weekly. That's how you get the micro-pocket, street-level insights most buyers will never see.\n\n\u2022 76% of homes secured through off-market or pre-market channels\n\u2022 On-the-ground experience across the Tweed Shire, Gold Coast, Byron Bay and Ballina regions\n\u2022 Long-standing relationships with hundreds of local selling agents, plus access to top-tier legal, building and planning professionals"}
         image="/images/pages/about.jpg"
         imageAlt="Compass team meeting clients"
@@ -118,7 +118,7 @@ export default function About() {
       {/* ── Section 3: FeatureSplit 2 ── bg-white (image left) ────────────── */}
       <FeatureSplit
         eyebrow="Working Exclusively for the Buyer"
-        title="Our team represents buyers. No sales, no conflicts."
+        title="Our Team Represents Buyers. No Sales, No Conflicts."
         description={"Working only on the buyer's side of the table changes the nature of the advice you receive at every stage, and shapes the outcome you ultimately achieve.\n\n\u2022 Independent priority advice grounded in a proven due-diligence process\n\u2022 Our in-house team supports you from brief to settlement, and well beyond\n\u2022 You stay in control at every stage, with a clear, structured acquisition strategy"}
         image="/images/pages/about-team.jpg"
         imageAlt="Compass buyers agents meeting clients"
@@ -182,7 +182,7 @@ export default function About() {
             <div className="text-center" style={{ marginBottom: "clamp(2.5rem, 5vw, 4rem)" }}>
               <p className="eyebrow-label">The Team</p>
               <h2>
-                Who you'll work with
+                Who You'll Work With
               </h2>
               <p className="text-balance" style={{ maxWidth: "40rem", margin: "0 auto" }}>
                 Every conversation, inspection and negotiation is handled by a core team of senior experts at Compass. No hand-offs, no call centres, no faceless agents managing you from afar.
@@ -357,7 +357,7 @@ export default function About() {
 
       {/* ── Section 6: CTA ── bg-editorial-dark ───────────────────────────── */}
       <CTASection
-        heading="Have questions? Start a conversation."
+        heading="Have Questions? Start a Conversation."
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="No sales pitch. Just honest advice from people who know these markets inside out."

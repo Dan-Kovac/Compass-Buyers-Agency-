@@ -74,7 +74,7 @@ export default function AcquisitionDetail() {
     return (
       <div className="site-container" style={{ padding: "var(--section-padding-compact) 0" }}>
         <div className="rounded-token border border-[var(--border)] bg-white p-8">
-          <h2 className="text-2xl mb-4">Acquisition not found</h2>
+          <h2 className="text-2xl mb-4">Acquisition Not Found</h2>
           <p className="text-[var(--ink)]/70 mb-6">The property you're looking for doesn't exist or has been removed.</p>
           <a href={createPageUrl("Acquisitions")} className="text-[var(--hills)] hover:underline">
             ← Back to all acquisitions

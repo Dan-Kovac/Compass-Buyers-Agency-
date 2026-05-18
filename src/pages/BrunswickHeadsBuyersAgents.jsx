@@ -23,52 +23,52 @@ const FALLBACK = {
   acquisitions: {
     suburb: "Brunswick Heads",
     lga: "Byron Shire",
-    eyebrow: "Recent Brunswick Heads acquisitions",
+    eyebrow: "Recent Brunswick Heads Acquisitions",
   },
   faqItems: [
     {
-      question: "What is the median house price in Brunswick Heads?",
+      question: "What Is the Median House Price in Brunswick Heads?",
       answer: "Brunswick Heads village sits at approximately $2.1M for houses. Ocean Shores is around $1.55M, New Brighton around $1.75M, and South Golden Beach around $1.65M. River-frontage properties and character cottages on the heritage streets command a significant premium above the median.",
     },
     {
-      question: "Is Brunswick Heads cheaper than Byron Bay?",
+      question: "Is Brunswick Heads Cheaper Than Byron Bay?",
       answer: "Roughly 14% lower than Byron town's $2.45M median. You're in the same shire with access to the same schools and council services, but in a quieter village. The Brunswick River, Torakina Beach, and Hotel Brunswick give it a community feel that Byron has largely lost to tourism.",
     },
     {
-      question: "Do I need a buyers agent in Brunswick Heads?",
+      question: "Do I Need a Buyers Agent in Brunswick Heads?",
       answer: "About 39% of sales in the broader Brunswick area happen off-market. Stock is extremely tight: only around 80 house sales per year across Brunswick Heads, Ocean Shores and South Golden Beach combined. Well-priced homes rarely last a week. Flood mapping and Byron Shire heritage overlays add layers of complexity that catch out unprepared buyers.",
     },
     {
-      question: "How much does a buyers agent cost in Brunswick Heads?",
+      question: "How Much Does a Buyers Agent Cost in Brunswick Heads?",
       answer: "Buyers agent fees in Brunswick Heads typically range from 1.5% to 2.5% of the property price. Given the tight stock levels and 39% off-market rate, professional representation often pays for itself through access alone. We also navigate flood certificates and heritage overlays that can complicate transactions.",
     },
     {
-      question: "How competitive is the Brunswick Heads property market?",
+      question: "How Competitive Is the Brunswick Heads Property Market?",
       answer: "Expect 2-4 serious bidders on quality listings. Less intense than Byron town, but faster than most interstate buyers expect. River-frontage properties and village character cottages attract the strongest competition, often selling within days of listing. Preparation and speed are non-negotiable.",
     },
     {
-      question: "Brunswick Heads or Ocean Shores: which is better?",
+      question: "Brunswick Heads or Ocean Shores: Which Is Better?",
       answer: "Brunswick Heads village offers walkable cafes, the river, Torakina Beach, and a tight-knit community at around $2.1M. Ocean Shores is larger and more suburban, with bigger blocks at roughly $1.55M. Both sit in Byron Shire with access to the same schools and services. Brunswick has stronger capital growth; Ocean Shores offers more house for your money.",
     },
     {
-      question: "Is Brunswick Heads a good property investment?",
+      question: "Is Brunswick Heads a Good Property Investment?",
       answer: "Brunswick Heads has shown strong capital growth driven by its Byron Shire address and extreme scarcity. Very few properties come to market each year, and growing appeal among families and lifestyle buyers seeking village living keeps upward pressure on prices. The supply constraint is structural, not cyclical.",
     },
     {
-      question: "What are the key risks when buying in Brunswick Heads?",
+      question: "What Are the Key Risks When Buying in Brunswick Heads?",
       answer: "Flood risk is the main concern near the Brunswick River and in low-lying Ocean Shores pockets, affecting insurance premiums and resale values. Byron Shire DCP overlays and heritage considerations on older cottages can limit renovation scope. Some rural-residential blocks rely on septic systems that require council approval to upgrade.",
     },
     {
-      question: "What is the difference between a buyers agent and a real estate agent in Brunswick Heads?",
+      question: "What Is the Difference Between a Buyers Agent and a Real Estate Agent in Brunswick Heads?",
       answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. In Brunswick Heads, that means accessing the 39% of properties that sell off-market, navigating flood risk and heritage overlays, and moving quickly in a market where only 80 houses trade per year. We never list or sell property.",
     },
     {
-      question: "Can you find off-market properties in Brunswick Heads?",
+      question: "Can You Find Off-Market Properties in Brunswick Heads?",
       answer: "About 39% of sales in the broader Brunswick area happen off-market. Our relationships with agents across Byron Shire mean we're often contacted about properties before they're listed. In a market where only 80 houses sell per year, off-market access is often the difference between securing and missing out.",
     },
   ],
   cta: {
-    heading: "Eighty houses a year. You need the right one.",
+    heading: "Eighty Houses a Year. You Need the Right One.",
     buttonText: "Start a Conversation",
   },
 };

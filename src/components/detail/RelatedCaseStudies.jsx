@@ -3,7 +3,7 @@ import { fetchCaseStudies } from "@/lib/sanityClient";
 import CaseStudyCard from "@/components/caseStudies/CaseStudyCard";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
-export default function RelatedCaseStudies({ currentId, title = "Keep exploring" }) {
+export default function RelatedCaseStudies({ currentId, title = "Keep Exploring" }) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {

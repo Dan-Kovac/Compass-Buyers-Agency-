@@ -213,7 +213,7 @@ export default function Areas() {
       ))}
       {/* Section 8: CTA */}
       <CTASection
-        heading="Looking to buy in the Northern Rivers or Gold Coast?"
+        heading="Looking to Buy in the Northern Rivers or Gold Coast?"
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Free consultation. No obligation. Honest advice on your situation."

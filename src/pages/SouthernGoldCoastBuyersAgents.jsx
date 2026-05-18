@@ -23,52 +23,52 @@ const FALLBACK = {
   acquisitions: {
     suburb: "Burleigh Heads",
     lga: "City of Gold Coast",
-    eyebrow: "Recent Southern Gold Coast acquisitions",
+    eyebrow: "Recent Southern Gold Coast Acquisitions",
   },
   faqItems: [
     {
-      question: "What is the median house price on the Southern Gold Coast?",
+      question: "What Is the Median House Price on the Southern Gold Coast?",
       answer: "Burleigh Heads leads the corridor at around $1.85M, driven by the James Street precinct and beachfront national park. Currumbin sits around $1.55M, Palm Beach roughly $1.45M, and Elanora at about $1.25M offers the strongest family value in the corridor.",
     },
     {
-      question: "Is the Southern Gold Coast cheaper than Byron Bay?",
+      question: "Is the Southern Gold Coast Cheaper Than Byron Bay?",
       answer: "Roughly 25% cheaper. Burleigh at $1.85M versus Byron at $2.45M delivers a significant saving while offering a premium beach lifestyle. The Southern Gold Coast has better infrastructure, more dining options, Gold Coast Airport nearby, and a wider range of property types from beachfront apartments to acreage.",
     },
     {
-      question: "Do I need a buyers agent on the Southern Gold Coast?",
+      question: "Do I Need a Buyers Agent on the Southern Gold Coast?",
       answer: "Around 28% of deals are off-market, especially in beachside Burleigh. Strata complexity is a genuine trap on the Gold Coast: older beachfront towers can carry massive special levies and building defects that aren't obvious on inspection. We review strata reports, body corporate minutes, and building histories before recommending any property.",
     },
     {
-      question: "How much does a buyers agent cost on the Southern Gold Coast?",
+      question: "How Much Does a Buyers Agent Cost on the Southern Gold Coast?",
       answer: "Buyers agent fees on the Southern Gold Coast typically range from 1.5% to 2.5% of the property price. The value comes from catching strata issues that can cost six figures, accessing the 28% of stock that sells off-market, and negotiation savings that typically outweigh the fee.",
     },
     {
-      question: "How competitive is the Southern Gold Coast market?",
+      question: "How Competitive Is the Southern Gold Coast Market?",
       answer: "Quality Burleigh listings typically attract 3-4 serious bidders. Palm Beach and Currumbin are slightly less competitive at 2-3 bidders. Around 49% of buyers are interstate, and many settle in cash, which gives them an edge over conditional offers. Preparation and speed matter.",
     },
     {
-      question: "What are the best suburbs on the Southern Gold Coast?",
+      question: "What Are the Best Suburbs on the Southern Gold Coast?",
       answer: "Burleigh Heads is the premium suburb with James Street dining, the national park, and strong walkability. Currumbin offers a quieter family feel with Currumbin Alley surf and rock pools at roughly $1.55M. Palm Beach has a growing cafe strip and beachside lifestyle at a lower entry point. Elanora suits families wanting space and value at around $1.25M.",
     },
     {
-      question: "Is the Southern Gold Coast a good property investment?",
+      question: "Is the Southern Gold Coast a Good Property Investment?",
       answer: "Burleigh Heads has shown consistent above-average capital growth, driven by lifestyle appeal, limited beachfront supply, and the James Street precinct. House prices increased 7.8% year-on-year across the southern corridor. Currumbin and Palm Beach offer growth potential at lower entry points. Rental demand is strong year-round.",
     },
     {
-      question: "What are the key risks when buying on the Southern Gold Coast?",
+      question: "What Are the Key Risks When Buying on the Southern Gold Coast?",
       answer: "Three main risks. Flood mapping in low-lying Palm Beach and near Currumbin Creek affects insurance and resale. Strata issues on older beachfront towers, with special levies sometimes running into six figures for concrete cancer or facade repairs. Airport flight path noise in some Bilinga and northern Palm Beach streets affects livability and resale.",
     },
     {
-      question: "What is the difference between a buyers agent and a real estate agent on the Southern Gold Coast?",
+      question: "What Is the Difference Between a Buyers Agent and a Real Estate Agent on the Southern Gold Coast?",
       answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. On the Southern Gold Coast, that means accessing the 28% of properties that sell off-market, reviewing strata reports for hidden liabilities on beachfront towers, and navigating flood mapping in low-lying areas. We never list or sell property.",
     },
     {
-      question: "Can you find off-market properties on the Southern Gold Coast?",
+      question: "Can You Find Off-Market Properties on the Southern Gold Coast?",
       answer: "Around 28% of our Southern Gold Coast acquisitions were off-market. We maintain relationships with selling agents across Burleigh Heads, Currumbin, Palm Beach and surrounding suburbs who contact us before listing publicly. In beachside pockets where stock moves quickly, this early access is critical.",
     },
   ],
   cta: {
-    heading: "Burleigh to Palm Beach. Local knowledge, smarter decisions.",
+    heading: "Burleigh to Palm Beach. Local Knowledge, Smarter Decisions.",
     buttonText: "Start a Conversation",
   },
 };

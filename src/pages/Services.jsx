@@ -60,7 +60,7 @@ export default function Services() {
       {/* Segment 1 — white, image right */}
       <SegmentSection
         id="full-advocacy"
-        title="Full-service buyers advocacy"
+        title="Full-Service Buyers Advocacy"
         intro="End-to-end representation to find, assess and secure the right property, often off-market, with your interests protected at every step."
         needs={[
           "Limited time to manage inspections and shortlists",
@@ -82,7 +82,7 @@ export default function Services() {
       {/* Segment 2 — sand-wash, image left */}
       <SegmentSection
         id="sourcing-research"
-        title="Sourcing & research"
+        title="Sourcing & Research"
         intro="We halve the time it takes most buyers by handling research, outreach and inspections, surfacing the best options quickly."
         needs={[
           "Time consuming search across suburbs and agents",
@@ -107,7 +107,7 @@ export default function Services() {
       {/* Segment 3 — white, image right */}
       <SegmentSection
         id="auction-negotiation"
-        title="Auction bidding & negotiation"
+        title="Auction Bidding & Negotiation"
         intro="Keep emotion out and results in. Our team plans the strategy and represents you on the day or in pre-auction and private negotiations."
         needs={[
           "Unclear tactics and pricing at auction",
@@ -129,7 +129,7 @@ export default function Services() {
       {/* Segment 4 — sand-wash, image left */}
       <SegmentSection
         id="portfolio-strategy"
-        title="Portfolio strategy"
+        title="Portfolio Strategy"
         intro="A longer-term plan to grow your portfolio, aligning yield, growth and risk with clear criteria for each buy."
         needs={[
           "Unsure how to balance yield vs growth",
@@ -157,11 +157,11 @@ export default function Services() {
       />
 
       {/* Process steps — cream bg */}
-      <ProcessSteps steps={processSteps} title="How We Work With You" />
+      <ProcessSteps steps={processSteps} title="How We Work with You" />
 
       {/* CTA — dark variant */}
       <CTASection
-        heading="Thinking about buying between Byron Bay and the Southern Gold Coast?"
+        heading="Thinking About Buying Between Byron Bay and the Southern Gold Coast?"
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Free consultation, no obligation. Honest advice on your situation."

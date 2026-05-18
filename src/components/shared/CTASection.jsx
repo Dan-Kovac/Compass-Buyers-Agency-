@@ -8,7 +8,7 @@ import ScrollReveal from "@/components/shared/ScrollReveal";
  * @param {"warm"|"dark"|"minimal"|"image"} variant
  */
 export default function CTASection({
-  heading = "Let's find your property",
+  heading = "Let's Find Your Property",
   supportingText,
   buttonText = "Start a Conversation",
   buttonHref,

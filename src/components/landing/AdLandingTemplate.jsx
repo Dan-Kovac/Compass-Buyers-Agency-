@@ -54,7 +54,7 @@ export default function AdLandingTemplate({
 
       {/* 7. Recent acquisitions — filtered to suburb/region */}
       <RecentAcquisitionsStrip
-        title={acquisitions?.eyebrow || "Recent local acquisitions"}
+        title={acquisitions?.eyebrow || "Recent Local Acquisitions"}
         suburb={acquisitions?.suburb}
         lga={acquisitions?.lga}
         limit={4}

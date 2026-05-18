@@ -52,7 +52,7 @@ export default function Home() {
       <HomeFAQ />
 
       <CTASection
-        heading="Let's find the right property for you"
+        heading="Let's Find the Right Property for You"
         supportingText="Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, no obligation, just a clear conversation about how we can help."
         buttonText="Speak with the Team"
         buttonHref={createPageUrl("Contact")}

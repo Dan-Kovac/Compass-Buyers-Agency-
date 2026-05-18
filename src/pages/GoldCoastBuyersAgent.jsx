@@ -23,52 +23,52 @@ const FALLBACK = {
   acquisitions: {
     suburb: "Coolangatta",
     lga: "City of Gold Coast",
-    eyebrow: "Recent Gold Coast acquisitions",
+    eyebrow: "Recent Gold Coast Acquisitions",
   },
   faqItems: [
     {
-      question: "What is the median house price on the Gold Coast?",
+      question: "What Is the Median House Price on the Gold Coast?",
       answer: "The southern Gold Coast corridor sits around $1.65M as a median, but that varies significantly by suburb. Bilinga starts around $1.38M, Coolangatta is closer to $1.85M for houses, and Rainbow Bay beachfront pushes above $2.3M. Kirra sits between those two at roughly $1.95M.",
     },
     {
-      question: "Is the Gold Coast cheaper than Byron Bay?",
+      question: "Is the Gold Coast Cheaper Than Byron Bay?",
       answer: "Roughly 33% cheaper. The southern Gold Coast median is around $1.65M versus Byron's $2.45M. You get comparable beaches, arguably better infrastructure, and Gold Coast Airport is 10 minutes from Coolangatta. The trade-off is higher density and more development, but the southern corridor retains a village feel that the central Gold Coast lost years ago.",
     },
     {
-      question: "Do I need a buyers agent on the Gold Coast?",
+      question: "Do I Need a Buyers Agent on the Gold Coast?",
       answer: "Around 31% of deals happen off-market, particularly in beachside Coolangatta and Kirra. Strata buildings on the Gold Coast need careful due diligence: sinking funds, special levies, and building condition reports. Older beachfront towers are where the biggest traps sit. Flood mapping in low-lying pockets also affects insurance costs and resale.",
     },
     {
-      question: "How much does a buyers agent cost on the Gold Coast?",
+      question: "How Much Does a Buyers Agent Cost on the Gold Coast?",
       answer: "Gold Coast buyers agents typically charge between 1.5% and 2.5% of the property price, or a fixed fee. The value comes from off-market access, negotiation savings, and catching strata issues that can cost six figures on older beachfront towers. At these price points, one avoided problem usually covers the fee.",
     },
     {
-      question: "How competitive is the Gold Coast property market?",
+      question: "How Competitive Is the Gold Coast Property Market?",
       answer: "Quality listings typically attract 2-3 serious bidders. In premium pockets like Kirra beachside, that can climb to 4-5. Around 54% of buyers are interstate, and roughly 38% of premium transactions settle in cash. Cash buyers hold an edge over conditional offers, which means preparation and speed matter.",
     },
     {
-      question: "What are the best suburbs on the southern Gold Coast?",
+      question: "What Are the Best Suburbs on the Southern Gold Coast?",
       answer: "Coolangatta offers strong lifestyle and value with Greenmount Beach, the airport, and a walkable town centre. Kirra is a tightly held surf pocket with consistent capital growth. Rainbow Bay is the premium end, anchored by Snapper Rocks. Tugun offers a quieter alternative at a lower entry point, roughly $1.2M median.",
     },
     {
-      question: "Is the Gold Coast a good property investment?",
+      question: "Is the Gold Coast a Good Property Investment?",
       answer: "The southern Gold Coast has delivered consistent growth driven by interstate migration, infrastructure investment, and limited beachfront supply. Rental demand is strong year-round. Short-term holiday rental returns can significantly boost yield where body corporate rules allow it, but check the by-laws before assuming holiday letting is permitted.",
     },
     {
-      question: "What are the key risks when buying on the Gold Coast?",
+      question: "What Are the Key Risks When Buying on the Gold Coast?",
       answer: "Flooding and strata are the two biggest risks. Low-lying areas in parts of Tugun carry elevated flood risk that affects insurance and resale. Older beachfront towers can have special levies running into six figures for concrete cancer or facade repairs. We review strata reports, sinking fund balances, and building histories before recommending any property.",
     },
     {
-      question: "What is the difference between a buyers agent and a real estate agent on the Gold Coast?",
+      question: "What Is the Difference Between a Buyers Agent and a Real Estate Agent on the Gold Coast?",
       answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. On the Gold Coast, that means accessing the 31% of properties that sell off-market, reviewing strata reports for hidden liabilities, and negotiating against cashed-up interstate competition. We never list or sell property.",
     },
     {
-      question: "Can you find off-market properties on the Gold Coast?",
+      question: "Can You Find Off-Market Properties on the Gold Coast?",
       answer: "Around 31% of our Gold Coast acquisitions were off-market or pre-market. We maintain relationships with selling agents across Coolangatta, Kirra, Rainbow Bay and Tugun who contact us before listing publicly. In beachside pockets where stock is limited, early access often determines whether you secure or miss out.",
     },
   ],
   cta: {
-    heading: "Buying on the southern Gold Coast starts with a local conversation",
+    heading: "Buying on the Southern Gold Coast Starts with a Local Conversation",
     supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
     buttonText: "Speak with the Team",
   },

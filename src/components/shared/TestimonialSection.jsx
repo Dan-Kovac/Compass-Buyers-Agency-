@@ -22,7 +22,7 @@ const DEFAULT_TESTIMONIALS = [
 ];
 
 export default function TestimonialSection({
-  heading = "In our clients' own words",
+  heading = "In Our Clients' Own Words",
   subtitle = "Real conversations with the buyers we've worked alongside. Hear what working with Compass actually felt like, and what it changed for them.",
   testimonials,
   className = "",

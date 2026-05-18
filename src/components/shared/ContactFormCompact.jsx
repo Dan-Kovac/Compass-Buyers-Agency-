@@ -203,7 +203,7 @@ const formStyles = `
 `;
 
 export default function ContactFormCompact({
-  title = "Get In Touch",
+  title = "Get in Touch",
   showHeaderImage = true,
   hideHeader = false,
   trustLine = "No obligation. We'll get back to you within 24 hours.",

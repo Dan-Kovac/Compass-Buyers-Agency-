@@ -23,52 +23,52 @@ const FALLBACK = {
   acquisitions: {
     suburb: "Byron Bay",
     lga: "Byron Shire",
-    eyebrow: "Recent Byron Bay acquisitions",
+    eyebrow: "Recent Byron Bay Acquisitions",
   },
   faqItems: [
     {
-      question: "What is the median house price in Byron Bay?",
+      question: "What Is the Median House Price in Byron Bay?",
       answer: "Byron Bay's postcode median sits around $2.45M, but that masks significant variation. Byron town itself is closer to $2.95M for a house. Suffolk Park trades around $2.38M, and Bangalow in the hinterland is closer to $1.85M. Beachfront or north-facing properties regularly exceed $5M.",
     },
     {
-      question: "Is Byron Bay overpriced?",
+      question: "Is Byron Bay Overpriced?",
       answer: "Byron trades at a 30-40% premium over comparable coastal towns like Noosa or Lennox Head. That premium reflects genuine scarcity: strict planning controls, limited developable land, and a global brand that sustains demand. Prices corrected roughly 12% from the 2022 peak and have since stabilised. Whether the premium suits your situation depends on your holding period and what you're buying for.",
     },
     {
-      question: "Do I need a buyers agent in Byron Bay?",
+      question: "Do I Need a Buyers Agent in Byron Bay?",
       answer: "Around 42% of Byron properties sell off-market or before they're publicly listed. Quality listings attract 5+ competing bidders, and sellers hold significant leverage. Without established agent relationships and a disciplined bidding strategy, interstate buyers consistently overpay or miss out entirely.",
     },
     {
-      question: "How much does a buyers agent cost in Byron Bay?",
+      question: "How Much Does a Buyers Agent Cost in Byron Bay?",
       answer: "Buyers agent fees in Byron Bay typically range from 1.5% to 2.5% of the property price, or a fixed fee depending on the brief. At Byron's $2.45M median, negotiation savings and off-market access typically outweigh the fee. We also catch issues during due diligence - flood zones, planning restrictions, building defects - that can save six figures.",
     },
     {
-      question: "How competitive is the Byron Bay property market?",
+      question: "How Competitive Is the Byron Bay Property Market?",
       answer: "Quality listings regularly attract 5+ serious bidders. Sellers know their leverage, and lowball offers are ignored. Properties that transact quickest are ones where the buyer moved within 24-48 hours of first inspection. Cash and unconditional offers dominate the premium end of the market.",
     },
     {
-      question: "What are the best suburbs near Byron Bay to buy in?",
+      question: "What Are the Best Suburbs Near Byron Bay to Buy In?",
       answer: "Suffolk Park offers beachside living at roughly 15% below Byron town. Bangalow delivers a hinterland village feel with strong capital growth and Saturday markets. Brunswick Heads gives you river and beach access with a quieter pace at around $2.1M. Lennox Head, technically Ballina Shire, offers similar coastal lifestyle at roughly 50% of Byron prices.",
     },
     {
-      question: "Is Byron Bay a good property investment?",
+      question: "Is Byron Bay a Good Property Investment?",
       answer: "Byron has delivered consistent long-term capital growth, driven by genuine scarcity, a global brand, and planning controls that restrict new supply. Gross rental yields sit around 2.5-3%, but short-term holiday rental returns run significantly higher where council permits allow. The primary driver here is capital growth, not yield.",
     },
     {
-      question: "What are the key risks when buying in Byron Bay?",
+      question: "What Are the Key Risks When Buying in Byron Bay?",
       answer: "Flood zones affect Belongil and parts of Suffolk Park, where insurance costs blow out and resale is harder. Bushfire overlays apply around Broken Head. E4 environmental zoning restricts what you can build on rural-residential blocks. Septic and bore water apply on rural properties outside the reticulated network. We run flood certificates, council overlay checks, and building reports on every property before recommending it.",
     },
     {
-      question: "What is the difference between a buyers agent and a real estate agent in Byron Bay?",
+      question: "What Is the Difference Between a Buyers Agent and a Real Estate Agent in Byron Bay?",
       answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. In Byron Bay, that means accessing the 42% of properties that sell off-market, navigating flood and planning overlays, and negotiating against multiple competing bidders. We never list or sell property, so there's zero conflict of interest.",
     },
     {
-      question: "Can you find off-market properties in Byron Bay?",
+      question: "Can You Find Off-Market Properties in Byron Bay?",
       answer: "Around 42% of our Byron acquisitions were off-market or pre-market. We maintain relationships with 40+ local selling agents who contact us before listing properties publicly. In a market where quality stock moves within days, early access is often the difference between securing and missing out.",
     },
   ],
   cta: {
-    heading: "Buying in Byron rewards preparation and local relationships",
+    heading: "Buying in Byron Rewards Preparation and Local Relationships",
     supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
     buttonText: "Speak with the Team",
   },

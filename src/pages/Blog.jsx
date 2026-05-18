@@ -457,7 +457,7 @@ export default function Blog() {
 
       {/* CTA */}
       <CTASection
-        heading="Want buyer insights tailored to you?"
+        heading="Want Buyer Insights Tailored to You?"
         buttonText="Book a Free Consultation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Local expertise, independent advice, proven results"

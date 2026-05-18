@@ -249,7 +249,7 @@ export default function WhoWeWorkWith() {
 
       {/* 6. CTA */}
       <CTASection
-        heading="Tell us what you're looking for"
+        heading="Tell Us What You're Looking For"
         supportingText="Every search starts with a conversation. We'll listen to your goals and explain how we can help."
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
