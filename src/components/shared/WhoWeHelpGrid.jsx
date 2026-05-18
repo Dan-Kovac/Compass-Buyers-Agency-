@@ -47,7 +47,7 @@ function useReveal() {
 
 export default function WhoWeHelpGrid({
   eyebrow = "Who We Help",
-  heading = "Trusted by Every Type of Buyer",
+  heading = "Bespoke and Personalised Service",
   intro = "From first conversations to settlement, we tailor our approach to how you buy, what you need and where you want to be.",
   segments = DEFAULT_SEGMENTS,
   primaryCta = { label: "Start a Conversation", href: createPageUrl("Contact") },
