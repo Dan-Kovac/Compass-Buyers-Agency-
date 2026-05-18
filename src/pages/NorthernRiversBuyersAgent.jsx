@@ -21,52 +21,52 @@ const FALLBACK = {
     { text: "#1", label: "Buyers Agency, Byron to Gold Coast" },
   ],
   acquisitions: {
-    eyebrow: "Recent Northern Rivers acquisitions",
+    eyebrow: "Recent Northern Rivers Acquisitions",
   },
   faqItems: [
     {
-      question: "What is the median house price in the Northern Rivers?",
+      question: "What Is the Median House Price in the Northern Rivers?",
       answer: "The Northern Rivers regional median sits around $1.65M, but the spread is wide. Byron town is closer to $2.95M. The Tweed Coast ranges from $1.65M to $2M. Hinterland towns sit between $1.2M and $1.85M. Inland centres like Lismore and Casino offer entry points from $550k to $850k.",
     },
     {
-      question: "What are the best value suburbs in the Northern Rivers?",
+      question: "What Are the Best Value Suburbs in the Northern Rivers?",
       answer: "Pottsville on the Tweed Coast sits around $1.65M with genuine coastal living and less competition than Kingscliff. Bangalow in the hinterland is around $1.85M with a village main street and Saturday markets. Ballina at roughly $1.15M gives you river and beach access. It's one of the most undervalued towns in the region relative to its amenity.",
     },
     {
-      question: "Do I need a buyers agent in the Northern Rivers?",
+      question: "Do I Need a Buyers Agent in the Northern Rivers?",
       answer: "The Northern Rivers spans three council areas: Byron, Ballina, and Tweed. Each has different planning rules, flood mapping, and development controls. Off-market deals are significant across the region, and navigating three sets of council regulations requires local knowledge that online research can't replicate.",
     },
     {
-      question: "How much does a buyers agent cost in the Northern Rivers?",
+      question: "How Much Does a Buyers Agent Cost in the Northern Rivers?",
       answer: "Buyers agent fees in the Northern Rivers typically range from 1.5% to 2.5% of the property price, or a fixed fee. The value comes from navigating three different council areas, accessing off-market stock, and avoiding costly issues like flood zones, planning restrictions, and building defects.",
     },
     {
-      question: "Byron Bay or Tweed Coast: which is better value?",
+      question: "Byron Bay or Tweed Coast: Which Is Better Value?",
       answer: "Byron has the stronger brand and higher median at around $2.45M, but extreme competition: 5+ bidders and very limited stock. The Tweed Coast is roughly 35% cheaper at $1.65M-$2M, with comparable beaches, better airport access, and 2-3 bidders instead of 5+. We cover both and can give you an honest side-by-side comparison based on your brief.",
     },
     {
-      question: "Is the Northern Rivers a good property investment?",
+      question: "Is the Northern Rivers a Good Property Investment?",
       answer: "The Northern Rivers has delivered strong capital growth across most suburbs over the past decade, driven by lifestyle migration and supply constraints. Kingscliff grew 10.4%, Cabarita Beach 13.6%, and Bangalow has consistently outperformed Byron Shire averages. Risk varies significantly by suburb, so location selection is critical.",
     },
     {
-      question: "What are the biggest risks when buying in the Northern Rivers?",
+      question: "What Are the Biggest Risks When Buying in the Northern Rivers?",
       answer: "Flooding is the biggest risk. Low-lying areas around the Brunswick River, Cudgen Creek, and parts of Ballina carry elevated flood risk that affects insurance and resale. Bushfire overlays apply near national parks. Rural properties need checks on water supply and septic systems. Each council has different rules, so due diligence needs to be shire-specific.",
     },
     {
-      question: "What is the difference between a buyers agent and a real estate agent in the Northern Rivers?",
+      question: "What Is the Difference Between a Buyers Agent and a Real Estate Agent in the Northern Rivers?",
       answer: "A real estate agent works for the seller and is legally obligated to maximise the sale price. A buyers agent works exclusively for you. In the Northern Rivers, that means navigating three different council areas, accessing off-market stock across Byron, Ballina and Tweed shires, and managing flood and planning due diligence that varies suburb to suburb. We never list or sell property.",
     },
     {
-      question: "Where should I buy in the Northern Rivers for families?",
+      question: "Where Should I Buy in the Northern Rivers for Families?",
       answer: "Bangalow has strong primary school options in Byron Shire with a village community feel at around $1.85M. Lennox Head in Ballina Shire offers excellent schools, beach access, and a family-friendly atmosphere at roughly half Byron prices. Pottsville on the Tweed Coast has larger blocks, good schools, and a relaxed coastal community at around $1.65M.",
     },
     {
-      question: "Can you find off-market properties in the Northern Rivers?",
+      question: "Can You Find Off-Market Properties in the Northern Rivers?",
       answer: "A significant portion of sales across the Northern Rivers happen off-market, particularly in Byron, Kingscliff, and Bangalow. Our relationships with 40+ selling agents across three shires give our clients access to properties before they're publicly listed. In tight markets, this access consistently makes the difference.",
     },
   ],
   cta: {
-    heading: "Three shires, one team, one honest conversation",
+    heading: "Three Shires, One Team, One Honest Conversation",
     supportingText: "Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, just a clear conversation about how we can help.",
     buttonText: "Speak with the Team",
   },

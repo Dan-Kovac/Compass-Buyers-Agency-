@@ -100,7 +100,7 @@ export default function TeamMemberDetail() {
           <div className="site-container">
             <div className="max-w-3xl mx-auto text-center">
               <p className="eyebrow-label">Team</p>
-              <h1>Profile not found</h1>
+              <h1>Profile Not Found</h1>
               <p style={{ color: "var(--stone)" }}>The team member you're looking for doesn't exist.</p>
               <Link
                 to="/about"

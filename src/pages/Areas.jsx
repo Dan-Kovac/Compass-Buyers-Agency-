@@ -1,11 +1,8 @@
 import React from "react";
 import AreasHero from "@/components/regions/AreasHero";
 import ShireFeature from "@/components/regions/ShireFeature";
-import RegionLinksGrid from "@/components/regions/RegionLinksGrid";
 import CTASection from "@/components/shared/CTASection.jsx";
-import SectionHeader from "@/components/shared/SectionHeader";
 import ImageBand from "@/components/shared/ImageBand";
-import ScrollReveal from "@/components/shared/ScrollReveal";
 import { createPageUrl } from "@/utils";
 import SEOHead from "../components/shared/SEOHead";
 
@@ -13,72 +10,125 @@ import SEOHead from "../components/shared/SEOHead";
 const fallbackShires = [
   {
     title: "Tweed Coast",
-    image: "/images/areas/tweed-shire.jpg",
+    image: "/images/landing/tweed-heads.jpg",
     stat: "100+ properties acquired",
     description:
       "Our number one focus. Kingscliff to Pottsville along the coast, through Banora Point, Terranora and Bilambil in the hinterland, then inland to Murwillumbah and the caldera. Medians range from $1.4M in Pottsville to $2.1M in Casuarina. Stock sits 36% below five-year averages.",
     suburbs: [
       { name: "Kingscliff", isLive: true, slug: "kingscliff-suburb-report-q1-2026" },
-      { name: "Cabarita Beach", isLive: false },
       { name: "Casuarina", isLive: false },
+      { name: "Cabarita Beach", isLive: false },
       { name: "Pottsville", isLive: false },
+      { name: "Hastings Point", isLive: false },
       { name: "Tweed Heads", isLive: false },
       { name: "Banora Point", isLive: false },
       { name: "Terranora", isLive: false },
-      { name: "Bilambil", isLive: false },
+      { name: "Bilambil Heights", isLive: false },
       { name: "Murwillumbah", isLive: false },
+      { name: "Fingal Head", isLive: false },
+      { name: "Chinderah", isLive: false },
+      { name: "Cudgen", isLive: false },
+      { name: "Tumbulgum", isLive: false },
+      { name: "Duranbah", isLive: false },
+    ],
+    surroundingAreas: [
+      "Bungalora",
+      "Tweed Heads South",
+      "Tweed Heads West",
+      "Mooball",
+      "Wooyung",
+      "Cudgera Creek",
+      "Reserve Creek",
+      "Clothiers Creek",
+      "Farrants Hill",
     ],
   },
   {
     title: "Gold Coast",
-    image: "/images/areas/gold-coast.jpg",
+    image: "/images/landing/gold-coast.jpg",
     description:
-      "Coolangatta to Burleigh Heads, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
+      "Coolangatta to Broadbeach, covering the southern corridor where 67% of buyers are interstate. Median house prices grew 7.8% year-on-year. We focus on the southern end where lifestyle and value still intersect.",
     suburbs: [
-      { name: "Currumbin", isLive: false },
+      { name: "Coolangatta", isLive: false },
+      { name: "Kirra", isLive: false },
+      { name: "Rainbow Bay", isLive: false },
+      { name: "Bilinga", isLive: false },
+      { name: "Tugun", isLive: false },
       { name: "Palm Beach", isLive: false },
-      { name: "Tallebudgera", isLive: false },
       { name: "Burleigh Heads", isLive: true, slug: "burleigh-heads-suburb-report-q1-2026" },
-      { name: "Miami", isLive: false },
+      { name: "Burleigh Waters", isLive: false },
       { name: "Mermaid Beach", isLive: false },
+      { name: "Mermaid Waters", isLive: false },
+      { name: "Broadbeach", isLive: false },
+      { name: "Broadbeach Waters", isLive: false },
+      { name: "Robina", isLive: false },
+      { name: "Varsity Lakes", isLive: false },
+      { name: "Elanora", isLive: false },
+    ],
+    surroundingAreas: [
+      "Bonogin",
+      "Tallebudgera Valley",
+      "Currumbin Valley",
     ],
   },
   {
     title: "Byron Shire",
-    image: "/images/areas/byron-shire.jpg",
+    image: "/images/landing/byron-bay.jpg",
     description:
       "Byron Bay medians sit above $2.4M and 40% of stock moves off-market. Bangalow, Suffolk Park and the hinterland each have distinct pricing and character. We know which streets hold value and which carry risk.",
     suburbs: [
       { name: "Byron Bay", isLive: true, slug: "byron-bay-suburb-report-q1-2026" },
+      { name: "Suffolk Park", isLive: false },
       { name: "Bangalow", isLive: false },
       { name: "Brunswick Heads", isLive: true, slug: "brunswick-heads-profile" },
       { name: "Mullumbimby", isLive: false },
-      { name: "Suffolk Park", isLive: false },
       { name: "Ocean Shores", isLive: false },
+      { name: "Belongil Beach", isLive: false },
+      { name: "Wategos Beach", isLive: false },
+      { name: "Broken Head", isLive: false },
+      { name: "Ewingsdale", isLive: false },
+      { name: "Newrybar", isLive: false },
+      { name: "Coorabell", isLive: false },
+      { name: "Coopers Shoot", isLive: false },
+      { name: "Tyagarah", isLive: false },
+      { name: "New Brighton", isLive: false },
+    ],
+    surroundingAreas: [
+      "South Golden Beach",
+      "Main Arm",
     ],
   },
   {
     title: "Ballina Shire",
-    image: "/images/areas/ballina-shire.jpg",
+    image: "/images/landing/northern-rivers.jpg",
     description:
       "Lennox Head draws Byron-priced-out families, while Ballina and Cumbalum offer entry points from $850K. Richmond River frontage, strong school catchments and 15 minutes to Byron make this the shire most buyers underestimate.",
     suburbs: [
       { name: "Ballina", isLive: false },
       { name: "Lennox Head", isLive: false },
+      { name: "East Ballina", isLive: false },
+      { name: "Skennars Head", isLive: false },
+      { name: "Cumbalum", isLive: false },
       { name: "Alstonville", isLive: false },
       { name: "Wollongbar", isLive: false },
-      { name: "Cumbalum", isLive: false },
-      { name: "Skennars Head", isLive: false },
+      { name: "Tintenbar", isLive: false },
+      { name: "Newrybar", isLive: false },
+      { name: "Wardell", isLive: false },
+    ],
+    surroundingAreas: [
+      "Alstonvale",
+      "Evans Head",
+      "Yamba",
     ],
   },
 ];
 
 /* ── Shire layout config ──────────────────────────────────────────────── */
 const shireLayout = [
-  { imageLeft: false, bg: "bg-white" },    // Tweed Coast
-  { imageLeft: true, bg: "bg-sand-wash" }, // Gold Coast
-  { imageLeft: false, bg: "bg-white" },    // Byron Shire
-  { imageLeft: true, bg: "bg-sand-wash" }, // Ballina Shire
+  { imageLeft: false, bg: "bg-sand-wash" }, // Tweed Coast (carries warm tone from hero)
+  { imageLeft: true, bg: "bg-white" },      // Gold Coast
+  { imageLeft: false, bg: "bg-sand-wash" }, // Byron Shire
+  { imageLeft: true, bg: "bg-white" },      // Ballina Shire
 ];
 export default function Areas() {
   const shires = fallbackShires;
@@ -119,24 +169,7 @@ export default function Areas() {
         subtitle="Four shires, dozens of suburbs, one focus: finding you the right property at the right price."
       />
 
-      {/* Section 2: Region intro */}
-      <section
-        className="bg-white"
-        style={{ padding: "var(--section-padding) 0" }}
-      >
-        <div className="site-container">
-          <ScrollReveal>
-            <SectionHeader
-              eyebrow="Our Region"
-              heading="From the Hinterland to the Coast"
-              subtitle="The Northern Rivers stretches from the Gold Coast border through Byron Bay and south to Ballina. Each shire has its own character, its own market, and its own opportunities."
-              align="center"
-              divider={true}
-            />
-          </ScrollReveal>
-        </div>
-      </section>
-      {/* Sections 3-4: First pair of shires (Byron + Tweed) */}
+      {/* Sections 2-3: First pair of shires (Tweed + Gold Coast) */}
       {firstPair.map((shire, i) => (
         <ShireFeature
           key={shire.title}
@@ -146,6 +179,7 @@ export default function Areas() {
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}
+          surroundingAreas={shire.surroundingAreas}
           imageLeft={shireLayout[i]?.imageLeft ?? false}
           bg={shireLayout[i]?.bg ?? "bg-white"}
           index={i}
@@ -154,12 +188,11 @@ export default function Areas() {
 
       {/* Section 5: Image band -- atmospheric breathing room */}
       <ImageBand
-        src="/images/areas/mid-band.jpg"
+        src="/images/landing/brunswick-heads.jpg"
         alt="Northern Rivers coastline"
         height="340px"
         mobileHeight="200px"
         overlay
-        parallax={true}
       />
 
       {/* Sections 6-7: Second pair of shires (Ballina + Gold Coast) */}
@@ -172,17 +205,15 @@ export default function Areas() {
           image={shire.image}
           imageAlt={shire.title}
           suburbs={shire.suburbs}
+          surroundingAreas={shire.surroundingAreas}
           imageLeft={shireLayout[i + 2]?.imageLeft ?? false}
           bg={shireLayout[i + 2]?.bg ?? "bg-white"}
           index={i + 2}
         />
       ))}
-      {/* Section 8: Landing pages grid */}
-      <RegionLinksGrid />
-
-      {/* Section 9: CTA */}
+      {/* Section 8: CTA */}
       <CTASection
-        heading="Looking to buy in the Northern Rivers or Gold Coast?"
+        heading="Looking to Buy in the Northern Rivers or Gold Coast?"
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Free consultation. No obligation. Honest advice on your situation."

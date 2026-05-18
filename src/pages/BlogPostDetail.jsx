@@ -325,7 +325,7 @@ export default function BlogPostDetail() {
 
       {/* CTA */}
       <CTASection
-        heading="Ready to talk to a local buyers agent?"
+        heading="Ready to Talk to a Local Buyers Agent?"
         buttonText="Book a Free Consultation"
         buttonHref={createPageUrl("Contact")}
         supportingText="We know these suburbs inside out. Let's talk about your goals."

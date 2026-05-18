@@ -30,7 +30,7 @@ export default function TeamStrip() {
         {/* Header */}
         <div className="text-center mx-auto" style={{ marginBottom: "2.5rem", maxWidth: "62ch" }}>
           <p className="eyebrow-label">Your Local Expert Team</p>
-          <h2 className="mb-4">The people behind Compass</h2>
+          <h2 className="mb-4">The People Behind Compass</h2>
           <p
             style={{
               fontFamily: "var(--font-body)",

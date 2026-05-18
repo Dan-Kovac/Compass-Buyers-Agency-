@@ -9,7 +9,7 @@ const DEFAULT_CHECKLIST = [
 
 export default function InvestmentAndRelationship({
   eyebrow = "What Local Expertise Means",
-  heading = "Eighty years of property experience, all walking the same streets",
+  heading = "Eighty Years of Property Experience, All Walking the Same Streets",
   body = "Our team has more than 80 years of combined personal and professional property experience across the Northern Rivers and the Gold Coast. Every property is inspected in person, by us, before any recommendation. That's how you get the micro-pocket, street-level insights most buyers will never see.",
   imageUrl = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8be7777cb_ChrisCompass.jpg",
   imageAlt = "Chris from Compass Buyers Agency speaking with a client",

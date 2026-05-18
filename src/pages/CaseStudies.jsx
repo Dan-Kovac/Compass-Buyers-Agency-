@@ -139,7 +139,7 @@ export default function CaseStudies() {
 
       {/* CTA */}
       <CTASection
-        heading="Ready to buy with confidence?"
+        heading="Ready to Buy with Confidence?"
         buttonText="Book a Free Consultation"
         buttonHref={createPageUrl("Contact")}
         supportingText="Local expertise • Independent advice • Proven results"

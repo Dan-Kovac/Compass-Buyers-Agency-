@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 export default function ImageBand({
   src,
@@ -10,26 +10,18 @@ export default function ImageBand({
 }) {
   const responsiveHeight = `clamp(${mobileHeight}, 20vw, ${height})`;
   const containerRef = useRef(null);
-  const imgRef = useRef(null);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (!parallax || !containerRef.current || !imgRef.current) return;
-    const container = containerRef.current;
-    const img = imgRef.current;
-
-    const update = () => {
-      const rect = container.getBoundingClientRect();
-      const winH = window.innerHeight;
-      const progress = (winH - rect.top) / (winH + rect.height);
-      // Shift the image ±15% of container height as it scrolls through viewport
-      const offset = (progress - 0.5) * rect.height * 0.3;
-      img.style.transform = `translateY(${offset.toFixed(1)}px)`;
-    };
-
-    window.addEventListener("scroll", update, { passive: true });
-    update();
-    return () => window.removeEventListener("scroll", update);
-  }, [parallax]);
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div
@@ -37,21 +29,35 @@ export default function ImageBand({
       className="w-full relative overflow-hidden"
       style={{ height: responsiveHeight }}
     >
+      <style>{`
+        @keyframes imageBandKenBurns {
+          0%   { transform: scale(1.05) translate(0, 0); }
+          50%  { transform: scale(1.10) translate(-1.5%, -1%); }
+          100% { transform: scale(1.05) translate(0, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .image-band-img { animation: none !important; transform: scale(1.02) !important; }
+        }
+      `}</style>
       <img
-        ref={imgRef}
+        className="image-band-img"
         src={src}
         alt={alt}
         loading="lazy"
         decoding="async"
         style={{
           position: "absolute",
-          top: parallax ? "-15%" : "0",
-          left: 0,
+          inset: 0,
           width: "100%",
-          height: parallax ? "130%" : "100%",
+          height: "100%",
           objectFit: "cover",
           objectPosition: "center",
-          willChange: parallax ? "transform" : undefined,
+          transformOrigin: "center center",
+          animation: inView
+            ? "imageBandKenBurns 22s ease-in-out infinite"
+            : "none",
+          transform: inView ? undefined : "scale(1.05)",
+          willChange: "transform",
         }}
       />
       {overlay && (

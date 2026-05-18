@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/shared/ScrollReveal";
-import { splitSentences } from "@/lib/utils";
 
 /**
  * Compact CTA section — clean close to the page.
@@ -9,7 +8,7 @@ import { splitSentences } from "@/lib/utils";
  * @param {"warm"|"dark"|"minimal"|"image"} variant
  */
 export default function CTASection({
-  heading = "Let's find your property",
+  heading = "Let's Find Your Property",
   supportingText,
   buttonText = "Start a Conversation",
   buttonHref,
@@ -66,9 +65,7 @@ export default function CTASection({
                 className="mb-6 text-[1.0625rem]"
                 style={isDark ? { color: "rgba(255,255,255,0.65)", fontWeight: 300 } : { color: "var(--stone)", fontWeight: 300 }}
               >
-                {splitSentences(supportingText).map((s, i) => (
-                  <span key={i} style={{ display: "block" }}>{s}</span>
-                ))}
+                {supportingText}
               </p>
             )}
 

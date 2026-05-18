@@ -23,8 +23,8 @@ const fallbackSegments = [
       "Private and off-market access via our agent network",
       "End-to-end guidance from inspections to settlement",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1512916206820-73b4f7ae252a?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Couple buying first home",
+    imageUrl: "/images/landing/tweed-heads.jpg",
+    imageAlt: "Tweed Heads coastline at golden hour",
   },
   {
     id: "downsizers",
@@ -57,8 +57,8 @@ const fallbackSegments = [
       "Detailed due diligence on premium properties",
       "Skilled negotiation protecting your position and price",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Luxury coastal property",
+    imageUrl: "/images/landing/byron-bay.jpg",
+    imageAlt: "Byron Bay coastline at golden hour",
   },
   {
     id: "investors",
@@ -91,8 +91,8 @@ const fallbackSegments = [
       "On-the-ground access to pre-market options",
       "Local network of trades and professionals to support your move",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Interstate move planning",
+    imageUrl: "/images/landing/southern-gold-coast.jpg",
+    imageAlt: "Southern Gold Coast aerial coastline",
   },
   {
     id: "international",
@@ -125,8 +125,8 @@ const fallbackSegments = [
       "Due diligence on water rights, easements and land use",
       "Connections with rural-specialist solicitors and surveyors",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Rural acreage property",
+    imageUrl: "/images/landing/northern-rivers.jpg",
+    imageAlt: "Northern Rivers hinterland at dawn",
   },
   {
     id: "developers",
@@ -142,8 +142,8 @@ const fallbackSegments = [
       "Preliminary feasibility and planning overlay assessment",
       "Negotiation and due diligence tailored to development timelines",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600&auto=format&fit=crop",
-    imageAlt: "Property development site",
+    imageUrl: "/images/landing/gold-coast.jpg",
+    imageAlt: "Gold Coast skyline development corridor",
   },
   {
     id: "commercial",
@@ -249,7 +249,7 @@ export default function WhoWeWorkWith() {
 
       {/* 6. CTA */}
       <CTASection
-        heading="Tell us what you're looking for"
+        heading="Tell Us What You're Looking For"
         supportingText="Every search starts with a conversation. We'll listen to your goals and explain how we can help."
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}

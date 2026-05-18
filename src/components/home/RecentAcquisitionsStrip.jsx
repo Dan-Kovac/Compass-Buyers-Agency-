@@ -41,7 +41,7 @@ export default function RecentAcquisitionsStrip({
   limit = 8,
   bg = "white",
   showEyebrow = true,
-  title = "Featured acquisitions",
+  title = "Featured Acquisitions",
   suburb,
   lga,
 }) {

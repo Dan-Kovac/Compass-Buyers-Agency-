@@ -23,7 +23,7 @@ export default function PageNotFound() {
         <div className="space-y-3">
           <p className="text-sm uppercase tracking-[0.15em] text-[var(--ink)]/50 font-medium">404</p>
           <h1 className="text-3xl md:text-4xl font-heading text-[var(--ink)]">
-            Off course
+            Off Course
           </h1>
           <p className="text-[var(--ink)]/60 leading-relaxed max-w-sm mx-auto">
             This page doesn't exist. You might have followed an old link, or the address has changed.

@@ -2,7 +2,7 @@ import React from "react";
 import { createPageUrl } from "@/utils";
 import CTASection from "../components/shared/CTASection.jsx";
 import ProcessSteps from "../components/services/ProcessSteps";
-import ServiceStats from "../components/services/ServiceStats";
+import TrustBar from "../components/home/TrustBar";
 import SegmentsNav from "../components/who/SegmentsNav";
 import SegmentSection from "../components/who/SegmentSection";
 import ImageBand from "../components/shared/ImageBand";
@@ -60,7 +60,7 @@ export default function Services() {
       {/* Segment 1 — white, image right */}
       <SegmentSection
         id="full-advocacy"
-        title="Full-service buyers advocacy"
+        title="Full-Service Buyers Advocacy"
         intro="End-to-end representation to find, assess and secure the right property, often off-market, with your interests protected at every step."
         needs={[
           "Limited time to manage inspections and shortlists",
@@ -82,7 +82,7 @@ export default function Services() {
       {/* Segment 2 — sand-wash, image left */}
       <SegmentSection
         id="sourcing-research"
-        title="Sourcing & research"
+        title="Sourcing & Research"
         intro="We halve the time it takes most buyers by handling research, outreach and inspections, surfacing the best options quickly."
         needs={[
           "Time consuming search across suburbs and agents",
@@ -94,29 +94,20 @@ export default function Services() {
           "Local insights and detailed property comparables",
           "Shortlists refined to your brief with clear trade-offs",
         ]}
-        image="/images/services/portfolio-strategy.webp"
+        image="/images/landing/southern-gold-coast.jpg"
         imageAlt="Aerial view of Northern Rivers waterfront properties"
         imageLeft
         bg="bg-sand-wash"
         index={1}
       />
 
-      {/* Dark stats break — contrast section between segment pairs */}
-      <ServiceStats
-        eyebrow="By the Numbers"
-        bg="bg-editorial-dark"
-        items={[
-          { value: "70+", label: "Properties Secured" },
-          { value: "42%", label: "Off-Market Deals" },
-          { value: "~5.5%", label: "Avg. Saving Below Asking" },
-          { value: "100%", label: "Buyer-Only Focus" },
-        ]}
-      />
+      {/* Dark stats break — mirrors homepage TrustBar */}
+      <TrustBar eyebrow="By the Numbers" />
 
       {/* Segment 3 — white, image right */}
       <SegmentSection
         id="auction-negotiation"
-        title="Auction bidding & negotiation"
+        title="Auction Bidding & Negotiation"
         intro="Keep emotion out and results in. Our team plans the strategy and represents you on the day or in pre-auction and private negotiations."
         needs={[
           "Unclear tactics and pricing at auction",
@@ -128,8 +119,8 @@ export default function Services() {
           "Experienced on-the-day bidding and vendor negotiation",
           "Sharp negotiation on price and terms that protect you",
         ]}
-        image="https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop"
-        imageAlt="Auction planning and representation"
+        image="/images/landing/tweed-heads.jpg"
+        imageAlt="Tweed coastline at golden hour"
         imageLeft={false}
         bg="bg-white"
         index={2}
@@ -138,7 +129,7 @@ export default function Services() {
       {/* Segment 4 — sand-wash, image left */}
       <SegmentSection
         id="portfolio-strategy"
-        title="Portfolio strategy"
+        title="Portfolio Strategy"
         intro="A longer-term plan to grow your portfolio, aligning yield, growth and risk with clear criteria for each buy."
         needs={[
           "Unsure how to balance yield vs growth",
@@ -150,8 +141,8 @@ export default function Services() {
           "Modelled returns, rental demand and risk assessment",
           "Buy rules and review cadence to keep you on track",
         ]}
-        image="/images/services/portfolio-strategy.webp"
-        imageAlt="Compass buyers agent on a call reviewing a portfolio strategy"
+        image="/images/landing/northern-rivers.jpg"
+        imageAlt="Northern Rivers hinterland at dawn"
         imageLeft
         bg="bg-sand-wash"
         index={3}
@@ -159,21 +150,21 @@ export default function Services() {
 
       {/* Image band — atmospheric break before process */}
       <ImageBand
-        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2000&auto=format&fit=crop"
-        alt="Coastal property interior"
+        src="/images/landing/brunswick-heads.jpg"
+        alt="Brunswick Heads coastline"
         height="280px"
         overlay
       />
 
       {/* Process steps — cream bg */}
-      <ProcessSteps steps={processSteps} title="How We Work With You" />
+      <ProcessSteps steps={processSteps} title="How We Work with You" />
 
       {/* CTA — dark variant */}
       <CTASection
-        heading="Thinking about buying in the Northern Rivers or Gold Coast?"
+        heading="Thinking About Buying Between Byron Bay and the Southern Gold Coast?"
         buttonText="Start a Conversation"
         buttonHref={createPageUrl("Contact")}
-        supportingText="Free consultation. No obligation. We'll give you honest advice on your situation."
+        supportingText="Free consultation, no obligation. Honest advice on your situation."
         variant="dark"
       />
 

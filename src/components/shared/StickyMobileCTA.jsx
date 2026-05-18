@@ -1,6 +1,6 @@
 import React from "react";
 import { Phone, MessageCircle } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const PHONE = "0467634565";
 const PHONE_DISPLAY = "0467 634 565";
@@ -57,8 +57,8 @@ export default function StickyMobileCTA() {
           <Phone className="w-4 h-4" />
           Call Chris
         </a>
-        <a
-          href="/contact"
+        <Link
+          to="/contact"
           className="flex-1 flex items-center justify-center gap-2 rounded-lg py-3 text-sm font-medium transition-colors duration-300"
           style={{
             background: "transparent",
@@ -72,7 +72,7 @@ export default function StickyMobileCTA() {
         >
           <MessageCircle className="w-4 h-4" />
           Enquire
-        </a>
+        </Link>
       </div>
     </div>
   );

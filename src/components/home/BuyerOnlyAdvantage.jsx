@@ -21,7 +21,7 @@ const DEFAULT_STATS = [
  */
 export default function BuyerOnlyAdvantage({
   eyebrow = "Working Exclusively for the Buyer",
-  heading = "Our team represents buyers. No sales, no conflicts.",
+  heading = "Our Team Represents Buyers. No Sales, No Conflicts.",
   body = "Working only on the buyer's side of the table changes the nature of the advice you receive at every stage, and shapes the outcome you ultimately achieve. Every conversation, inspection and negotiation is handled by a core team of senior experts at Compass.",
   pillars = DEFAULT_PILLARS,
   stats = DEFAULT_STATS,

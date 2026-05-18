@@ -6,7 +6,7 @@ import { fetchCaseStudies, fetchBlogPosts, resolveImageUrl } from "@/lib/sanityC
 
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop";
 
-export default function RightRailList({ type, currentId, title = "Most viewed" }) {
+export default function RightRailList({ type, currentId, title = "Most Viewed" }) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {

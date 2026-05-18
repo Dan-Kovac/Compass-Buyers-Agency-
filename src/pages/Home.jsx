@@ -11,6 +11,7 @@ import HomeFAQ from "../components/home/HomeFAQ";
 import TestimonialSection from "../components/shared/TestimonialSection";
 import ImageBand from "../components/shared/ImageBand";
 import SEOHead from "../components/shared/SEOHead";
+import WhoWeHelpGrid from "../components/shared/WhoWeHelpGrid";
 import { createPageUrl } from "@/utils";
 
 export default function Home() {
@@ -40,6 +41,8 @@ export default function Home() {
 
       <TestimonialSection />
 
+      <WhoWeHelpGrid />
+
       <InvestmentAndRelationship />
 
       <BuyerOnlyAdvantage />
@@ -49,7 +52,7 @@ export default function Home() {
       <HomeFAQ />
 
       <CTASection
-        heading="Let's find the right property for you"
+        heading="Let's Find the Right Property for You"
         supportingText="Tell us what you're looking for and we'll be in touch within 24 hours. No pressure, no obligation, just a clear conversation about how we can help."
         buttonText="Speak with the Team"
         buttonHref={createPageUrl("Contact")}

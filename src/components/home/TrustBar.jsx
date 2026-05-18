@@ -95,11 +95,24 @@ function StatItem({ stat, isLast }) {
  * TrustBar — dark stats bar with count-up animation.
  * Sits between the hero and the editorial content.
  */
-export default function TrustBar({ stats }) {
+export default function TrustBar({ stats, eyebrow }) {
   const data = stats || STATS;
   return (
     <section id="trust" style={{ backgroundColor: "var(--ink)" }}>
       <div className="site-container">
+        {eyebrow && (
+          <div
+            className="text-center"
+            style={{ paddingTop: "clamp(2.5rem, 5vw, 4rem)" }}
+          >
+            <p
+              className="eyebrow-label"
+              style={{ color: "rgba(255,255,255,0.55)" }}
+            >
+              {eyebrow}
+            </p>
+          </div>
+        )}
         <div className="grid grid-cols-2 md:grid-cols-4">
           {data.map((stat, i) => (
             <StatItem key={i} stat={stat} isLast={i === data.length - 1} />
