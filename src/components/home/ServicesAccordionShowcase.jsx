@@ -21,7 +21,7 @@ const DEFAULT_TEAM_IMAGE = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/
  * Modernised: rotating arrow icons, softer borders, crossfade image transitions.
  */
 export default function ServicesAccordionShowcase({
-  heading = "How We Help You Buy with Confidence",
+  heading = "We Help You Buy with Clarity and Confidence",
   teamImageUrl,
   teamImageAlt = "Our team",
   items,
