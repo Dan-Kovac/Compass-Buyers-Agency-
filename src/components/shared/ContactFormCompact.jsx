@@ -280,7 +280,7 @@ export default function ContactFormCompact({
       {showHeaderImage && (
         <div className="relative h-36 md:h-40 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?q=80&w=1600&auto=format&fit=crop"
+            src="/images/landing/southern-gold-coast.jpg"
             alt="Compass team"
             className="w-full h-full object-cover"
             loading="lazy"
