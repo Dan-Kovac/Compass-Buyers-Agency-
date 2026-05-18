@@ -5,7 +5,7 @@ import { createPageUrl } from "@/utils";
 const DEFAULT_SEGMENTS = [
   {
     title: "Prestige & Luxury",
-    description: "Discreet access to premium and off-market properties across the region. When the stakes are measured in millions, you want someone who's done this before.",
+    description: "Discreet access to premium and off-market properties across the region. Dealing in the luxury prestige sector requires decades of experience, strong commercial acumen and an intimate knowledge of navigating complex transactions.",
   },
   {
     title: "Interstate Relocators",
